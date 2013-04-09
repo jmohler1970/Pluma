@@ -1,0 +1,9 @@
+<p>Web World Inc. provides one-on-one support to make your site successful.</p>
+<a href = "/index.cfm/main.aboutus>Find out more &raquo;</a>
+
+
+<p>If you need assistance with the site, please contact us at <a href="/index.cfm/main.feedback">support@webworldinc.com</a>. Include the word &quot;Foundation&quot; in the subject.</p>
+			
+<p>Web World Inc.<br />
+PO Box 1122<br />
+Queen Creek, AZ 85142</p>

@@ -1,0 +1,81 @@
+@font-face {
+    font-family: 'Titillium';
+    src: url('./TitilliumText22L003-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+	}
+	
+h2,h3 { font-family : 'Titillium', san-serif; font-weight: normal;}	
+
+
+/* Blog oriented stuff */	
+.poster { display : none; }	
+
+
+
+
+small	{ font size : 8.0pt; color : gray; }
+
+
+/*----------------------------
+
+Footer 
+
+----------------------------*/
+footer {
+  	background: #99BC5C;
+  	border-top: 5px solid #D8E6BF;
+  	color: #fff;
+  	margin-top: 30px;
+	}
+	
+footer a {
+	color: #d8e6bf;
+ 	padding: 0 0 5px 0;
+ 	
+ 	}
+
+footer a:hover {
+ 	text-decoration : none;
+ 	color: #d8e6bf;
+	}
+
+footer ul	{
+	margin : 0;
+	}
+
+footer ul li {
+	margin : 0;
+  	color: #ffffff;
+  	list-style: none;
+	}
+	
+footer ul li a {
+	color: #fff;
+	font-size: 13px;
+	padding: 8px 0;
+	text-decoration: none;
+	display: block;
+	border-top: 1px dotted #d8e6bf;
+	}
+
+.copywrite {
+	border-top: 1px solid rgba(255, 255, 255, 0.4);
+	padding : 20px;
+	}
+
+	
+/* dashboard */
+.summary {display:table; width:100%; padding:0; margin:0 0 20px 0;}
+.summary ul {margin:0; padding:0; overflow:hidden; display:table-row;}
+.summary li {margin:0; padding:19px; display:table-cell; border-right:1px solid #eee;}
+.summary li:last-child {border:none;}
+.summary a {display:block; font-size:1.1em; line-height:1.4em; text-transform:uppercase; color:#000;}
+.summary .count {display:block; font-size:1.75em; font-weight:bold;}
+
+    /* dashboard - ie fixes */
+    .ie7 .summary {display:block;}
+    .ie7 .summary ul {margin:0; padding:0; overflow:hidden; display:block;}
+    .ie7 .summary li {float:left;}
+    
+    .ielt9 .summary .last {border:none;}

@@ -1,0 +1,127 @@
+<!---
+Copyright (c) 2012 James Mohler
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+--->
+
+<cfscript>
+	theFile = application.GSBACKUPSPATH & listlast(rc.name, "/");
+
+
+ 	if (NOT isSpreadsheetFile(theFile))	{
+ 		this.AddMessage("File <tt>#rc.name#</tt> could not be read as a spreadsheet", "Error");
+	 
+	 	variables.fw.redirect("backups.importdata", "all");
+	 	exit;
+	 	}
+	 
+	</cfscript>
+
+	<cfspreadsheet action="read" src="#theFile#" query="qryData" headerrow="1">
+	<cfspreadsheet action="read" src="#theFile#" name="ssData"><!--- Meta data about the entire sheet --->
+	
+
+
+	<cfscript>
+		
+
+	if (qrydata.recordcount <= 1)	{
+		this.AddMessage("This spreadsheet appears to have no data.", "Error");
+	 
+	 	variables.fw.redirect("backups.importdata", "all");
+	 	exit;
+		}
+
+
+	metadata = getMetadata(qryData); // Meta about the query
+	
+	
+	colList = "";
+	
+	for (i = 1; i <= ArrayLen(MetaData); i++)	{
+	
+		colList = listAppend(colList, MetaData[i].name);
+		}
+		
+	info = SpreadSheetInfo(ssData);
+</cfscript>	
+
+
+
+	
+<cfsavecontent variable="rc.xmlData">	
+<table class="table table-condensed">
+<thead>
+<tr>
+	<cfloop index="c" list="#colList#">
+		<cfoutput><th>#c#</th></cfoutput>
+	</cfloop>
+</tr>
+</thead>
+
+<cfoutput query="qryData" startRow="2">
+
+	<cfset hadStuff = false> 
+	<cfloop index="c" list="#colList#">
+		<cfif not hadStuff and len(trim(qryData[c][currentRow]))>
+			<cfset hadStuff = true>
+		</cfif>
+	</cfloop>
+
+	<cfif hadStuff>
+	<tr>
+		
+		<cfloop index="c" list="#colList#">
+			
+			<cfif not variables.hadStuff and len(trim(qryData[c][currentRow]))>
+				<cfset variables.hadStuff = true>
+			</cfif>
+			
+			<cfif isnumeric(qrydata[c][currentRow]) OR qryData[c][currentRow] CONTAINS "$">
+				<td style="text-align : right">#qrydata[c][currentRow]#</td>
+			<cfelse>
+				<td>#qrydata[c][currentRow]#</td>
+			</cfif>
+			
+		</cfloop>
+	</tr>
+	</cfif>
+	
+	</cfoutput>
+</table>
+</cfsavecontent>	
+	
+
+
+<cfsavecontent variable="rc.strData">
+<table style="width : 400px;">
+
+	<cfoutput>
+	<cfloop index="i" list="#structKeyList(info)#">
+   		<tr>
+ 	  		<th style="text-transform : capitalize">#lcase(i)#</th>
+ 	  		<td>#evaluate("info.#i#")#</td>    
+  		
+   		</tr>
+ 	</cfloop>
+</cfoutput>
+</table>
+</cfsavecontent>
+
+

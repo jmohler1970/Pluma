@@ -1,0 +1,96 @@
+<!---
+Copyright (C) 2013 James Mohler
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+--->
+
+
+<cfoutput>
+
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" > <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+
+  <title>#application.GSAPI.get_page_clean_title()# - #application.GSAPI.get_site_name()#</title>
+	
+	<meta name="robots" content="index, follow">
+
+	<link href='//fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
+	<link href="#application.GSAPI.get_site_root()#theme/innovation/reset.css" rel="stylesheet">
+	<link href="#application.GSAPI.get_site_root()#theme/innovation/style.css?v=3.1.2" rel="stylesheet">
+	
+	<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]--> 
+	
+	<!--[if lt IE 7 ]>
+    <script src="<?php get_theme_url(); ?>/assets/js/dd_belatedpng.js"></script>
+    <script> DD_belatedPNG.fix('img, .png_bg'); //fix any <img> or .png_bg background-images </script>
+  <![endif]-->
+
+	#application.GSAPI.get_header()#
+		
+</head> 
+<body id="#application.GSAPI.get_page_slug()#" >
+	
+	<!-- site header -->
+	<header>
+		<div class="header">
+			<div class="wrapper">
+				
+				<!-- logo/sitename -->
+				<a href="#application.GSAPI.get_site_url()#" id="logo" >#application.GSAPI.get_site_name()#</a>
+				
+				<!-- main navigation -->
+				<nav id="main-nav">
+					<ul>
+						#application.GSAPI.get_navigation(application.GSAPI.get_page_slug())#
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+<form action="/index.cfm/search" method="get">		
+		<!-- breadcrumbs: only show when NOT on homepage -->
+		<p class="breadcrumbs">
+			<span class="wrapper">
+				<a href="#application.GSAPI.get_site_url()#">Home</a> &nbsp;&nbsp;&##149;&nbsp;&nbsp; 
+					#Innovation_Parent_Link(application.GSAPI.get_parent(FALSE))# 
+				<b>#application.GSAPI.get_page_clean_title()#</b>
+			
+		
+				&nbsp;&nbsp;&##149;&nbsp;&nbsp; 
+						
+				<input type="search" name="search" placeholder="search" size="15" maxlength="30" />
+				<button type="submit">Search</button> 
+			</span>
+	
+		</p>
+	
+</form>
+		
+		
+  </header>
+
+</cfoutput>

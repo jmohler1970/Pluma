@@ -1,0 +1,109 @@
+<!---
+Copyright (C) 2012 James Mohler
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+--->
+
+
+
+<cfoutput>
+
+<ul id="pill">
+	
+	<li class="leftnav"><a href="#application.GSAPI.get_site_root()#index.cfm/logout">#application.GSAPI.get_string("tab_logout")#</a></li>
+	
+	<li class="rightnav" id="nav_profile">
+			<a data-toggle="dropdown" href="#buildURL(action = 'admin:profile.home')#" target="_top">#application.GSAPI.get_string("welcome")#
+			<b>#session.LOGINAPI.getLoginName()#</b>!</a>
+	</li>
+</ul> 
+	
+
+<h1><a href="#application.GSAPI.get_site_root()#" target="_blank">#application.GSAPI.get_site_name()#</a></h1>
+<ul class="nav">
+
+
+	
+	<cfif session.LOGINAPI.adhocSecurity("contributor")>
+		<li id="nav_pages">
+			<a class="pages" href="#buildURL(action = 'pages.home')#">#application.GSAPI.get_string("tab_pages")#</a>
+
+		</li>
+	</cfif>
+	
+	<cfif session.LOGINAPI.adhocSecurity("contributor")>
+		<li id="nav_upload">
+			<a class="files" href="#buildURL(action = 'files.home')#">#application.GSAPI.get_string("tab_files")#</a>
+		</li>
+	</cfif>
+	
+		<cfif session.LOGINAPI.adhocSecurity("system")>
+		<li id="nav_theme">
+			<a class="theme" href="#buildURL(action = 'theme.home')#">#application.GSAPI.get_string("tab_theme")# </a>
+
+		</li>
+	</cfif>
+	
+	
+	<cfif session.LOGINAPI.adhocSecurity("system")>
+		<li id="nav_backups">
+			<a class="backups" href="#buildURL(action = 'backups.home')#">#application.GSAPI.get_string("tab_backups")# </a>
+		</li>
+	</cfif>
+	
+
+
+	<cfif session.LOGINAPI.adhocSecurity("system")>
+		<li id="nav_plugins">
+			<a class="plugins" href="#buildURL(action = 'plugins.home')#">#application.GSAPI.get_string("tab_plugins")#</a>
+
+		</li>
+	</cfif>
+
+	<cfif session.LOGINAPI.adhocSecurity("system")>
+		<li id="nav_users">
+			<a class="users" href="#buildURL(action = 'users.home')#">#application.GSAPI.get_string("tab_users")#</a>
+
+		</li>
+	</cfif>
+
+
+	<cfif session.LOGINAPI.adhocSecurity("system")>
+		<li class="rightnav">
+			<a class="settings first" href="#buildURL(action = 'settings.home')#">#application.GSAPI.get_string("tab_settings")# </a>
+
+		</li>
+	</cfif>
+	
+	
+	<cfif session.LOGINAPI.adhocSecurity("system")>
+		<li class="rightnav">
+			<a class="support last" href="#buildURL(action = 'support.home')#">#application.GSAPI.get_string("tab_support")# </a>
+		</li>
+	</cfif>
+
+</ul>
+
+</cfoutput>
+
+
+
+
+
+

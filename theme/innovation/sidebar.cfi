@@ -1,0 +1,72 @@
+<!---
+Copyright (C) 2012 James Mohler
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+--->
+
+<cfoutput>
+<aside id="sidebar">
+
+	<div class="section" id="socialmedia" >
+		<h2>Connect</h2>
+		<div class="icons">
+			
+			<!-- Social Media URLs are set within this theme's settings plugin -->
+		
+			<cfif isDefined("request.stInnovation.facebook") AND request.stInnovation.facebook NEQ "">
+				<a href="#request.stInnovation.facebook#"><img src="#application.GSAPI.get_site_root()#theme/innovation/img/facebook.png" /></a>
+			</cfif>
+			
+			<cfif isDefined("request.stInnovation.twitter") AND request.stInnovation.twitter NEQ "">
+				<a href="#request.stInnovation.twitter#"><img src="#application.GSAPI.get_site_root()#theme/innovation/img/twitter.png" /></a>
+			</cfif>
+
+			<cfif isDefined("request.stInnovation.linkedin") AND request.stInnovation.linkedin NEQ "">
+				<a href="#request.stInnovation.linkedin#"><img src="#application.GSAPI.get_site_root()#theme/innovation/img/linkedin.png" /></a>
+			</cfif>
+
+
+			<cfif isDefined("request.stInnovation.stackoverflow") AND request.stInnovation.stackoverflow NEQ "">
+				<a href="#request.stInnovation.stackoverflow#"><img src="#application.GSAPI.get_site_root()#theme/innovation/img/stackoverflow.png" /></a>
+			</cfif>
+			
+
+			
+			<img src="#application.GSAPI.get_site_root()#theme/innovation/img/break.png" />
+			
+			<!-- addthis popup - you can add your username if you want analytics: http://www.addthis.com/help/customizing-addthis -->
+			<div class="addthis_toolbox" style="display:inline;width:24px;" >
+				<a href="//www.addthis.com/bookmark.php?v=250" class="addthis_button_compact"><img src="#application.GSAPI.get_site_root()#theme/innovation/img/share.png" /></a>
+			</div>
+			<script type="text/javascript" src="//s7.addthis.com/js/250/addthis_widget.js"></script>
+		</div>
+	</div>
+	
+	
+	<!-- wrap each sidebar section like this -->
+	<div class="section">
+		#application.GSAPI.get_component('sidebar')#
+	
+	</div>
+
+
+</aside>
+
+
+</cfoutput>
