@@ -1,0 +1,56 @@
+
+<!--- Customer Specific items go here --->
+<!-- top -->
+
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+
+
+
+	<div class="navbar-inner">
+		<div class="container">
+		<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</a>
+		
+		<cfoutput>	
+		
+		<a class="brand" href="#application.GSAPI.get_site_root()#">888 266 6486 - Web World Inc.</a>
+			<div class="nav-collapse">
+
+			<ul class="nav">
+				
+				<cfset baseclass = (getSection() EQ "main" AND getItem() EQ "page") ? "active" : "">
+				
+				
+				<li class="#baseclass#"><a href="#application.GSAPI.get_site_root()#" target="_top"><i class="icon-home icon-white"></i> Home</a></li>
+				
+
+
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#application.GSAPI.get_site_root()#" target="_top">Quick Links <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						#application.GSAPI.get_navigation()#
+						
+					<li class="#baseclass#"><a href="http://www.webworldinc.com/usersonly/index.htm" target="_top">Users Only</a></li>	
+				
+						
+						<li class="#baseclass#"><a href="#application.GSAPI.get_site_root()#index.cfm/login" target="_top">Login</a></li>
+					</ul>
+				</li>
+
+				<li class="#baseclass#"><a href="http://mail.webworldinc.com" target="_top"><i class="icon-envelope icon-white"></i> Webmail</a></li>
+
+				
+			</ul>
+
+
+			</cfoutput>
+
+			</div><!-- /.nav-collapse -->
+		</div>
+	</div><!-- /navbar-inner -->
+</div><!-- /navbar -->

@@ -1,0 +1,12 @@
+
+
+<cfoutput query="rc.qryNode">
+	#xmlData#
+
+</cfoutput>
+
+<div class="form-actions">
+<cfoutput>
+	<p>There are #LSNumberFormat(Len(rc.qryNode.xmlData))# bytes.</p>
+</cfoutput>
+</div>

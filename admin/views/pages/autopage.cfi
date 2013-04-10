@@ -1,0 +1,30 @@
+
+
+<cfswitch expression="#thisTag.ExecutionMode#">
+<cfcase value="start">
+
+<cfscript>
+param attributes.autopage = "";
+
+variables.qryDirectory = DirectoryList("#GetDirectoryFromPath(GetCurrentTemplatePath())#autopage/", false, "query", "", "name");	
+</cfscript>
+
+</cfcase>
+
+<cfcase value= 'end'>
+<cfoutput>
+	<!-- Autopage: #attributes.autopage# -->
+</cfoutput>
+
+<select name="autopage">
+	<option></option>
+	<cfoutput query="qryDirectory">
+		<cfset DisplayName = listfirst(name, ".")>
+	
+		<option value="#name#" <cfif attributes.autopage EQ name>selected</cfif>>#DisplayName#</option>
+	</cfoutput>
+</select>
+
+</cfcase>
+</cfswitch>
+

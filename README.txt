@@ -5,7 +5,8 @@ Installation:
 1. Build the SQLServer DB
 
 This can be found in:
-admin/views/install/install.sql
+/install/*.sql
+
 
 
 2. Go to the install tool
@@ -22,8 +23,3 @@ admin/controllers/install.cfc
 admin/views/install/*
 
 
-
-Getting Starting
-
-
-Next Steps

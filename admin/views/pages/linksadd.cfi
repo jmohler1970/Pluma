@@ -1,0 +1,38 @@
+
+
+
+<h2 class="floated">Add Link</h2>
+
+<cfoutput>
+<div class="edit-nav clearfix">	
+		<a class="edit-nav" href="#buildURL(action = 'pages.linkcategory')#"> Edit Link Category</a>
+</div>
+</cfoutput>
+
+<p class="floated">
+	<b>Link Category</b>
+	<br />
+  	<select name="linkcategory" class="text">
+    	<option></option>
+		<cfoutput query="rc.qryLinkCategory">
+			<option value="#Title#">#Title#</option>		
+		</cfoutput>
+	</select>
+</p>
+	
+	
+<p>
+   	<b>Label</b>
+   	<br />
+	<input type="text" name="value" class="text" />
+    
+</p>
+	
+	
+<p>
+	<b>Target URL</b>
+    <br />   
+   	<input type="text" name="href" placeholder="http://" class="text" />
+</p>
+
+

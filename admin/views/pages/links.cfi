@@ -1,0 +1,58 @@
+
+
+
+<h2>Manage Links</h2>	
+
+<table class="edittable highlight paginate">
+<thead>
+<tr>
+	<th>Category</th>
+	<th>Title</th>
+	<th>Target</th>
+	<th></th>
+	<th>Delete Link</th>
+</tr>
+</thead>
+<cfoutput query="rc.qryLink">
+<tr>
+	<td>#Category# <cfif Category EQ ""><i>None</i></cfif>
+	
+		<input type="hidden" name="key_#currentrow#" 		value="#htmleditformat(category)#|#htmleditformat(href)#" />
+		<input type="hidden" name="linkcategory_#currentrow#" 	value="#category#" />
+	</td>
+	
+	<td>
+    	<input type="text" name="value_#currentrow#" value="#htmleditformat(value)#" />  
+	</td>
+		
+
+	<td>
+		<input type="text" name="href_#currentrow#" value="#htmleditformat(href)#" />
+	
+		<a href="#href#" target="_blank" class="btn">Go</a>
+	</td>
+	
+	<td>
+		<select name="sortorder_#currentrow#" class="input-mini">
+			<cfloop from="1" to="#rc.qryLink.recordcount#" index="j">
+				<option value="#j#" <cfif j EQ sortorder>selected="selected"</cfif>>#j#</option>
+			</cfloop>
+		</select> 
+	</td>
+	
+	<td style="text-align : center;">
+		<input type="checkbox" name="delete_#currentrow#" value="1" />
+	
+	</td>
+</tr>
+</cfoutput>
+</table>
+
+
+<cfoutput>
+	<p><i><b>#rc.qryLink.recordcount#</b> total links</i></p>
+</cfoutput>
+
+
+
+
