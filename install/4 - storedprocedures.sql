@@ -1,7 +1,5 @@
+/* Creates all stored procedures */
 
-/****** Object:  StoredProcedure [dbo].[usp_TrafficDetails]    Script Date: 1/5/2013 1:57:47 PM ******/
-DROP PROCEDURE [dbo].[usp_TrafficReferer]
-GO
 
 
 
@@ -63,10 +61,6 @@ END;
 GO
 
 
-/****** Object:  StoredProcedure [dbo].[usp_TrafficDetails]    Script Date: 1/5/2013 1:57:47 PM ******/
-DROP PROCEDURE [dbo].[usp_TrafficOrganic]
-GO
-
 
 
 CREATE PROCEDURE
@@ -122,9 +116,6 @@ BEGIN
 END;
 GO
 
-/****** Object:  StoredProcedure [dbo].[usp_TrafficDetails]    Script Date: 1/5/2013 1:57:47 PM ******/
-DROP PROCEDURE [dbo].[usp_TrafficCountry]
-GO
 
 
 
@@ -185,9 +176,6 @@ BEGIN
 END;
 GO
 
-/****** Object:  StoredProcedure [dbo].[usp_TrafficDetails]    Script Date: 1/5/2013 1:57:47 PM ******/
-DROP PROCEDURE [dbo].[usp_TrafficOS]
-GO
 
 
 -- Creates all stored procedures
@@ -249,9 +237,6 @@ BEGIN
 END;
 GO
 
-/****** Object:  StoredProcedure [dbo].[usp_TrafficDetails]    Script Date: 1/5/2013 1:57:47 PM ******/
-DROP PROCEDURE [dbo].[usp_TrafficDetails]
-GO
 
 
 -- Creates all stored procedures

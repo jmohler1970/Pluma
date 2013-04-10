@@ -1,11 +1,9 @@
 /* This creates all SQL functions scalar functions, then table valued functions */
 
 
+
 /* These are related to the dbo.Traffic table */
 
-/****** Object:  UserDefinedFunction [dbo].[udf_OS]    Script Date: 4/8/2013 9:28:19 PM ******/
-DROP FUNCTION [dbo].[udf_OS]
-GO
 
 
 create function [dbo].[udf_OS](@Agent nvarchar(max)) 
@@ -40,10 +38,6 @@ end
 GO
 
 
-
-/****** Object:  UserDefinedFunction [dbo].[udf_OS]    Script Date: 4/8/2013 9:28:19 PM ******/
-DROP FUNCTION [dbo].[udf_Browser]
-GO
 
 
 create function [dbo].[udf_Browser](@Agent nvarchar(max)) 
@@ -91,10 +85,6 @@ GO
 
 
 
-/****** Object:  UserDefinedFunction [dbo].[udf_getCity]    Script Date: 4/9/2013 6:19:00 PM ******/
-DROP FUNCTION [dbo].[udf_getCity]
-GO
-
 
 CREATE FUNCTION [dbo].[udf_getCity](@var xml) 
   RETURNS varchar(50)
@@ -108,10 +98,6 @@ END
 GO
 
 
-/****** Object:  UserDefinedFunction [dbo].[udf_getCountryName]    Script Date: 4/9/2013 6:19:27 PM ******/
-DROP FUNCTION [dbo].[udf_getCountryName]
-GO
-
 
 CREATE FUNCTION [dbo].[udf_getCountryName](@var xml) 
   RETURNS varchar(50)
@@ -123,10 +109,6 @@ END
 GO
 
 
-
-/****** Object:  UserDefinedFunction [dbo].[udf_getRegionName]    Script Date: 4/9/2013 6:21:05 PM ******/
-DROP FUNCTION [dbo].[udf_getRegionName]
-GO
 
 
 
@@ -142,9 +124,6 @@ GO
 
 
 
-/****** Object:  UserDefinedFunction [dbo].[udf_getRemote_addr]    Script Date: 4/9/2013 6:21:39 PM ******/
-DROP FUNCTION [dbo].[udf_getRemote_addr]
-GO
 
 
 
@@ -157,12 +136,6 @@ BEGIN
 END
 GO
 
-
-
-
-/****** Object:  UserDefinedFunction [dbo].[udf_4jDebug]    Script Date: 4/9/2013 6:23:12 PM ******/
-DROP FUNCTION [dbo].[udf_4jDebug]
-GO
 
 
 /* Debug */
@@ -194,12 +167,6 @@ GO
 
 
 
-
-
-/****** Object:  UserDefinedFunction [dbo].[udf_4jError]    Script Date: 4/9/2013 6:24:19 PM ******/
-DROP FUNCTION [dbo].[udf_4jError]
-GO
-
 /* Error */
 create function [dbo].[udf_4jError](@title nvarchar(max), @ip varchar(max), @userid int=NULL) 
 	
@@ -227,10 +194,6 @@ end
 GO
 
 
-
-/****** Object:  UserDefinedFunction [dbo].[udf_4jFatal]    Script Date: 4/9/2013 6:24:47 PM ******/
-DROP FUNCTION [dbo].[udf_4jFatal]
-GO
 
 
 
@@ -263,10 +226,6 @@ GO
 
 
 
-/****** Object:  UserDefinedFunction [dbo].[udf_4jInfo]    Script Date: 4/9/2013 6:25:26 PM ******/
-DROP FUNCTION [dbo].[udf_4jInfo]
-GO
-
 
 create function [dbo].[udf_4jInfo](@title nvarchar(max), @ip varchar(max), @userid int=NULL) 
 	
@@ -295,9 +254,6 @@ GO
 
 
 
-/****** Object:  UserDefinedFunction [dbo].[udf_4jSuccess]    Script Date: 4/9/2013 6:25:48 PM ******/
-DROP FUNCTION [dbo].[udf_4jSuccess]
-GO
 
 
 
@@ -329,11 +285,6 @@ GO
 
 
 
-/****** Object:  UserDefinedFunction [dbo].[udf_4jTicket]    Script Date: 4/9/2013 6:26:18 PM ******/
-DROP FUNCTION [dbo].[udf_4jTicket]
-GO
-
-
 /* Debug */
 create function [dbo].[udf_4jTicket](@title nvarchar(max), @ip varchar(max), @ticket nvarchar(max), @userid int=NULL) 
 	
@@ -359,12 +310,6 @@ begin
 
 	RETURN @xmlResult
 end
-GO
-
-
-
-/****** Object:  UserDefinedFunction [dbo].[udf_4jWarn]    Script Date: 4/9/2013 6:27:13 PM ******/
-DROP FUNCTION [dbo].[udf_4jWarn]
 GO
 
 
@@ -399,9 +344,6 @@ GO
 /* Misc functions */
 
 
-/****** Object:  UserDefinedFunction [dbo].[udf_Slugify]    Script Date: 4/9/2013 6:30:14 PM ******/
-DROP FUNCTION [dbo].[udf_Slugify]
-GO
 
 
 
@@ -446,11 +388,6 @@ GO
 
 
 
-/****** Object:  UserDefinedFunction [dbo].[udf_StripHTML]    Script Date: 4/9/2013 6:31:26 PM ******/
-DROP FUNCTION [dbo].[udf_StripHTML]
-GO
-
-
 
 CREATE FUNCTION [dbo].[udf_StripHTML] (@HTMLText VARCHAR(MAX))
 RETURNS VARCHAR(MAX) AS
@@ -473,9 +410,7 @@ END
 GO
 
 
-/****** Object:  UserDefinedFunction [dbo].[udf_xmlToStr]    Script Date: 4/9/2013 6:32:06 PM ******/
-DROP FUNCTION [dbo].[udf_xmlToStr]
-GO
+
 
 
 
@@ -494,4 +429,222 @@ begin
 	RETURN @strGroup
 end
 GO
+
+/* Table valued functions */
+
+
+
+create function [dbo].[udf_4jRead](@Message xml) 
+	
+	returns @tblmessage TABLE
+(
+    -- Columns returned by the function
+    [by] 			nvarchar(40) NULL,
+    [datetime]		datetime NULL, 
+    [message]		nvarchar(max) NULL,
+    [type]			nvarchar(10),
+    [ticket]		nvarchar(10) NULL,
+    
+    [htmlby] 		nvarchar(70) NULL,
+    [htmlmessage]	nvarchar(max) NULL,
+    [sort4j]			tinyint NULL
+    
+    
+)
+AS 
+BEGIN
+	INSERT INTO @tblmessage
+	
+	SELECT [by], [datetime], [message], 
+		
+		CASE
+			WHEN [type] IS NULL AND [DateTime] IS NOT NULL THEN 'success'
+			ELSE [type]
+		END AS [type],
+		
+		[ticket], 
+	
+		[by] + ' on ' + CONVERT(varchar(20), [datetime], 100) AS htmlBy,
+	
+		
+		'<b>' + 
+	
+		CASE 
+			WHEN [type] IS NULL AND [DateTime] IS NOT NULL THEN 'Success'
+			ELSE LEFT(UPPER([type]), 1) + Right(LOWER([type]), LEN([type]) - 1) 
+		END 
+						
+		+
+		CASE 
+			WHEN message is NULL THEN '</b>'
+			ELSE ':</b> ' + message
+		
+		END
+		AS htmlMessage,
+		
+		CASE 
+			WHEN [type] = 'fatal'	THEN 90
+			WHEN [type] = 'error'	THEN 80
+			WHEN [type] = 'warn' 	THEN 70
+			WHEN [type] = 'info' 	THEN 60
+			WHEN [type] IS NULL	AND [DateTime] IS NOT NULL THEN 60		/* Success, and is the same as info */
+			WHEN [type] = 'debug' 	THEN 50
+			ELSE	NULL
+		END
+		AS sort4j 
+	FROM (
+		SELECT 	@Message.value('(/message/@by)[1]', 'nvarchar(40)') AS [by],
+			@Message.value('(/message/@date)[1]', 	'datetime') 	AS [datetime],
+			@Message.value('(/message)[1]', 		'varchar(max)') AS [message], 
+			@Message.value('(/message/@type)[1]', 	'varchar(10)') 	AS [type],
+			@Message.value('(/message/@ticket)[1]', 'varchar(10)')	AS [ticket]
+		) A
+	
+			
+	RETURN
+END
+GO
+
+
+
+
+
+
+create function [dbo].[udf_calendar](@sDate date, @eDate date) 
+	
+	returns @tblDate TABLE
+(
+   
+    [CalendarDate]	date
+)
+AS 
+BEGIN
+
+
+DECLARE @cDate As Date
+
+SET @cDate = @sDate
+WHILE @cDate < @eDate
+BEGIN
+    INSERT INTO @tblDate (CalendarDate) VALUES (@cDate)
+    SET @cDate=DATEADD(day, 1, @cDate)
+END
+
+RETURN
+
+END
+GO
+
+
+
+
+/* Taxonomy Read */
+create function [dbo].[udf_taxonomyRead](@xmlData xml) 
+	
+	returns @tblTaxonomy TABLE
+	(
+    -- Columns returned by the function
+    [tags] 			nvarchar(max) NULL,
+    [menu] 			nvarchar(max) NULL,
+    [menustatus]	nvarchar(max) NULL,
+    [menusort]		nvarchar(max) NULL
+   )
+
+as
+begin
+	
+
+	DECLARE @strTags varchar(max)
+
+	
+	SELECT @strTags = ISNULL( @strTags + ',', '' ) + x.y.value('.', 'varchar(max)' )  
+	FROM @xmlData.nodes('/tags') x(y) 
+	
+
+	INSERT 
+	INTO @tblTaxonomy(tags, menu, menustatus, menusort)
+	VALUES (
+		@strTags, 
+		@xmlData.value('/menu[1]', 				'nvarchar(max)'),
+		@xmlData.value('/menu[1]/@status', 		'nvarchar(max)'),
+		@xmlData.value('/menu[1]/@sortorder', 	'nvarchar(max)')
+		)
+
+	
+	RETURN 
+end
+GO
+
+
+
+
+
+create function [dbo].[udf_titleRead](@xmlTitle xml) 
+	
+	returns @tblTitle TABLE
+(
+    -- Columns returned by the function
+    [extra]			nvarchar(max) NULL,
+	[title]			nvarchar(max) NULL,
+	[subtitle]		nvarchar(max) NULL,
+	[description]	nvarchar(max) NULL,
+	[isbn]			nvarchar(max) NULL
+)
+AS 
+BEGIN
+	INSERT INTO @tblTitle
+	
+
+
+	SELECT 	@xmlTitle.value('(/extra)[1]',		'nvarchar(max)') AS [Extra],
+			@xmlTitle.value('(/title)[1]',		'nvarchar(max)') AS [title],
+			@xmlTitle.value('(/subtitle)[1]', 	'nvarchar(max)') AS [subtitle], 
+			@xmlTitle.value('(/description)[1]','nvarchar(max)') AS [description],
+			@xmlTitle.value('(/isbn)[1]',		'nvarchar(max)') AS [isbn]
+	
+			
+	RETURN
+END
+GO
+
+
+
+
+
+/* User Data */
+create function [dbo].[udf_xmlRead](@xmlData xml) 
+	
+	returns @tblmessage TABLE
+(
+    -- Columns returned by the function
+    [href] 			nvarchar(max) NULL,
+    [rel] 			nvarchar(40) NULL,
+    [title]			nvarchar(max) NULL,
+    [type]			nvarchar(40),
+    [position]		int NULL,
+    [message]		nvarchar(max) NULL    
+)
+as
+begin
+	INSERT INTO @tblMessage
+	
+	SELECT  
+       Tbl.Col.value('@href', 	'nvarchar(max)') 	AS href,  
+       Tbl.Col.value('@rel', 	'nvarchar(40)')		AS rel,  
+       Tbl.Col.value('@title', 	'nvarchar(max)')	AS title,
+       Tbl.Col.value('@type', 	'nvarchar(40)')		AS [type],
+       Tbl.Col.value('@position', 'int')			AS position,
+       Tbl.Col.value('.', 		'nvarchar(max)')	AS message
+
+	FROM   @xmlData.nodes('/data') Tbl(Col)
+	ORDER BY position, type, message
+	
+
+
+	RETURN
+end
+
+GO
+
+
 

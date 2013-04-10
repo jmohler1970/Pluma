@@ -2,9 +2,7 @@
 
 
 
-/****** Object:  View [dbo].[vwNode]    Script Date: 4/9/2013 7:13:44 PM ******/
-DROP VIEW [dbo].[vwNode]
-GO
+
 
 
 CREATE VIEW [dbo].[vwNode]
@@ -90,10 +88,6 @@ GO
 
 
 
-/****** Object:  View [dbo].[vwNodeSort]    Script Date: 4/9/2013 7:16:17 PM ******/
-DROP VIEW [dbo].[vwNodeSort]
-GO
-
 
 
 CREATE VIEW [dbo].[vwNodeSort] AS
@@ -167,9 +161,6 @@ from DataPlusRN
 GO
 
 
-/****** Object:  View [dbo].[vwUser]    Script Date: 4/9/2013 7:17:42 PM ******/
-DROP VIEW [dbo].[vwUser]
-GO
 
 CREATE VIEW [dbo].[vwUser] 
 AS

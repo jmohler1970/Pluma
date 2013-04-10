@@ -1,6 +1,6 @@
-/****** Object:  Trigger [Node_update]    Script Date: 4/8/2013 9:24:16 PM ******/
-DROP TRIGGER [dbo].[Node_update]
-GO
+/* Creates all triggers */
+
+
 
 
 
