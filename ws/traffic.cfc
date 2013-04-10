@@ -84,6 +84,7 @@
 			<cfqueryparam CFSQLType="cf_sql_bit" 	value="#arguments.isPost#">,
 			<cfqueryparam CFSQLType="cf_sql_varchar" value="#arguments.http_accept_language#">,
 			<cfqueryparam CFSQLType="cf_sql_varchar" value="#arguments.http_user_agent#">,
+			<cfqueryparam CFSQLType="cf_sql_varchar" value="#arguments.http_referer#">,
 			<cfqueryparam CFSQLType="cf_sql_varchar" value="#xmlGeoLocation#">,
 			<cfqueryparam CFSQLType="cf_sql_varchar" value="#strURL_vars#">
 			)

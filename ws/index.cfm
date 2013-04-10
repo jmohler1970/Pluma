@@ -1,3 +1,49 @@
+
+<cfscript>
+wsNode 	= createobject("component", "Node");
+
+	
+	rc.qryNode = wsNode.getBundle({Slug = 'install'}, "", "");
+		
+	writedump(rc);
+
+</cfscript>	
+<cfexit>
+
+
+<cfscript>
+wsNode 	= createobject("component", "Node");
+
+
+	
+	result = wsNode.getByTag("Cat", 'Page');
+	
+	
+	
+	writedump(result);
+
+</cfscript>	
+
+<cfexit>
+
+
+<cfset wsTraffic = createobject("component", "Traffic")>
+
+
+
+
+<cfset wsTraffic.add(url_vars = {})>
+
+
+<cfloop index="cache" array="#cacheGetAllIds()#">
+    <cfdump var="#cacheGetMetadata(cache)#" label="Cache Metadata for #cache#">
+</cfloop>
+
+
+<cfexit>
+
+
+
 <cfscript>
 wsNode 	= createobject("component", "Node");
 

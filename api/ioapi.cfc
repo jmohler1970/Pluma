@@ -9,7 +9,7 @@
 void function init() output="false" {
 	
 	// settings
-	this.stSettings 		= this.loadini("services/io.ini");
+	this.stSettings 		= this.loadini("api/io.ini");
 	
 	// web services
 	for (var key in this.stSettings.ws)	{

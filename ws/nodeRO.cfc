@@ -22,7 +22,7 @@
       ,parentSlug, parentTitle,parentCreateDate
       ,StartDate,ExpirationDate,CommentMode
       ,NoDelete,Deleted,DeleteDate,Modified,ModifyBy,ModifyDate,Created,CreateBy,CreateDate
-      ,NodeCount,CommentCount,ArchiveCount,showheader,startrow,startcol
+      ,NodeCount,ArchiveCount,showheader,startrow,startcol
       ,theme_template,plugin_content,href,redirect,youtube,notes,src,map,location
       ,OwnerID,PublicAccess,SortOrder
       ,Tags,xmlSecurity,xmlConf

@@ -51,7 +51,9 @@ public string function get_page_content(){
 			
 		}
 
-
+	if (isnull(request.stIOR.qryNode.strData))	{
+		return "";			
+		}	
 	
 	return request.stIOR.qryNode.strData;
 	}
