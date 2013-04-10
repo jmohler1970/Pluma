@@ -38,9 +38,6 @@ SOFTWARE.
 	
 	<cfquery>
 	DELETE
-	FROM	dbo.Plugin
-	
-	DELETE
 	FROM 	dbo.Pref
 	
 	DELETE
@@ -49,10 +46,7 @@ SOFTWARE.
 	DELETE
 	FROM	dbo.Users
 	
-	DELETE
-	FROM	dbo.Comment
-	
-	
+
 	DELETE
 	FROM	dbo.NodeArchive
 	
@@ -61,9 +55,6 @@ SOFTWARE.
 		
 	DELETE
 	FROM	dbo.Traffic
-	
-	--DELETE
-	--FROM	dbo.Calendar
 	</cfquery> 
 
 

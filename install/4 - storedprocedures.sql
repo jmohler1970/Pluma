@@ -1,18 +1,9 @@
-USE [mWWI]
-GO
 
 /****** Object:  StoredProcedure [dbo].[usp_TrafficDetails]    Script Date: 1/5/2013 1:57:47 PM ******/
 DROP PROCEDURE [dbo].[usp_TrafficReferer]
 GO
 
-/****** Object:  StoredProcedure [dbo].[usp_TrafficDetails]    Script Date: 1/5/2013 1:57:47 PM ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-
--- Creates all stored procedures
 
 
 CREATE PROCEDURE
@@ -37,7 +28,7 @@ BEGIN
 			
 	
 		SELECT Area, AreaSort, Item, CalendarDate, isNull(Visitor, 0) AS Visitor, ISNULL(Hit,0) AS Hit
-		FROM	dbo.Calendar LEFT JOIN 
+		FROM	dbo.udf_calendar(@startDate, @endDate) LEFT JOIN 
 			(
 	
 	
@@ -49,8 +40,7 @@ BEGIN
 			
 			FROM  (
 				SELECT DISTINCT CalendarDate, Item
-				FROM dbo.Calendar, #TempTraffic
-				WHERE 	CalendarDate  BETWEEN @startDate AND @endDate
+				FROM 	dbo.udf_calendar(@startDate, @endDate), #TempTraffic
 				) FullGrid 
 					
 			LEFT JOIN #TempTraffic AS DataItem
@@ -65,8 +55,7 @@ BEGIN
 			
 		ON 	CalendarDate = SummaryDetail.CreateDate
 		
-		WHERE 	CalendarDate  BETWEEN @startDate AND @endDate
-		AND AreaSort IS NOT NULL	
+		WHERE 	AreaSort IS NOT NULL	
 		
 		ORDER BY AreaSort, Item, CalendarDate
 
@@ -78,14 +67,6 @@ GO
 DROP PROCEDURE [dbo].[usp_TrafficOrganic]
 GO
 
-/****** Object:  StoredProcedure [dbo].[usp_TrafficDetails]    Script Date: 1/5/2013 1:57:47 PM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
--- Creates all stored procedures
 
 
 CREATE PROCEDURE
@@ -108,7 +89,7 @@ BEGIN
 	
 	
 		SELECT Area, AreaSort, Item, CalendarDate, isNull(Visitor, 0) AS Visitor, ISNULL(Hit,0) AS Hit
-		FROM	dbo.Calendar LEFT JOIN 
+		FROM	dbo.udf_calendar(@startDate, @endDate) LEFT JOIN 
 			(
 	
 	
@@ -120,8 +101,7 @@ BEGIN
 			
 			FROM  (
 				SELECT DISTINCT CalendarDate, Item
-				FROM dbo.Calendar, #TempTraffic
-				WHERE 	CalendarDate  BETWEEN @startDate AND @endDate
+				FROM 	dbo.udf_calendar(@startDate, @endDate), #TempTraffic
 				) FullGrid 
 					
 			LEFT JOIN #TempTraffic AS DataItem
@@ -136,8 +116,7 @@ BEGIN
 			
 		ON 	CalendarDate = SummaryDetail.CreateDate
 		
-		WHERE 	CalendarDate  BETWEEN @startDate AND @endDate
-		AND AreaSort IS NOT NULL	
+		WHERE 	AreaSort IS NOT NULL	
 		
 		ORDER BY AreaSort, Item, CalendarDate
 END;
@@ -147,14 +126,8 @@ GO
 DROP PROCEDURE [dbo].[usp_TrafficCountry]
 GO
 
-/****** Object:  StoredProcedure [dbo].[usp_TrafficDetails]    Script Date: 1/5/2013 1:57:47 PM ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
 
--- Creates all stored procedures
 
 
 CREATE PROCEDURE
@@ -178,7 +151,7 @@ BEGIN
 			
 	
 		SELECT Area, AreaSort, Item, CalendarDate, isNull(Visitor, 0) AS Visitor, ISNULL(Hit,0) AS Hit
-		FROM	dbo.Calendar LEFT JOIN 
+		FROM	dbo.udf_calendar(@startDate, @endDate) LEFT JOIN 
 			(
 	
 	
@@ -190,8 +163,7 @@ BEGIN
 			
 			FROM  (
 				SELECT DISTINCT CalendarDate, Item
-				FROM dbo.Calendar, #TempTraffic
-				WHERE 	CalendarDate  BETWEEN @startDate AND @endDate
+				FROM 	dbo.udf_calendar(@startDate, @endDate), #TempTraffic
 				) FullGrid 
 					
 			LEFT JOIN #TempTraffic AS DataItem
@@ -206,8 +178,7 @@ BEGIN
 			
 		ON 	CalendarDate = SummaryDetail.CreateDate
 		
-		WHERE 	CalendarDate  BETWEEN @startDate AND @endDate
-		AND AreaSort IS NOT NULL	
+		WHERE 	AreaSort IS NOT NULL	
 		
 		ORDER BY AreaSort, Item, CalendarDate
 
@@ -218,12 +189,6 @@ GO
 DROP PROCEDURE [dbo].[usp_TrafficOS]
 GO
 
-/****** Object:  StoredProcedure [dbo].[usp_TrafficDetails]    Script Date: 1/5/2013 1:57:47 PM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
 
 -- Creates all stored procedures
 
@@ -249,7 +214,7 @@ BEGIN
 	
 	
 		SELECT Area, AreaSort, Item, CalendarDate, isNull(Visitor, 0) AS Visitor, ISNULL(Hit,0) AS Hit
-		FROM	dbo.Calendar LEFT JOIN 
+		FROM	dbo.udf_calendar(@startDate, @endDate) LEFT JOIN 
 			(
 	
 	
@@ -261,8 +226,7 @@ BEGIN
 			
 			FROM  (
 				SELECT DISTINCT CalendarDate, Item
-				FROM dbo.Calendar, #TempTraffic
-				WHERE 	CalendarDate  BETWEEN @startDate AND @endDate
+				FROM 	dbo.udf_calendar(@startDate, @endDate), #TempTraffic
 				) FullGrid 
 					
 			LEFT JOIN #TempTraffic AS DataItem
@@ -277,8 +241,7 @@ BEGIN
 			
 		ON 	CalendarDate = SummaryDetail.CreateDate
 		
-		WHERE 	CalendarDate  BETWEEN @startDate AND @endDate
-		AND AreaSort IS NOT NULL	
+		WHERE 	AreaSort IS NOT NULL	
 		
 		ORDER BY AreaSort, Item, CalendarDate
 
@@ -290,12 +253,6 @@ GO
 DROP PROCEDURE [dbo].[usp_TrafficDetails]
 GO
 
-/****** Object:  StoredProcedure [dbo].[usp_TrafficDetails]    Script Date: 1/5/2013 1:57:47 PM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
 
 -- Creates all stored procedures
 
@@ -328,7 +285,7 @@ BEGIN
 
 
 	SELECT Area, AreaSort, Item, CalendarDate, isNull(Visitor, 0) AS Visitor, ISNULL(Hit,0) AS Hit
-	FROM	dbo.Calendar LEFT JOIN 
+	FROM	dbo.udf_calendar(@startDate, @endDate) LEFT JOIN 
 		(
 
 
@@ -378,9 +335,8 @@ BEGIN
 		
 		FROM  (
 			SELECT DISTINCT CalendarDate, Item
-			FROM dbo.Calendar, #TempTraffic
-			WHERE 	CalendarDate  BETWEEN @startDate AND @endDate
-			AND		Createdate BETWEEN @startDate AND @endDate
+			FROM 	dbo.udf_calendar(@startDate, @endDate), #TempTraffic
+			WHERE 	Createdate BETWEEN @startDate AND @endDate
 			) FullGrid 
 				
 		LEFT JOIN #TempTraffic AS DataItem
@@ -395,7 +351,7 @@ BEGIN
 		
 	ON 	CalendarDate = SummaryDetail.CreateDate
 	
-	WHERE 	CalendarDate  BETWEEN @startDate AND @endDate
+	
 	AND AreaSort IS NOT NULL	
 	
 	ORDER BY AreaSort, Item, CalendarDate

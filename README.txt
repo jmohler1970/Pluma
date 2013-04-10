@@ -1,6 +1,26 @@
 Welcome to PlumaCMS
 
-Installation
+Installation:
+
+1. Build the SQLServer DB
+
+This can be found in:
+admin/views/install/install.sql
+
+
+2. Go to the install tool
+The installation tool can reached by:
+
+yourhost.cfm/yourhost/index.cfm/install
+
+
+
+The install directories are:
+
+
+admin/controllers/install.cfc
+admin/views/install/*
+
 
 
 Getting Starting

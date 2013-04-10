@@ -210,8 +210,7 @@ SOFTWARE.
 		variables.QueryService.addParam(value = arguments.extra, cfsqltype="cf_sql_varchar");
 
 
-		var oresult = variables.QueryService.execute(sql="SELECT 	TOP 100 #variables.lstNode#, 
-			dbo.udf_getFacetCount(NodeID) AS FacetCount
+		var oresult = variables.QueryService.execute(sql="SELECT 	TOP 100 #variables.lstNode#
 			FROM 	dbo.vwNode  WITH (NOLOCK)
 			WHERE	Deleted = 0
 			AND		Kind 		= ?
@@ -586,7 +585,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 <cffunction name="getAllTags" returnType="query" access="remote" output="false">
 
 	<cfquery name="local.qryTags">
-		SELECT Tags, dbo.Slugify(Tags) AS TagSlug, NTile(6) OVER(ORDER BY TagCount) AS TagLevel, TagCount
+		SELECT Tags, dbo.udf_Slugify(Tags) AS TagSlug, NTile(6) OVER(ORDER BY TagCount) AS TagLevel, TagCount
 		FROM (
 			SELECT 	Tags, COUNT(Tags) AS TagCount
 			FROM (
@@ -640,7 +639,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		SET     @NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">)
 	
 				
-		SELECT 	T2.Tags.value('.', 'varchar(80)') AS Tags, dbo.Slugify(T2.Tags.value('.', 'varchar(80)')) AS TagSlug
+		SELECT 	T2.Tags.value('.', 'varchar(80)') AS Tags, dbo.udf_Slugify(T2.Tags.value('.', 'varchar(80)')) AS TagSlug
 		FROM   	dbo.Node WITH (NOLOCK)
 		CROSS 	APPLY xmlTaxonomy.nodes('/tags') as T2(Tags)
 		WHERE	Deleted = 0
