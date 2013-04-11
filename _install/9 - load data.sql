@@ -132,7 +132,7 @@ GO
 SET IDENTITY_INSERT [dbo].[Users] ON 
 
 GO
-INSERT [dbo].[Users] ([UserID], [login], [passhash], [PersonName], [homepath], [email], [comments], [lastLogin], [ExpirationDate], [xmlAbout], [xmlProfile], [xmlContact], [xmlLink], [xmlPref], [xmlGroup], [PrefGroup], [DeleteDate], [Modified], [Created]) VALUES (55, N'Admin', N'190A4568B2', N'<PersonName xmlns="http://ns.hr-xml.org/2007-04-15"><GivenName>James</GivenName><FamilyName>Mohler</FamilyName></PersonName>', NULL, N'james@webworldinc.com', NULL, CAST(0xA19C04E8 AS SmallDateTime), NULL, NULL, NULL, NULL, NULL, NULL, N'<data type="group">System</data>', NULL, NULL, N'<message by="James Mohler" date="2013-04-10T20:56:29.177" title="User logged in" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:58.053" title="" ip="" />')
+INSERT [dbo].[Users] ([UserID], [login], [passhash], [PersonName], [homepath], [email], [comments], [lastLogin], [ExpirationDate], [xmlAbout], [xmlProfile], [xmlContact], [xmlLink], [xmlPref], [xmlGroup], [PrefGroup], [DeleteDate], [Modified], [Created]) VALUES (55, N'Admin', NULL, N'<PersonName xmlns="http://ns.hr-xml.org/2007-04-15"><GivenName>James</GivenName><FamilyName>Mohler</FamilyName></PersonName>', NULL, N'james@webworldinc.com', NULL, CAST(0xA19C04E8 AS SmallDateTime), NULL, NULL, NULL, NULL, NULL, NULL, N'<data type="group">System</data>', NULL, NULL, N'<message by="James Mohler" date="2013-04-10T20:56:29.177" title="User logged in" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:58.053" title="" ip="" />')
 GO
 SET IDENTITY_INSERT [dbo].[Users] OFF
 GO
