@@ -56,14 +56,8 @@ GO
 ALTER TABLE [dbo].[LoginLog] ADD  CONSTRAINT [DF_LoginLog_createDate]  DEFAULT (getdate()) FOR [createDate]
 GO
 
-ALTER TABLE [dbo].[LoginLog]  WITH CHECK ADD  CONSTRAINT [FK_LoginLog_Users] FOREIGN KEY([UserID])
-REFERENCES [dbo].[Users] ([UserID])
-GO
-
 ALTER TABLE [dbo].[LoginLog] CHECK CONSTRAINT [FK_LoginLog_Users]
 GO
-
-
 
 
 
