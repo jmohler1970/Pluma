@@ -42,7 +42,7 @@
 <cfif rc.slug NEQ "">
 <div class="edit-nav clearfix">
 	<cfoutput>
-	<a href="/backups/#rc.slug#.xml" accesskey="d"><em>D</em>ownload</a>
+	<a href="/backups/#rc.slug#.xml" accesskey="d" target="_blank"><em>D</em>ownload</a>
 	</cfoutput>
 </div>	
 </cfif>

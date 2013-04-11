@@ -257,7 +257,7 @@ void function process(required struct rc) output="false" {
 	<menu><![CDATA[#menu#]]></menu>
 	<menuOrder><![CDATA[#menusort#]]></menuOrder>
 	<menuStatus><![CDATA[#menuStatus#]]></menuStatus>
-	<template><![CDATA[template.php]]></template>
+	<template><![CDATA[#theme_template#]]></template>
 	<parent><![CDATA[#parentslug#]]></parent>
 	<content><![CDATA[#xmlFormat(strData)#]]></content>
 	<private><![CDATA[]]></private>
