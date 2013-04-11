@@ -1,2 +1,6 @@
 /*.DS_Store
 /ws/index.cfm
+/backups/*
+/data/*
+/data/*/*
+/data/*/*/*
