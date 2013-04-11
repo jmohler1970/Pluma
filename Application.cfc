@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "Pluma_CMS0198";
+	this.name 			= "Pluma_CMS0200";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
 	this.sessionManagement = true;
@@ -175,7 +175,7 @@ void function setupSession()	{
 void function onMissingView()	{
 
 
-	//location("/index.cfm/main/home/slug/404", "no");	
+	location("/index.cfm/main/404", "no");	
 	}
 
 
