@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "Pluma_CMS0200";
+	this.name 			= "Pluma_CMS0201";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
 	this.sessionManagement = true;
@@ -21,8 +21,8 @@
 		};
 		
 	variables.framework.routes = [
-		{ "/install" 		= "/admin:install/home"}, 
 		{ "/login" 			= "/admin:login/home"},
+		{ "/forgot" 		= "/admin:login/email"},
 		{ "/logout" 		= "/admin:login/signout"},
 
 		// content

@@ -48,6 +48,10 @@ this.add_action("theme_sidebar", "createSideMenu", ["?plugin=innovation", "Innov
 	param rc.Innovation_twitter = "";
 	param rc.Innovation_linkedin = "";
 	param rc.Innovation_stackoverflow = "";
+	
+	param rc.Innovation_login 	= 0;
+	param rc.Innovation_search 	= 0;
+	param rc.Innovation_tags 	= 0;
 	</cfscript>
 
 

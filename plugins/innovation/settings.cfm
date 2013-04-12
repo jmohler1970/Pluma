@@ -40,6 +40,28 @@
 </p>
 
 
+<p>
+    <label for="innovation_login">Show login</label>
+   
+    <input type="checkbox" name="innovation_login" value="1" <cfif rc.innovation_login>checked="checked"</cfif> />
+  
+</p>
+
+
+<p>
+    <label for="innovation_search">Show search</label>
+   
+    <input type="checkbox" name="innovation_search" value="1" <cfif rc.innovation_search>checked="checked"</cfif> />
+</p>
+
+
+<p>
+    <label for="innovation_tags">Show tags</label>
+   
+    <input type="checkbox" name="innovation_tags" value="1" <cfif rc.innovation_tags>checked="checked"</cfif> />
+</p>
+
+
 
 
 <button type="submit">#application.GSAPI.get_string("BTN_SAVECHANGES")#</button>

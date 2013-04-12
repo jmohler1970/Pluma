@@ -3,6 +3,10 @@
 <cfoutput>
 <aside id="sidebar">
 
+
+
+
+
 	<div class="section" id="socialmedia" >
 		<h2>Connect</h2>
 		<div class="icons">
@@ -39,10 +43,90 @@
 	</div>
 	
 	
+	<div class="section" id="aboutus">
+		<cfoutput>#application.GSAPI.get_component("About_Us")#</cfoutput>
+	</div>
+	
+	
+	
+	<cfif isDefined("request.stInnovation.login") AND request.stInnovation.login>
+	<div class="section">
+		<h2>Login Status</h2>
+		<p>You are not currently logged in</p>
+		
+		<form action="/index.cfm/login" method="post">
+			
+			<p>
+			<small>#application.GSAPI.get_string("label_userName")#</small><br />
+			<input type="text" name="login" />
+			</p>
+			
+			<p>
+			<small>#application.GSAPI.get_string("Password")#</small><br />
+			<input type="password" name="password" />
+			</p>
+			
+			<button type="submit">Login</button> 
+			
+			<a href="/index.cfm/forgot">Forgot?</a>	
+		</form>
+	</div>
+	</cfif>
+	
+	
+	<cfif isDefined("request.stInnovation.search") AND request.stInnovation.search>
+	<div class="section">
+		<h2>Search</h2>
+		
+		<form action="/index.cfm/search" method="get">
+			
+			<p>
+			<cfparam name="rc.search" default="">
+			
+			<input type="search" name="search" value="#rc.search#" />
+					
+			<button type="submit">Search</button> 
+			</p>
+		
+		</form>
+	</div>
+	</cfif>
+	
+	<cfif isDefined("request.stInnovation.tags") AND request.stInnovation.tags>
+	<div class="section">
+		<h2>Tags</h2>
+		
+		<cfset qryTag = application.IOAPI.get_all_tags()>
+		
+	
+		
+		
+		<cfloop query="qryTag">
+			<a href="/index.cfm/tag/#tagslug#" style="white-space:nowrap;">#tags#</a> &nbsp; &nbsp;
+		</cfloop>
+				
+	</div>
+	</cfif>
+	
+	<cfif isDefined("request.stInnovation.archive") AND request.stInnovation.archive>
+	<div class="section">
+		<h2>Tags</h2>
+		
+		<p>Do something here
+	</div>
+	</cfif>
+	
+	
+		
+	<div class="section" id="featured">
+		#application.GSAPI.get_component("Featured")#
+	</div>
+	
+	
+	
 	<!-- wrap each sidebar section like this -->
 	<div class="section">
 		#application.GSAPI.get_component('sidebar')#
-	
 	</div>
 
 

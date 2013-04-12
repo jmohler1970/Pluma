@@ -1,5 +1,17 @@
-USE [PlumaCMS]
+
+SET ANSI_PADDING ON
 GO
+
+SET IDENTITY_INSERT [dbo].[Users] ON 
+
+GO
+INSERT [dbo].[Users] ([UserID], [login], [passhash], [PersonName], [homepath], [email], [comments], [lastLogin], [ExpirationDate], [xmlAbout], [xmlProfile], [xmlContact], [xmlLink], [xmlPref], [xmlGroup], [PrefGroup], [DeleteDate], [Modified], [Created]) VALUES (55, N'Admin', NULL, N'<PersonName xmlns="http://ns.hr-xml.org/2007-04-15"><GivenName>James</GivenName><FamilyName>Mohler</FamilyName></PersonName>', NULL, N'james@webworldinc.com', NULL, CAST(0xA19C04E8 AS SmallDateTime), NULL, NULL, NULL, NULL, NULL, NULL, N'<data type="group">System</data>', NULL, NULL, N'<message by="James Mohler" date="2013-04-10T20:56:29.177" title="User logged in" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:58.053" title="" ip="" />')
+GO
+SET IDENTITY_INSERT [dbo].[Users] OFF
+GO
+
+
+
 SET ANSI_PADDING ON
 GO
 SET IDENTITY_INSERT [dbo].[Node] ON 
@@ -125,14 +137,52 @@ Albert Einstein&nbsp;(pron.:&nbsp;/?&aelig;lb?rt&nbsp;?a?nsta?n/;&nbsp;German:&n
 </div>
 </div>', NULL, N'', NULL, N'<menu status="" sortorder="" /><tags>education</tags><tags>family</tags><tags>emigration</tags><tags>relativity</tags>', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 0, NULL, N'<message by="James Mohler" date="2013-04-10T21:05:07.987" title="XML Conf updated" ip="142.136.11.230" />', N'<message by="Admin " date="2013-04-06T22:22:19.993" title="Created" ip="142.136.11.230" />')
 GO
-SET IDENTITY_INSERT [dbo].[Node] OFF
-GO
-SET ANSI_PADDING OFF
-GO
-SET IDENTITY_INSERT [dbo].[Users] ON 
 
+
+
+
+
+INSERT [dbo].[Pref] ([Pref], [xmlPref], [DeleteDate], [Modified], [Created]) VALUES (N'Components', N'<data type="about_us">&lt;h2&gt;About Us&lt;/h2&gt;
+
+&lt;p&gt;I am just a website, but my creator is a talented developer who works in&lt;/p&gt;
+
+&lt;ul&gt;
+	&lt;li&gt;Microsoft SQL&lt;/li&gt;
+	&lt;li&gt;Twitter Bootstrap&lt;/li&gt;
+	&lt;li&gt;jQuery&lt;/li&gt;
+	&lt;li&gt;GitHub&lt;/li&gt;
+	&lt;li&gt;Apple MacOS&lt;/li&gt;
+	&lt;li&gt;Adobe ColdFusion&lt;/li&gt;
+&lt;ul&gt; 
+
+
+</data><data type="sidebar">&lt;h2&gt;PlumaCMS Features&lt;/h2&gt;
+&lt;ul&gt; 
+	&lt;li&gt;XML based data storage&lt;/li&gt; 
+	&lt;li&gt;Easy to learn User Interface&lt;/li&gt; 
+	&lt;li&gt;''Undo'' protection &amp;amp; backups&lt;/li&gt; 
+	&lt;li&gt;Easy to theme&lt;/li&gt; 
+	&lt;li&gt;Web Service Enabled&lt;/li&gt; 
+	&lt;li&gt;One on one support&lt;/li&gt; 
+&lt;/ul&gt;
+</data><data type="featured">&lt;h2&gt;Featured Sites&lt;/h2&gt;
+&lt;ul&gt;
+	&lt;li&gt;&lt;a href="http://www.webworldinc.com"&gt;Web World Inc.&lt;/a&gt;&lt;/li&gt; 
+	&lt;li&gt;&lt;a href="http://www.thyroidologists.com"&gt;Thyroidologists&lt;/a&gt;&lt;/li&gt; 
+&lt;/ul&gt;
+
+</data>', NULL, N'<message by="James Mohler" date="2013-04-11T19:10:20.220" title="Preferences Saved" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:58.007" title="Created" ip="142.136.11.230" />')
 GO
-INSERT [dbo].[Users] ([UserID], [login], [passhash], [PersonName], [homepath], [email], [comments], [lastLogin], [ExpirationDate], [xmlAbout], [xmlProfile], [xmlContact], [xmlLink], [xmlPref], [xmlGroup], [PrefGroup], [DeleteDate], [Modified], [Created]) VALUES (55, N'Admin', NULL, N'<PersonName xmlns="http://ns.hr-xml.org/2007-04-15"><GivenName>James</GivenName><FamilyName>Mohler</FamilyName></PersonName>', NULL, N'james@webworldinc.com', NULL, CAST(0xA19C04E8 AS SmallDateTime), NULL, NULL, NULL, NULL, NULL, NULL, N'<data type="group">System</data>', NULL, NULL, N'<message by="James Mohler" date="2013-04-10T20:56:29.177" title="User logged in" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:58.053" title="" ip="" />')
+
+INSERT [dbo].[Pref] ([Pref], [xmlPref], [DeleteDate], [Modified], [Created]) VALUES (N'Innovation', N'<data type="facebook">https://www.facebook.com/james.mohler.182</data><data type="stackoverflow">http://stackoverflow.com/users/1845869/james-mohler</data><data type="search">1</data><data type="linkedin" /><data type="tags">1</data><data type="twitter">https://twitter.com/JamesAMohler</data><data type="login">1</data>', NULL, N'<message by="James Mohler" date="2013-04-11T18:51:48.780" title="Preferences Saved" ip="142.136.11.230" />', N'<message by="James Mohler" date="2013-04-07T23:43:00.637" title="Created" ip="142.136.11.230" />')
 GO
-SET IDENTITY_INSERT [dbo].[Users] OFF
+
+INSERT [dbo].[Pref] ([Pref], [xmlPref], [DeleteDate], [Modified], [Created]) VALUES (N'Meta', N'<data type="title">PlumaCMS</data><data type="root">http://foundation.qcliving.com/</data><data type="email">james@webworldinc.com</data>', NULL, N'<message by="" date="2013-04-03T21:52:57.900" title="Preferences Saved" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:57.900" title="Created" ip="142.136.11.230" />')
 GO
+
+INSERT [dbo].[Pref] ([Pref], [xmlPref], [DeleteDate], [Modified], [Created]) VALUES (N'Plugin', N'<data type="bootswatch">1</data><data type="traffic">1</data><data type="event">1</data>', NULL, N'<message by="James Mohler" date="2013-04-07T22:24:10.833" title="Preferences Saved" ip="142.136.11.230" />', N'<message by="James Mohler" date="2013-04-07T21:31:49.423" title="Created" ip="142.136.11.230" />')
+GO
+
+INSERT [dbo].[Pref] ([Pref], [xmlPref], [DeleteDate], [Modified], [Created]) VALUES (N'Theme', N'<data type="current">Innovation</data>', NULL, N'<message by="" date="2013-04-03T21:52:57.930" title="Preferences Saved" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:57.930" title="Created" ip="142.136.11.230" />')
+GO
+
