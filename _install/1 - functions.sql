@@ -91,7 +91,7 @@ CREATE FUNCTION [dbo].[udf_getCity](@var xml)
   with schemabinding
    AS 
 BEGIN 
-   RETURN @var.value('(/Response/City)[1]', 'varchar(50)')
+   RETURN @var.value('(/Response/City)[1]', 'nvarchar(max)')
 END
 
 
@@ -104,7 +104,7 @@ CREATE FUNCTION [dbo].[udf_getCountryName](@var xml)
   with schemabinding
    AS 
 BEGIN 
-   RETURN @var.value('(/Response/CountryName)[1]', 'varchar(50)')
+   RETURN @var.value('(/Response/CountryName)[1]', 'nvarchar(max)')
 END
 GO
 
@@ -118,7 +118,7 @@ CREATE FUNCTION [dbo].[udf_getRegionName](@var xml)
   with schemabinding
    AS 
 BEGIN 
-   RETURN @var.value('(/Response/RegionName)[1]', 'varchar(50)')
+   RETURN @var.value('(/Response/RegionName)[1]', 'nvarchar(max)')
 END
 GO
 
