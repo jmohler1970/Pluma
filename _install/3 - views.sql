@@ -1,5 +1,5 @@
 /* Creates all views */
-
+/* For: MS SQL 2008 and above */
 
 
 

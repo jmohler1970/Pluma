@@ -1,5 +1,5 @@
 /* Creates all stored procedures */
-
+/* For: MS SQL 2008 and above */
 
 
 

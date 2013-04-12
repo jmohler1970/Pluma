@@ -1,5 +1,5 @@
 /* This creates all the tables, functions, and views to run the site */
-
+/* For: MS SQL 2008 and above */
 
 
 /* Users has to be created early because there are FK relationships to it */

@@ -1,4 +1,5 @@
 /* This destroys all created db objects. It does it the reverse order from the create operations */
+/* For: MS SQL 2008 and above */
 
 /* Indexes */
 DROP INDEX [IX_xmlPersonName] ON [dbo].[Users]

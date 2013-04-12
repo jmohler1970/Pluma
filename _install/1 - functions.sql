@@ -1,5 +1,5 @@
 /* This creates all SQL functions scalar functions, then table valued functions */
-
+/* For: MS SQL 2008 and above */
 
 
 /* These are related to the dbo.Traffic table */

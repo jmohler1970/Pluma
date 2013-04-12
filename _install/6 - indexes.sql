@@ -1,5 +1,5 @@
 /* Creates all indexes. This is for SQL 2012 only */
-
+/* For: MS SQL 2008 and above */
 
 
 
