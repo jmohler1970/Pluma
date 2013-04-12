@@ -139,9 +139,21 @@ struct function get_bundle(required struct NodeK) output="false"	{
 	}
 
 
-query function get_comments(required struct NodeK) output="false"	{
+/* Gets links associated with page. Defaults to current page */
+query function get_link(struct NodeK) output="false"	{
 
 	param arguments.NodeK.Kind = "Page";
+	param arguments.NodeK.NodeID = request.stIOR.qryNode.NodeID;
+
+	return this.wsComment.getLink(arguments.nodeK);
+	}
+
+
+
+query function get_comment(struct NodeK) output="false"	{
+
+	param arguments.NodeK.Kind = "Page";
+	param arguments.NodeK.NodeID = request.stIOR.qryNode.NodeID;
 
 	return this.wsComment.getByNodeID(arguments.nodeK);
 	}

@@ -47,6 +47,19 @@
 		<cfoutput>#application.GSAPI.get_component("About_Us")#</cfoutput>
 	</div>
 	
+	<div class="section">
+		<h2>Also See</h2>
+	
+		<cfset qryTag = application.IOAPI.get_link()>
+		
+		
+		<cfloop query="qryTag">
+			<a href="/index.cfm/tag/#tagslug#" style="white-space:nowrap;">#tags#</a> &nbsp; &nbsp;
+		</cfloop>
+				
+	
+	</div>
+	
 	
 	
 	<cfif isDefined("request.stInnovation.login") AND request.stInnovation.login>
@@ -97,8 +110,6 @@
 		<h2>Tags</h2>
 		
 		<cfset qryTag = application.IOAPI.get_all_tags()>
-		
-	
 		
 		
 		<cfloop query="qryTag">
