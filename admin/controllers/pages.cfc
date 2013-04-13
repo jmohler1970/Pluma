@@ -97,9 +97,11 @@ void function edit(required struct rc) output="false" {
 			rc.NodeID = stResult.NodeID;
 			NodeK.NodeID = rc.NodeID;
 			
-			if (NodeK.NodeID > 0)		
-				application.IOAPI.set_Conf(NodeK, rc);
+			if (NodeK.NodeID > 0)	{	
+				application.IOAPI.set_Link(NodeK, rc);
 				
+				application.IOAPI.set_Conf(NodeK, rc);
+				}
 							
 		
 			this.AddMessage("Page saved with nodeid of <tt>#rc.NodeID#</tt>"); 
@@ -203,7 +205,7 @@ void function saveLink(required struct rc) output="false" {
 
 
 		
-	this.AddMessage("Page Link saved");
+	this.AddMessage("Page link saved");
 
 	
 
@@ -362,9 +364,6 @@ void function find(required struct rc) output="false"	{
 	
 void function after(required struct rc) output="false" {	
 	
-	// rc.qryLinkCategory 	= application.IOAPI.getAllByExtra("Facet", "Page_LinkCategory", "title");
-	
-	//rc.qrySlug		 	= application.IOAPI.getMatchlist("Page", "", "Any", "Any", "Any", false, true);
 	
 	
 	rc.qryLinkCategory = cacheGet("Link_Category");

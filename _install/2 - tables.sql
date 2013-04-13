@@ -123,6 +123,10 @@ GO
 ALTER TABLE [dbo].[Node] ADD  CONSTRAINT [DF_Node_NoDelete]  DEFAULT ((0)) FOR [NoDelete]
 GO
 
+ALTER TABLE [dbo].[Node] ADD  CONSTRAINT [DF_Node_pStatus]  DEFAULT ('Complete') FOR [pStatus]
+GO
+
+
 ALTER TABLE [dbo].[Node]  WITH NOCHECK ADD  CONSTRAINT [FK_Node_Node] FOREIGN KEY([ParentNodeID])
 REFERENCES [dbo].[Node] ([NodeID])
 NOT FOR REPLICATION 

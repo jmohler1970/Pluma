@@ -203,13 +203,6 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
  	</p>
 	</cfoutput>
 
-<!---
-<p>
-	<label for="post-metad" class="clearfix">Meta Description: <span id="countdownwrap"><strong id="countdown">155</strong> characters remaining</span></label>
-	<textarea class="text" id="post-metad" name="post-metad">#htmledito#</textarea>
-</p>
---->
-
 
 
 	
@@ -276,8 +269,6 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 <div id="link_window" style="display : none;">	
 		<cfinclude template="links.cfi">
 			
-		<cfinclude template="linksadd.cfi">
-
 		<cfinclude template="data.cfi">
 </div>		
 		

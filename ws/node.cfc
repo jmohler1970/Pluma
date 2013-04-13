@@ -281,11 +281,11 @@
 
 
 
-<cffunction name="TaxonomyAdd" output="false" returnType="void" access="remote">
-	<cfargument name="Extra" required="true" type="struct">
-	<cfargument name="Title" required="true" type="struct">
-	<cfargument name="Remote_addr" required="true">
-	<cfargument name="byUserID" required="true" type="numeric">
+<cffunction name="TaxonomyAdd" output="false" returnType="boolean" access="remote" hint="Valid value list of taxonomy types">
+	<cfargument name="Extra" required="true" type="string">
+	<cfargument name="Title" required="true" type="string">
+	<cfargument name="Remote_addr" required="true" type="string">
+	<cfargument name="byUserID" required="true" type="string">
 	
 	
 	<cfscript>
@@ -300,16 +300,16 @@
 	VALUES ('Facet', <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#xmlTitle#">,
 		dbo.udf_4jInfo('Created',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
-		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.UserID#">),
+		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byUserID#">),
 		
 		dbo.udf_4jInfo('Created',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
-		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.UserID#">)
+		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byUserID#">)
 		)
 	</cfquery>
 	
 	
-	
+	<cfreturn true>
 </cffunction>
 
 
@@ -415,19 +415,19 @@
 
 <!--- Link actions --->
 <cffunction name="LinkAdd" output="false" returntype="struct">
-	<cfargument name="NodeK" required="true" type="struct">
-	<cfargument name="rc" required="true" type="struct">
-	<cfargument name="remote_addr" required="true" type="string">
-	<cfargument name="UserID" required="true" type="numeric">
+	<cfargument name="NodeK" 		required="true" type="struct">
+	<cfargument name="rc" 			required="true" type="struct">
+	<cfargument name="remote_addr" 	required="true" type="string">
+	<cfargument name="UserID" 		required="true" type="string">
 	
 	<cfscript>
-	param rc.linkcategory = '';
+	param rc.type = '';
 	
-	if (rc.linkcategory == '')	{
-		this.stResults.message &= "Link Category was blank or missing";	
+	if (rc.type == '')	{
+		this.stResults.message &= "Link Category was blank or missing.";	
 		}
 		
-	if (this.LinkExists(NodeID, rc))	{
+	if (this.LinkExists(arguments.NodeK.NodeID, rc))	{
 		this.stResults.result = false;
 		this.stResults.message = "Link was not added because it already exists.";
 		return this.stResults;
@@ -440,18 +440,18 @@
 	<cfquery>
 		UPDATE	dbo.Node
 		SET		xmlLink.modify('
-			insert <link 
-				category= "#xmlformat(rc.linkcategory)#" 
-				href	= "#xmlformat(trim(rc.href))#"
-				<cfif isDefined("rc.tooltip")>
-					tooltip	= "#xmlformat(trim(rc.tooltip))#"
+			insert <data 
+				type		= "#xmlformat(rc.type)#" 
+				href		= "#xmlformat(trim(rc.href))#"
+				<cfif isDefined("rc.title")>
+					title	= "#xmlformat(trim(rc.title))#"
 				</cfif> 
 				
-				<cfif isDefined("rc.sortorder")>
-					sortorder = "#xmlformat(trim(rc.sortorder))#"
+				<cfif isDefined("rc.position")>
+					position = "#xmlformat(trim(rc.position))#"
 				</cfif>
 				
-				>#xmlformat(trim(rc.value))#</link>
+				>#xmlformat(trim(rc.message))#</data>
 			as last into (/)
 			')
 		WHERE	Deleted = 0
@@ -459,7 +459,7 @@
 		AND		Kind = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.Kind#">
 	</cfquery>
 
-	<cfset this.stResults.message &= "Link to: #htmleditformat(trim(rc.value))# has been saved.">
+	<cfset this.stResults.message &= "Link to: #htmleditformat(trim(rc.message))# has been saved.">
 
 	
 	<cfreturn this.stResults>
@@ -472,42 +472,48 @@
 	<cfargument name="NodeK" required="true" type="struct">
 	<cfargument name="rc" required="true" type="struct">
 	<cfargument name="remote_addr" required="true" type="string">
-	<cfargument name="UserID" required="true" type="numeric">
+	<cfargument name="byUserID" required="true" type="string">
 	
 	
+	<cftry>
 	<cfquery>
 	UPDATE	dbo.Node
-	SET		xmlLink = ''
+	SET		xmlLink = '',
 		Modified = dbo.udf_4jInfo('Link has been updated',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">, 
-			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.rc.userID#">)
+			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byUserID#">)
 			
 	WHERE	Deleted = 0
-	AND		NodeID = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.nodeid#">
+	AND		NodeID = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.nodeid#">
 	</cfquery>
 	
 	
 	<cfscript>
-	this.touch = 0;
 	
-	for (var i = 1; isDefined("rc.linkcategory_#i#"); i++)	{
+	
+	for (var i = 1; isDefined("rc.type_#i#") and evaluate("rc.type_#i#") != ""; i++)	{
 		attr = {
-			linkcategory = evaluate("rc.linkcategory_#i#"), 
+			type 		= evaluate("rc.type_#i#"), 
 			href 		= evaluate("rc.href_#i#"), 
-			value 		= evaluate("rc.value_#i#"),
-			tooltip 	= isDefined("rc.tooltip_#i#") ? evaluate("rc.tooltip_#i#") : '',
-			sortorder 	= evaluate("rc.sortorder_#i#")
+			message 	= evaluate("rc.message_#i#"),
+			title 		= isDefined("rc.title_#i#") ? evaluate("rc.title_#i#") : '',
+			position	= isDefined("rc.position_#i#")? evaluate("rc.position_#i#") : ''
 			};
 
 		if (not isDefined("rc.delete_#i#"))	{
 		
-			stResults = this.LinkAdd(arguments.NodeID, attr, arguments.UserID);	
+			this.stResults = this.LinkAdd(arguments.NodeK, attr, arguments.remote_addr, arguments.byUserID);	
 		
-			this.stResults.message &= stResults.message & evaluate("rc.sortorder_#i#");
 			}
 	
 		}
 	</cfscript>
+	
+		<cfcatch>
+			<cfreturn this.stResults>
+		</cfcatch>
+	</cftry>
+	
 	
 	
 	

@@ -410,11 +410,10 @@ struct function set_link(required struct NodeK, required struct rc)  hint="Store
 
 
 
-struct function add_taxonomy(required struct NodeK, required struct rc) 	{
+struct function add_taxonomy(required string extra, required string title) 	{
 
-	param arguments.NodeK.Kind = "Page";
 
-	variables.stResult = this.wsNode.TaxonomyAdd(arguments.NodeK, rc, cgi.remote_addr, session.LOGINAPI.UserID);
+	variables.stResult = this.wsNode.TaxonomyAdd(arguments.extra, arguments.title, cgi.remote_addr, session.LOGINAPI.UserID);
 	
 	return variables.stResult;
 	}

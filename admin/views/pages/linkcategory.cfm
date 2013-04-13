@@ -20,15 +20,23 @@
 	<tr>
 		<td>#htmleditformat(Title)#</td>
 		
+		<td style="text-align : right;"><!--- #FacetCount# ---></td>	
 		
-		<td style="text-align : right;">#FacetCount#</td>	
 		<td style="text-align : right;">#application.GSAPI.stdDate(CreateDate)#</td>
+		
 		<td class="delete">
+		<!---
 			<cfif FacetCount EQ 0>
+		--->
+		
 				<a  class="delconfirm" href="#buildURL(action='.linkCategoryDelete', querystring ='NodeID=#NodeID#')#" onclick="return confirm('Are you sure?');">&times;</a>
+		
+		<!---
 			<cfelse>
 				&nbsp;
 			</cfif>
+			
+		--->	
 		</td>
 		
 	</tr>

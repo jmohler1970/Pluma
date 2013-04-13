@@ -1005,7 +1005,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 	<cfscript>
-	param rc.linkcategory = '';
+	param rc.type = '';
 	</cfscript>
 
 
@@ -1014,9 +1014,9 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		SELECT	NodeID
 		FROM	dbo.Node WITH (NOLOCK)
 		CROSS APPLY dbo.udf_xmlRead(xmlLink)
-		WHERE	NodeID = <cfqueryparam CFSQLType="CF_SQL_integer" value="#arguments.nodeid#">)
+		WHERE	NodeID = <cfqueryparam CFSQLType="CF_SQL_integer" value="#arguments.nodeid#">
 		AND		Deleted = 0
-		AND		type = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.linkcategory#">
+		AND		type = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.type#">
 		AND		href = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.href#">		
 	</cfquery>
 
