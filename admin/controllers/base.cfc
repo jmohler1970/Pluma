@@ -55,11 +55,12 @@ void function addMessage(required string message, string priority = "Info") outp
 
 void function settings(required struct rc) output="false" {
 	
-	param rc.Plugin = "";
-	param rc.Plx = "settings";
-	param rc.content = "This plugin did not load data";
-	param rc.NodeID = ""; //by default create a new item
-	param rc.UserID = session.LOGINAPI.UserID;
+	param rc.Plugin 	= "";
+	param rc.Plx 		= "settings";
+	param rc.content 	= "This plugin did not load data";
+	param rc.message 	= "";
+	param rc.NodeID 	= ""; //by default create a new item
+	param rc.UserID 	= session.LOGINAPI.UserID;
 	
 	if (rc.Plugin == "")	{
 		this.AddMessage("You must chose a plugin in order to update its settings.", "Error");
@@ -68,8 +69,9 @@ void function settings(required struct rc) output="false" {
 		return;	
 		}
 	
+	var stPlugin = application.GSAPI.run_plugin(rc.Plugin, "settings", rc);
 
-	StructAppend(rc, application.GSAPI.run_plugin(rc.Plugin, "settings", rc));
+	StructAppend(rc, stPlugin);
 	
 	if (rc.message != "")	{
 		this.AddMessage(rc.message, rc.priority);

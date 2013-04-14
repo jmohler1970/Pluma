@@ -135,7 +135,9 @@ this.register_plugin(thisFile,
 	<cfset rc.qryTrafficDetails =	application.IOAPI.get_traffic_details({startDate = rc.startDate, endDate = rc.endDate})>
 		
 	<cfsavecontent variable="variables.stResult.Content">
+		
 		<cfinclude template="traffic/home.cfm">
+	
 	</cfsavecontent>
 
 </cfdefaultcase> 

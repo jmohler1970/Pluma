@@ -1,5 +1,4 @@
 
-
 <h3 class="floated">Page Hits</h3>
 
 <cfinclude template="nav.cfi"> 
