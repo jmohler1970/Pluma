@@ -3,7 +3,6 @@
 
 
 <cfcomponent>
-
 <cfscript>
 
 
@@ -888,21 +887,22 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 	<cfquery name="local.qryTag">
 		DECLARE @MyTag varchar(30)
-		SET 	@MyTag =  LOWER(<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.tag#">)
-			
-		
-		SELECT 	ParentNodeID, NodeID, Kind, Title, ParentTitle, slug, tags, strData, CreateBy, CreateDate, src, NULL AS Rank
-		FROM 	dbo.vwNode WITH (NOLOCK)
-		WHERE	Deleted = 0
+		SET 	@MyTag =  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.tag#">
 	
-		AND		xmlTaxonomy.exist('/tags[. = sql:variable("@MyTag")]') = 1
-		
+		SELECT 	ParentNodeID, NodeID, Kind, Title, ParentTitle, slug, vwNode.tags, 
+			strData, CreateBy, CreateDate, src, NULL AS Rank
+		FROM   	dbo.vwNode WITH (NOLOCK)
+		CROSS 	APPLY xmlTaxonomy.nodes('/tags') as T2(Tags)
+		WHERE	Deleted = 0
+		AND 	dbo.udf_Slugify(T2.Tags.value('.', 'varchar(80)')) = @MyTag
+			
 		<cfif arguments.kind NEQ "all">
 			AND kind =  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.kind#">
 		</cfif>
-		
-		ORDER BY Kind, ModifyDate DESC
+			
+		ORDER BY Kind, ModifyDate DESC	
 	</cfquery>
+
 
 	<cfreturn local.qryTag>
 </cffunction>	
