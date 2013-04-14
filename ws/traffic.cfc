@@ -60,9 +60,12 @@
 	</cfif>
 	
 	
-	<cfoutput>#xmlFormat(xmlGeoLocation)#</cfoutput>
+	
 
 	<cfscript>
+	xmlGeoLocation = REreplace(xmlGeoLocation, '[^\x00-\x7F]', '?', 'all');
+	
+	
 	if (xmlGeoLocation == "")	{
 		xmlGeoLocation = '<Response><Ip>#arguments.remote_addr#</Ip></Response>';
 		}
