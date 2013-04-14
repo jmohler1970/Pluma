@@ -1181,26 +1181,6 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getPlugin" output="false" access="remote" returnType="boolean" hint="Is this plugin enabled">
-	<cfargument name="Name" required="true" type="string">
-	
-	
-	<cfquery name="local.qryPlugin">
-		SELECT 	Enabled
-		FROM 	dbo.Plugin WITH (NOLOCK) 
-		WHERE	Plugin = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.Name#">
-	</cfquery>
-
-	<cfif local.qryPlugin.Enabled EQ 0>
-		<cfreturn false>
-	</cfif>	
-	
-	<cfreturn true>
-</cffunction>
-
-
-
-
 <cffunction name="sluggify" output="false" returnType="string">
     <cfargument name="str">
  

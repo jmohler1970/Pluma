@@ -273,7 +273,7 @@ void function linkCategory(required struct rc) output="false"	{
 	if (cgi.request_method == "post")	{
 		application.IOAPI.add_taxonomy("Link_Category", rc.Title);
 		
-		var message = "Link Category item: #rc.Title# has been added.";
+		var message = "Link Category item: <tt>#rc.Title#</tt> has been added.";
 		
 		this.AddMessage(message);
 	
