@@ -34,32 +34,41 @@
 	
 
 		
-	
+
 	<cfset var xmlGeoLocation = cacheGet("ipcache#arguments.remote_addr#")>
 	
 	
-	<cfif isNull(xmlGeoLocation)>
-	
+	<cfif isNull(xmlGeoLocation) OR len(xmlGeoLocation) EQ 0 >
+		
 	
 		<cftry>
 			<cfhttp url="#variables.geo#/#arguments.remote_addr#">
 		
 			<cfset xmlGeoLocation = cfhttp.fileContent>
-						
-			<cfcatch><!---<cfdump var="#cfcatch#">---></cfcatch>
+			
+			<cfcatch><cfset cachestatus = cfcatch.message><!---<cfdump var="#cfcatch#">---></cfcatch>
 		</cftry>
 		
-		<cfif cfhttp.statusCode EQ 200>
+		
+		<cfif cfhttp.statusCode CONTAINS "200">
 			<cfset cachePut("ipcache#arguments.remote_addr#", xmlGeoLocation, CreateTimeSpan(1, 0, 0, 0))>	
 		<cfelse>	
 			<cfset cachePut("ipcache#arguments.remote_addr#", "", CreateTimeSpan(0, 1, 0, 0))>	
 			
 			<cfset xmlGeoLocation = "">
-		</cfif>		
+		</cfif>	
 	</cfif>
 	
+	
+	<cfoutput>#xmlFormat(xmlGeoLocation)#</cfoutput>
 
 	<cfscript>
+	if (xmlGeoLocation == "")	{
+		xmlGeoLocation = '<Response><Ip>#arguments.remote_addr#</Ip></Response>';
+		}
+
+
+
 	param arguments.action.subsystem = "";
 	param arguments.action.section = "";
 	param arguments.action.item = "";
@@ -73,7 +82,9 @@
 			strUrl_vars &= "<#keyName#>#arguments.url_vars[keyName]#</#keyName#>";
 		}
 	</cfscript>
-			
+	
+	
+	<cftry>		
 	<cfquery>
 		INSERT 
 		INTO Traffic(SubSystem, Section, Item, isPost, http_accept_language, agent, referer, xmlGeoLocation, url_vars)
@@ -90,7 +101,8 @@
 			)
 	</cfquery>		
 			
-			
+	<cfcatch />		
+	</cftry>		
 	
 	<cfreturn variables.stResults>
 </cffunction>		
