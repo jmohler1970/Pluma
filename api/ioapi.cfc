@@ -145,7 +145,7 @@ query function get_link(struct NodeK) output="false"	{
 	param arguments.NodeK.Kind = "Page";
 	param arguments.NodeK.NodeID = request.stIOR.qryNode.NodeID;
 
-	return this.wsComment.getLink(arguments.nodeK);
+	return this.wsNode.getLink(arguments.nodeK.NodeID);
 	}
 
 

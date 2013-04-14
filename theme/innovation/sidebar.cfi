@@ -47,18 +47,19 @@
 		<cfoutput>#application.GSAPI.get_component("About_Us")#</cfoutput>
 	</div>
 	
+	<cfset qryLink = application.IOAPI.get_link()>
+	
+	
+	<cfif qryLink.recordcount GT 0>
 	<div class="section">
 		<h2>Also See</h2>
-	
-		<cfset qryTag = application.IOAPI.get_link()>
-		
-		
-		<cfloop query="qryTag">
-			<a href="/index.cfm/tag/#tagslug#" style="white-space:nowrap;">#tags#</a> &nbsp; &nbsp;
-		</cfloop>
 				
+		<cfloop query="qryLink">
+			<a href="#href#" style="white-space:nowrap;">#message#</a><br />
+		</cfloop>
 	
 	</div>
+	</cfif>
 	
 	
 	

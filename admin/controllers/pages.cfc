@@ -295,7 +295,7 @@ void function linkCategoryDelete(required struct rc) output="false"	{
 		return;
 		}
 	
-	application.IOAPI.delete({NodeID = rc.NodeID, Kind = "Link_Category"}); 
+	application.IOAPI.delete({NodeID = rc.NodeID, Kind = "Facet"}); 
 		
 	
 	var message = "#ListLen(rc.NodeID)# link categories were deleted.";

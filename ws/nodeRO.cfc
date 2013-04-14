@@ -1108,7 +1108,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		FROM   	dbo.Node WITH (NOLOCK)
 		CROSS 	APPLY dbo.udf_xmlRead(xmlData)
 		WHERE	Deleted = 0
-		AND		NodeID = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">
+		AND		NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">)
 		ORDER BY type, Position, title
 	</cfquery>
 
@@ -1126,7 +1126,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		FROM   	dbo.Node WITH (NOLOCK)
 		CROSS 	APPLY dbo.udf_xmlRead(xmlConf)
 		WHERE	Deleted = 0
-		AND		NodeID = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">
+		AND		NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">)
 		ORDER BY type, Position, title	</cfquery>
 
 	<cfreturn local.qryLink>
@@ -1142,7 +1142,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		FROM   	dbo.Node WITH (NOLOCK)
 		CROSS 	APPLY dbo.udf_xmlRead(xmlLink)
 		WHERE	Deleted = 0
-		AND		NodeID = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">
+		AND		NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">)
 		ORDER BY type, Position, title
 	</cfquery>
 
