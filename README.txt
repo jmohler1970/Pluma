@@ -19,7 +19,6 @@ yourhost.cfm/yourhost/index.cfm/install
 The install directories are:
 
 
-admin/controllers/install.cfc
-admin/views/install/*
+/_install
 
 
