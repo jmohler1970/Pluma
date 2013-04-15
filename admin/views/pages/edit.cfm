@@ -285,9 +285,9 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 			<button type="submit" name="submit" value="save updates">#application.GSAPI.get_string("BTN_SAVECHANGES")#</button>
 			
 
-		
-			<button type="submit" name="submit" value="clone">#application.GSAPI.get_string("clone")#</button>
-				
+			<cfif isnumeric(rc.NodeID)>	
+				<button type="submit" name="submit" value="clone">#application.GSAPI.get_string("clone")#</button>
+			</cfif>	
 		</cfif>
 		
 </h3>		
