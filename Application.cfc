@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "Pluma_CMS0221";
+	this.name 			= "Pluma_CMS0231";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
 	this.sessionManagement = true;
@@ -28,6 +28,7 @@
 		// content
 		{ "/id/:id" 		= "/main/home/id/:id"},
 		{ "/id" 			= "/main/home/slug/404"},
+		
 		
 		{ "/main/tag" 		= "/main/home/slug/tag"},
 		{ "/main/archive" 	= "/main/home/slug/archive"},
@@ -86,7 +87,9 @@ fileclose(objAppFile);
  	application.GSTHUMBNAILPATH		= application.GSROOTPATH & "data/thumbs/";
  	application.GSTHEMESPATH		= application.GSROOTPATH & "theme/";
  	
- 	// API	
+ 	// API
+ 	
+ 	var wsArg = {username = "plumacms", password="plumacms"};	
 	
 	
 	application.IOAPI 	= createobject("component", "api.ioapi");
@@ -123,7 +126,7 @@ void function setupSession()	{
 <cfscript>
 	param rc.id 	= "";
 	param rc.nodeid = "" ; // Admin use only, use id for normal requests --->
-	param rc.slug	= "home"; // There are slugs with blank no many objects that are not pages --->
+	param rc.slug	= "index"; // There are slugs with blank no many objects that are not pages --->
 
 
 
@@ -160,6 +163,7 @@ void function setupSession()	{
 		return;
 		}
 
+	
 		
 	StructAppend(request.stIOR, application.IOAPI.get_bundle({Slug = rc.slug}));
 

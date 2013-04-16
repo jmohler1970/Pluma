@@ -136,7 +136,7 @@
 			WHERE	Deleted = 0
 			AND		(
 					(Slug = @Slug AND Root <> 1)
-				OR 	(@Slug = 'home' AND Root = 1)
+				OR 	(@Slug = 'index' AND Root = 1)
 				)
 			ORDER BY CreateDate DESC
 		</cfquery>

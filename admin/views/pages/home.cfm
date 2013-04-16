@@ -70,7 +70,7 @@
 	</td>	
 	<td class="delete">
 		<cfif NoDelete EQ 0>	
-			<a href="#buildURL(action = 'pages.delete', querystring = 'NodeID=#NodeID#')#" rel="tooltip" title="Delete Page">&times;</a>
+			<a href="#buildURL(action = 'pages.delete', querystring = 'NodeID=#NodeID#')#" rel="tooltip" title="Delete Page" id="delete-#slug#">&times;</a>
 		</cfif>
 	</td>
 </tr>

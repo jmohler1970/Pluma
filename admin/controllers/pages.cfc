@@ -365,21 +365,9 @@ void function find(required struct rc) output="false"	{
 void function after(required struct rc) output="false" {	
 	
 	
+	rc.qryLinkCategory = application.IOAPI.get_All_By_Extra("Facet", "Link_Category", "title");
 	
-	rc.qryLinkCategory = cacheGet("Link_Category");
-	if (isNull (rc.qryLinkCategory))	{
-		cachePut("Link_Category", application.IOAPI.get_All_By_Extra("Facet", "Link_Category", "title"), 
-			CreateTimeSpan(0, 1, 0, 0));
-		rc.qryLinkCategory = cacheGet("Link_Category");
-		}
-	
-	
-	request.qryPageParent = cacheGet("PageParent");
-	if (isNull (request.qryPageParent))	{
-		cachePut("PageParent", application.IOAPI.get_page_parent(), 
-			CreateTimeSpan(0, 1, 0, 0));
-		request.qryPageParent = cacheGet("PageParent");
-		}
+	request.qryPageParent = application.IOAPI.get_page_parent();
 	
 	}
 	

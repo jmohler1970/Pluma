@@ -19,7 +19,7 @@ void function Init() output="false" {
 	//this.LoginTarget = 'login.suspend';
 	
 	// settings
-	this.stSettings 		= this.loadini("api/login.ini");
+	this.stSettings 		= this.loadini("api/config.ini");
 	
 	
 	this.wsUser = CreateObject("webservice", replacelist(this.stSettings.ws.users, "~", "http://" & cgi.server_name));

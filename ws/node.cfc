@@ -33,18 +33,32 @@
 	<cfargument name="remote_addr" 	required="true" type="string">
 	<cfargument name="byuserid" type="string" required="true">
 	
-	
-	
-	<cfquery>
+		
+	<cfquery name="qryUpdate" >
+		DECLARE @T TABLE (NodeID int)
+		
 		UPDATE	dbo.Node
 		SET	DeleteDate = getDate(),
 			Modified = dbo.udf_4jSuccess('Node was deleted',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byUserID#">) 
+		OUTPUT 	deleted.NodeID 
+		INTO 	@T	
 		WHERE	NodeID 	IN (<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.NodeID#" list="Yes">)
 		AND		Kind 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.Kind#">
 		AND		Deleted = 0
+		
+		SELECT 	NodeID
+		FROM	@T
 	</cfquery>
+	
+	<cfif qryUpdate.NodeID EQ "">
+		<cfset this.stResults.result = false>
+		<cfset this.stResults.message = "Node could not be found.">
+	<cfelse>
+		<cfset this.stResults.message = "Node was deleted.">
+	</cfif>
+	
 
 	<cfreturn this.stResults>
 </cffunction>  
@@ -292,12 +306,15 @@
 	var xmlTitle = "";
 	if (arguments.Title != "")		{ xmlTitle &= "<title>#xmlFormat(arguments.Title)#</title>"; 	}
 	if (arguments.Extra != "")		{ xmlTitle &= "<extra>#xmlFormat(arguments.Extra)#</extra>"; 	}
+	
+	slug = this.doSlug(arguments.extra & '-' & arguments.Title); // this is to create unique ids for deleting
 	</cfscript>
 	
 	<cfquery>
 	INSERT
-	INTO dbo.Node (Kind, xmlTitle, Modified,Created)
+	INTO dbo.Node (Kind, xmlTitle, slug, Modified,Created)
 	VALUES ('Facet', <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#xmlTitle#">,
+		<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#slug#">,
 		dbo.udf_4jInfo('Created',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byUserID#">),

@@ -16,6 +16,9 @@
 		</div>
 	</footer>
 	 
+	 
+	 <cfdump var="#request#">
+	 
 </body>
 </html>
 

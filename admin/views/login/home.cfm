@@ -45,7 +45,7 @@ function formCheck()
    
           
    <p>       
-          <button type="submit">#application.GSAPI.get_string("Login")#</button>
+          <button type="submit" id="login">#application.GSAPI.get_string("Login")#</button>
    </p>       
           
 <p class="cta" >

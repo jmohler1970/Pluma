@@ -29,7 +29,7 @@
 			<cfif FacetCount EQ 0>
 		--->
 		
-				<a  class="delconfirm" href="#buildURL(action='.linkCategoryDelete', querystring ='NodeID=#NodeID#')#" onclick="return confirm('Are you sure?');">&times;</a>
+				<a class="delconfirm" href="#buildURL(action='.linkCategoryDelete', querystring ='NodeID=#NodeID#')#" onclick="return confirm('Are you sure?');" id="delete-#slug#">&times;</a>
 		
 		<!---
 			<cfelse>
@@ -66,7 +66,7 @@
 </p>
 
 		
-	<input type="submit" class="submit" value="Add" />
+	<button type="submit" class="submit" id="add">Add</button>
 </cfform>
 </cfoutput>
 

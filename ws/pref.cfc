@@ -44,7 +44,13 @@
 		mytype = type == "" ? "default" : type;
 		
 		
-		setVariable("stResult.st#Pref#.#myType#", message);
+		try	{
+			
+		setVariable("stResult.st#Pref#['#myType#']", message);
+		}
+		catch(any e) {}		
+				
+		
 		</cfscript>
 
 	</cfloop>

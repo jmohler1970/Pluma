@@ -9,7 +9,7 @@
 void function init() output="false" {
 	
 	// settings
-	this.stSettings 		= this.loadini("api/io.ini");
+	this.stSettings 		= this.loadini("api/config.ini");
 	
 	// web services
 	for (var key in this.stSettings.ws)	{
@@ -20,7 +20,8 @@ void function init() output="false" {
 		
 		
 		try	{
-			var tmpWS = CreateObject("webservice", replacelist(i, "~", "http://" & cgi.server_name));
+			var tmpWS = CreateObject("webservice", replacelist(i, "~", "http://" & cgi.server_name), 
+				{username=this.stSettings.security.username, password=this.stSettings.security.password});
 		
 			
 			if (tmpWS.getStatus() == "")	{
@@ -28,7 +29,7 @@ void function init() output="false" {
 				}
 			else if (key != "Setup")
 				{
-				this.InitStatus &= "Web Service #key# is not ready.";
+				this.InitStatus &= "Web Service <tt>#key#</tt> is not ready.";
 				}
 					
 			}
@@ -447,7 +448,7 @@ struct function delete(required struct NodeK) output="false"	{
 
 	param arguments.NodeK.Kind = "Page";
 
-	return this.wsNode.delete(arguments.nodeK, cgi.remote_addr,  session.LOGINAPI.UserID);
+	return this.wsNode.delete(arguments.nodeK, cgi.remote_addr, session.LOGINAPI.UserID);
 	}	
 		
 
