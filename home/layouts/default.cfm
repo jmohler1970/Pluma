@@ -72,13 +72,12 @@ if (getItem() EQ "404" AND
 
 
 
-<cfif fileExists(expandpath("theme/#theme#/#theme_template#")) >
+<cfif not fileExists(expandpath("theme/#theme#/#theme_template#"))>
+	<cfset theme_template = "template.cfm">
+</cfif>	
 
-	<cfinclude template="../../theme/#theme#/#theme_template#">
 
-	<cfexit>
-</cfif>
-
+<cfinclude template="../../theme/#theme#/#theme_template#">
 
 
 <!--- Normal output begins --->

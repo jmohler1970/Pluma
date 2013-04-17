@@ -280,7 +280,7 @@ string function get_component(required string id) {
 	if (isDefined("request.stComponents.#arguments.id#"))
 		return replace(evaluate("request.stComponents.#arguments.id#"), "~/" , this.get_site_root() , "all");
 	
-	return "<b>Error:</b> Component #arguments.id# could not be found.";
+	return "<b>Error:</b> Component <tt>#arguments.id#</tt> could not be found. You can add this component in themes -> edit components.";
 	} 
 
 

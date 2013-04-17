@@ -35,7 +35,7 @@ param prebody = "";
     <link href="#application.GSAPI.get_site_root()#theme/bootswatch/css/bootstrap-responsive.css" rel="stylesheet" />
     <link href="#application.GSAPI.get_site_root()#theme/bootswatch/css/docs.css" 		rel="stylesheet" />
     <link href="#application.GSAPI.get_site_root()#theme/bootswatch/css/prettify.css" 	rel="stylesheet" />
-    <cfif request.stBootswatch.css NEQ "">
+    <cfif not isnull(request.stBootswatch.css) and request.stBootswatch.css NEQ "">
     	<link href="#application.GSAPI.get_site_root()#theme/bootswatch/css/#request.stBootswatch.css#" 	rel="stylesheet" />
    	</cfif>
     <link href="#application.GSAPI.get_site_root()#theme/bootswatch/css/calendar.css" 	rel="stylesheet" />
@@ -45,16 +45,16 @@ param prebody = "";
 	
 		<style type="text/css">
 		body	{
-			<cfif structkeyexists(request.stBootswatch, "Backgroundcolor")>
+			<cfif not isnull(request.stBootswatch.Backgroundcolor)>
 				<cfif request.stBootswatch.backgroundcolor NEQ "">background-color : #request.stBootswatch.backgroundcolor#;</cfif>
 			</cfif>
-			<cfif structkeyexists(request.stBootswatch, "Backgroundimage")>
+			<cfif not isnull(request.stBootswatch.Backgroundimage)>
 				<cfset background = "#application.GSAPI.get_site_root()#theme/bootswatch/assets/background/#request.stBootswatch.backgroundimage#">
 			
 				<cfif request.stBootswatch.backgroundimage NEQ "">background-image : url('#background#');</cfif>
 			</cfif>
-			<cfif structkeyexists(request.stBootswatch, "Backgroundrepeat")>background-repeat : #request.stBootswatch.backgroundrepeat#;</cfif>
-			<cfif structkeyexists(request.stBootswatch, "Backgroundattachment")>
+			<cfif not isnull(request.stBootswatch.Backgroundrepeat)>background-repeat : #request.stBootswatch.backgroundrepeat#;</cfif>
+			<cfif not isnull(request.stBootswatch.Backgroundattachment)>
 				<cfif request.stBootswatch.backgroundattachment EQ 1>background-attachment : fixed;</cfif>
 			</cfif>
 			} 
@@ -173,8 +173,6 @@ param prebody = "";
 		<div class="span3">
 			<div style="padding-left : 20px;">
 			
-			<h2>About Us</h2>
-				
 			<cfoutput>#application.GSAPI.get_component("About_Us")#</cfoutput>
 
 			</div>
@@ -182,16 +180,12 @@ param prebody = "";
 		
 		<div class="span3">
 						
-			<h2>Showcase</h2>
-				
 			<cfoutput>#application.GSAPI.get_component("Featured")#</cfoutput>
 		
 		</div>
 		
 		<div class="span3">
 			
-			<h2>Sitemap</h2>
-				
 			<cfoutput>#application.GSAPI.get_component("Site_Links")#</cfoutput>
 		</div>
 		
@@ -199,8 +193,6 @@ param prebody = "";
 	
 		<div class="span3">
 	
-			<h2>Contact Us</h2>
-				
 			<cfoutput>#application.GSAPI.get_component("Contact_Us")#</cfoutput>
 
 	  	</div>
