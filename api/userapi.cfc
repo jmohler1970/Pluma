@@ -22,7 +22,7 @@ void function Init() output="false" {
 	this.stSettings 		= this.loadini("api/config.ini");
 	
 	
-	this.wsUser = CreateObject("webservice", replacelist(this.stSettings.ws.users, "~", "http://" & cgi.server_name));
+	this.wsUser = CreateObject(this.stSettings.storage.users);
 	}
 
 

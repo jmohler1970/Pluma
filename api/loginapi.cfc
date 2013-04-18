@@ -23,8 +23,7 @@ void function Init() output="false" {
 	this.stSettings 		= this.loadini("api/config.ini");
 	
 	
-	this.wsUser = CreateObject("webservice", replacelist(this.stSettings.ws.users, "~", "http://" & cgi.server_name), 
-				{username=this.stSettings.security.username, password=this.stSettings.security.password});
+	this.wsUser = CreateObject(this.stSettings.storage.users);
 	}
 
 

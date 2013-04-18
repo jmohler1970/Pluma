@@ -80,41 +80,6 @@ if (getItem() EQ "404" AND
 <cfinclude template="../../theme/#theme#/#theme_template#">
 
 
-<!--- Normal output begins --->
-<!DOCTYPE html SYSTEM "about:legacy-compat">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 
-<head>
-	<meta charset="UTF-8" />
-
-
-	<title>PlumaCMS - Welcome</title>
-</head>	
-
-
-<body>
-
-
-<header>
-  	<h1>Welcome To PlumaCMS</h1>
-</header>
-
-	
-<article>		
-	<cfoutput>#application.GSAPI.get_page_content()#</cfoutput>
-</article>		
-
-		
-
-<footer>	
-	<p>&copy; <cfoutput>#Year(Now())#</cfoutput> Developed by James Mohler and Web World Inc.</p>	
-</footer>
-
-
-
-
-
-</body>
-</html>
 <cfset request.layout = false><!--- Do not cascade --->
 

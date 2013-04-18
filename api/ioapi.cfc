@@ -12,16 +12,17 @@ void function init() output="false" {
 	this.stSettings 		= this.loadini("api/config.ini");
 	
 	// web services
-	for (var key in this.stSettings.ws)	{
+	for (var key in this.stSettings.storage)	{
 		
 		setVariable("this.ws#key#", ""); // at least the variable exists	
 		
-		var i = evaluate("this.stSettings.ws.#key#");
+		var i = evaluate("this.stSettings.storage.#key#");
 		
 		
 		try	{
-			var tmpWS = CreateObject("webservice", replacelist(i, "~", "http://" & cgi.server_name), 
-				{username=this.stSettings.security.username, password=this.stSettings.security.password});
+			var tmpWS = CreateObject(this.stSettings.storage.users);
+			
+			var tmpWS = CreateObject(i);
 		
 			
 			if (tmpWS.getStatus() == "")	{
@@ -29,12 +30,12 @@ void function init() output="false" {
 				}
 			else if (key != "Setup")
 				{
-				this.InitStatus &= "Web Service <tt>#key#</tt> is not ready.";
+				this.InitStatus &= "Storage Service <tt>#key#</tt> is not ready.";
 				}
 					
 			}
 		catch (any e)	{
-			this.InitStatus &= "Unable to create webservice #i#. #e.detail#<br /><br />";
+			this.InitStatus &= "Unable to create Storage Service #i#. #e.detail#<br /><br />";
 			}
 		
 		}	
@@ -344,7 +345,7 @@ boolean function delete_pref(required string Pref, required string type) output=
 // Traffic
 //thread name="thTraffic"	{
 	
-	if (this.wsTraffic != "")	{
+	if (not isnull(this.wsTraffic))	{
 	
 		this.wsTraffic.add(action =
 			{
