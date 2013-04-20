@@ -16,6 +16,15 @@ void function after(required struct rc) output="false" {
 		
 		this.AddMessage(strMessage, "Error");
 		}
+		
+	var qryRootDir = DirectoryList(application.GSROOTPATH, false, "query", '_*');
+	
+	for (var i = 1; i <= qryRootDir.recordcount; i++)	{
+		
+		this.AddMessage("Installation directory <tt>#qryRootDir.name[i]#</tt> was found. This directory should be removed after the system has been successfully installed.", "Error");
+				
+		}		
+		
 
 	}
 
