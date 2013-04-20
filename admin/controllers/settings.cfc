@@ -284,17 +284,6 @@ void function clearAll(required struct rc) output="false"	{
 	}
 
 
-	
-/* Sitemap end */
-
-	
-void function after(required struct rc) output="false"	{
-	
-	
-
-		
-		
-	}	
 
 </cfscript>
 

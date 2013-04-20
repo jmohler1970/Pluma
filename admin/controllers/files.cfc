@@ -60,14 +60,20 @@ void function createfolder(required struct rc)	{
 	if (not DirectoryExists(target))	{
 	
 		directoryCreate(target);
+		
+		this.addMessage("Folder #rc.foldername# was created.");
 		}
+	else	{
+		this.addMessage("Folder #rc.foldername# already exists.");
+		}	
+		
 	
 	if (not DirectoryExists(targetThumb))	{
 	
 		directoryCreate(targetThumb);
 		}
 
-	this.addMessage("Folder #rc.foldername# was created");
+	
 	
 	variables.fw.redirect("files.home", "all");
 	}

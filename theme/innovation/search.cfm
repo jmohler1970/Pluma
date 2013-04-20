@@ -57,6 +57,22 @@ qrySearch = application.IOAPI.get_by_search(rc.search, "Page");
 </cfloop>
 </table>
 
+<cfif qrySearch.recordcount EQ 0>
+	<cfoutput>
+	<p>Sorry, not matches for <b>#xmlformat(rc.search)#</b></p>
+	
+
+	<p>Suggestions:</p>
+
+<ul>
+	<li>Make sure all words are spelled correctly.</li>
+	<li>Try different keywords.</li>
+	<li>Try more general keywords.</li>
+</ul>	
+	</cfoutput>
+</cfif>
+
+
 				
 				
 				<!-- page footer -->

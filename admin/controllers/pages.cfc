@@ -364,6 +364,7 @@ void function find(required struct rc) output="false"	{
 	
 void function after(required struct rc) output="false" {	
 	
+	super.after(rc);
 	
 	rc.qryLinkCategory = application.IOAPI.get_All_By_Extra("Facet", "Link_Category", "title");
 	

@@ -245,7 +245,7 @@
 	SET		ParentNodeID = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.parentnodeid#">,
 						
 			xmlTitle 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#xmlTitle#">,
-			strData 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#rc.strData#"  null="#yesnoformat(rc.strData EQ "")#">,
+			strData 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#trim(rc.strData)#"  null="#yesnoformat(rc.strData EQ "")#">,
 			xmlData		= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#rc.xmlData#" null="#yesnoformat(rc.xmlData EQ "")#">,
 			
 			CommentMode = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#rc.commentMode#">,
