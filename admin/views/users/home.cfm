@@ -93,7 +93,7 @@
 	</td>
 	
 
-	<td><a href="mail:#email#">#Email#</a></td>
+	<td><a href="mailto:#email#">#Email#</a></td>
 
 	<td><cfif isDate(lastLogin)>#application.GSAPI.stdDate(lastLogin)#</cfif></td>
 	<td><cfif isDate(ExpirationDate)>#application.GSAPI.stdDate(ExpirationDate)#<cfelse><i>Never</i></cfif></td>
