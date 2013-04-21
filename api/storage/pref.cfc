@@ -24,16 +24,19 @@
 
 <cffunction name="get" output="false" access="remote" returnType="struct" hint="loads all preferences into a single structure">
 	
+	<cfset var stResult = {}>
+
+		
 	<cfquery name="local.qryPref">
 		SELECT 	Pref, type, message
 		FROM	dbo.Pref
 		CROSS APPLY dbo.udf_xmlRead(xmlPref)
 		WHERE	Deleted = 0
 		AND		type IS NOT NULL
+		ORDER BY Pref
 	</cfquery>
 
-	<cfset var stResult = {}>
-
+	
 	<cfloop query="local.qryPref">
 		
 		<cfscript>
@@ -54,6 +57,8 @@
 		</cfscript>
 
 	</cfloop>
+	
+
 	
 	<cfreturn stResult>
 </cffunction>	

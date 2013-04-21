@@ -105,6 +105,7 @@ void function endcomponents(required struct rc) output="false"	{
 	application.IOAPI.load_pref(1); //resets all preferences
 	
 	rc.stComponents = application.IOAPI.get_pref("Components");
+	rc.arComponents = StructSort(application.IOAPI.get_pref("Components"),"textnocase");
 	}
 
 

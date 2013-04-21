@@ -41,11 +41,7 @@
 
 
 
-
-
-
-
-<cfloop index="i" list="#StructKeyList(rc.stComponents)#">
+<cfloop index="i" list="#ArrayToList(rc.arComponents)#">
 
 <cfset ii = listrest(i, "_")>
 
@@ -58,7 +54,7 @@
 	<td><b>#lcase(ii)#</b></td>
 	<td style="text-align:right;"><code>##application.GSAPI.get_component(<span class="compslugcode">'#lcase(ii)#'</span>)##</code></td>
 	<td class="delete">
-		<a href="#buildURL(action = '.delcomponents', querystring = 'pref=#lcase(ii)#')#" title="Delete Component: #lcase(ii)#?" class="delcomponent" rel="1">&times;</a>
+		<a href="#buildURL(action = '.delcomponents', querystring = 'pref=#lcase(ii)#')#" title="Delete Component: #lcase(ii)#?" class="delcomponent" rel="1" id="del_#ii#">&times;</a>
 	</td>
 </tr>
 </tbody>

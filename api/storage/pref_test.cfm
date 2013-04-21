@@ -1,3 +1,17 @@
+<cfset wsPref 	= createobject("component", "Pref")>
+
+<cfset writedump(wsPref.get())>
+<cfexit>
+
+
+<cfset writedump(wsPref.commit("Components",{title_new = '----', components_new = "himom"}, cgi.remote_addr,  -1))>
+
+
+<cfset writedump(wsPref.get("Components"))>
+
+
+
+
 <!--- this test is destructive --->
 
 
@@ -14,14 +28,6 @@
 
 
 
-
-<cfset writedump(wsPref.get())>
-
-
-<cfset writedump(wsPref.commit("Components",{title_new = '----', components_new = "himom"}, cgi.remote_addr,  -1))>
-
-
-<cfset writedump(wsPref.get("Components"))>
 
 
 
