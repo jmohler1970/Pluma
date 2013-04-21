@@ -47,6 +47,7 @@
 <tr>
 	<th>#application.GSAPI.get_string("user_name")#</th>
 	<th>#application.GSAPI.get_string("label_email")#</th>
+	<th>Permission</th>
 	<th>#application.GSAPI.get_string("USER_LAST_LOGIN")#</th>
 	<th>#application.GSAPI.get_string("expiration")#</th>
 	<th>&nbsp;</th>
@@ -94,7 +95,7 @@
 	
 
 	<td><a href="mailto:#email#">#Email#</a></td>
-
+	<td>#groups#</td>
 	<td><cfif isDate(lastLogin)>#application.GSAPI.stdDate(lastLogin)#</cfif></td>
 	<td><cfif isDate(ExpirationDate)>#application.GSAPI.stdDate(ExpirationDate)#<cfelse><i>Never</i></cfif></td>
 	

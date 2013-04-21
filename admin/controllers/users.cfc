@@ -101,7 +101,7 @@ void function jour(required struct rc) output="false"	{
 
 void function renew(required struct rc) output="false"	{
 	
-	var stResult = application.USERAPI.set_bulk({bulkuserid = rc.userid, subaction = 'renew:12'});
+	var stResult = application.USERAPI.renew(rc.userid);
 
 	this.AddMessage(stResult.message);
 

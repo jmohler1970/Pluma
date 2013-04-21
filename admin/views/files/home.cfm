@@ -37,8 +37,18 @@
 	<div class="crumbs">	
 	/ <a href="#buildURL(action='.home')#">uploads</a> / 
 	
-	<cfloop index="i" list="#rc.path#" delimiters="/">
-		#i# /
+	<cfset partialPath = "">
+	
+	<cfloop index="i" list="#rc.path#" delimiters="|">
+		<cfset partialPath = ListAppend(PartialPath, i, '|')>
+		
+		<cfif i NEQ listlast(rc.path, "|")>
+			<a href="#buildURL(action='.home', querystring='path=#partialpath#')#">#htmleditformat(i)#</a>	
+		<cfelse>
+			#htmleditformat(i)#
+		</cfif>
+		
+		/
 	</cfloop>
 	</div>
 	
@@ -87,7 +97,8 @@
 		<td>&nbsp;</td>
 	
 		<td>
-			<a href="#buildURL(action='.', querystring='path=#name#')#"><b>#name#</b></a>
+			<cfset mypath = rc.path EQ "" ? urlencodedformat(name) : urlencodedformat("#rc.path#|#name#")>
+			<a href="#buildURL(action='.', querystring='path=#mypath#')#"><b>#name#</b></a>
 		</td>
 	
 		
@@ -175,5 +186,7 @@
 
 <p><small>#application.GSAPI.get_string("max_file_size")# <b>2MB</b></small></p>
 </cfoutput>
+
+
 
 </div>

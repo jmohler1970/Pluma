@@ -156,24 +156,32 @@ query function getByGroup(required string group) output="no" access="remote"	{
 
 
 
-<cfscript>
-
-/*** Individual functions ***/
-query function getOne(required string userid) output="no" access="remote"	{
-
-	variables.QueryService.addParam(value = arguments.userID, cfsqltype="cf_sql_varchar");
-		
-	var result = variables.QueryService.execute(sql="SELECT #variables.lstCol# FROM dbo.vwUser WHERE Deleted = 0 AND userid = ?");
+<cffunction name="getOne" output="no" access="remote" returnType="query">
+	<cfargument name="userid" required="true" type="string">		
 	
-	if (result.getResult().recordcount == 1)
-		return result.getResult();
+	
+
+	<cfquery name="qryUser">
+		SELECT  #variables.lstCol# 
+		FROM 	dbo.vwUser 
+		WHERE 	Deleted 	= 0 
+		AND 	UserID		= <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
+	</cfquery>
+	
+	<cfscript>
+	if (qryUser.recordcount == 1)
+		return qryUser;
 	
 	// Create blank row
 	var qryBlank = QueryNew(variables.lstCol);
 	QueryAddRow(qryBlank);
 	
 	return qryBlank;
-	}
+	</cfscript>
+</cffunction>	
+
+
+<cfscript>
 
 
 query function getUserByUserHomeAsQuery(required string userhome) output="no" access="remote"	{
@@ -450,7 +458,9 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 
 	
 	<cfreturn true>	
-</cffunction>	
+</cffunction>
+
+
 	
 
 
@@ -480,9 +490,9 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 
 
 
-<cffunction name="encodeXMLPref" output="no" access="remote" returnType="boolean">
+<cffunction name="renew" output="no" access="remote" returnType="boolean">
 	<cfargument name="UserID" required="true" type="string">
-	<cfargument name="rc" required="true" type="struct">
+	<cfargument name="expiration" required="true" type="string">
 	<cfargument name="remote_addr" required="true" type="string">
 	<cfargument name="ByUserID" required="true" type="string">		
 	
@@ -490,7 +500,12 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 
 	<cfquery>
 	UPDATE	dbo.Users
-	SET	xmlPref	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc)#">,
+	SET		expirationDate	= 
+		<cfif arguments.expiration EQ "renew">
+			expirationDate = DateAdd(yy, 1, expirationDate)
+		<cfelse>
+			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.expiration#" null="#IIF(expiration EQ "", 1, 0)#">,
+		</cfif>
 		Modified 	= dbo.udf_4jInfo('User logged in',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.userID#">)

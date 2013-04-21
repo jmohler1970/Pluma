@@ -97,6 +97,12 @@ boolean function at_least_one_user() output="false"	{
 
 	return this.wsUser.atLeastOneUser();
 	}			
+
+
+boolean function renew(required string userid, string expirationDate) output="false"	{
+
+	return this.wsUser.renew(arguments.userID, argumetns.expirationDate, cgi.remote_addr, session.LOGINAPI.userID);
+	}
 	
 </cfscript>
 	

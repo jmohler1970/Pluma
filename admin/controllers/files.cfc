@@ -34,7 +34,8 @@ void function home(required struct rc)	{
 		return;
 		}	
 	
-	rc.qryDirectory = DirectoryList(application.GSDATAUPLOADPATH & rc.path, false, "query", "", "type,name");
+	rc.qryDirectory = DirectoryList(application.GSDATAUPLOADPATH & replace(rc.path, '|', '/', 'all'), 
+		false, "query", "", "type,name");
 	
 	
 	
