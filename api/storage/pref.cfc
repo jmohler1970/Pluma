@@ -94,6 +94,30 @@
 </cffunction>
 
 
+<cffunction name="typeexists" returnType="boolean" output="false">
+	<cfargument name="Pref" 	required="true" type="string">
+	<cfargument name="type" 	required="true" type="string">
+
+	<cfquery name="qryType">
+		DECLARE @myType varchar(40) =  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.type#">
+	
+		SELECT	Pref
+		FROM	dbo.Pref
+		WHERE	pref 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.pref#">
+		AND		Deleted = 0
+		AND		xmlPref.exists('/data[@type=sql:variable("@myType")]')
+	</cfquery> 
+
+	<cfif qryType.Pref EQ "">
+		<cfreturn false>
+	</cfif>
+	<cfreturn true>	
+	
+</cffunction>
+
+
+
+
 <cffunction name="commit" output="false" access="remote" returnType="string" hint="">
 	<cfargument name="Pref" 		required="true" type="string">
 	<cfargument name="rc" 			required="true" type="struct">
@@ -127,6 +151,13 @@
 				if (shortField == "" AND arguments.rc.new_title != "")	{
 					return "A valid key could not be created from &quot;#htmlEditFormat(arguments.rc.new_title)#&quot;";
 					}
+					
+					
+				if (this.typeExists(Pref, shortfield))	{
+					return "A key could not be added because it already exists";
+					return;
+					}
+					
 				}
 	
 			if (shortField != "")	{
@@ -135,8 +166,6 @@
 		
 			} // end if
 		} // end for
-	
-	
 	</cfscript>
 
 
