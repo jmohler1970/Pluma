@@ -297,16 +297,17 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getPageParent" output="false" returntype="query" access="remote">
+<cffunction name="getPageParent" output="false" returntype="query" hint="Only pages can contain things">
 	
 	
 	<cfquery name="local.qryPageParent">
 		SELECT	#variables.lstNode#, dbo.vwNodeSort.[Level] 
-		FROM	dbo.vwNode INNER JOIN 
-				dbo.vwNodeSort
+		FROM	dbo.vwNode WITH (NOLOCK) INNER JOIN 
+				dbo.vwNodeSort WITH (NOLOCK)
 		ON dbo.vwNode.NodeID = dbo.vwNodeSort.SortNodeID
 				
 		WHERE	deleted = 0
+		AND		Kind = 'Page' 
 		
 		ORDER BY SortCol	
 	</cfquery>
@@ -326,7 +327,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 			
 			
-	<cfquery name="local.qryCategory">
+	<cfquery name="local.qryAll">
 		SELECT TOP 	<cfif isnumeric(arguments.maxrows)>#arguments.maxrows#</cfif> 	
 			#variables.lstNode#, 0 AS Level
 		FROM 	dbo.vwNode WITH (NOLOCK)
@@ -391,7 +392,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	</cfquery>
 
 			
-	<cfreturn local.qryCategory>
+	<cfreturn local.qryAll>
 </cffunction>
 
 
