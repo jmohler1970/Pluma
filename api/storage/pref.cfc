@@ -105,7 +105,7 @@
 		FROM	dbo.Pref
 		WHERE	pref 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.pref#">
 		AND		Deleted = 0
-		AND		xmlPref.exists('/data[@type=sql:variable("@myType")]')
+		AND		xmlPref.exist('/data[@type=sql:variable("@myType")]') = 1
 	</cfquery> 
 
 	<cfif qryType.Pref EQ "">
@@ -155,7 +155,6 @@
 					
 				if (this.typeExists(Pref, shortfield))	{
 					return "A key could not be added because it already exists";
-					return;
 					}
 					
 				}
