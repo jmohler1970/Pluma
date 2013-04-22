@@ -17,6 +17,8 @@
 
 
 
+
+
 <cfoutput query="rc.qryEvent" group="TimeFrame">
 
 	<cfswitch expression="#TimeFrame#">

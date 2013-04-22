@@ -254,7 +254,7 @@
 			pStatus		= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#rc.pStatus#">,
 			
 			startDate 	= <cfqueryparam CFSQLType="CF_SQL_date" 	value="#rc.startDate#" 		null="#yesnoformat(isDate(rc.startDate) AND startDate NEQ "")#">,
-			expirationDate 	= <cfqueryparam CFSQLType="CF_SQL_date" value="#rc.expirationDate#" null="#yesnoformat(isDate(rc.expirationDate) AND expirationDate NEQ "")#">,
+			expirationDate 	= <cfqueryparam CFSQLType="CF_SQL_date" value="#rc.expirationDate#" null="#yesnoformat(not isDate(rc.expirationDate) OR rc.expirationDate EQ "")#">,
 			
 		
 			Modified 	= dbo.udf_4jInfo('Node was updated',
