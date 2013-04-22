@@ -152,7 +152,7 @@ void function settings(required struct rc) output="false" {
 		}	
 		
 	
-	if (NOT structKeyExists(request.stMeta, "Email") AND request.stMeta.Email != "")	{
+	if (NOT structKeyExists(request.stMeta, "Email") OR trim(request.stMeta.Email) == "")	{
 	
 		stResult.message = "From needs to be set on the basic setting page";
 		stResult.result = false;
@@ -171,7 +171,9 @@ This message level #arguments.level# was sent by an automatic mailer:
 = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 Action was done by: #session.LOGINAPI.getLoginName()# 
 	</cfmail>
-	<cfcatch></cfcatch>
+	<cfcatch>
+		
+	</cfcatch>
 	</cftry>
 
 
