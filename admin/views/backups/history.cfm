@@ -25,7 +25,7 @@
 		
 		<td>	
 			#LSTimeFormat(VersionDate)# @
-			#application.GSAPI.std_date(VersionDate)#
+			#application.IOAPI.std_date(VersionDate)#
 		</td>
 		
 		<td>#ModifyBy#</td>
