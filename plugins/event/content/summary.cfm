@@ -6,7 +6,7 @@
 <cfoutput query="qryEvent">
 
 
-	<h3>#application.GSAPI.stdDate(ExpirationDate)# - #title#</h3>
+	<h3>#application.GSAPI.std_date(ExpirationDate)# - #title#</h3>
 	
 
 	#strData#

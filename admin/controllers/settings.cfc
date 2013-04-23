@@ -193,6 +193,10 @@ void function enderror404(required struct rc) output="false"	{
 	param rc.err_SysAdminEmail = "";
 	param rc.err_Email = "";
 	param rc.err_type = "";
+	
+	if (rc.err_email != "" and not rc.err_email contains "@")	{
+		this.AddMessage("Error notification email needs to have an @.", "Warning");
+		}
 
 	}
 
@@ -227,7 +231,9 @@ void function endfeedback(required struct rc) output="false"	{
 	if (rc.feedback_SysAdminEmail == "" AND rc.feedback_Email == "")
 		this.addMessage("No one has been set to receive feedback emails.", "Warning");
 
-	
+	if (rc.feedback_email != "" and not rc.feedback_email contains "@")	{
+		this.AddMessage("Feedback email needs to have an @.", "Warning");
+		}
 
 	}	
 	
@@ -240,7 +246,8 @@ void function notification(required struct rc) output="false"	{
 
 
 	if (cgi.request_method == "Post")	{
-		
+	
+			
 		application.IOAPI.set_pref("Notif", rc);
 		
 		this.AddMessage("Notification settings updated.");
@@ -260,6 +267,9 @@ void function endnotification(required struct rc) output="false"	{
 	param rc.notif_SysAdminEmail = "";
 	param rc.notif_Email = "";
 
+	if (rc.notif_email != "" and not rc.notif_email contains "@")	{
+		this.AddMessage("Notification email needs to have an @.", "Warning");
+		}
 
 	}	
 	

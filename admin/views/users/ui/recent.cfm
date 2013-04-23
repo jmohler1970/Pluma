@@ -23,8 +23,8 @@
 <cfoutput query="rc.qryNode" maxRows="50">
 <tr>
 	<td>
-		<a href="##" rel="popover" data-content="Kind: #Kind# Modified: #application.GSAPI.stdDate(ModifyDate)# By: #ModifyBy#
-	Created: #application.GSAPI.stdDate(CreateDate)# By: #CreateBy#">
+		<a href="##" rel="popover" data-content="Kind: #Kind# Modified: #application.GSAPI.std_date(ModifyDate)# By: #ModifyBy#
+	Created: #application.GSAPI.std_date(CreateDate)# By: #CreateBy#">
 			<i class="#Icon#"></i>
 		</a>
 	</td>

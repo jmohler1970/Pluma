@@ -1,8 +1,13 @@
 
 <div class="main">
 
-	<h3>Feedback Forms</h3>
+	<h3 class="floated">Feedback Forms</h3>
 	
+	<div class="edit-nav clearfix">
+		<cfoutput>							
+			<a href="#buildURL(action='main:home.feedback')#" target="_blank"> Test</a>
+		</cfoutput>
+	</div>
 
 
 <cfoutput>

@@ -2,7 +2,17 @@
 
 <div class="main">
 
-<h3>404 Error Settings</h3>
+	<h3 class="floated">404 Error Settings</h3>
+
+
+	<div class="edit-nav clearfix">
+		<cfoutput>							
+			<a href="#buildURL(action='main:home.missing')#"> Test</a>
+		</cfoutput>
+		</div>
+
+
+
 
 <cfoutput>
 <form action="#buildURL(action = '.error404')#" method="post">

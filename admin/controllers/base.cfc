@@ -172,7 +172,7 @@ This message level #arguments.level# was sent by an automatic mailer:
 Action was done by: #session.LOGINAPI.getLoginName()# 
 	</cfmail>
 	<cfcatch>
-		
+		<cfset this.AddMessage("Unable to send email from: <tt>#request.stMeta.Email#</tt>.")>
 	</cfcatch>
 	</cftry>
 

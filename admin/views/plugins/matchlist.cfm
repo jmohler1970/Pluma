@@ -18,7 +18,7 @@
 	
 	<td>#group#</td>
 	<td style="text-align : center;">
-		#ModifyBy# @ #application.GSAPI.stdDate(ModifyDate)#
+		#ModifyBy# @ #application.GSAPI.std_date(ModifyDate)#
 	</td>
 	<td>
 		<div class="btn-group">

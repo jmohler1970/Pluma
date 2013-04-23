@@ -59,13 +59,13 @@ public string function get_page_content(){
 	}
 	
 	
-
 	
 
 public string function get_page_excerpt(numeric n=200){
 	
 	return left(application.stripHTML(request.stIOR.qryNode.strData), arguments.n);
 	}
+
 	
 	
 public string function get_page_meta_keywords()	{
@@ -285,7 +285,7 @@ string function get_component(required string id) {
 
 
 /* Converts slugs to proper urls */
-string function find_url(slug) {
+string function find_url(required string slug) {
 	
 	if (arguments.slug == 'index')	{
 		return "/";

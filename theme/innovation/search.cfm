@@ -36,7 +36,7 @@ qrySearch = application.IOAPI.get_by_search(rc.search, "Page");
 		<p>#application.IOAPI.stripHTML(strData, 1000)#</p>
 		
 		<h6>
-			<b>Created:</b> #application.GSAPI.stdDate(CreateDate)# by #CreateBy#		
+			<b>Created:</b> #application.GSAPI.std_date(CreateDate)# by #CreateBy#		
 	
 			<b>Parent Page:</b> 
 			<cfif ParentTitle EQ ""><i>None</i></cfif>

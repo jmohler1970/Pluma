@@ -171,7 +171,7 @@ else	{
 		</cfswitch>
 		
 		<span style="font-weight : normal;">(#Kind#)</span></h3>
-		<h6>#application.GSAPI.stdDate(CreateDate)# by #CreateBy#</h6>
+		<h6>#application.GSAPI.std_date(CreateDate)# by #CreateBy#</h6>
 		
 		<cfif Src NEQ "">
 			<img src="#src#" title="#src#" /><br />

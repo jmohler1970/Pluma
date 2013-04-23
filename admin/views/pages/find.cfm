@@ -46,7 +46,7 @@
 			</cfif>
 		
 			<p>
-			<b>Created:</b> #application.GSAPI.stdDate(CreateDate)# by #CreateBy#		
+			<b>Created:</b> #application.GSAPI.std_date(CreateDate)# by #CreateBy#		
 	
 			<b>Parent Page:</b> 
 			<cfif ParentTitle EQ ""><i>None</i></cfif>

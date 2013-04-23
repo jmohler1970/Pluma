@@ -50,8 +50,15 @@ INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], 
 </blockquote>
 ', NULL, NULL, NULL, N'<menu status="1" sortorder="1">Home</menu>', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 1, NULL, N'<message by="" date="2013-04-03T21:52:58.100" title="Node was updated" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:58.100" title="Created" ip="142.136.11.230" />')
 GO
+
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (80, 78, 0, 0, N'search', N'<title>Search</title><subtitle />', N'Page', NULL, NULL, N'<theme_template>search.cfm</theme_template>', NULL, N'<menu status="" sortorder="" />', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 0, NULL, N'<message by="Admin " date="2013-04-03T22:42:31.480" title="XML Conf updated" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:58.147" title="Created" ip="142.136.11.230" />')
 GO
+
+INSERT [dbo].[Node] ([ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (78, 0, 0, N'404', N'<title>404 Error</title><subtitle />', N'Page', NULL, NULL, N'<theme_template>404.cfm</theme_template>', NULL, N'<menu status="" sortorder="" />', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 1, NULL, N'<message by="Admin " date="2013-04-03T22:42:31.480" title="XML Conf updated" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:58.147" title="Created" ip="142.136.11.230" />')
+GO
+
+
+
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (81, 78, 0, 0, N'tag', N'<title>Tags</title><subtitle />', N'Page', NULL, NULL, N'<theme_template>tag.cfm</theme_template>', NULL, N'<menu status="" sortorder="" />', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 0, NULL, N'<message by="James Mohler" date="2013-04-07T22:45:30.817" title="XML Conf updated" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:58.193" title="Created" ip="142.136.11.230" />')
 GO
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (82, 78, 0, 0, N'grumpy-cat', N'<title>Grumpy Cat</title><subtitle />', N'Page', N'<h2>About</h2>

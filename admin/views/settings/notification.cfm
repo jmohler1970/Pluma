@@ -1,9 +1,13 @@
 
 <div class="main">
-	<h3>Notifications</h3>
+	<h3 class="floated">Notifications</h3>
 
 
-
+	<div class="edit-nav clearfix">
+		<cfoutput>							
+		<a href="#buildURL(action='settings.notificationtest')#"> Test</a>
+		</cfoutput>
+	</div>
 
 <cfoutput>
 <form action="#buildURL(action = '.notification')#" method="post" class="anondata">
@@ -63,8 +67,11 @@
 		</p>
 
 
+	<h3 class="floated">	
+		<button type="submit">#application.GSAPI.get_string("BTN_SAVECHANGES")#</button>
+	</h3>
+	
 
-	<button type="submit">#application.GSAPI.get_string("BTN_SAVECHANGES")#</button>
 	
 	</cfoutput>	
 	

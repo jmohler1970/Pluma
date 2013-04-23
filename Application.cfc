@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0265";
+	this.name 			= "PlumaCMS_0268";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -48,8 +48,8 @@
 		{ "/profile/:id" 		= "/main/home/slug/profile/profile/:id"},
 		{ "/profile" 			= "/main/home/slug/profile"},
 		{ "/search/:id" 		= "/main/home/slug/search/search/:id"},
-		{ "/search" 			= "/main/home/slug/search"}
-				
+		{ "/search" 			= "/main/home/slug/search"},
+		{ "/feedback" 			= "/main/home/slug/feedback"}
 				
 
 					

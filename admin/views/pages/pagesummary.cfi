@@ -12,13 +12,13 @@ param variables.maxresults = 10;
 <cfoutput query="rc.qryPage" maxRows="#variables.maxresults#">
 	<tr>
 		<td style="text-align : center;">
-			<a href="##" rel="popover" data-content="Modified: #application.GSAPI.stdDate(ModifyDate)# By: #ModifyBy#
-	Created: #application.GSAPI.stdDate(CreateDate)# By: #CreateBy#"><i class="#Icon#"></i></a>
+			<a href="##" rel="popover" data-content="Modified: #application.GSAPI.std_date(ModifyDate)# By: #ModifyBy#
+	Created: #application.GSAPI.std_date(CreateDate)# By: #CreateBy#"><i class="#Icon#"></i></a>
 		</td>
 			
 		<td>
 			<small><cfset application.GSAPI.get_path(NodeID)></small> <cfif cStatus EQ 0><span class="label label-info">Draft</span></cfif>
-			<p><small style="font-size : 0.8em;"> Updated: #application.GSAPI.stdDate(ModifyDate)#</small></p>
+			<p><small style="font-size : 0.8em;"> Updated: #application.GSAPI.std_date(ModifyDate)#</small></p>
 		</td>
 		
 	
