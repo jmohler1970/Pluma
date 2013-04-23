@@ -61,7 +61,7 @@ void function starthome(required struct rc) output="false" {
 	</cfif>
 	
 	
-	<cfset application.GSAPI.load_plugins()>
+	<cfset application.IOAPI.load_plugins()>
 </cffunction> 
 
 	

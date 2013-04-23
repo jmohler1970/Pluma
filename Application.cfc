@@ -132,7 +132,7 @@ void function setupSession()	{
 
 
 	request.arPlugins 	= [];
-	application.GSAPI.load_plugins();
+	application.IOAPI.load_plugins();
 	
 	request.stIOR		= {};
 	

@@ -496,61 +496,7 @@ string function std_date(required string MyDate) output="false" {
 
 </cffunction>
 
-<cffunction name="load_plugins">
 
-	<cfset var qryPlugins = QueryNew("Plugin, Name, Version, Author, Author_url, description, 
-		page_type, load_data, icon, filename, Enabled")>
-		
-	
-
-	<!--- I don't want to use this elsewhere --->
-		
-	<cfdirectory directory="#application.GSPLUGINPATH#" name="qryDir" filter="*.cfc" sort="name">
-
-	<cfloop query="qryDir">
-		
-	
-		<cfscript>
-		if (type == "File" AND NOT name CONTAINS "plugin")	{
-		
-			
-			var objPlugin = cacheGet("plugins.#name#");
-			if (isNull (objPlugin))	{
-				var objPlugin = createObject("plugins.#listfirst(name, '.')#");
-		
-				cachePut("plugins.#name#", objPlugin, CreateTimeSpan(0, 6, 0, 0));
-				} 
-						
-			
-			//var objPlugin = createObject("plugins.#listfirst(name, '.')#");
-			objPlugin.Init();
-			
-			QueryAddRow(qryPlugins);
-			QuerySetCell(qryPlugins, "Plugin", 		lcase(listfirst(name, '.')));
-			QuerySetCell(qryPlugins, "Name", 		objPlugin.stPlugin_info.name);
-			QuerySetCell(qryPlugins, "Version", 	objPlugin.stPlugin_info.version);
-			QuerySetCell(qryPlugins, "Author", 		objPlugin.stPlugin_info.author);
-			QuerySetCell(qryPlugins, "Author_url", 	objPlugin.stPlugin_info.author_url);
-			QuerySetCell(qryPlugins, "Description", objPlugin.stPlugin_info.description);
-			QuerySetCell(qryPlugins, "Page_type", 	objPlugin.stPlugin_info.page_type);
-			QuerySetCell(qryPlugins, "Load_data",	objPlugin.stPlugin_info.load_data);
-			QuerySetCell(qryPlugins, "icon",		objPlugin.stPlugin_info.icon);
-			QuerySetCell(qryPlugins, "filename", 	name);
-			QuerySetCell(qryPlugins, "enabled", 	1);			
-			
-			if (isDefined("request.stPlugin.#listfirst(name, '.')#"))	{
-				var enabled = evaluate("request.stPlugin.#listfirst(name, '.')#");
-			
-				QuerySetCell(qryPlugins, "enabled", enabled);
-				}
-			
-			}
-		</cfscript>
-
- 	</cfloop>
-
-	<cfset application.qryPlugins = qryPlugins>
-</cffunction>
 
 
 </cfcomponent>
