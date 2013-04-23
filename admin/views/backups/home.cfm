@@ -10,7 +10,7 @@
 
 
 <cfoutput query="rc.qryArchive" group="shortdate">
-<h2>#application.GSAPI.std_date(ShortDate)#</h2>
+<h2>#application.IOAPI.std_date(ShortDate)#</h2>
 
 <table class="edittable highlight paginate">
 <thead>
@@ -32,7 +32,7 @@
 		</td>
 		
 		<td style="text-align : right;">	
-			#application.GSAPI.std_date(VersionDate)# @
+			#application.IOAPI.std_date(VersionDate)# @
 			#LSTimeFormat(VersionDate)# 
 		</td>
 		

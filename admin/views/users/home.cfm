@@ -96,8 +96,8 @@
 
 	<td><a href="mailto:#email#">#Email#</a></td>
 	<td>#groups#</td>
-	<td><cfif isDate(lastLogin)>#application.GSAPI.std_date(lastLogin)#</cfif></td>
-	<td><cfif isDate(ExpirationDate)>#application.GSAPI.std_date(ExpirationDate)#<cfelse><i>Never</i></cfif></td>
+	<td><cfif isDate(lastLogin)>#application.IOAPI.std_date(lastLogin)#</cfif></td>
+	<td><cfif isDate(ExpirationDate)>#application.IOAPI.std_date(ExpirationDate)#<cfelse><i>Never</i></cfif></td>
 	
 	
 	

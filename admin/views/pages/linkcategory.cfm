@@ -22,7 +22,7 @@
 		
 		<td style="text-align : right;"><!--- #FacetCount# ---></td>	
 		
-		<td style="text-align : right;">#application.GSAPI.std_date(CreateDate)#</td>
+		<td style="text-align : right;">#application.IOAPI.std_date(CreateDate)#</td>
 		
 		<td class="delete">
 		<!---

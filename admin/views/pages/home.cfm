@@ -62,7 +62,7 @@
 		</span>
 	</td>
 
-	<td style="text-align : right;"><span>#application.GSAPI.std_date(ModifyDate)#</span></td>
+	<td style="text-align : right;"><span>#application.IOAPI.std_date(ModifyDate)#</span></td>
 	<td class="secondarylink">
 	
 		<a href="#application.GSAPI.get_site_root()#index.cfm/main/#slug#" rel="tooltip" title="View Page" target="_blank"><cfif Root><b>##</b><cfelse>##</cfif></a>

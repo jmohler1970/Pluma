@@ -45,7 +45,7 @@
 		
 		(#Kind#)</p>
 		
-		<h6>#application.GSAPI.std_date(CreateDate)# by #CreateBy#</h6>
+		<h6>#application.IOAPI.std_date(CreateDate)# by #CreateBy#</h6>
 		
 		<cfif Src NEQ "">
 			<cfset basePath = getPath(ParentNodeID)>

@@ -366,31 +366,6 @@ string function get_site_version() {
 
 
 
-	
-string function std_date(required string MyDate) output="false" {
-	
-	var curDay = day(now());
-	var curMonth = month(now());
-	var curYear = year(now());
-	
-	if (not isDate(arguments.MyDate)) return "<i>Unknown</i>";
-		
-		
-	if (day(arguments.MyDate) 		== curDay  
-		AND month(arguments.MyDate) == curMonth
-		AND year(arguments.MyDate) 	== curYear
-		) return "Today";
-		
-	if (day(DateAdd("d", 1, arguments.MyDate)) 	== curDay
-		AND month(arguments.MyDate) 			== curMonth
-		AND year(arguments.MyDate) 				== curYear
-		)	return "Yesterday";
-	
-	
-	return left(DayofWeekAsString(DayOfWeek(arguments.MyDate)),3) & ", " & LSDateFormat(arguments.MyDate, "mmm dd, 'yy");
-	}
-	
-
 </cfscript>
 
 

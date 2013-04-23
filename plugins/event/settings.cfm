@@ -50,7 +50,7 @@
 			
 				
 				
-				<td>#application.GSAPI.std_date(ExpirationDate)#</td>
+				<td>#application.IOAPI.std_date(ExpirationDate)#</td>
 				
 				<td class="secondarylink">
 					<a href="#application.GSAPI.get_site_root()#index.cfm/id/#NodeID#">##</a>

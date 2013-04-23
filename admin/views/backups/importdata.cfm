@@ -38,7 +38,7 @@ managefiles = false;
 		</cfswitch> 
 		
 		</td>
-		<td>#application.GSAPI.std_date(datelastmodified)#, #LSTimeFormat(datelastmodified)#</td>
+		<td>#application.IOAPI.std_date(datelastmodified)#, #LSTimeFormat(datelastmodified)#</td>
 		
 		<td style="text-align : right;">#LSNumberFormat(size \ 1024)# kB</td>
 		

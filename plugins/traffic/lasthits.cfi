@@ -24,7 +24,7 @@
 
 <cfoutput query="rc.qryLastHits">
 <tr>
-	<td>#application.GSAPI.std_date(CreateDate)#</td>
+	<td>#application.IOAPI.std_date(CreateDate)#</td>
 	<td>#LSTimeFormat(CreateDate)#</td>
 	
 	<cfif mode EQ "referer">
