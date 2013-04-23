@@ -367,7 +367,7 @@ string function get_site_version() {
 
 
 	
-string function stdDate(required string MyDate) output="false" {
+string function std_date(required string MyDate) output="false" {
 	
 	var curDay = day(now());
 	var curMonth = month(now());

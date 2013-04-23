@@ -33,7 +33,7 @@
 		</tr>
 		<tr>
 			<td class="title" >Date:</td>
-			<td>#application.GSAPI.stdDate(VersionDate)# @
+			<td>#application.GSAPI.std_date(VersionDate)# @
 			#LSTimeFormat(VersionDate)# </td>
 		</tr>
 		<tr><td class="title" >Tags &amp; Keywords:</td><td><em>#tags#</em></td></tr>
