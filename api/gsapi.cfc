@@ -496,7 +496,7 @@ string function std_date(required string MyDate) output="false" {
 
 </cffunction>
 
-<cffunction name="loadplugins">
+<cffunction name="load_plugins">
 
 	<cfset var qryPlugins = QueryNew("Plugin, Name, Version, Author, Author_url, description, 
 		page_type, load_data, icon, filename, Enabled")>
