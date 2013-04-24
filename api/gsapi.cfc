@@ -65,14 +65,19 @@ public string function get_page_content(){
 	}
 	
 	
-	
-
+/**
+* @hint Get Page Excerpt
+*/		
 public string function get_page_excerpt(numeric n=200){
 	
-	return left(application.strip_tags(request.stIOR.qryNode.strData), arguments.n);
+	// we are happy if we are a few bytes off. 
+	return left(this.strip_tags(request.stIOR.qryNode.strData), arguments.n);
 	}
 
 	
+/**
+* @hint Get Page Meta Keywords
+*/		
 	
 public string function get_page_meta_keywords()	{
 
@@ -84,18 +89,19 @@ public string function get_page_meta_keywords()	{
 	}
 
 /**
-* @hint Currently global
+* @hint Currently global, not per page
 */	
 public string function get_page_meta_desc()	{
 	
 	if (structkeyexists(request.stMeta, "Description"))	{
-		return request.stMeta.Description;
+		return this.strip_tags(request.stMeta.Description);
 		}
 		
 	return "";	
 	}
 
 /**
+* @display Get Page Title
 * @hint Page title with markup
 */
 public string function get_page_title()	{
@@ -105,6 +111,7 @@ public string function get_page_title()	{
 	
 
 /**
+* @display Get Page Clean Title
 * @hint Page title without markup
 */	
 public string function get_page_clean_title()	{
@@ -113,6 +120,7 @@ public string function get_page_clean_title()	{
 	
 	
 /**
+* @display Get Page Subtitle
 * @hint Page subtitle with markup
 */
 public string function get_page_subtitle()	{
@@ -122,114 +130,32 @@ public string function get_page_subtitle()	{
 	
 	
 /**
+* @display Get Page Slug
 * @hint Slug back to self
 */	
 string function get_page_slug()	{
 	return request.stIOR.qryNode.slug;
 	}
 
-
-/**
-* @hint Links to admin edit page. It blank if user can't edit
-*/	
-string function get_page_edit_link()	{
-	
-	
-	if (request.stIOR.editLink != "")	{
-		return  '<a href="#buildURL(action = request.stIOR.editAction, querystring = request.stIOR.editLink)#" target="_top">Edit</a>';
-		}
-	
-	return "";
-	}
-
-
 	
 /**
-* @hint Parent slug could be blank
+* @display Parent slug could be blank
 */	
 string function get_parent()	{
 	request.stIOR.qryNode.parentslug;
 	}
 	
 
-
-	
+/**
+* @display Get Page Date
+*/	
 	
 string function get_page_date()	{
+	// Currently does not do any timezone stuff
 	return LSDateFormat(request.stIOR.qryNode.ModifyDate);
 	}
 
 
-
-</cfscript>
-
-
-<cffunction name="get_header">
-	<cfargument  name="full" required="false" default="false" type="boolean">
-
-	<cfoutput>
-	<meta name="description" 	content="#this.get_page_meta_desc()#" />
-	<meta name="keywords" 		content="#this.get_page_meta_keywords()#" />
-	
-	<cfif arguments.full>
-		<meta name="generator" 	content="#application.GSSITE_FULL_NAME#" />
-		<link rel="canonical" 	href="#this.get_page_url()#" />
-	
-		<cfset this.get_scripts_frontend()>
-		
-		<cfset this.exec_action('theme-header')>
-	</cfif>
-	</cfoutput>
-</cffunction>
-
-
-
-
-<cfscript>
-
-string function get_footer()	{
-	this.exec_action('theme-footer');
-	}
-	
-	
-string function get_theme_url()	{;}
-
-string function get_scripts_frontend() {;} // not implemented
-
-/**
-* @hint Site's theme
-*/
-string function get_theme()		{
-	
-	if (isDefined("request.stTheme.current"))
-		return request.stTheme.current;
-	
-	return "";	
-	}
-
-/**
-* @hint Site's theme's particular template
-*/
-string function get_theme_template()		{
-
-	if (isDefined("request.stIOR.qryNode.theme_template"))	{
-		if (request.stIOR.qryNode.theme_template != "")
-			return request.stIOR.qryNode.theme_template;
-		}
-	
-	return "template.cfm";
-	
-	}
-
-
-string function get_site_url()	{
-	if (isDefined("request.stMeta.root"))
-		return request.stMeta.root;
-		
-	return "";	
-	}
-
-	
 /**
 * @hint This is used to create canonical links. Slugs can change, canonical links can't
 */
@@ -240,15 +166,66 @@ string function get_page_url()	{
 	return "";	
 	}
 
+</cfscript>
 
-string function get_site_root()	{
-	if (isDefined("request.stMeta.root") AND request.stMeta.root NEQ "")
+
+<cffunction name="get_header">
+	<cfargument  name="full" required="false" default="false" type="boolean">
+
+	<!--- configuration.php settings should be in application.cfc --->
+
+	<cfoutput>
+	<meta name="description" 	content="#this.strip_tags(this.get_page_meta_desc())#" />
+	<meta name="keywords" 		content="#this.strip_tags(this.get_page_meta_keywords())#" />
+	
+	<cfif arguments.full>
+		<meta name="generator" 	content="#application.GSSITE_FULL_NAME#" />
+		<link rel="canonical" 	href="#this.get_page_url()#" />
+	
+		<!---
+		<cfset this.get_scripts_frontend()>
+		--->
+		
+		<cfset this.exec_action('theme-header')>
+	</cfif>
+	</cfoutput>
+</cffunction>
+
+
+<cfscript>
+/**
+* @display Get Footer
+* @hint Links to admin edit page. It blank if user can't edit
+*/	
+string function get_footer()	{
+	this.exec_action('theme-footer');
+	}
+	
+
+/**
+* @display Get Site URL
+* @hint Links to admin edit page. It blank if user can't edit
+*/	
+string function get_site_url()	{
+	if (isDefined("request.stMeta.root"))
 		return request.stMeta.root;
 		
-	return "/";	
+	return "";	
 	}
 
+	
+/**
+* @display Get Theme URL
+* @hint Links to theme template
+*/	
+string function get_theme_url()	{
+	
+	return request.stMeta.root & "theme/" & this.get_theme();
+	}
 
+/**
+* @display Get Site Name
+*/	
 string function get_site_name()	{
 	
 	if (isDefined("request.stMeta.title"))
@@ -256,30 +233,20 @@ string function get_site_name()	{
 		
 	return "";	
 	}
-
-
-string function get_site_email()	{
-	
-	if (isDefined("request.stMeta.email"))
-		return request.stMeta.Email;
-	
-	return "";
-	}
-	
-	
 	
 string function get_site_credits(string poweredby = "Powered By")	{
 
-	return '#arguments.poweredby# <a href="#application.GSSITE_LINK_BACK_URL#">#application.GSSITE_FULL_NAME#</a> &mdash; #application.GSVersion#';
+	return '#arguments.poweredby# <a href="#application.GSSITE_LINK_BACK_URL#" target="_blank">#application.GSSITE_FULL_NAME#</a> &mdash; #application.GSVersion#';
 	}
 
 
 query function menu_data() output="false" {
 	
 	return application.IOAPI.get_all("Page", '', "Menu");
-	}
+	}	
+	
 
-
+	
 
 string function get_component(required string id) {
 	
@@ -290,15 +257,6 @@ string function get_component(required string id) {
 	} 
 
 
-/* Converts slugs to proper urls */
-string function find_url(required string slug) {
-	
-	if (arguments.slug == 'index')	{
-		return "/";
-		}
-	
-	return "/index.cfm/main/#arguments.slug#";
-	}
 
 
 
@@ -326,8 +284,91 @@ string function get_navigation(string currentslug = "") {
 boolean function is_logged_in() {	
 	
 	return session.LOGINAPI.UserID == "" ? false : true;
-	;
+	
 	}
+
+
+
+string function get_scripts_frontend() {;} // not implemented
+/* Everything above was in theme_functions.php */
+	
+
+
+/**
+* @hint Links to admin edit page. It blank if user can't edit
+*/	
+string function get_page_edit_link()	{
+	
+	
+	if (request.stIOR.editLink != "")	{
+		return  '<a href="#buildURL(action = request.stIOR.editAction, querystring = request.stIOR.editLink)#" target="_top">Edit</a>';
+		}
+	
+	return "";
+	}
+
+
+
+
+
+
+/**
+* @hint Site's theme
+*/
+string function get_theme()		{
+	
+	if (isDefined("request.stTheme.current"))
+		return request.stTheme.current;
+	
+	return "";	
+	}
+
+/**
+* @hint Site's theme's particular template
+*/
+string function get_theme_template()		{
+
+	if (isDefined("request.stIOR.qryNode.theme_template"))	{
+		if (request.stIOR.qryNode.theme_template != "")
+			return request.stIOR.qryNode.theme_template;
+		}
+	
+	return "template.cfm";
+	
+	}
+
+
+
+
+string function get_site_root()	{
+	if (isDefined("request.stMeta.root") AND request.stMeta.root NEQ "")
+		return request.stMeta.root;
+		
+	return "/";	
+	}
+
+
+
+
+string function get_site_email()	{
+	
+	if (isDefined("request.stMeta.email"))
+		return request.stMeta.Email;
+	
+	return "";
+	}
+	
+
+/* Converts slugs to proper urls */
+string function find_url(required string slug) {
+	
+	if (arguments.slug == 'index')	{
+		return "/";
+		}
+	
+	return "/index.cfm/main/#arguments.slug#";
+	}
+
 	
 /* i18n strings */	
 string function get_string(required string key) output="false"	{

@@ -9,24 +9,16 @@
 <!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" > <!--<![endif]-->
 <head>
-<meta charset="utf-8">
+	<meta charset="utf-8">
 
-  <title>#application.GSAPI.get_page_clean_title()# - #application.GSAPI.get_site_name()#</title>
+	<title>#application.GSAPI.get_page_clean_title()# - #application.GSAPI.get_site_name()#</title>
 	
 	<meta name="robots" content="index, follow">
 
 	<link href='//fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
-	<link href="#application.GSAPI.get_site_root()#theme/innovation/reset.css" rel="stylesheet">
-	<link href="#application.GSAPI.get_site_root()#theme/innovation/style.css?v=3.1.2" rel="stylesheet">
+	<link href="#application.GSAPI.get_theme_url()#/reset.css" rel="stylesheet">
+	<link href="#application.GSAPI.get_theme_url()#/style.css?v=3.1.2" rel="stylesheet">
 	
-	<!--[if lt IE 9]>
-		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]--> 
-	
-	<!--[if lt IE 7 ]>
-    <script src="<?php get_theme_url(); ?>/assets/js/dd_belatedpng.js"></script>
-    <script> DD_belatedPNG.fix('img, .png_bg'); //fix any <img> or .png_bg background-images </script>
-  <![endif]-->
 
 	#application.GSAPI.get_header()#
 		
