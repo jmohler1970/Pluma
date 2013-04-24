@@ -40,7 +40,7 @@
 		
 		<cfif rc.taxonomy>
 			<cfif strData CONTAINS "<p>">
-				#application.IOAPI.stripHTML(strData, 1000)#
+				#application.IOAPI.strip_tags(strData, 1000)#
 			<cfelse>
 				#paragraphformat(strData)#
 			</cfif>

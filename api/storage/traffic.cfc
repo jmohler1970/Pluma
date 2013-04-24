@@ -115,9 +115,6 @@ variables.stResults = {result = true, resultCode = 0, Message = ''};
 
 
 // Traffic
-string function stripHTML(str) output="false" {
-	return REReplaceNoCase(arguments.str,"<[^>]*>","","ALL");
-	}
 </cfscript>
 
 

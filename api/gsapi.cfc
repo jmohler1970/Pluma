@@ -25,37 +25,43 @@ public string function get_plugin_content(){
 	return request.stIOR.qryNode.plugin_content;
 	}
 
+
+
 /**
 * @hint Gets the normal page content if there isn't a pluggin content instead
 */	
 public string function get_page_content(){
 
-
 	var plugin_content = this.get_plugin_content();
 
 
-
 	if (plugin_content != "")	{
+		// plugins must inject content as necessary into content-top and content-bottom
 
 		try	{
-			stResults = this.run_plugin(
-			listfirst(plugin_content, '_'),
-			listlast(plugin_content, '_'),
-			request.stIOR);
-		
-		
-			return request.stIOR.qryNode.strData & stResults.content;
+			this.run_plugin(
+				listfirst(plugin_content, '_'),
+				listlast(plugin_content, '_'),
+				request.stIOR);
 			}
 				
 			catch (any e) {;}
-			
 		}
+	
+		
+	local.result = "";	
+		
+	local.result &= this.exec_action('content-top');	
+		
 
-	if (isnull(request.stIOR.qryNode.strData))	{
-		return "";			
+	if (not isnull(request.stIOR.qryNode.strData))	{
+		local.result &= request.stIOR.qryNode.strData; // no strip decode here
 		}	
 	
-	return request.stIOR.qryNode.strData;
+	local.result &= this.exec_action('content-bottom');	
+	
+	
+	return local.result;
 	}
 	
 	
@@ -63,7 +69,7 @@ public string function get_page_content(){
 
 public string function get_page_excerpt(numeric n=200){
 	
-	return left(application.stripHTML(request.stIOR.qryNode.strData), arguments.n);
+	return left(application.strip_tags(request.stIOR.qryNode.strData), arguments.n);
 	}
 
 	
@@ -102,7 +108,7 @@ public string function get_page_title()	{
 * @hint Page title without markup
 */	
 public string function get_page_clean_title()	{
-	return this.stripHTML(request.stIOR.qryNode.title);
+	return this.strip_tags(request.stIOR.qryNode.title);
 	}
 	
 	
@@ -441,10 +447,12 @@ string function get_site_version() {
 	<cfreturn stResult>
 </cffunction>
 
-<cffunction name="exec_action">
+<cffunction name="exec_action" returnType="string">
 	<cfargument name="action" required="true" 	type="string" hint="what function to run in plugin">
 	<cfargument name="selected" required="false" type="string" default="">
 
+
+	<cfsavecontent variable="local.result">
 
 	<cfloop from="1" to="#ArrayLen(request.arPlugins)#" index="i">
 		<cfif request.arPlugins[i].hook_name EQ arguments.action>
@@ -468,7 +476,10 @@ string function get_site_version() {
 			</cfswitch>
 		</cfif>
 	</cfloop>
-
+	
+	</cfsavecontent>
+	
+	<cfreturn local.result>
 </cffunction>
 
 

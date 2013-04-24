@@ -35,7 +35,7 @@ qryTag = application.IOAPI.get_by_tag(rc.tag, "Page");
 			<h6>Created: #LSDateFormat(CreateDate)#</h6>
 		</cfif>
 		
-		<p>#application.IOAPI.stripHTML(strData, 1000)#</p>
+		<p>#application.IOAPI.strip_tags(strData, 1000)#</p>
 		
 		<h6>
 			<b>Parent Page:</b> 

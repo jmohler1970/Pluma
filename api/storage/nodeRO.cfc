@@ -259,10 +259,6 @@
 	
 
 
-string function stripHTML(string str) output="false" {
-	return REReplaceNoCase(str,"<[^>]*>","","ALL");
-	}
-
 
 
 struct function getBundle(required struct NodeK, required string Kind, required string UserID) output="false" access="remote"	{

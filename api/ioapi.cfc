@@ -538,10 +538,6 @@ struct function delete(required struct NodeK) output="false"	{
 		
 
 /* Helper functions */
-
-string function stripHTML(required string str, numeric trimTo=100000) output="false" {
-	return left(REReplaceNoCase(arguments.str,"<[^>]*>","","ALL"), arguments.trimTo);
-	}
 </cfscript>
 
 

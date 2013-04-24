@@ -6,7 +6,7 @@
 
 
 <cfscript>
-string function stripHTML(required string str, numeric trimTo=100000) output="false" {
+string function strip_tags(required string str, numeric trimTo=100000) output="false" {
 	return left(REReplaceNoCase(arguments.str,"<[^>]*>","","ALL"), arguments.trimTo);
 	}
 </cfscript>

@@ -33,7 +33,7 @@ qrySearch = application.IOAPI.get_by_search(rc.search, "Page");
 		<h3><a href="/index.cfm/main/#slug#">#htmleditformat(Title)#</a></h3>
 
 		
-		<p>#application.IOAPI.stripHTML(strData, 1000)#</p>
+		<p>#application.IOAPI.strip_tags(strData, 1000)#</p>
 		
 		<h6>
 			<b>Created:</b> #application.IOAPI.std_date(CreateDate)# by #CreateBy#		

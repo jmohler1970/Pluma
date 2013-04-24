@@ -179,7 +179,7 @@ else	{
 		
 		<cfif rc.taxonomy>
 			<cfif strData CONTAINS "<p>">
-				#application.IOAPI.stripHTML(strData, 200)#
+				#application.IOAPI.strip_tags(strData, 200)#
 			<cfelse>
 				#paragraphformat(strData)#
 			</cfif>
