@@ -294,18 +294,6 @@ string function get_scripts_frontend() {;} // not implemented
 	
 
 
-/**
-* @hint Links to admin edit page. It blank if user can't edit
-*/	
-string function get_page_edit_link()	{
-	
-	
-	if (request.stIOR.editLink != "")	{
-		return  '<a href="#buildURL(action = request.stIOR.editAction, querystring = request.stIOR.editLink)#" target="_top">Edit</a>';
-		}
-	
-	return "";
-	}
 
 
 
