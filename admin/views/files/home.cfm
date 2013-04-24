@@ -6,7 +6,7 @@
 
 <cfoutput>
 
-<h3 class="floated">#application.GSAPI.get_string("uploaded_files")#
+<h3 class="floated">#application.GSAPI.i18n("uploaded_files")#
 
 <span id="filetypetoggle">&nbsp; &nbsp;/&nbsp; &nbsp; #rc.imagefilter#</span>
 </h3>
@@ -17,7 +17,7 @@
 	
 
 		<select name="imagefilter" onchange="myfilter.submit();">
-			<option value="Show All">#application.GSAPI.get_string("show_all")#</option>
+			<option value="Show All">#application.GSAPI.i18n("show_all")#</option>
 			<option value="Documents" 	<cfif rc.imagefilter EQ "documents">selected="selected"</cfif>>Documents</option>
 			<option value="Images" 		<cfif rc.imagefilter EQ "images">selected="selected"</cfif>>Images</option>
 		</select>
@@ -56,7 +56,7 @@
 
 		
 	<div id="new-folder">
-		<a id="createfolder" href="##">#application.GSAPI.get_string("create_folder")#</a></small>
+		<a id="createfolder" href="##">#application.GSAPI.i18n("create_folder")#</a></small>
 	
 	
 	<form action="#buildURL(action='.createfolder')#" method="post">
@@ -65,9 +65,9 @@
 	
 			<input name="foldername" type="text" class="text" />
 
-			<button type="submit">#application.GSAPI.get_string("create_folder")#</button> 
+			<button type="submit">#application.GSAPI.i18n("create_folder")#</button> 
 	
-			<a class="cancel" href="##">#application.GSAPI.get_string("cancel")#</a>
+			<a class="cancel" href="##">#application.GSAPI.i18n("cancel")#</a>
 
 	</form>
 	</div>
@@ -77,9 +77,9 @@
 <thead>
 <tr>
 	<th>&nbsp;</th>
-	<th>#application.GSAPI.get_string("file_name")#</th>
-	<th style="text-align : right;">#application.GSAPI.get_string("file_size")#</th>
-	<th style="text-align : right;">#application.GSAPI.get_string("date")#</th>
+	<th>#application.GSAPI.i18n("file_name")#</th>
+	<th style="text-align : right;">#application.GSAPI.i18n("file_size")#</th>
+	<th style="text-align : right;">#application.GSAPI.i18n("date")#</th>
 	<th></th>
 </tr>
 </thead>
@@ -172,7 +172,7 @@
 </cfoutput>
 
 <cfoutput>
-<h3>#application.GSAPI.get_string("choose_file")#</h3><a name="upload"></a>
+<h3>#application.GSAPI.i18n("choose_file")#</h3><a name="upload"></a>
 
 
 <form action="#BuildURL(action = 'files.process')#" method="post" enctype="multipart/form-data">
@@ -180,11 +180,11 @@
 
 	<input type="file" name="csv1" class="text" />
 
-	<button type="submit">#application.GSAPI.get_string("file_upload")#</button>
+	<button type="submit">#application.GSAPI.i18n("file_upload")#</button>
 </form>  
 
 
-<p><small>#application.GSAPI.get_string("max_file_size")# <b>2MB</b></small></p>
+<p><small>#application.GSAPI.i18n("max_file_size")# <b>2MB</b></small></p>
 </cfoutput>
 
 

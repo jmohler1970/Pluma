@@ -4,7 +4,7 @@
 <div class="main">
 
 <cfoutput>
-	<h3>#application.GSAPI.get_string("menu_manager")#</h3>
+	<h3>#application.GSAPI.i18n("menu_manager")#</h3>
 </cfoutput>
 
 
@@ -16,9 +16,9 @@
 <cfoutput>
 <thead>
 <tr>
-	<th>#application.GSAPI.get_string("sort")#</th>
-	<th>#application.GSAPI.get_string("menu_text")#</th>
-	<th style="text-align : right;">#application.GSAPI.get_string("page_title")#</th>
+	<th>#application.GSAPI.i18n("sort")#</th>
+	<th>#application.GSAPI.i18n("menu_text")#</th>
+	<th style="text-align : right;">#application.GSAPI.i18n("page_title")#</th>
 	<th>&nbsp;</th>
 	<th>&nbsp;</th>
 </tr>
@@ -59,7 +59,7 @@
 
 <cfif rc.qryMenu.recordcount GT 0>
 	<cfoutput>
-		<button type="submit">#application.GSAPI.get_string("save_menu_order")#</button>
+		<button type="submit">#application.GSAPI.i18n("save_menu_order")#</button>
 	</cfoutput>
 </cfif>
 

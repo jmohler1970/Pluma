@@ -3,7 +3,7 @@
 <div class="main">
 
 <cfoutput>
-<h3>#application.GSAPI.get_string("plugins_management")#</h3>
+<h3>#application.GSAPI.i18n("plugins_management")#</h3>
 </cfoutput>
 
 
@@ -17,9 +17,9 @@
 <cfoutput>
 <thead>
 <tr>
-	<th>#application.GSAPI.get_string("status")#</th>
-	<th>#application.GSAPI.get_string("plugin_name")#</th>
-	<th>#application.GSAPI.get_string("plugin_desc")#</th>
+	<th>#application.GSAPI.i18n("status")#</th>
+	<th>#application.GSAPI.i18n("plugin_name")#</th>
+	<th>#application.GSAPI.i18n("plugin_desc")#</th>
 </tr>
 </thead>
 </cfoutput>
@@ -51,7 +51,7 @@
 </table>
 
 <cfoutput>
-	<button type="submit">#application.GSAPI.get_string("BTN_SAVECHANGES")#</button>
+	<button type="submit">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
 </cfoutput>
 </form>	
 	

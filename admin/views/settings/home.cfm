@@ -5,7 +5,7 @@
 
 
 <cfoutput>
-	<h3>#application.GSAPI.get_string("website_settings")#</h3>
+	<h3>#application.GSAPI.i18n("website_settings")#</h3>
 
 
 <form action="#buildURL(action = '.home')#" method="post">
@@ -13,7 +13,7 @@
 <div class="leftsec">
 
 <p>
-    <b>#application.GSAPI.get_string("label_website")#</b>
+    <b>#application.GSAPI.i18n("label_website")#</b>
     <br />
    
 		<input type="text" name="meta_title" class="text" placeholder="Your Website's Name" value="#htmleditformat(rc.meta_title)#" />
@@ -23,7 +23,7 @@
 
 <div class="rightsec">
 	<p>
-    <b>#application.GSAPI.get_string("label_baseurl")#</b>
+    <b>#application.GSAPI.i18n("label_baseurl")#</b>
     <br />
    
 		<input type="text" name="meta_root" class="text" placeholder="#application.GSAPI.suggest_site_path()#" value="#htmleditformat(rc.meta_root)#" />
@@ -50,7 +50,7 @@
 <div class="leftsec">
 
 <p>
-    <b>#application.GSAPI.get_string("label_email")#</b>
+    <b>#application.GSAPI.i18n("label_email")#</b>
     <br />
   	<input type="text" name="meta_email" class="text"  placeholder="Contact" value="#htmleditformat(rc.meta_Email)#" />
 </p>
@@ -58,7 +58,7 @@
 
 
 <div class="rightsec">
-	<p><label for="timezone">#application.GSAPI.get_string("local_timezone")#</label>
+	<p><label for="timezone">#application.GSAPI.i18n("local_timezone")#</label>
 		<select class="text" name="meta_timezone">
 			<cfif rc.meta_timezone EQ "">
 				<option value="">-- None</option>
@@ -77,7 +77,7 @@
 
 <div class="clear"></div>
 
-	<button type="submit">#application.GSAPI.get_string("BTN_SAVECHANGES")#</button>
+	<button type="submit">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
 
 </form>
 </cfoutput>

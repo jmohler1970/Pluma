@@ -8,10 +8,10 @@
 <cfdump var="#cacheGet("stPref")#">	
 --->	
 
-<h3 class="floated">#application.GSAPI.get_string("side_components")#</h3>
+<h3 class="floated">#application.GSAPI.i18n("side_components")#</h3>
 
 <div class="edit-nav">
-	<a href="##" id="components_toggle" accesskey="a">#application.GSAPI.get_string("add_component")#</a>
+	<a href="##" id="components_toggle" accesskey="a">#application.GSAPI.i18n("add_component")#</a>
 
 </div>
 
@@ -34,7 +34,7 @@
 
 	<br />
 
-	<button type="submit" name="submit">#application.GSAPI.get_string("save_component")#</button> 
+	<button type="submit" name="submit">#application.GSAPI.i18n("save_component")#</button> 
 
 </div>
 	<p></p>
@@ -65,7 +65,7 @@
 
 	<br />
 
-	<button type="submit" name="submit">#application.GSAPI.get_string("save_component")#</button> 
+	<button type="submit" name="submit">#application.GSAPI.i18n("save_component")#</button> 
 
 	<p></p>
 

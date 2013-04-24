@@ -5,16 +5,16 @@
 
 <ul class="snav">
 
-	<li><a <cfif getItem() EQ "home">class="current"</cfif> href="#buildURL(action = '.home')#">#application.GSAPI.get_string("SUPPORT")#</a></li>
+	<li><a <cfif getItem() EQ "home">class="current"</cfif> href="#buildURL(action = '.home')#">#application.GSAPI.i18n("SUPPORT")#</a></li>
 
 
 	
 
 	<cfif session.LOGINAPI.adhocSecurity("system")>
-		<li><a <cfif getItem() EQ "register">class="current"</cfif>  href="#buildURL(action = '.register')#">#application.GSAPI.get_string("register")#</a></li>
+		<li><a <cfif getItem() EQ "register">class="current"</cfif>  href="#buildURL(action = '.register')#">#application.GSAPI.i18n("register")#</a></li>
 
 	
-		<li><a <cfif getItem() EQ "health">class="current"</cfif> href="#buildURL(action = '.health')#">#application.GSAPI.get_string("side_health_chk")#</a></li>
+		<li><a <cfif getItem() EQ "health">class="current"</cfif> href="#buildURL(action = '.health')#">#application.GSAPI.i18n("side_health_chk")#</a></li>
 	
 	</cfif>	
 

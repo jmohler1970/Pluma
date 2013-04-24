@@ -5,13 +5,13 @@
 
 <ul class="snav">
 	
-	<li><a <cfif getItem() EQ "home">class="current"</cfif>  href="#buildURL(action = 'settings.home')#">#application.GSAPI.get_string("general_settings")#</a></li>
+	<li><a <cfif getItem() EQ "home">class="current"</cfif>  href="#buildURL(action = 'settings.home')#">#application.GSAPI.i18n("general_settings")#</a></li>
 	
-	<li><a <cfif getItem() EQ "notification">class="current"</cfif>  href="#buildURL(action = 'settings.notification')#">#application.GSAPI.get_string("notification_settings")#</a></li>
+	<li><a <cfif getItem() EQ "notification">class="current"</cfif>  href="#buildURL(action = 'settings.notification')#">#application.GSAPI.i18n("notification_settings")#</a></li>
 	
-	<li><a <cfif getItem() EQ "feedback">class="current"</cfif>  href="#buildURL(action = 'settings.feedback')#">#application.GSAPI.get_string("feedback_settings")#</a></li>
+	<li><a <cfif getItem() EQ "feedback">class="current"</cfif>  href="#buildURL(action = 'settings.feedback')#">#application.GSAPI.i18n("feedback_settings")#</a></li>
 	
-	<li><a <cfif getItem() EQ "error404">class="current"</cfif>  href="#buildURL(action = 'settings.error404')#">#application.GSAPI.get_string("error_settings")#</a></li>
+	<li><a <cfif getItem() EQ "error404">class="current"</cfif>  href="#buildURL(action = 'settings.error404')#">#application.GSAPI.i18n("error_settings")#</a></li>
 </ul>
 
 

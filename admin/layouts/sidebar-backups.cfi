@@ -5,17 +5,17 @@
 
 <ul class="snav">
 
-	<li><a <cfif getItem() EQ "home">class="current"</cfif>  href="#buildURL(action = 'backups.home')#">#application.GSAPI.get_string("side_web_archives")#</a></li>
+	<li><a <cfif getItem() EQ "home">class="current"</cfif>  href="#buildURL(action = 'backups.home')#">#application.GSAPI.i18n("side_web_archives")#</a></li>
 
 	<cfif isDefined("rc.NodeID")>
 		<cfif getItem() EQ "history" AND isnumeric(rc.nodeID)>
-			<li><a class="current" href="#buildURL(action = 'backups.history', querystring="nodeID=#rc.NodeID#")#">#application.GSAPI.get_string("side_view_bak")#</a></li>
+			<li><a class="current" href="#buildURL(action = 'backups.history', querystring="nodeID=#rc.NodeID#")#">#application.GSAPI.i18n("side_view_bak")#</a></li>
 		</cfif>
 	</cfif>
 
-	<li><a <cfif getItem() EQ "importdata">class="current"</cfif>  href="#buildURL(action = 'backups.importdata')#">#application.GSAPI.get_string("side_import")#</a></li>
+	<li><a <cfif getItem() EQ "importdata">class="current"</cfif>  href="#buildURL(action = 'backups.importdata')#">#application.GSAPI.i18n("side_import")#</a></li>
 	
-	<li><a <cfif getItem() EQ "exportdata">class="current"</cfif>  href="#buildURL(action = 'backups.exportdata')#">#application.GSAPI.get_string("side_export")#</a></li>	
+	<li><a <cfif getItem() EQ "exportdata">class="current"</cfif>  href="#buildURL(action = 'backups.exportdata')#">#application.GSAPI.i18n("side_export")#</a></li>	
 
 </ul>
 

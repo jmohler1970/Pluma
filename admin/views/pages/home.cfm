@@ -5,22 +5,22 @@
 
 
 <cfoutput>
-<h3 class="floated">#application.GSAPI.get_string("page_management")#</h3>
+<h3 class="floated">#application.GSAPI.i18n("page_management")#</h3>
 
 
 
 
 <div class="edit-nav clearfix">
-	<a href="##" id="filtertable" accesskey="r">#application.GSAPI.get_string("filter")#</a>
+	<a href="##" id="filtertable" accesskey="r">#application.GSAPI.i18n("filter")#</a>
 	
-	<a href="##" id="show-characters" accesskey="u">#application.GSAPI.get_string("toggle_status")#</a>
+	<a href="##" id="show-characters" accesskey="u">#application.GSAPI.i18n("toggle_status")#</a>
 </div>	
 
 
 
 <div id="filter-search" style="display : none; ">
 	<form>
-		<input type="text" autocomplete="off" class="text" id="q" placeholder="filter..." /> &nbsp; <a href="#buildurl('.home')#" class="cancel">#application.GSAPI.get_string("cancel")#</a>
+		<input type="text" autocomplete="off" class="text" id="q" placeholder="filter..." /> &nbsp; <a href="#buildurl('.home')#" class="cancel">#application.GSAPI.i18n("cancel")#</a>
 		</form>
 </div>
 </cfoutput>			
@@ -29,8 +29,8 @@
 <cfoutput>
 <table id="editpages" class="edittable highlight paginate">
 <tr>
-	<th>#application.GSAPI.get_string("page_title")#</th>
-	<th style="text-align : right;">#application.GSAPI.get_string("date")#</th>
+	<th>#application.GSAPI.i18n("page_title")#</th>
+	<th style="text-align : right;">#application.GSAPI.i18n("date")#</th>
 	<th>&nbsp;</th>
 	<th>&nbsp;</th>
 </tr>
@@ -86,7 +86,7 @@
 
 
 <cfoutput>
-	<p><i><b>#rc.qryAllPages.recordcount#</b> #application.GSAPI.get_string("total_pages")#</i></p>
+	<p><i><b>#rc.qryAllPages.recordcount#</b> #application.GSAPI.i18n("total_pages")#</i></p>
 </cfoutput>
 
 </div>

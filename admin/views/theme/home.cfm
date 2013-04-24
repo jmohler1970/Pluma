@@ -2,7 +2,7 @@
 <div class="main">
 
 <cfoutput> 
-	<h3>#application.GSAPI.get_string("choose_theme")#</h3>
+	<h3>#application.GSAPI.i18n("choose_theme")#</h3>
 
 
 
@@ -19,7 +19,7 @@
 	</select>
 
 <cfoutput>	
-	<button type="submit">#application.GSAPI.get_string("activate_theme")#</button>
+	<button type="submit">#application.GSAPI.i18n("activate_theme")#</button>
 </p>	
 </form>
 

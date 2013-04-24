@@ -17,21 +17,21 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 <cfoutput>
 <cfif rc.NodeID EQ "">
-	<h3 class="floated">#application.GSAPI.get_string("Create_New_Page")#</h3>
+	<h3 class="floated">#application.GSAPI.i18n("Create_New_Page")#</h3>
 <cfelse>
-	<h3 class="floated">#application.GSAPI.get_string("Page_edit_mode")#</h3>
+	<h3 class="floated">#application.GSAPI.i18n("Page_edit_mode")#</h3>
 </cfif>
 </cfoutput>
 
 	    <div class="edit-nav clearfix">	
 	    
 		<cfoutput query="rc.qryNode">   
-	    	<a href="/index.cfm/main/#slug#" target="_blank" accesskey="v">#application.GSAPI.get_string("view")#</a>
+	    	<a href="/index.cfm/main/#slug#" target="_blank" accesskey="v">#application.GSAPI.i18n("view")#</a>
 	    
-	    	<a href="##" id="metadata_toggle" accesskey="n">#application.GSAPI.get_string("page_options")#</a>
+	    	<a href="##" id="metadata_toggle" accesskey="n">#application.GSAPI.i18n("page_options")#</a>
 	    	
 	    	<cfif isnumeric(rc.nodeID)>
-	    		<a href="#buildURL(action = 'backups.history', querystring='nodeID=#NodeID#')#" onclick="doAdvanced()" accesskey="a">#application.GSAPI.get_string("page_backups")#</a>
+	    		<a href="#buildURL(action = 'backups.history', querystring='nodeID=#NodeID#')#" onclick="doAdvanced()" accesskey="a">#application.GSAPI.i18n("page_backups")#</a>
 	    	</cfif>
 	    </cfoutput>
 	    	
@@ -76,7 +76,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 
 	<p class="inline clearfix">
-		<label class="control-label" for="pstatus">#application.GSAPI.get_string("keep_private")#</label>
+		<label class="control-label" for="pstatus">#application.GSAPI.i18n("keep_private")#</label>
 	   
 	       	<select name="pstatus"  class="text autowidth">
 			<cfloop index="ii" list="#application.stAdminSetting.Node.lstpstatus#">
@@ -88,7 +88,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 
 	<p class="inline clearfix">
-		<label class="control-label" for="firstname">#application.GSAPI.get_string("parent_page")#</label>
+		<label class="control-label" for="firstname">#application.GSAPI.i18n("parent_page")#</label>
 
 </cfoutput>
 
@@ -195,7 +195,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 	<cfoutput>
 	<p class="inline clearfix">
-		<label class="control-label" for="tags">#application.GSAPI.get_string("tag_keywords")#</label>	
+		<label class="control-label" for="tags">#application.GSAPI.i18n("tag_keywords")#</label>	
 
 	
 
@@ -278,15 +278,15 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 <h3 class="floated">
 	
 		<cfif deleted EQ 1>
-			<button type="submit" name="submit">#application.GSAPI.get_string("ask_restore")#</button>
+			<button type="submit" name="submit">#application.GSAPI.i18n("ask_restore")#</button>
 	
 		<cfelse>
 				
-			<button type="submit" name="submit" value="save updates">#application.GSAPI.get_string("BTN_SAVECHANGES")#</button>
+			<button type="submit" name="submit" value="save updates">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
 			
 
 			<cfif isnumeric(rc.NodeID)>	
-				<button type="submit" name="submit" value="clone">#application.GSAPI.get_string("clone")#</button>
+				<button type="submit" name="submit" value="clone">#application.GSAPI.i18n("clone")#</button>
 			</cfif>	
 		</cfif>
 		
@@ -296,7 +296,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 			<cfif isnumeric(rc.NodeID)>
 				<div class="edit-nav clearfix">
 									
-					<a href="#buildURL(action='pages.delete', querystring = 'nodeid=#rc.nodeid#')#"> #application.GSAPI.get_string("deletepage_title")#</a>
+					<a href="#buildURL(action='pages.delete', querystring = 'nodeid=#rc.nodeid#')#"> #application.GSAPI.i18n("deletepage_title")#</a>
 				</div>
 			</cfif>
 			

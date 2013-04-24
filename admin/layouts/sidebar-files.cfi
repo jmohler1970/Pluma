@@ -4,14 +4,14 @@
 
 <cfoutput>
 <ul class="snav">
-	<li><a <cfif getSection() EQ "Files" AND getItem() EQ "home">class="current"</cfif> href="#buildURL(action = 'files.home')#">#application.GSAPI.get_string("file_management")#</a></li>
+	<li><a <cfif getSection() EQ "Files" AND getItem() EQ "home">class="current"</cfif> href="#buildURL(action = 'files.home')#">#application.GSAPI.i18n("file_management")#</a></li>
 	
 		
 	<cfif isdefined("rc.name") AND getItem() NEQ "home">
-		<li><a class="current" href="##">#application.GSAPI.get_string("img_control_panel")#</a></li>
+		<li><a class="current" href="##">#application.GSAPI.i18n("img_control_panel")#</a></li>
 	</cfif>
 	
-	<li><a href="#buildURL(action = 'files.home')###upload">#application.GSAPI.get_string("uploadify_button")#</a></li>
+	<li><a href="#buildURL(action = 'files.home')###upload">#application.GSAPI.i18n("uploadify_button")#</a></li>
 </ul>
 
 <ul class="snav">	

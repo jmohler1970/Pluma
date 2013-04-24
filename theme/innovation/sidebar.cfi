@@ -71,12 +71,12 @@
 		<form action="/index.cfm/login" method="post">
 			
 			<p>
-			<small>#application.GSAPI.get_string("label_userName")#</small><br />
+			<small>#application.GSAPI.i18n("label_userName")#</small><br />
 			<input type="text" name="login" />
 			</p>
 			
 			<p>
-			<small>#application.GSAPI.get_string("Password")#</small><br />
+			<small>#application.GSAPI.i18n("Password")#</small><br />
 			<input type="password" name="password" />
 			</p>
 			

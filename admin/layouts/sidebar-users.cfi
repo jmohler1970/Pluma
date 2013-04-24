@@ -6,7 +6,7 @@
 
 <ul class="snav">
 	
-	<li><a <cfif getItem() EQ "home">class="current"</cfif> href="#buildURL(action = 'users.home')#">#application.GSAPI.get_string("USER_MANAGEMENT")#</a></li>
+	<li><a <cfif getItem() EQ "home">class="current"</cfif> href="#buildURL(action = 'users.home')#">#application.GSAPI.i18n("USER_MANAGEMENT")#</a></li>
 	
 	<!---
 	<li><a <cfif getItem() EQ "option">class="current"</cfif> href="#buildURL(action = 'users.option')#">Options</a></li>
@@ -14,15 +14,15 @@
 	
 
 	
-	<li><a <cfif getItem() EQ "edit" and NOT isnumeric(rc.userid)>class="current"</cfif> href="#buildURL(action = 'users.edit')#">#application.GSAPI.get_string("NEW_USER")#</a></li>
+	<li><a <cfif getItem() EQ "edit" and NOT isnumeric(rc.userid)>class="current"</cfif> href="#buildURL(action = 'users.edit')#">#application.GSAPI.i18n("NEW_USER")#</a></li>
 
 
 	<cfif getItem() EQ "edit" and isnumeric(rc.userid)>
-		<li><a <cfif getItem() EQ "edit">class="current"</cfif> href="#buildURL(action = 'users.edit')#">#application.GSAPI.get_string("EDIT_USER")#</a></li>
+		<li><a <cfif getItem() EQ "edit">class="current"</cfif> href="#buildURL(action = 'users.edit')#">#application.GSAPI.i18n("EDIT_USER")#</a></li>
 	</cfif>
 
 	
-	<li><a <cfif getItem() EQ "jour">class="current"</cfif> href="#buildURL(action = 'users.jour')#">#application.GSAPI.get_string("VIEW_FAILED_LOGIN")#</a></li>
+	<li><a <cfif getItem() EQ "jour">class="current"</cfif> href="#buildURL(action = 'users.jour')#">#application.GSAPI.i18n("VIEW_FAILED_LOGIN")#</a></li>
 
 </ul>
 

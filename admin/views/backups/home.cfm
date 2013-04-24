@@ -5,7 +5,7 @@
 
 
 <cfoutput>
-	<h3>#application.GSAPI.get_string("bak_management")#</h3>
+	<h3>#application.GSAPI.i18n("bak_management")#</h3>
 </cfoutput>
 
 
@@ -16,9 +16,9 @@
 <thead>
 <tr>
 	
-	<th>#application.GSAPI.get_string("page_action")#</th>
-	<th style="text-align : right;">#application.GSAPI.get_string("archive_date")#</th>
-	<th style="text-align : right;">#application.GSAPI.get_string("by")#</th>
+	<th>#application.GSAPI.i18n("page_action")#</th>
+	<th style="text-align : right;">#application.GSAPI.i18n("archive_date")#</th>
+	<th style="text-align : right;">#application.GSAPI.i18n("by")#</th>
 </tr>
 </thead>
 

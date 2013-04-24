@@ -4,17 +4,17 @@
 <div class="main">
 
 	<cfoutput>
-	<h3>#application.GSAPI.get_string("tag_summary")#</h3>
+	<h3>#application.GSAPI.i18n("tag_summary")#</h3>
 	
 	<table  class="edittable highlight paginate">
 	
 
 	<thead>
 	<tr>
-		<th>#application.GSAPI.get_string("tag_name")#</th>
-		<th>#application.GSAPI.get_string("tags")#</th>
-		<th style="text-align : right;">#application.GSAPI.get_string("page_count")#</th>
-		<th style="text-align : right;">#application.GSAPI.get_string("tag_rank")#</th>
+		<th>#application.GSAPI.i18n("tag_name")#</th>
+		<th>#application.GSAPI.i18n("tags")#</th>
+		<th style="text-align : right;">#application.GSAPI.i18n("page_count")#</th>
+		<th style="text-align : right;">#application.GSAPI.i18n("tag_rank")#</th>
 	</tr>
 	</thead>
 	</cfoutput>
@@ -34,7 +34,7 @@
 	</table>
 
 <cfoutput>
-	<p><i><b>#rc.qryTags.recordcount#</b> #application.GSAPI.get_string("total_tags")#</i></p>
+	<p><i><b>#rc.qryTags.recordcount#</b> #application.GSAPI.i18n("total_tags")#</i></p>
 </cfoutput>
 
 	

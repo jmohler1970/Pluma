@@ -68,7 +68,7 @@
 
 
 	<h3 class="floated">	
-		<button type="submit">#application.GSAPI.get_string("BTN_SAVECHANGES")#</button>
+		<button type="submit">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
 	</h3>
 	
 

@@ -5,7 +5,7 @@
 
 	
 	<cfoutput>
-	<li><a <cfif getItem() EQ "home">class="current"</cfif> href="#buildURL(action = 'pages.home')#">#application.GSAPI.get_string("side_view_pages")#</a></li>
+	<li><a <cfif getItem() EQ "home">class="current"</cfif> href="#buildURL(action = 'pages.home')#">#application.GSAPI.i18n("side_view_pages")#</a></li>
 	
 	
 	<cfif getItem() EQ "linkcategory">
@@ -16,21 +16,21 @@
 	
 	
 	<li><a <cfif getItem() EQ "edit" AND rc.NodeID EQ "">class="current"</cfif> href="#buildURL(action = 'pages.edit')#">
-		#application.GSAPI.get_string("side_create_new")#</a>
+		#application.GSAPI.i18n("side_create_new")#</a>
 	</li>
 
 	
 	<cfif getItem() EQ "edit" AND rc.NodeID NEQ "">
 	<li><a class="current" href="#buildURL(action = 'pages.edit', querystring = 'nodeid=#rc.NodeID#')#">
-		#application.GSAPI.get_string("editpage_title")#</a>
+		#application.GSAPI.i18n("editpage_title")#</a>
 	</li>
 	</cfif>
 	
-	<li><a <cfif getItem() EQ "menu">class="current"</cfif> href="#buildURL(action = 'pages.menu')#">#application.GSAPI.get_string("menu_manager")#</a></li>
+	<li><a <cfif getItem() EQ "menu">class="current"</cfif> href="#buildURL(action = 'pages.menu')#">#application.GSAPI.i18n("menu_manager")#</a></li>
 
-	<li><a <cfif getItem() EQ "tags">class="current"</cfif> href="#buildURL(action = 'pages.tags')#">#application.GSAPI.get_string("tag_summary")#</a></li>
+	<li><a <cfif getItem() EQ "tags">class="current"</cfif> href="#buildURL(action = 'pages.tags')#">#application.GSAPI.i18n("tag_summary")#</a></li>
 			
-	<li><a <cfif getItem() EQ "find">class="current"</cfif> href="#buildURL(action = 'pages.find')#">#application.GSAPI.get_string("search")#</a></li>
+	<li><a <cfif getItem() EQ "find">class="current"</cfif> href="#buildURL(action = 'pages.find')#">#application.GSAPI.i18n("search")#</a></li>
 </ul>	
 	
 

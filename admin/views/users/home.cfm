@@ -8,7 +8,7 @@
 
 
 <cfoutput>
-<h3 class="floated">#application.GSAPI.get_string("user_management")#</h3>
+<h3 class="floated">#application.GSAPI.i18n("user_management")#</h3>
 </cfoutput>
 
 <script type="text/javascript">
@@ -23,16 +23,16 @@
 
 <cfoutput>
 <div class="edit-nav clearfix">
-	<a href="##" id="filtertable" accesskey="r">#application.GSAPI.get_string("filter")#</a>
+	<a href="##" id="filtertable" accesskey="r">#application.GSAPI.i18n("filter")#</a>
 	
-	<a href="##" id="show-characters" accesskey="u">#application.GSAPI.get_string("toggle_status")#</a>
+	<a href="##" id="show-characters" accesskey="u">#application.GSAPI.i18n("toggle_status")#</a>
 </div>
 
 
 
 <div id="filter-search" style="display: none; ">
 	<form>
-		<input type="text" autocomplete="off" class="text" id="q" placeholder="filter..." /> &nbsp; <a href="#buildurl('.home')#" class="cancel">#application.GSAPI.get_string("cancel")#</a>
+		<input type="text" autocomplete="off" class="text" id="q" placeholder="filter..." /> &nbsp; <a href="#buildurl('.home')#" class="cancel">#application.GSAPI.i18n("cancel")#</a>
 	</form>
 </div>
 		
@@ -45,13 +45,13 @@
 <cfoutput>
 <thead>
 <tr>
-	<th>#application.GSAPI.get_string("user_name")#</th>
-	<th>#application.GSAPI.get_string("label_email")#</th>
+	<th>#application.GSAPI.i18n("user_name")#</th>
+	<th>#application.GSAPI.i18n("label_email")#</th>
 	<th>Permission</th>
-	<th>#application.GSAPI.get_string("USER_LAST_LOGIN")#</th>
-	<th>#application.GSAPI.get_string("expiration")#</th>
+	<th>#application.GSAPI.i18n("USER_LAST_LOGIN")#</th>
+	<th>#application.GSAPI.i18n("expiration")#</th>
 	<th>&nbsp;</th>
-	<th>#application.GSAPI.get_string("renew")#</th>
+	<th>#application.GSAPI.i18n("renew")#</th>
 	<th>&nbsp;</th>
 </tr>
 </thead>

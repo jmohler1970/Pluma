@@ -4,7 +4,7 @@
 <div class="main">
 
 	<cfoutput>
-	<h3>#application.GSAPI.get_string("profile")#</h3>
+	<h3>#application.GSAPI.i18n("profile")#</h3>
 	</cfoutput>
 	
 
@@ -75,7 +75,7 @@
 	
 	<div class="clear"></div>	
 
-	<button type="submit">#application.GSAPI.get_string("BTN_SAVECHANGES")#</button>
+	<button type="submit">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
 
 </cfform>
 

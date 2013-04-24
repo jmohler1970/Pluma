@@ -359,7 +359,7 @@ string function find_url(required string slug) {
 
 	
 /* i18n strings */	
-string function get_string(required string key) output="false"	{
+string function i18n(required string key) output="false"	{
 
 	if (structKeyExists(this.i18n, arguments.key))	{
 		/*
@@ -372,7 +372,7 @@ string function get_string(required string key) output="false"	{
 		}
 		
 	
-	return "#arguments.key# <!-- fail to load -->";
+	return "{#arguments.key#}";
 	}	
 
 

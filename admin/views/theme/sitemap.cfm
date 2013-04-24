@@ -79,7 +79,7 @@
    
 
 
-<button type="submit">#application.GSAPI.get_string("BTN_SAVECHANGES")#</button>
+<button type="submit">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
 	
 	<cfif isnumeric(rc.SitemapID)>
 		<input type="submit" name="submit" class="submit" value="Delete" />

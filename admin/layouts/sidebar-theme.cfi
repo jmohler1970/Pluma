@@ -3,15 +3,15 @@
 
 <ul class="snav">
 
-	<li><a <cfif getItem() EQ "home">class="current"</cfif> href="#buildURL(action = 'theme.home')#">#application.GSAPI.get_string("choose_theme")#</a></li>
+	<li><a <cfif getItem() EQ "home">class="current"</cfif> href="#buildURL(action = 'theme.home')#">#application.GSAPI.i18n("choose_theme")#</a></li>
 
 	<!--- Supposed to do direct edit 
-	<li <cfif getItem() EQ "edit">class="active"</cfif>><a href="#buildURL(action = 'theme.edit')#">#application.GSAPI.get_string("side_edit_theme")#</a></li>
+	<li <cfif getItem() EQ "edit">class="active"</cfif>><a href="#buildURL(action = 'theme.edit')#">#application.GSAPI.i18n("side_edit_theme")#</a></li>
 	--->
 
-	<li><a <cfif getItem() EQ "components">class="current"</cfif> href="#buildURL(action = 'theme.components')#">#application.GSAPI.get_string("side_components")#</a></li>
+	<li><a <cfif getItem() EQ "components">class="current"</cfif> href="#buildURL(action = 'theme.components')#">#application.GSAPI.i18n("side_components")#</a></li>
 
-	<li><a <cfif getItem() EQ "sitemap">class="current"</cfif> href="#buildURL(action = 'theme.sitemap')#">#application.GSAPI.get_string("side_view_sitemap")#</a></li>
+	<li><a <cfif getItem() EQ "sitemap">class="current"</cfif> href="#buildURL(action = 'theme.sitemap')#">#application.GSAPI.i18n("side_view_sitemap")#</a></li>
 </ul>
 
 <ul class="snav">
