@@ -1,5 +1,5 @@
 
-<cfcomponent extends="plugin">
+<cfcomponent>
 
 <cfscript>
 
@@ -9,7 +9,7 @@ thisFile = listfirst(listlast(GetCurrentTemplatePath(), "\"), ".");
 
 
 function Init()	{
-this.register_plugin(thisFile, 
+application.GSAPI.register_plugin(thisFile, 
 	'Traffic Tracker',
 	'0.1',
 	'James Mohler',
@@ -20,7 +20,7 @@ this.register_plugin(thisFile,
 	'icon-heart');
 
 
-	this.add_action("pages_sidebar", "createSideMenu", ["?plugin=traffic", "Traffic Tracker"]);
+	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=traffic", "Traffic Tracker"]);
 	}	
 </cfscript>
 

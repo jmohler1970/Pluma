@@ -1,5 +1,5 @@
 
-<cfcomponent extends="plugin">
+<cfcomponent>
 
 <cfscript>
 this.EntryCount = 8;
@@ -7,18 +7,18 @@ this.EntryCount = 8;
 thisFile = listfirst(listlast(GetCurrentTemplatePath(), "\"), ".");
 
 function Init()	{
-this.register_plugin(thisFile, 
-	'Innovation Theme',
-	'0.1',
-	'James Mohler',
-	'http://webworldinc.com',
-	'Setting for Innovation theme.',
-	'theme',
-	'',
-	'icon-cog');
+	application.GSAPI.register_plugin(thisFile, 
+		'Innovation Theme',
+		'0.1',
+		'James Mohler',
+		'http://webworldinc.com',
+		'Setting for Innovation theme.',
+		'theme',
+		'',
+		'icon-cog');
 	
 	
-this.add_action("theme_sidebar", "createSideMenu", ["?plugin=innovation", "Innovation Theme Settings"]);
+	application.GSAPI.add_action("theme_sidebar", "createSideMenu", ["?plugin=innovation", "Innovation Theme Settings"]);
 	}
 		
 </cfscript>

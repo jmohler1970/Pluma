@@ -1,6 +1,6 @@
 
 
-<cfcomponent extends="plugin">
+<cfcomponent>
 
 <cfscript>
 this.EntryCount = 8;
@@ -8,7 +8,7 @@ this.EntryCount = 8;
 thisFile = listfirst(listlast(GetCurrentTemplatePath(), "\"), ".");
 
 function Init()	{
-this.register_plugin(thisFile, 
+application.GSAPI.register_plugin(thisFile, 
 	'Bootswatch Theme',
 	'0.1',
 	'James Mohler',
@@ -19,7 +19,7 @@ this.register_plugin(thisFile,
 	'icon-cog');
 	
 	
-this.add_action("theme_sidebar", "createSideMenu", ["?plugin=bootswatch", "Bootswatch Theme Settings"]);
+application.GSAPI.add_action("theme_sidebar", "createSideMenu", ["?plugin=bootswatch", "Bootswatch Theme Settings"]);
 	}
 		
 </cfscript>

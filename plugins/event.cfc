@@ -1,6 +1,6 @@
 
 
-<cfcomponent extends="plugin">
+<cfcomponent>
 
 <cfscript>
 
@@ -8,7 +8,7 @@
 thisFile = listfirst(listlast(GetCurrentTemplatePath(), "\"), ".");
 
 function Init()	{
-	this.register_plugin(thisFile, 
+	application.GSAPI.register_plugin(thisFile, 
 	'Event Manager',
 	'0.1',
 	'James Mohler',
@@ -19,10 +19,10 @@ function Init()	{
 	'icon-calendar');
 	
 	
-	this.add_action("pages_sidebar", "createSideMenu", ["?plugin=event", "Event Manager"]);
-	this.add_action("pages_sidebar", "createSideMenu", ["?plugin=event&plx=edit", "Create New Event"]);
+	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=event", "Event Manager"]);
+	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=event&plx=edit", "Create New Event"]);
 	
-	this.add_action("plugin_content", "createSelectMenu", ["event_summary", "Event Summary"]);
+	application.GSAPI.add_action("plugin_content", "createSelectMenu", ["event_summary", "Event Summary"]);
 	}	
 </cfscript>
 
