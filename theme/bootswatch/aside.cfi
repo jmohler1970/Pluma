@@ -24,7 +24,7 @@
 		
 		
 		<cfif session.LOGINAPI.adhocSecurity("system")>
-			<cfoutput><a class="btn btn-success" href="#buildURL(action = 'admin:menu.home', querystring='extra=#arguments.extra#')#" target="_top"><i class="icon-pencil icon-white"></i> Edit</a></cfoutput>	
+			<cfoutput><a class="btn btn-success" href="#buildURL(action = 'menu.home', querystring='extra=#arguments.extra#')#" target="_top"><i class="icon-pencil icon-white"></i> Edit</a></cfoutput>	
 		</cfif>
 		
 		</div>
@@ -63,7 +63,7 @@
 </form>
 
 <cfif session.LOGINAPI.adhocSecurity("system")>
-	<cfoutput><a class="btn btn-success" href="#buildURL(action = 'admin:menu.aside')#" target="_top"><i class="icon-pencil icon-white"></i> Edit</a></cfoutput>	
+	<cfoutput><a class="btn btn-success" href="#buildURL(action = 'menu.aside')#" target="_top"><i class="icon-pencil icon-white"></i> Edit</a></cfoutput>	
 </cfif>
 
 </div>

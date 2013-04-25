@@ -9,7 +9,7 @@
 	<li class="leftnav"><a href="#application.GSAPI.get_site_root()#index.cfm/logout">#application.GSAPI.i18n("tab_logout")#</a></li>
 	
 	<li class="rightnav" id="nav_profile">
-			<a data-toggle="dropdown" href="#buildURL(action = 'admin:profile.home')#" target="_top">#application.GSAPI.i18n("welcome")#
+			<a data-toggle="dropdown" href="#buildURL(action = 'profile.home')#" target="_top">#application.GSAPI.i18n("welcome")#
 			<b>#session.LOGINAPI.getLoginName()#</b>!</a>
 	</li>
 </ul> 

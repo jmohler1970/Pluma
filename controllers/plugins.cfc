@@ -85,7 +85,7 @@ void function startedit(required struct rc) output="false" {
 	if (rc.Kind == "")	{
 		this.AddMessage("Could not load node and could not create blank template");
 	
-		// variables.fw.redirect("admin:plugins.home", "all");
+		// variables.fw.redirect("plugins.home", "all");
 		}
 		
 	// Load common options. Common options are only displayed if plugin wants to	

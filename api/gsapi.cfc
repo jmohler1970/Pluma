@@ -409,7 +409,7 @@ string function get_site_version() {
 	<cfargument name="NodeK" required="true" type="struct"> 
 	<cfargument name="mode" required="false" type="string" default="internal">
 	<cfargument name="class" required="false" type="string" default="">
-	<cfargument name="base" required="false" type="string" default="/index.cfm/admin:pages/edit/NodeID/">
+	<cfargument name="base" required="false" type="string" default="/index.cfm/pages/edit/NodeID/">
 	
 	
 

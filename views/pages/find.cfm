@@ -31,7 +31,7 @@
 	
 	
 	<h2>
-		<a href="#buildURL(action = 'admin:pages.edit', querystring = 'PageID=#NodeID#')#">#Title# <cfif title EQ ""><i>None</i></cfif></a> 
+		<a href="#buildURL(action = 'pages.edit', querystring = 'PageID=#NodeID#')#">#Title# <cfif title EQ ""><i>None</i></cfif></a> 
 		
 		(#Kind#)
 	</h2>

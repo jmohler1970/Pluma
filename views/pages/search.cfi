@@ -23,19 +23,19 @@
 	<p><b>
 		<cfswitch expression="#kind#">
 		<cfcase value="Blog">
-			<a href="#buildURL(action = 'admin:blog.edit', querystring = 'BlogID=#NodeID#')#">#Title# <cfif title EQ ""><i>None</i></cfif></a> 
+			<a href="#buildURL(action = 'blog.edit', querystring = 'BlogID=#NodeID#')#">#Title# <cfif title EQ ""><i>None</i></cfif></a> 
 		</cfcase>
 		<cfcase value="Photo">
-			<a href="#buildURL(action = 'admin:photo.edit', querystring = 'PhotoID=#NodeID#')#">#Title# <cfif title EQ ""><i>None</i></cfif></a> 
+			<a href="#buildURL(action = 'photo.edit', querystring = 'PhotoID=#NodeID#')#">#Title# <cfif title EQ ""><i>None</i></cfif></a> 
 		</cfcase>
 		<cfcase value="Page">
-			<a href="#buildURL(action = 'admin:page.edit', querystring = 'PageID=#NodeID#')#">#Title# <cfif title EQ ""><i>None</i></cfif></a> 
+			<a href="#buildURL(action = 'page.edit', querystring = 'PageID=#NodeID#')#">#Title# <cfif title EQ ""><i>None</i></cfif></a> 
 		</cfcase>
 		<cfcase value="SubPage">
-			<a href="#buildURL(action = 'admin:subpage.edit', querystring = 'PageID=#ParentNodeID#&SubPageID=#NodeID#')#">#Title# <cfif title EQ ""><i>None</i></cfif></a> 
+			<a href="#buildURL(action = 'subpage.edit', querystring = 'PageID=#ParentNodeID#&SubPageID=#NodeID#')#">#Title# <cfif title EQ ""><i>None</i></cfif></a> 
 		</cfcase>
 		<cfcase value="Tags">
-			<a href="#buildURL(action = 'admin:tags.home', querystring = 'Tag=#urlencodedformat(Title)#')#">#Title# <cfif title EQ ""><i>None</i></cfif></a> 
+			<a href="#buildURL(action = 'tags.home', querystring = 'Tag=#urlencodedformat(Title)#')#">#Title# <cfif title EQ ""><i>None</i></cfif></a> 
 		</cfcase>
 		<cfdefaultcase>
 			#Title#

@@ -17,14 +17,13 @@
 		home 		= 'home:main.home', 
 		baseURL 	= 'useCgiScriptName',
 		generateSES = true, 
-		SESomitindex = false,
-		UsingSubsystems = true
+		SESomitindex = false
 		};
 		
 	variables.framework.routes = [
-		{ "/login" 			= "/admin:login/home"},
-		{ "/forgot" 		= "/admin:login/email"},
-		{ "/logout" 		= "/admin:login/signout"},
+		{ "/login" 			= "/login/home"},
+		{ "/forgot" 		= "/login/email"},
+		{ "/logout" 		= "/login/signout"},
 
 		// content
 		{ "/id/:id" 		= "/main/home/id/:id"},
@@ -139,7 +138,7 @@ void function setupSession()	{
 
 	/* Does at least one user exist, if not run install */
 	if (not application.USERAPI.at_least_one_user())	{
-		//location("#application.GSAPI.get_site_root()#index.cfm/admin:install/home", "no");
+		//location("#application.GSAPI.get_site_root()#index.cfm/install/home", "no");
 		}	
 	
 	 	
