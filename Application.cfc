@@ -99,10 +99,6 @@ fileclose(objAppFile);
 	application.USERAPI.Init();
 	application.GSAPI.Init();
 	
-	
-
-	// plugins
-	application.live_plugins = {};
 	}
 
 
@@ -110,18 +106,13 @@ void function setupSession()	{
 	
 	session.LOGINAPI = createobject("component", "api.loginapi"); 
 	session.LOGINAPI.Init();
-
 	}
-	
-</cfscript>	
 
-<cffunction name="setupRequest">	
 
-	
+void function setupRequest()	{
 
-<cfscript>
 
-	param rc.id 	= "";
+	param rc.id 	= "";  // This is used for page requests
 	param rc.nodeid = "" ; // Admin use only, use id for normal requests --->
 	param rc.slug	= "index"; // There are slugs with blank no many objects that are not pages --->
 
