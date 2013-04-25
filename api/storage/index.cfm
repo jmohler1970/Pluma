@@ -1332,7 +1332,7 @@ rc.qryCity			 = wsTraffic.getCity(		stFilter, 'nobot');
 
 <!--- fake node fake user --->
 <cfset  wsNode.getBundleByFA('hi.mom', 0)>	
-<cfset  wsNode.getBundleByFA('home:main.home', "~")>	
+<cfset  wsNode.getBundleByFA('main.home', "~")>	
 
 
 
