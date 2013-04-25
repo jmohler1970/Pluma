@@ -1,3 +1,4 @@
+<cfset request.layout = false><!--- Do not cascade --->
 
 
 
@@ -24,6 +25,7 @@
 
 
 
+
 <!--- Process plugin_content --->
 <cfscript>
 plugin_content 	= application.GSAPI.get_plugin_content();
@@ -35,7 +37,7 @@ theme_template 	= application.GSAPI.get_theme_template();
 <!--- Process Theme --->
 <cfif fileExists(expandpath("theme/#theme#/functions.cfi"))>
 	
-	<cfinclude template="../../theme/#theme#/functions.cfi">
+	<cfinclude template="../theme/#theme#/functions.cfi">
 </cfif>
 
 
@@ -47,7 +49,6 @@ theme_template 	= application.GSAPI.get_theme_template();
 <cfif fileExists(expandpath("theme/#theme#/settings.ini"))>
 	<cfset request.stSettings = application.GSAPI.loadini("theme/#theme#/settings.ini")>
 </cfif>
-
 
 
 <!--- Determine template --->
@@ -72,14 +73,16 @@ if (getItem() EQ "404" AND
 
 
 
+
+
 <cfif not fileExists(expandpath("theme/#theme#/#theme_template#"))>
 	<cfset theme_template = "template.cfm">
 </cfif>	
 
 
-<cfinclude template="../../theme/#theme#/#theme_template#">
+<cfinclude template="../theme/#theme#/#theme_template#">
 
 
 
-<cfset request.layout = false><!--- Do not cascade --->
+
 

@@ -9,7 +9,7 @@ thisFile = listfirst(listlast(GetCurrentTemplatePath(), "\"), ".");
 
 
 function Init()	{
-application.GSAPI.register_plugin(thisFile, 
+	this.stPlugin_info = application.GSAPI.register_plugin(thisFile, 
 	'Traffic Tracker',
 	'0.1',
 	'James Mohler',

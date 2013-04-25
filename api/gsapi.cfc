@@ -8,7 +8,7 @@
 void function init() output="false"{
 
 	try	{
-		this.i18n = this.readPropertiesFile("admin/lang/en_US.properties");
+		this.i18n_data = this.readPropertiesFile("admin/lang/en_US.properties");
 		}
 	catch (any e)	{ this.InitStatus = "Unable to read language file."; }
 		
@@ -361,14 +361,14 @@ string function find_url(required string slug) {
 /* i18n strings */	
 string function i18n(required string key) output="false"	{
 
-	if (structKeyExists(this.i18n, arguments.key))	{
+	if (structKeyExists(this.i18n_data, arguments.key))	{
 		/*
 		if (isDebugMode())	{
 			return '<span class="outline">#evaluate("this.i18n.#arguments.key#")#</span>';
 			}
 		*/
 	
-		return evaluate("this.i18n.#arguments.key#");
+		return evaluate("this.i18n_data.#arguments.key#");
 		}
 		
 	
@@ -514,9 +514,9 @@ string function get_site_version() {
 
 <!--- Plugin functions --->
 <cfscript>
-function register_plugin(required string id, required string name, string ver = "", string auth = "", string auth_url = "", string desc = "", string type = "", string loaddata = "", string icon = "")	{
+struct function register_plugin(required string id, required string name, string ver = "", string auth = "", string auth_url = "", string desc = "", string type = "", string loaddata = "", string icon = "")	{
 
-	this.stPlugin_info = {
+	return {
 		id 			= arguments.id,
 		name 		= arguments.name,
 		version 	= arguments.ver,
@@ -528,7 +528,6 @@ function register_plugin(required string id, required string name, string ver = 
 		icon		= arguments.icon
 		};
 		
-				
 	}
 
 

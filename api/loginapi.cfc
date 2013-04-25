@@ -19,11 +19,8 @@ void function Init() output="false" {
 	this.login = 'Unknown';
 	this.LoginTarget = 'pages.home';
 	
-	// settings
-	this.stSettings 		= this.loadini("api/config.ini");
 	
-	
-	this.wsUser = CreateObject(this.stSettings.storage.users);
+	this.wsUser = CreateObject(application.stSettings.storage.users);
 	}
 
 

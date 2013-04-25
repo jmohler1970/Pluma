@@ -7,7 +7,7 @@ this.EntryCount = 8;
 thisFile = listfirst(listlast(GetCurrentTemplatePath(), "\"), ".");
 
 function Init()	{
-	application.GSAPI.register_plugin(thisFile, 
+	this.stPlugin_info = application.GSAPI.register_plugin(thisFile, 
 		'Innovation Theme',
 		'0.1',
 		'James Mohler',

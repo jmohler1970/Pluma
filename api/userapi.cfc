@@ -22,7 +22,7 @@ void function Init() output="false" {
 	this.stSettings 		= this.loadini("api/config.ini");
 	
 	
-	this.wsUser = CreateObject(this.stSettings.storage.users);
+	this.wsUser = CreateObject(application.stSettings.storage.users);
 	}
 
 

@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0271";
+	this.name 			= "PlumaCMS_0285";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -89,20 +89,16 @@ fileclose(objAppFile);
  	
  	// API
  	
- 	var wsArg = {username = "plumacms", password="plumacms"};	
-	
-	
 	application.IOAPI 	= createobject("component", "api.ioapi");
-	application.IOAPI.Init();
 	application.USERAPI = createobject("component", "api.userapi");
-	application.USERAPI.Init();
 	application.GSAPI 	= createobject("component", "api.gsapi"); 	
+		
+	application.stSettings 	= application.IOAPI.loadini("api/config.ini");
+	
+	application.IOAPI.Init();
+	application.USERAPI.Init();
 	application.GSAPI.Init();
 	
-
-	
-	application.stAdminSetting 	= application.IOAPI.loadini("admin/standard.ini");
-
 	
 
 	// plugins
@@ -124,6 +120,7 @@ void function setupSession()	{
 	
 
 <cfscript>
+
 	param rc.id 	= "";
 	param rc.nodeid = "" ; // Admin use only, use id for normal requests --->
 	param rc.slug	= "index"; // There are slugs with blank no many objects that are not pages --->
@@ -167,7 +164,6 @@ void function setupSession()	{
 		
 	StructAppend(request.stIOR, application.IOAPI.get_bundle({Slug = rc.slug}));
 
-
 </cfscript>
 </cffunction>	
 	
@@ -179,7 +175,7 @@ void function setupSession()	{
 void function onMissingView()	{
 
 
-	location("/index.cfm/main/404", "no");	
+	//location("/index.cfm/main/404", "no");	
 	}
 
 

@@ -8,6 +8,7 @@
 thisFile = listfirst(listlast(GetCurrentTemplatePath(), "\"), ".");
 
 function Init()	{
+	this.stPlugin_info = 
 	application.GSAPI.register_plugin(thisFile, 
 	'Event Manager',
 	'0.1',

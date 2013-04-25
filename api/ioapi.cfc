@@ -8,20 +8,18 @@
 
 void function init() output="false" {
 	
-	// settings
-	this.stSettings 		= this.loadini("api/config.ini");
+	
 	
 	// web services
-	for (var key in this.stSettings.storage)	{
+	for (var key in application.stSettings.storage)	{
 		
 		setVariable("this.ws#key#", ""); // at least the variable exists	
 		
-		var i = evaluate("this.stSettings.storage.#key#");
+		var i = evaluate("application.stSettings.storage.#key#");
 		
 		
 		try	{
-			var tmpWS = CreateObject(this.stSettings.storage.users);
-			
+						
 			var tmpWS = CreateObject(i);
 		
 			

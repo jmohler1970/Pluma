@@ -8,15 +8,17 @@ this.EntryCount = 8;
 thisFile = listfirst(listlast(GetCurrentTemplatePath(), "\"), ".");
 
 function Init()	{
-application.GSAPI.register_plugin(thisFile, 
-	'Bootswatch Theme',
-	'0.1',
-	'James Mohler',
-	'http:http://bootswatch.com',
-	'Setting for bootswatch CMS themes.',
-	'theme',
-	'',
-	'icon-cog');
+
+this.stPlugin_info =
+	application.GSAPI.register_plugin(thisFile, 
+		'Bootswatch Theme',
+		'0.1',
+		'James Mohler',
+		'http:http://bootswatch.com',
+		'Setting for bootswatch CMS themes.',
+		'theme',
+		'',
+		'icon-cog');
 	
 	
 application.GSAPI.add_action("theme_sidebar", "createSideMenu", ["?plugin=bootswatch", "Bootswatch Theme Settings"]);
