@@ -79,7 +79,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 		<label class="control-label" for="pstatus">#application.GSAPI.i18n("keep_private")#</label>
 	   
 	       	<select name="pstatus"  class="text autowidth">
-			<cfloop index="ii" list="#application.stAdminSetting.Node.lstpstatus#">
+			<cfloop index="ii" list="#application.stSettings.Node.lstpstatus#">
 				<option value="#ii#" <cfif ii EQ pStatus>selected</cfif>>#ii#</option>
 			</cfloop>
 			</select>

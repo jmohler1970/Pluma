@@ -21,8 +21,9 @@ void function after(required struct rc) output="false" {
 	
 	for (var i = 1; i <= qryRootDir.recordcount; i++)	{
 		
-		this.AddMessage("Installation directory <tt>#qryRootDir.name[i]#</tt> was found. This directory should be removed after the system has been successfully installed.", "Error");
-				
+		this.addError("plumacms/installation_directory", [qryRootDir.name[i]]);
+		
+	
 		}		
 		
 
@@ -33,6 +34,39 @@ void function after(required struct rc) output="false" {
 
 variables.CRLF = Chr(13) & Chr(10);
 variables.NotifyKind = "Unknown";
+
+void function addFatal(required key, array placeholdervalues = []) output="false" access="package"	{
+	
+	var message = application.GSAPI.i18n(key, arguments.placeholdervalues);
+	
+	this.addMessage(message, "Fatal");
+			
+	}
+
+
+
+void function addError(required key, array placeholdervalues = []) output="false" access="package"	{
+	
+	var message = application.GSAPI.i18n(key, arguments.placeholdervalues);
+	
+	this.addMessage(message, "Error");
+			
+	}
+
+
+void function addWarning(required key, array placeholdervalues = []) output="false" access="package"	{
+	
+	var message = application.GSAPI.i18n(key, arguments.placeholdervalues);
+	
+	this.addMessage(message, "Warning");
+	}
+
+void function addInfo(required key, array placeholdervalues = []) output="false" access="package"	{
+	
+	var message = application.GSAPI.i18n(key, arguments.placeholdervalues);
+	
+	this.addMessage(message);
+	}
 
 
 

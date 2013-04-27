@@ -7,12 +7,51 @@
 <cfscript>
 void function init() output="false"{
 
-	try	{
-		this.i18n_data = this.readPropertiesFile("admin/lang/en_US.properties");
+	this.i18n_data = {};	
+	}
+
+
+void function i18n_merge(string plugin="") output="false"{
+
+	
+	
+	if (arguments.plugin == "") {
+		
+		var fileToRead = "#application.GSLANGPATH##request.stMeta.language#.properties";	
 		}
-	catch (any e)	{ this.InitStatus = "Unable to read language file."; }
+	else	{
+		
+		var fileToRead = "#application.GSPLUGINPATH##arguments.plugin#\lang\#request.stMeta.language#.properties";	
+		}	
+
+
+	try	{
+		StructAppend(this.i18n_data, this.readPropertiesFile(filetoRead, arguments.plugin));
+		}
+	catch (any e)	{ this.InitStatus = "Unable to read language file: #e.message#."; }
 		
 	}
+
+
+/* i18n strings */	
+string function i18n(required string key, array placeholder = []) output="false"	{
+
+	if (structKeyExists(this.i18n_data, arguments.key))	{
+		
+		var myString = evaluate("this.i18n_data['#arguments.key#']");
+		
+		
+		for (var i in arguments.placeholder)	{
+		
+			myString = replace(myString, '%s', i); // only does first match
+			}
+	
+		return myString;
+		}
+		
+	
+	return "{#arguments.key#}";
+	}	
 
 
 
@@ -358,22 +397,6 @@ string function find_url(required string slug) {
 	}
 
 	
-/* i18n strings */	
-string function i18n(required string key) output="false"	{
-
-	if (structKeyExists(this.i18n_data, arguments.key))	{
-		/*
-		if (isDebugMode())	{
-			return '<span class="outline">#evaluate("this.i18n.#arguments.key#")#</span>';
-			}
-		*/
-	
-		return evaluate("this.i18n_data.#arguments.key#");
-		}
-		
-	
-	return "{#arguments.key#}";
-	}	
 
 
 

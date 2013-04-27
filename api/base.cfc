@@ -19,7 +19,7 @@ string function strip_tags(required string str, numeric trimTo=100000) output="f
 	<cfscript>
 	var stResult = {};
 	
-	var iniFilePath = "#GetDirectoryFromPath(GetBaseTemplatePath())##arguments.configfile#";
+	var iniFilePath = "#application.GSROOTPATH##arguments.configfile#";
 	var stSection = getProfileSections(iniFilePath);
   
      
@@ -48,35 +48,37 @@ string function strip_tags(required string str, numeric trimTo=100000) output="f
 
 
 <cffunction name="readPropertiesFile" returnType="Struct" hint="Read a properties file and return a structure">
-    <cfargument name="propertiesFile" type="string" required="true" hint="path to properties file">
-
+    <cfargument name="propertiesFilePath" type="string" required="true" hint="path to properties file">
+	<cfargument name="plugin" type="string" required="true" hint="path to properties file">
 	
 	<cfscript>
-    VAR stProperties = {};
-    VAR phpText = "";
-    VAR key = "";
-    VAR value = "";
-    VAR line = "";
+    var stProperties = {};
+    var phpText = "";
+    var key 	= "";
+    var value 	= "";
+    var line 	= "";
     
-    var propertiesFilePath = "#GetDirectoryFromPath(GetBaseTemplatePath())##arguments.propertiesfile#";
+ 
     
     
-    if (NOT FileExists(propertiesFilePath))
+    if (NOT FileExists(arguments.propertiesFilePath))	{
+    	stProperties.noload = "Could not load #propertiesFilePath#";
     
      	return stProperties;
-        
+        }
     </cfscript>
  
  
     
 
     <!--- read props file --->
-    <cffile action="read" file="#propertiesFilePath#" variable="phpText">
+    <cffile action="read" file="#propertiesFilePath#" variable="phpText" charset="utf-8">
     
-    
+
 
     <!--- remove any whitespace at top and tail --->
     <cfset phpText = trim(phpText)>
+    
 
     <!--- remove comments and blank lines --->
     <cfset phpText = ReReplace(phpText,"(?m)\##.*?$", "","all")>
@@ -97,6 +99,11 @@ string function strip_tags(required string str, numeric trimTo=100000) output="f
                            
             key =  replacelist(trim(Left(line, splitAt - 1)), '"', "");
             
+            key = replace(key, ',','', 'all');
+            key = trim(replace(key, "'","", 'all'));
+            
+   
+            
             if (CommentAt == 0)
 				value = replacelist(trim(Mid(line, splitAt + 2, 1000)), '"', '');
 			else
@@ -115,14 +122,21 @@ string function strip_tags(required string str, numeric trimTo=100000) output="f
 				value = mid(value, 2, 1000);
 			
 
-
-            stProperties[key] = value;
+			// Plugins get slash separated		
+			if (arguments.plugin == "")	{
+            	stProperties[key] = value;
+            	}
+            else	{
+	            stProperties["#plugin#/#key#"] = value;	            	
+           		}	
+            	
           	}
         </cfscript>
     </cfloop>
 
     <cfreturn stProperties>
 </cffunction>
+
 
 
 

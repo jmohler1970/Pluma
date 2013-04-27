@@ -1,7 +1,5 @@
 
 
-
-
 <cfscript>
 param rc.silent = 0;
 </cfscript>
@@ -12,11 +10,12 @@ param rc.silent = 0;
 
 
 <!--- Normal output begins --->
-<!DOCTYPE html SYSTEM "about:legacy-compat">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-	<meta charset="UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+
 
 	<cfoutput>
 	<title>#application.GSAPI.get_site_name()#</title>
@@ -30,13 +29,20 @@ param rc.silent = 0;
 
 	
 	<!-- Le styles -->
-    <link rel="stylesheet" href="#application.GSAPI.get_site_root()#layouts/css/jquery-ui.css" />
-        
+	<link rel="stylesheet" href="#application.GSAPI.get_site_root()#layouts/css/jquery-ui.css" />
+      
+     
+      
     <link href="#application.GSAPI.get_site_root()#layouts/css/style.less"		rel="stylesheet/less" type="text/css" />
+    
+    
+    
     <link href="#application.GSAPI.get_site_root()#layouts/css/calendar.css"		rel="stylesheet/less" type="text/css" />
+    
     
     <script src="#application.GSAPI.get_site_root()#layouts/js/less.js" 		type="text/javascript"></script>
    
+ 
     <script src="#application.GSAPI.get_site_root()#layouts/js/sorttable.js"	type="text/javascript"></script>
     
     <script src="#application.GSAPI.get_site_root()#layouts/js/calendar_us.js" 	type="text/javascript"></script>
@@ -45,7 +51,7 @@ param rc.silent = 0;
     <script src="#application.GSAPI.get_site_root()#layouts/js/jquery.js" 		type="text/javascript"></script>
     <script src="#application.GSAPI.get_site_root()#layouts/js/jquery-ui.js" 		type="text/javascript"></script>
 	<script src="#application.GSAPI.get_site_root()#layouts/js/application.js" 	type="text/javascript"></script>
-	
+
 </head>	
 
 
@@ -109,7 +115,7 @@ param rc.silent = 0;
 		
 		<cfset StructDelete(session, "qryMessageQueue")>
 	</cfif>
-<cfexit>	
+
 
 <div class="bodycontent clearfix">
 	<div id="maincontent">
@@ -146,7 +152,7 @@ param rc.silent = 0;
 	
 	<div class="gslogo">
 		<cfoutput>
-	   		<a href="http://webworldinc.com/plumaCMS" target="_blank"><img src="#application.GSAPI.get_site_root()#admin/layouts/images/PlumaCMS_80x16.png" alt="PlumaCMS by James Mohler and Web World Inc."></a>
+	   		<a href="http://webworldinc.com/plumaCMS" target="_blank"><img src="#application.GSAPI.get_site_root()#layouts/images/PlumaCMS_80x16.png" alt="PlumaCMS by James Mohler and Web World Inc."></a>
 	    </cfoutput>
 	</div>
 	

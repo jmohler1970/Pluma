@@ -6,12 +6,28 @@
 <ul class="snav">
 	
 	<li><a <cfif getItem() EQ "home">class="current"</cfif>  href="#buildURL(action = 'settings.home')#">#application.GSAPI.i18n("general_settings")#</a></li>
+
+	<li><a href="#buildURL(action = 'settings.home')###profile">#application.GSAPI.i18n("SIDE_USER_PROFILE")#</a></li>
+
+
+	<cfif session.LOGINAPI.adhocSecurity("system")>
+		<li id="nav_users">
+			<a class="users" href="#buildURL(action = 'users.home')#">#application.GSAPI.i18n("user_management/SIDEBAR")#</a>
+
+		</li>
+	</cfif>
+</ul>
+
+
+<ul class="snav">	
+	<li><a <cfif getItem() EQ "notification">class="current"</cfif>  href="#buildURL(action = 'settings.notification')#">#application.GSAPI.i18n("plumacms/notification_settings")#</a></li>
 	
-	<li><a <cfif getItem() EQ "notification">class="current"</cfif>  href="#buildURL(action = 'settings.notification')#">#application.GSAPI.i18n("notification_settings")#</a></li>
+	<li><a <cfif getItem() EQ "feedback">class="current"</cfif>  href="#buildURL(action = 'settings.feedback')#">#application.GSAPI.i18n("plumacms/feedback_settings")#</a></li>
 	
-	<li><a <cfif getItem() EQ "feedback">class="current"</cfif>  href="#buildURL(action = 'settings.feedback')#">#application.GSAPI.i18n("feedback_settings")#</a></li>
-	
-	<li><a <cfif getItem() EQ "error404">class="current"</cfif>  href="#buildURL(action = 'settings.error404')#">#application.GSAPI.i18n("error_settings")#</a></li>
+	<li><a <cfif getItem() EQ "error404">class="current"</cfif>  href="#buildURL(action = 'settings.error404')#">#application.GSAPI.i18n("plumacms/error_settings")#</a></li>
+
+
+
 </ul>
 
 

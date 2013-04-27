@@ -2,25 +2,23 @@
 <cfcomponent>
 
 <cfscript>
-
 thisFile = listfirst(listlast(GetCurrentTemplatePath(), "\"), ".");
-
 
 
 
 function Init()	{
 	this.stPlugin_info = application.GSAPI.register_plugin(thisFile, 
-	'Traffic Tracker',
+	'Hit Count',
 	'0.1',
 	'James Mohler',
 	'http://www.flikr.com/james_mohler/',
-	'A traffic summary plugin for Pluma CMS. Loads traffic statistics',
+	'A traffic summary plugin for PlumaCMS. Loads traffic statistics',
 	'',
 	'',
 	'icon-heart');
 
 
-	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=traffic", "Traffic Tracker"]);
+	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=hitcount", "Traffic Tracker"]);
 	}	
 </cfscript>
 

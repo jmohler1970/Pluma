@@ -1,10 +1,9 @@
 
 
 
-<div class="main">
 
 	<cfoutput>
-	<h3>#application.GSAPI.i18n("profile")#</h3>
+	<h3>#application.GSAPI.i18n("side_user_profile")#</h3>
 	</cfoutput>
 	
 
@@ -12,36 +11,7 @@
 	
 <cfoutput query="rc.qryUser">
 
-<cfform action="#BuildURL(action = 'profile.home')#" method="post">
-
-
-<div class="leftsec">
-
-	<p class="clearfix">
-		<b>First Name</b>
-		
-	    <cfinput type="text" name="firstname" class="text" required="yes" value="#firstname#" maxLength="50" message="First name is required" />
-
-	</p>
-
-<!---	
-	<p>
-		<b>Middle Name</b>
-		<br />
-		<cfinput type="text" name="middleName" maxLength="1" value="#middleName#" class="text" />
-	</p>
---->	
-</div>	
-
-<div class="rightsec">	
-	<p>
-		<b>Last Name</b>
-		
-       	<cfinput type="text" name="lastname" class="text" required="yes" value="#lastname#" maxLength="50" message="Last name is required" />
-	</p>
-	
-	
-</div>
+<cfform action="#BuildURL(action = '.home')#" method="post">
 
 
 <div class="leftsec">
@@ -59,7 +29,44 @@
 		<br />
 		<cfinput type="text" name="email" class="text" value="#email#" maxLength="80"  />
 	</p>
-	</div>
+</div>
+
+
+<div class="leftsec">
+
+	<p class="clearfix">
+		<b>First Name</b>
+		<br />
+	    <cfinput type="text" name="firstname" class="text" required="yes" value="#firstname#" maxLength="50" message="First name is required" />
+
+	</p>
+
+<!---	
+	<p>
+		<b>Middle Name</b>
+		<br />
+		<cfinput type="text" name="middleName" maxLength="1" value="#middleName#" class="text" />
+	</p>
+--->	
+</div>	
+
+<div class="rightsec">	
+	<p>
+		<b>Last Name</b>
+		<br />
+       	<cfinput type="text" name="lastname" class="text" required="yes" value="#lastname#" maxLength="50" message="Last name is required" />
+	</p>
+	
+	
+</div>
+
+
+	<div class="clear"></div>
+	<p>
+		<b>#application.GSAPI.i18n('user_management/USER_BIO')#</b>
+		<br />
+		<cftextarea name="comments" richtext="true" height="400" width="740">#comments#</cftextarea>
+	</p>
 
 
 	<p style="margin:0px 0 5px 0;font-size:12px;color:##999;" >Only provide a password below if you want to change your current one:</p>
@@ -75,7 +82,7 @@
 	
 	<div class="clear"></div>	
 
-	<button type="submit">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
+	<button type="submit" name="submit" value="profile">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
 
 </cfform>
 
@@ -83,7 +90,6 @@
 
 
 
-</div>
 
 
 

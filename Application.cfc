@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0285";
+	this.name 			= "PlumaCMS_0324";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -78,13 +78,14 @@ fileclose(objAppFile);
  	
  	 	
  	application.GSROOTPATH 			= getdirectoryfrompath(getBaseTemplatePath());
- 	application.GSPLUGINPATH 		= application.GSROOTPATH & "plugins/";
- 	application.GSUSERSPATH 		= application.GSROOTPATH & "users/";
- 	application.GSDATAPATH			= application.GSROOTPATH & "data/";
  	application.GSBACKUPSPATH		= application.GSROOTPATH & "backups/";
+ 	application.GSDATAPATH			= application.GSROOTPATH & "data/";
  	application.GSDATAUPLOADPATH	= application.GSROOTPATH & "data/uploads/";
  	application.GSDATADOWNLOADPATH	= application.GSROOTPATH & "data/downloads/";
  	application.GSTHUMBNAILPATH		= application.GSROOTPATH & "data/thumbs/";
+ 	application.GSLANGPATH			= application.GSROOTPATH & "lang/";
+ 	application.GSPLUGINPATH 		= application.GSROOTPATH & "plugins/";
+ 	application.GSUSERSPATH 		= application.GSROOTPATH & "users/";
  	application.GSTHEMESPATH		= application.GSROOTPATH & "theme/";
  	
  	// API
@@ -118,8 +119,17 @@ void function setupRequest()	{
 
 
 
+	
+	application.IOAPI.load_pref();
+	
+	// Languages
+	param request.stMeta.language = "en_US";
+	application.GSAPI.i18n_merge();	
+	
 	request.arPlugins 	= [];
 	application.IOAPI.load_plugins();
+	
+	
 	
 	request.stIOR		= {};
 	
@@ -134,8 +144,6 @@ void function setupRequest()	{
 	application.IOAPI.add_traffic(rc, getSubSystem(), getSection(), getItem());
 	
 
-	application.IOAPI.load_pref();
-		
 	
 
 	if (session.LOGINAPI.checkSecurity(getSubSystem(), getSection(), getItem()) == 0)	{
@@ -154,9 +162,10 @@ void function setupRequest()	{
 	
 		
 	StructAppend(request.stIOR, application.IOAPI.get_bundle({Slug = rc.slug}));
+	}
 
 </cfscript>
-</cffunction>	
+
 	
 
 

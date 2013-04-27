@@ -13,9 +13,11 @@
 		</cfif>
 	</cfif>
 
-	<li><a <cfif getItem() EQ "importdata">class="current"</cfif>  href="#buildURL(action = 'backups.importdata')#">#application.GSAPI.i18n("side_import")#</a></li>
+	<li><a <cfif getItem() EQ "importdata">class="current"</cfif>  href="#buildURL(action = 'backups.importdata')#">#application.GSAPI.i18n("plumacms/side_import")#</a></li>
 	
-	<li><a <cfif getItem() EQ "exportdata">class="current"</cfif>  href="#buildURL(action = 'backups.exportdata')#">#application.GSAPI.i18n("side_export")#</a></li>	
+	<li><a <cfif getItem() EQ "exportdata">class="current"</cfif>  href="#buildURL(action = 'backups.exportdata')#">#application.GSAPI.i18n("plumacms/side_export")#</a></li>	
+
+	<li><a href="#buildURL(action = 'settings.notification')#">#application.GSAPI.i18n("plumacms/notification_settings")#</a></li>
 
 </ul>
 

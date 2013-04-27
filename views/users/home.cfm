@@ -45,7 +45,7 @@
 <cfoutput>
 <thead>
 <tr>
-	<th>#application.GSAPI.i18n("user_name")#</th>
+	<th>#application.GSAPI.i18n("label_username")#</th>
 	<th>#application.GSAPI.i18n("label_email")#</th>
 	<th>Permission</th>
 	<th>#application.GSAPI.i18n("USER_LAST_LOGIN")#</th>

@@ -230,9 +230,9 @@ boolean function checkSecurity(required string subsection, required string secti
 	
 	
 
-	if (NOT isDefined("application.st#arguments.subSection#Setting.Security.#arguments.section#"))	{ return true; }
+	if (NOT isDefined("application.stSettings.Security.#arguments.section#"))	{ return true; }
 		
-	var arGroupNeeded = ListToArray(evaluate("application.st#arguments.subSection#Setting.Security.#arguments.section#"));	
+	var arGroupNeeded = ListToArray(evaluate("application.stSettings.Security.#arguments.section#"));	
 		
 	if (arGroupNeeded[1] == "something" AND this.lstGroup != "")	{ return true; }
 		

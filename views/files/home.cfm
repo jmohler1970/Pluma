@@ -172,7 +172,7 @@
 </cfoutput>
 
 <cfoutput>
-<h3>#application.GSAPI.i18n("choose_file")#</h3><a name="upload"></a>
+<h3>#application.GSAPI.i18n("uploadify_button")#</h3><a name="upload"></a>
 
 
 <form action="#BuildURL(action = 'files.process')#" method="post" enctype="multipart/form-data">

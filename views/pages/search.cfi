@@ -31,9 +31,6 @@
 		<cfcase value="Page">
 			<a href="#buildURL(action = 'page.edit', querystring = 'PageID=#NodeID#')#">#Title# <cfif title EQ ""><i>None</i></cfif></a> 
 		</cfcase>
-		<cfcase value="SubPage">
-			<a href="#buildURL(action = 'subpage.edit', querystring = 'PageID=#ParentNodeID#&SubPageID=#NodeID#')#">#Title# <cfif title EQ ""><i>None</i></cfif></a> 
-		</cfcase>
 		<cfcase value="Tags">
 			<a href="#buildURL(action = 'tags.home', querystring = 'Tag=#urlencodedformat(Title)#')#">#Title# <cfif title EQ ""><i>None</i></cfif></a> 
 		</cfcase>

@@ -47,7 +47,7 @@
 </p>
 
 
-<div class="leftsec">
+<div class="rightsec">
 
 <p>
     <b>#application.GSAPI.i18n("label_email")#</b>
@@ -56,6 +56,9 @@
 </p>
 </div>
 
+
+
+<div class="clear"></div>
 
 <div class="rightsec">
 	<p><label for="timezone">#application.GSAPI.i18n("local_timezone")#</label>
@@ -70,14 +73,32 @@
 	</p>
 </div>
 
+<div class="leftsec">
 
+<p>
+    <label>#application.GSAPI.i18n("language")#</label>
+    <select class="text" name="meta_language">
+    	<cfif rc.meta_language EQ "">
+			<option value="">-- Default</option>
+		<cfelse>
+			<option value="#rc.meta_language#" selected="selected">#rc.meta_language#</option>
+		</cfif>
+			
+    	<cfloop query="rc.qryLang">
+    		<cfset lang = listfirst(name, '.')>
+    		
+    		<option value="#lang#">#lang#</option>
+		</cfloop>
+   	</select>
+</p>
+</div>
 
 
 
 
 <div class="clear"></div>
 
-	<button type="submit">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
+	<button type="submit" name="submit" value="settings">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
 
 </form>
 </cfoutput>
@@ -89,5 +110,13 @@
 <p>For more information on meta tags, visit <a href="http://www.webmarketingnow.com/tips/meta-tags-uncovered.html">http://www.webmarketingnow.com/tips/meta-tags-uncovered.html</a></p>
 
 
+<a id="profile"></a>
+<cfinclude template="profile.cfi">
+
 
 </div>
+
+
+
+
+

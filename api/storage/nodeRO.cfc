@@ -454,9 +454,8 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 			SUM(CASE WHEN Kind = 'Banner' THEN 1 ELSE 0 END) AS Banner,
 			SUM(CASE WHEN Kind = 'Sponsor' THEN 1 ELSE 0 END) AS Sponsor,
 			SUM(CASE WHEN Kind = 'Blog' THEN 1 ELSE 0 END) AS Blog,
-			SUM(CASE WHEN Kind = 'SubPage' THEN 1 ELSE 0 END) AS SubPage,
-			
-			SUM(CASE WHEN NOT Kind IN ('Category', 'Photo', 'Page', 'Event', 'Banner', 'Blog', 'Facet', 'SubPage') THEN 1 ELSE 0 END) AS Unknown
+						
+			SUM(CASE WHEN NOT Kind IN ('Category', 'Photo', 'Page', 'Event', 'Banner', 'Blog', 'Facet') THEN 1 ELSE 0 END) AS Unknown
 					
 		FROM 	dbo.vwNode WITH (NOLOCK)
 		WHERE	Deleted = 0

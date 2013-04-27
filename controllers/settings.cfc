@@ -36,10 +36,10 @@ struct function before(required struct rc) output="false"	{
 void function home(required struct rc) output="false"	{
 
 
+	param rc.submit = "";
 
 
-
-	if (cgi.request_method == "Post")	{
+	if (cgi.request_method == "post" AND rc.submit == "settings")	{
 		
 		var result = application.IOAPI.set_pref("Meta", rc);
 		
@@ -50,6 +50,34 @@ void function home(required struct rc) output="false"	{
 			this.AddMessage(result);
 		
 		} // end if
+		
+		
+	// Post
+	if (cgi.request_method == "post" AND rc.submit == "profile")	{
+			
+		if (arguments.rc.sitepwd != "" AND arguments.rc.sitepwd == arguments.rc.sitepwd_confirm)	{
+			arguments.rc.passhash = left(hash(rc.sitepwd), 10);
+			
+			this.AddMessage("Password has been updated.");
+			
+			
+			}
+	
+		
+		application.USERAPI.set(session.LOGINAPI.userid, arguments.rc);
+		
+	
+		
+		 
+		
+		this.AddMessage("User &quot;#arguments.rc.firstname# #arguments.rc.lastname#&quot; saved");
+		}
+	
+	// All
+	rc.qryUser = application.USERAPI.get();
+	
+	
+		
 
 	}
 	
@@ -66,8 +94,18 @@ void function endhome(required struct rc) output="false"	{
 	param rc.meta_author 	= "";
 	param rc.meta_email 	= "";
 	param rc.meta_timezone	= "";
-	
+	param rc.meta_language	= "";
 
+	
+	if (not DirectoryExists(application.GSLANGPATH))	{
+		this.addMessage("Language Folder does not exist");
+		
+		return;
+		}	
+	
+	rc.qryLang = DirectoryList(application.GSLANGPATH, 
+		false, "query", "", "name");
+	
 	}
 
 

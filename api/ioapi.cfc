@@ -304,7 +304,7 @@ struct function get_pref(required string Pref) output="false"	{
 				} 
 						
 			
-			//var objPlugin = createObject("plugins.#listfirst(name, '.')#");
+			
 			objPlugin.Init();
 			
 			QueryAddRow(qryPlugins);
@@ -326,10 +326,19 @@ struct function get_pref(required string Pref) output="false"	{
 				QuerySetCell(qryPlugins, "enabled", enabled);
 				}
 			
+			// Read language
+			 
+			
 			}
 		</cfscript>
-
  	</cfloop>
+
+ 	<cfloop query="qryPlugins">
+ 		<cfif enabled>
+ 			<cfset application.GSAPI.i18n_merge(plugin)>
+ 		</cfif> 		 	
+ 	</cfloop>
+
 
 	<cfset application.qryPlugins = qryPlugins>
 </cffunction>

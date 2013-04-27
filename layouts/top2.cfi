@@ -9,7 +9,7 @@
 	<li class="leftnav"><a href="#application.GSAPI.get_site_root()#index.cfm/logout">#application.GSAPI.i18n("tab_logout")#</a></li>
 	
 	<li class="rightnav" id="nav_profile">
-			<a data-toggle="dropdown" href="#buildURL(action = 'profile.home')#" target="_top">#application.GSAPI.i18n("welcome")#
+			<a data-toggle="dropdown" href="#buildURL(action = 'settings.home##profile')#" target="_top">#application.GSAPI.i18n("welcome")#
 			<b>#session.LOGINAPI.getLoginName()#</b>!</a>
 	</li>
 </ul> 
@@ -51,17 +51,11 @@
 
 	<cfif session.LOGINAPI.adhocSecurity("system")>
 		<li id="nav_plugins">
-			<a class="plugins" href="#buildURL(action = 'plugins.home')#">#application.GSAPI.i18n("tab_plugins")#</a>
+			<a class="plugins" href="#buildURL(action = 'plugins.home')#">#application.GSAPI.i18n("plugins_nav")#</a>
 
 		</li>
 	</cfif>
 
-	<cfif session.LOGINAPI.adhocSecurity("system")>
-		<li id="nav_users">
-			<a class="users" href="#buildURL(action = 'users.home')#">#application.GSAPI.i18n("tab_users")#</a>
-
-		</li>
-	</cfif>
 
 
 	<cfif session.LOGINAPI.adhocSecurity("system")>

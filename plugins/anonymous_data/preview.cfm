@@ -8,7 +8,7 @@
 
 
 <cfoutput>
-<form action="#buildURL(action='support.preview')#" method="post">
+<form action="?plugin=anonymous_data&amp;plx=preview" method="post">
 	<input type="hidden" name="sendData" value="1" /> 
 
 <cfoutput>

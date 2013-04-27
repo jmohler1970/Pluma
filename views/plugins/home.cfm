@@ -28,7 +28,7 @@
 <cfoutput query="application.qryPlugins">
 
 <tr>
-	<td>
+	<td nowrap="nowrap">
 		<input type="radio" name="plugin_#listfirst(filename, '.')#" value="1" 
 			<cfif enabled>checked="checked"</cfif> /> Enabled
 		&nbsp; &nbsp;

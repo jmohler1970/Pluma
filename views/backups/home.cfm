@@ -16,9 +16,9 @@
 <thead>
 <tr>
 	
-	<th>#application.GSAPI.i18n("page_action")#</th>
+	<th>#application.GSAPI.i18n("plumacms/page_action")#</th>
 	<th style="text-align : right;">#application.GSAPI.i18n("archive_date")#</th>
-	<th style="text-align : right;">#application.GSAPI.i18n("by")#</th>
+	<th style="text-align : right;">#application.GSAPI.i18n("plumacms/changed_by")#</th>
 </tr>
 </thead>
 
@@ -27,7 +27,7 @@
 	<tr>
 		<td <cfif Root>style="text : bold;"</cfif> class="pagetitle">
 			<a href="#buildurl(action='.edit', querystring='nodearchiveid=#nodearchiveid#')#">#Title#
-			<cfif title EQ ""><i>No Title</i></cfif>
+			<cfif title EQ "">#application.GSAPI.i18n("plumacms/no_title")#</cfif>
 			</a>
 		</td>
 		
@@ -52,7 +52,7 @@
 
 
 <cfif rc.qryArchive.recordcount EQ 0>
-	<p class="alert"><b>Warning:</b> There is no history</p>
+	<p class="alert">#application.GSAPI.i18n("plumacms/no_history")# </p>
 </cfif>
 
 </div>
