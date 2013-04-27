@@ -25,7 +25,7 @@ void function home (required struct rc) output="false"	{
 			return;
 			}
 		else	{
-			this.AddMessage(stResult.message);
+			this.AddError(stResult.key);
 			}	
 			
 		}	

@@ -4,7 +4,7 @@
 <cfcomponent extends="base">
 
 <cfscript>
-variables.stResults = {result = true, resultCode = 0, Message = ''};
+variables.stResults = {result = true, key = 0, Message = ''};
 
 
 void function Init() output="false" {

@@ -5,7 +5,7 @@
 
 
 <cfscript>
-variables.stResults = {result = true, resultCode = 0, Message = ''};
+variables.stResults = {result = true, key = 0, Message = ''};
 
 
 void function Init() output="false" {
@@ -107,7 +107,7 @@ query function get_by_email(required string email) output="false" {
 	if (arguments.Login == "")	{
 	
 		stResult.result = false;
-		stResult.message = "Blank username. Try again";
+		stResult.key = "Login_failed";
 	
 		return stresult;
 		}

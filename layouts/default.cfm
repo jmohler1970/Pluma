@@ -91,12 +91,12 @@ param rc.silent = 0;
 			<cfswitch expression="#Priority#">
 			<cfcase value="2,3">
 				<div class="error">
-					<b>Error:</b> #message#
+					#message#
 				</div>	
 			</cfcase>
 			<cfcase value="1">
 				<div class="updated">
-					<b>Warning:</b> #message#
+					#message#
 				</div>	
 			</cfcase>
 			<cfcase value="-1">
@@ -107,10 +107,11 @@ param rc.silent = 0;
 			
 			<cfdefaultcase>
 				<div class="updated">
-					<b>Info:</b> #message#
+					#message#
 				</div>	
 			</cfdefaultcase> 
 			</cfswitch>
+			
 		</cfoutput>
 		
 		<cfset StructDelete(session, "qryMessageQueue")>
