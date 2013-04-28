@@ -20,7 +20,7 @@ param rc.qryTrafficDetails;
 
 
 <cfoutput>	
-<form action="?plugin=traffic&plx=#rc.plx#" method="post">
+<form action="?plugin=hitcount&plx=#rc.plx#" method="post">
 </cfoutput>
 
     

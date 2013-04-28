@@ -3,7 +3,6 @@
 <div class="main">
 
 
-<cfdump var="#rc#">
 
 
 <cfoutput>

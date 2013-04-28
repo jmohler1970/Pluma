@@ -22,20 +22,22 @@
 	
 	<cfif session.LOGINAPI.adhocSecurity("contributor")>
 		<li id="nav_pages">
-			<a class="pages" href="#buildURL(action = 'pages.home')#">#application.GSAPI.i18n("tab_pages")#</a>
-
+			<a class="pages" id="nav_pages_link"
+				href="#buildURL(action = 'pages.home')#">#application.GSAPI.i18n("tab_pages")#</a>
 		</li>
 	</cfif>
 	
 	<cfif session.LOGINAPI.adhocSecurity("contributor")>
 		<li id="nav_upload">
-			<a class="files" href="#buildURL(action = 'files.home')#">#application.GSAPI.i18n("tab_files")#</a>
+			<a class="files" id="nav_upload_link" 
+				href="#buildURL(action = 'files.home')#">#application.GSAPI.i18n("tab_files")#</a>
 		</li>
 	</cfif>
 	
 		<cfif session.LOGINAPI.adhocSecurity("system")>
 		<li id="nav_theme">
-			<a class="theme" href="#buildURL(action = 'theme.home')#">#application.GSAPI.i18n("tab_theme")# </a>
+			<a class="theme" id="nav_theme_link"
+				href="#buildURL(action = 'theme.home')#">#application.GSAPI.i18n("tab_theme")# </a>
 
 		</li>
 	</cfif>
@@ -43,7 +45,8 @@
 	
 	<cfif session.LOGINAPI.adhocSecurity("system")>
 		<li id="nav_backups">
-			<a class="backups" href="#buildURL(action = 'backups.home')#">#application.GSAPI.i18n("tab_backups")# </a>
+			<a class="backups" id="nav_backups_link"
+			 	href="#buildURL(action = 'backups.home')#">#application.GSAPI.i18n("tab_backups")# </a>
 		</li>
 	</cfif>
 	
@@ -51,7 +54,8 @@
 
 	<cfif session.LOGINAPI.adhocSecurity("system")>
 		<li id="nav_plugins">
-			<a class="plugins" href="#buildURL(action = 'plugins.home')#">#application.GSAPI.i18n("plugins_nav")#</a>
+			<a class="plugins"  id="nav_plugins_link"
+				href="#buildURL(action = 'plugins.home')#">#application.GSAPI.i18n("plugins_nav")#</a>
 
 		</li>
 	</cfif>
@@ -60,7 +64,8 @@
 
 	<cfif session.LOGINAPI.adhocSecurity("system")>
 		<li class="rightnav">
-			<a class="settings first" href="#buildURL(action = 'settings.home')#">#application.GSAPI.i18n("tab_settings")# </a>
+			<a class="settings first"  id="nav_settings_link"
+				 href="#buildURL(action = 'settings.home')#">#application.GSAPI.i18n("tab_settings")# </a>
 
 		</li>
 	</cfif>
@@ -68,7 +73,8 @@
 	
 	<cfif session.LOGINAPI.adhocSecurity("system")>
 		<li class="rightnav">
-			<a class="support last" href="#buildURL(action = 'support.home')#">#application.GSAPI.i18n("tab_support")# </a>
+			<a class="support last"  id="nav_support_link"
+				href="#buildURL(action = 'support.home')#">#application.GSAPI.i18n("tab_support")# </a>
 		</li>
 	</cfif>
 

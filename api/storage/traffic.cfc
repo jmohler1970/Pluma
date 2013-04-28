@@ -204,6 +204,7 @@ variables.stResults = {result = true, resultCode = 0, Message = ''};
 	<cfreturn qryTrafficDetails>
 </cffunction>
 
+
 <cffunction name="getLastHits" access="remote" output="false" returntype="query">
 	<cfargument name="mode" required="true" type="string">
 	<cfargument name="servername" required="true" type="string">

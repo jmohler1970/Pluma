@@ -12,13 +12,13 @@ function Init()	{
 	'0.1',
 	'James Mohler',
 	'http://www.flikr.com/james_mohler/',
-	'A traffic summary plugin for PlumaCMS. Loads traffic statistics',
+	'A traffic summary plugin for PlumaCMS. Loads traffic statistics. Based on ',
 	'',
 	'',
 	'icon-heart');
 
 
-	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=hitcount", "Traffic Tracker"]);
+	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=hitcount", "Hits & Visits"]);
 	}	
 </cfscript>
 
@@ -81,7 +81,7 @@ function Init()	{
 
 
 	<cfsavecontent variable="variables.stResult.Content">
-		<cfinclude template="traffic/referer.cfm">
+		<cfinclude template="hitcount/referer.cfi">
 	</cfsavecontent>
 </cfcase>
 
@@ -93,7 +93,7 @@ function Init()	{
 		)>
 
 	<cfsavecontent variable="variables.stResult.Content">
-		<cfinclude template="traffic/os.cfm">
+		<cfinclude template="hitcount/os.cfi">
 	</cfsavecontent>
 </cfcase>
 
@@ -107,7 +107,7 @@ function Init()	{
 
 
 	<cfsavecontent variable="variables.stResult.Content">
-		<cfinclude template="traffic/search.cfm">
+		<cfinclude template="hitcount/search.cfi">
 	</cfsavecontent>
 </cfcase>
 
@@ -119,7 +119,7 @@ function Init()	{
 	
 
 	<cfsavecontent variable="variables.stResult.Content">
-		<cfinclude template="traffic/country.cfm">
+		<cfinclude template="hitcount/country.cfi">
 	</cfsavecontent>
 </cfcase>
 
@@ -134,7 +134,7 @@ function Init()	{
 		
 	<cfsavecontent variable="variables.stResult.Content">
 		
-		<cfinclude template="traffic/home.cfm">
+		<cfinclude template="hitcount/home.cfi">
 	
 	</cfsavecontent>
 
