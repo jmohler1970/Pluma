@@ -57,7 +57,8 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 
 	<p>
-    	<input type="text" name="title" value="#htmleditFormat(title)#" class="text title" placeholder="Page Title" />
+    	<input type="text" name="title" value="#htmleditFormat(title)#" class="text title"
+    		placeholder="#application.GSAPI.i18n("Page_title")#" />
 	</p>  
 	
 <div id="metadata_window" style="display : none;">
@@ -68,7 +69,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 	
 
 	<p class="inline clearfix">
-		<label class="control-label" for="firstname">Sub Title:</label>
+		<label class="control-label" for="firstname">#application.GSAPI.i18n("plumacms/Page_subtitle")#</label>
 	   
 	    <input type="text" name="subtitle" value="#htmleditFormat(subtitle)#" maxlength="75"  class="text autowidth" />
 	    

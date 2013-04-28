@@ -7,14 +7,17 @@
 
 	
 <table class="edittable highlight paginate">
+
+<cfoutput>
 <thead>
 <tr>
 	<th>Link Category</th>
 	<th style="text-align : right;">Usage</th>
-	<th style="text-align : right;">Date</th>
+	<th style="text-align : right;">#application.GSAPI.i18n("date")#</th>
 	<th></th>
 </tr>
 </thead>
+</cfoutput>
 
 <cfoutput query="rc.qryLinkCategory">
 	<tr>
@@ -29,7 +32,7 @@
 			<cfif FacetCount EQ 0>
 		--->
 		
-				<a class="delconfirm" href="#buildURL(action='.linkCategoryDelete', querystring ='NodeID=#NodeID#')#" onclick="return confirm('Are you sure?');" id="delete-#slug#">&times;</a>
+				<a class="delconfirm" href="#buildURL(action='.linkCategoryDelete', querystring ='NodeID=#NodeID#')#" onclick="return confirm('Are you sure?');" id="delete-#slug#" title="#application.GSAPI.i18n('delete')#">&times;</a>
 		
 		<!---
 			<cfelse>
@@ -66,7 +69,7 @@
 </p>
 
 		
-	<button type="submit" class="submit" id="add">Add</button>
+	<button type="submit" class="submit" id="add">#application.GSAPI.i18n('add')#</button>
 </cfform>
 </cfoutput>
 

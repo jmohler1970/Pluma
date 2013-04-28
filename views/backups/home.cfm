@@ -40,7 +40,8 @@
 		
 		<td <cfif Root>style="text : bold;"</cfif> class="delete">
 		<cfif NoDelete EQ 0>	
-			<a href="#buildURL(action = 'backups.delete', querystring = 'NodeArchiveID=#NodeArchiveID#')#" rel="tooltip" title="Delete Archive">&times;</a>
+			<a href="#buildURL(action = 'backups.delete', querystring = 'NodeArchiveID=#NodeArchiveID#')#" rel="tooltip" 
+			title="#application.GSAPI.i18n("delete")#">&times;</a>
 		</cfif>
 		</td>
 	</tr>

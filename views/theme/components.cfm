@@ -34,7 +34,7 @@
 
 	<br />
 
-	<button type="submit" name="submit">#application.GSAPI.i18n("save_component")#</button> 
+	<button type="submit" name="submit">#application.GSAPI.i18n("save_components")#</button> 
 
 </div>
 	<p></p>
@@ -54,7 +54,8 @@
 	<td><b>#lcase(ii)#</b></td>
 	<td style="text-align:right;"><code>##application.GSAPI.get_component(<span class="compslugcode">'#lcase(ii)#'</span>)##</code></td>
 	<td class="delete">
-		<a href="#buildURL(action = '.delcomponents', querystring = 'pref=#lcase(ii)#')#" title="Delete Component: #lcase(ii)#?" class="delcomponent" rel="1" id="del_#ii#">&times;</a>
+		<a href="#buildURL(action = '.delcomponents', querystring = 'pref=#lcase(ii)#')#"
+			title="#application.GSAPI.i18n('delete_component')#: #lcase(ii)#?" class="delcomponent" rel="1" id="del_#ii#">&times;</a>
 	</td>
 </tr>
 </tbody>
@@ -65,7 +66,7 @@
 
 	<br />
 
-	<button type="submit" name="submit">#application.GSAPI.i18n("save_component")#</button> 
+	<button type="submit" name="submit">#application.GSAPI.i18n("save_components")#</button> 
 
 	<p></p>
 

@@ -16,7 +16,7 @@
 
 <div class="leftsec">
 	<p>
-		<b>Login</b>
+		<b>#application.GSAPI.i18n("label_userName")#</b>
 		<br />
 	    <cfinput type="text" name="login" class="text" value="#login#" maxLength="25" readonly="readonly"  />
 	</p>
@@ -25,7 +25,7 @@
 	<div class="rightsec">
 	
 	<p>
-		<b>Email</b>
+		<b>#application.GSAPI.i18n("label_email")#</b>
 		<br />
 		<cfinput type="text" name="email" class="text" value="#email#" maxLength="80"  />
 	</p>
@@ -35,7 +35,7 @@
 <div class="leftsec">
 
 	<p class="clearfix">
-		<b>First Name</b>
+		<b>#application.GSAPI.i18n("label_firstname")#</b>
 		<br />
 	    <cfinput type="text" name="firstname" class="text" required="yes" value="#firstname#" maxLength="50" message="First name is required" />
 
@@ -52,7 +52,7 @@
 
 <div class="rightsec">	
 	<p>
-		<b>Last Name</b>
+		<b>#application.GSAPI.i18n("label_lastname")#</b>
 		<br />
        	<cfinput type="text" name="lastname" class="text" required="yes" value="#lastname#" maxLength="50" message="Last name is required" />
 	</p>
@@ -69,15 +69,17 @@
 	</p>
 
 
-	<p style="margin:0px 0 5px 0;font-size:12px;color:##999;" >Only provide a password below if you want to change your current one:</p>
+	<p style="margin:0px 0 5px 0;font-size:12px;color:##999;">#application.GSAPI.i18n('only_new_password')#</p>
 	
 
 		
 	<div class="leftsec">
-			<p><label for="sitepwd" >New Password:</label><input autocomplete="off" class="text" id="sitepwd" name="sitepwd" type="password" value="" /></p>
+			<p><label for="sitepwd">#application.GSAPI.i18n('new_password')#</label>
+			<input autocomplete="off" class="text" id="sitepwd" name="sitepwd" type="password" value="" /></p>
 	</div>
 	<div class="rightsec">
-			<p><label for="sitepwd_confirm" >Confirm Password:</label><input autocomplete="off" class="text" id="sitepwd_confirm" name="sitepwd_confirm" type="password" value="" /></p>
+			<p><label for="sitepwd_confirm">#application.GSAPI.i18n('confirm_password')#</label>
+			<input autocomplete="off" class="text" id="sitepwd_confirm" name="sitepwd_confirm" type="password" value="" /></p>
 	</div>
 	
 	<div class="clear"></div>	
