@@ -20,12 +20,7 @@ void function before(required struct rc) output="false"	{
 
 
 	}
-	
-	
-void function register() output="false"	{
 
-
-	}
 </cfscript>	
 
 
@@ -81,6 +76,15 @@ void function register() output="false"	{
 	
 
 <cfscript>
+void function jour(required struct rc) output="false"	{
+
+	param rc.Kind = "Login";
+
+	rc.qryRecentLogin = application.IOAPI.get_log(rc.Kind);
+	}
+
+
+
 void function item(required struct rc) output="false"	{
 		
 

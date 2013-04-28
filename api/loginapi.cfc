@@ -20,6 +20,7 @@ void function Init() output="false" {
 	this.LoginTarget = 'pages.home';
 	
 	
+	this.wsNode = CreateObject(application.stSettings.storage.node);
 	this.wsUser = CreateObject(application.stSettings.storage.users);
 	}
 
@@ -49,8 +50,6 @@ string function getLoginName() output="false" {
 string function dologout() output="false" {
 
 	/* The session could have already been timed out */
-	if (this.UserID != "")
-		this.wsUser.addlog(this.UserID, "Logout", cgi.remote_addr);
 	
 	this.Init();
 	}
@@ -107,7 +106,7 @@ query function get_by_email(required string email) output="false" {
 	if (arguments.Login == "")	{
 	
 		stResult.result = false;
-		stResult.key = "Login_failed";
+		stResult.key = "FILL_IN_REQ_FIELD";
 	
 		return stresult;
 		}
@@ -117,6 +116,20 @@ query function get_by_email(required string email) output="false" {
 	
 	
 	this.qryUser = this.wsUser.getUserByLogin(arguments.login, passhash);
+	
+		
+	if (this.qryUser.recordcount == 0)	{
+		
+	
+		this.wsNode.addlog("Login", "Invalid Password", cgi.remote_addr, arguments.login);
+	
+		variables.stResult.result = false;
+		variables.stResult.key = "Login_failed";
+	
+		return variables.stResult;
+		}
+	
+	
 	
 	return this.doSetup();
 	</cfscript>
@@ -140,28 +153,6 @@ query function get_by_email(required string email) output="false" {
 
 
 	<cfscript>
-	
-	
-	
-	if (this.qryUser.recordcount == 0)	{
-		this.wsUser.addlog(this.qryUser.UserID, "Failure", cgi.remote_addr);
-	
-		variables.stResult.result = false;
-		variables.stResult.message = "Login failed: Bad username or password. Try again";
-	
-		return variables.stResult;
-		}
-		
-
-	/*	
-	if (this.qryUser.uStatus != "Confirmed")	{
-	
-		variables.stResult.result = false;
-		variables.stResult.message = "Login failed: User account status is currently #this.qryUser.uStatus#.";
-	
-		return variables.stResult;
-		}	
-	*/
 	
 	
 	// Group concerns
@@ -213,8 +204,7 @@ query function get_by_email(required string email) output="false" {
 	
 	
 	this.wsUser.setLastLogin(this.UserID, cgi.remote_addr);
-	
-	this.wsUser.addlog(this.UserID, "Success", cgi.remote_addr);
+
 
 
 	return variables.stResults;

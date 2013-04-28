@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0336";
+	this.name 			= "PlumaCMS_0355";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -80,8 +80,9 @@ fileclose(objAppFile);
  	application.GSROOTPATH 			= getdirectoryfrompath(getBaseTemplatePath());
  	application.GSBACKUPSPATH		= application.GSROOTPATH & "backups/";
  	application.GSDATAPATH			= application.GSROOTPATH & "data/";
- 	application.GSDATAUPLOADPATH	= application.GSROOTPATH & "data/uploads/";
  	application.GSDATADOWNLOADPATH	= application.GSROOTPATH & "data/downloads/";
+ 	application.GSDATAUPLOADPATH	= application.GSROOTPATH & "data/uploads/";
+ 	application.GSDATAOTHERPATH		= application.GSROOTPATH & "data/other/";
  	application.GSTHUMBNAILPATH		= application.GSROOTPATH & "data/thumbs/";
  	application.GSLANGPATH			= application.GSROOTPATH & "lang/";
  	application.GSPLUGINPATH 		= application.GSROOTPATH & "plugins/";

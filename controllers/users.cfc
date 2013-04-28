@@ -21,10 +21,6 @@ struct function before(required struct rc) output="false"	{
 		variables.fw.redirect("users.settings", "all");
 		}
 	
-
-
-
-
 	return rc;
 	}
 
@@ -39,8 +35,7 @@ void function home(required struct rc) output="false"	{
 	
 void function edit(required struct rc) output="false"	{
 
-	
-	
+
 	
 	// Post
 	if (cgi.request_method == "post")	{
@@ -91,11 +86,6 @@ void function delete(required struct rc) output="false"	{
 	}
 	
 
-void function jour(required struct rc) output="false"	{
-
-	
-	rc.qryRecentLogin = application.USERAPI.get_recent_login();
-	}
 
 
 

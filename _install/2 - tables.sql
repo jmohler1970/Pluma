@@ -35,26 +35,19 @@ CREATE TABLE [dbo].[Users](
 GO
 
 
+CREATE TABLE [dbo].[DataLog](
+	[DataLogID] 	[bigint] IDENTITY(1,1) NOT NULL,
+	[Kind] 			[nvarchar](40) NOT NULL,
+	[Created] 		[xml] NULL,
 
-
-
-CREATE TABLE [dbo].[LoginLog](
-	[LoginLogID] 	[bigint] IDENTITY(1,1) NOT NULL,
-	[UserID] 		[int] NULL,
-	[loginStatus] 	[nvarchar](20) NOT NULL,
-	[remote_addr] 	[nvarchar](40) NOT NULL,
-	[createDate] 	[datetime] NOT NULL,
- CONSTRAINT [PK_LoginLog] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_DataLog] PRIMARY KEY CLUSTERED 
 (
-	[LoginLogID] ASC
+	[DataLogID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
 GO
 
-
-ALTER TABLE [dbo].[LoginLog] ADD  CONSTRAINT [DF_LoginLog_createDate]  DEFAULT (getdate()) FOR [createDate]
-GO
 
 
 

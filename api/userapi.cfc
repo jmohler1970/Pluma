@@ -34,15 +34,6 @@ query function get_system_admin() output="false"	{
 	}
 		
 
-query function get_recent_login() output="false"	{
-
-	return this.wsUser.getRecentLogin();
-	}
-		
-
-
-		
-
 
 query function get(string userid=session.LOGINAPI.UserID) output="false"	{
 

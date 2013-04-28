@@ -687,12 +687,44 @@
 
 	return this.stResults;
 	</cfscript>
-
 </cffunction>
 
 
 
+<cffunction returnType="void" name="addLog" output="no" access="remote" >
+	<cfargument name="Kind" required="true" type="string">
+	<cfargument name="Message" required="true" type="string">
+	<cfargument name="Remote_addr" required="true" type="string">
+	<cfargument name="byUserID" required="true" type="string">
 
+	<cfquery>
+		INSERT
+		INTO	dbo.DataLog (Kind, Created)
+		VALUES (
+			
+			<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.kind#">,
+						
+			dbo.udf_4jInfo(
+				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.message#">,
+				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
+				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byUserID#">) 	
+			)
+	</cfquery>
+</cffunction> 
+
+
+<cffunction returnType="void" name="deleteLog" output="no" access="remote" >
+	<cfargument name="Kind" required="true" type="string">
+
+
+	<cfquery name="qryDeleted">
+		DELETE
+		FROM	dbo.DataLog
+		OUTPUT DataLogID
+		WHERE	Kind = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.kind#">
+	</cfquery>
+
+</cffunction>
 
 
 </cfcomponent>

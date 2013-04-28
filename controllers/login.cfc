@@ -26,6 +26,8 @@ void function home (required struct rc) output="false"	{
 			}
 		else	{
 			this.AddError(stResult.key);
+			
+
 			}	
 			
 		}	
@@ -54,7 +56,6 @@ void function impersonate(required struct rc) output="false"	{
 void function signout(required struct rc) output="false"	{
 	session.LOGINAPI.dologout();
 	
-	this.AddMessage("Come again soon");
 	
 	variables.fw.redirect("login.home", "all");
 	}

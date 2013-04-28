@@ -52,7 +52,7 @@
 </cffunction> 
 
 
-<cffunction name="getByEmail" output="no" access="remote" returnType="query">	{
+<cffunction name="getByEmail" output="no" access="remote" returnType="query">	
 	<cfargument name="email" required="true" type="string">
 	
 	<cfquery name="local.qryUsers">
@@ -217,44 +217,6 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 </cffunction>	
 
 
-
-
-<!--- Login tracking --->
-
-<cffunction returnType="void" name="addLog" output="no" access="remote" >
-	<cfargument  name="UserID" required="true">
-	<cfargument  name="LoginStatus" required="true">
-	<cfargument  name="Remote_addr" required="true">
-
-	<cfquery>
-		INSERT
-		INTO	dbo.LoginLog (UserID, LoginStatus, remote_addr)
-		VALUES (
-			<cfif isnumeric(arguments.userid)>
-				<cfqueryparam cfsqltype="CF_SQL_integer" value="#arguments.userid#">,
-			<cfelse>	
-				NULL,
-			</cfif>
-			<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.loginstatus#">,
-			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">	
-			)
-	</cfquery>
-</cffunction>
-
-
-<cffunction  name="getRecentLogin" output="no" access="remote" returnType="query">
-
-
-	<cfquery name="local.qryRecentLogin">
-		SELECT   TOP 100 LoginLog.UserID, LoginStatus, LoginLog.CreateDate, Firstname, Lastname, email
-		FROM     dbo.LoginLog LEFT OUTER JOIN dbo.vwUser
-			ON dbo.LoginLog.userID = dbo.vwUser.UserID
-    	WHERE    LoginLog.CreateDate > DateAdd(d, -1, getDate())
-		ORDER BY CreateDate DESC
-	</cfquery>
-	
-	<cfreturn local.qryRecentLogin>
-</cffunction>
 
 
 

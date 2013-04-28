@@ -8,7 +8,7 @@
 
 
 <cfoutput>
-<h3 class="floated">#application.GSAPI.i18n("user_management")#</h3>
+<h3 class="floated">#application.GSAPI.i18n("user_management/title")#</h3>
 </cfoutput>
 
 <script type="text/javascript">

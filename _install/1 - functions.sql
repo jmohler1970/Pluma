@@ -139,7 +139,7 @@ GO
 
 
 /* Debug */
-create function [dbo].[udf_4jDebug](@title nvarchar(max), @ip varchar(max), @userid int=NULL) 
+create function [dbo].[udf_4jDebug](@title nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
 	
 	returns xml
 as
@@ -148,11 +148,14 @@ begin
 	
 	DECLARE @datetime datetime = getDate()
 
-	DECLARE @by varchar(max)
-		
-	SELECT 	@by = Firstname + ' ' + LastName
-	FROM 	dbo.vwUser WITH (NOLOCK)
-	WHERE	UserID = @userid
+	DECLARE @by varchar(max) = @userid
+	
+	IF ISNUMERIC(@userid) = 1
+	BEGIN	
+		SELECT 	@by = Firstname + ' ' + LastName
+		FROM 	dbo.vwUser WITH (NOLOCK)
+		WHERE	UserID = @userid
+	END	
 
 	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
@@ -168,7 +171,7 @@ GO
 
 
 /* Error */
-create function [dbo].[udf_4jError](@title nvarchar(max), @ip varchar(max), @userid int=NULL) 
+create function [dbo].[udf_4jError](@title nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
 	
 	returns xml
 as
@@ -177,16 +180,16 @@ begin
 	
 	DECLARE @datetime datetime = getDate()
 
-	DECLARE @by varchar(max)
+	DECLARE @by varchar(max) = @userid
 	
-	IF @userid IS NOT NULL
+	IF ISNUMERIC(@userid) = 1
 	BEGIN	
 		SELECT 	@by = Firstname + ' ' + LastName
 		FROM 	dbo.vwUser WITH (NOLOCK)
 		WHERE	UserID = @userid
-		
-		SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	END
+	
+	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	
 	
 	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
@@ -202,7 +205,7 @@ GO
 
 
 
-create function [dbo].[udf_4jFatal](@title nvarchar(max), @ip varchar(max), @userid int=NULL) 
+create function [dbo].[udf_4jFatal](@title nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
 	
 	returns xml
 as
@@ -211,19 +214,17 @@ begin
 	
 	DECLARE @datetime datetime = getDate()
 
-	DECLARE @by varchar(max)
+	DECLARE @by varchar(max) = @userid
 	
 	
-	IF @userid IS NOT NULL
+	IF ISNUMERIC(@userid) = 1
 	BEGIN	
 		SELECT 	@by = Firstname + ' ' + LastName
 		FROM 	dbo.vwUser WITH (NOLOCK)
 		WHERE	UserID = @userid
-		
-		SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	END
-
-
+	
+	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute title	{sql:variable("@title")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
@@ -238,7 +239,7 @@ GO
 
 
 
-create function [dbo].[udf_4jInfo](@title nvarchar(max), @ip varchar(max), @userid int=NULL) 
+create function [dbo].[udf_4jInfo](@title nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
 	
 	returns xml
 as
@@ -247,17 +248,16 @@ begin
 	
 	DECLARE @datetime datetime = getDate()
 
-	DECLARE @by varchar(max)
+	DECLARE @by varchar(max) = @userid
 		
-	IF @userid IS NOT NULL
+	IF ISNUMERIC(@userid) = 1
 	BEGIN	
 		SELECT 	@by = Firstname + ' ' + LastName
 		FROM 	dbo.vwUser WITH (NOLOCK)
 		WHERE	UserID = @userid
-		
-		SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	END
-
+	
+	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute title	{sql:variable("@title")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
@@ -273,7 +273,7 @@ GO
 
 
 /* Success */
-create function [dbo].[udf_4jSuccess](@title nvarchar(max), @ip varchar(max), @userid int=NULL) 
+create function [dbo].[udf_4jSuccess](@title nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
 	
 	returns xml
 as
@@ -282,17 +282,17 @@ begin
 	
 	DECLARE @datetime datetime = getDate()
 
-	DECLARE @by varchar(max)
+	DECLARE @by varchar(max) = @userid
 		
-	IF @userid IS NOT NULL
+	IF ISNUMERIC(@userid) = 1
 	BEGIN	
 		SELECT 	@by = Firstname + ' ' + LastName
 		FROM 	dbo.vwUser WITH (NOLOCK)
 		WHERE	UserID = @userid
 		
-		SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	END
 
+	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute title	{sql:variable("@title")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
@@ -305,7 +305,7 @@ GO
 
 
 /* Debug */
-create function [dbo].[udf_4jTicket](@title nvarchar(max), @ip varchar(max), @ticket nvarchar(max), @userid int=NULL) 
+create function [dbo].[udf_4jTicket](@title nvarchar(max), @ip varchar(max), @ticket nvarchar(max), @userid varchar(max)=NULL) 
 	
 	returns xml
 as
@@ -314,17 +314,17 @@ begin
 	
 	DECLARE @datetime datetime = getDate()
 
-	DECLARE @by varchar(max)
+	DECLARE @by varchar(max) = @userid
 		
-	IF @userid IS NOT NULL
+	IF ISNUMERIC(@userid) = 1
 	BEGIN	
 		SELECT 	@by = Firstname + ' ' + LastName
 		FROM 	dbo.vwUser WITH (NOLOCK)
 		WHERE	UserID = @userid
 		
-		SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	END
-
+	
+	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute title	{sql:variable("@title")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute ticket 	{sql:variable("@ticket")} into (/message)[1]')
@@ -338,7 +338,7 @@ GO
 
 
 /* Warn */
-create function [dbo].[udf_4jWarn](@title nvarchar(max), @ip varchar(max), @userid int=NULL) 
+create function [dbo].[udf_4jWarn](@title nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
 	
 	returns xml
 as
@@ -347,17 +347,16 @@ begin
 	
 	DECLARE @datetime datetime = getDate()
 
-	DECLARE @by varchar(max)
+	DECLARE @by varchar(max) = @userid
 		
-	IF @userid IS NOT NULL
+	IF ISNUMERIC(@userid) = 1
 	BEGIN	
 		SELECT 	@by = Firstname + ' ' + LastName
 		FROM 	dbo.vwUser WITH (NOLOCK)
 		WHERE	UserID = @userid
-		
-		SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	END
-
+	
+	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute title	{sql:variable("@title")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
@@ -471,6 +470,8 @@ create function [dbo].[udf_4jRead](@Message xml)
     [message]		nvarchar(max) NULL,
     [type]			nvarchar(10),
     [ticket]		nvarchar(10) NULL,
+    [ip]			nvarchar(40) NULL,
+    
     
     [htmlby] 		nvarchar(70) NULL,
     [htmlmessage]	nvarchar(max) NULL,
@@ -489,7 +490,7 @@ BEGIN
 			ELSE [type]
 		END AS [type],
 		
-		[ticket], 
+		[ticket], [ip],
 	
 		[by] + ' on ' + CONVERT(varchar(20), [datetime], 100) AS htmlBy,
 	
@@ -522,9 +523,10 @@ BEGIN
 	FROM (
 		SELECT 	@Message.value('(/message/@by)[1]', 'nvarchar(40)') AS [by],
 			@Message.value('(/message/@date)[1]', 	'datetime') 	AS [datetime],
-			@Message.value('(/message)[1]', 		'varchar(max)') AS [message], 
-			@Message.value('(/message/@type)[1]', 	'varchar(10)') 	AS [type],
-			@Message.value('(/message/@ticket)[1]', 'varchar(10)')	AS [ticket]
+			@Message.value('(/message)[1]', 		'nvarchar(max)') AS [message], 
+			@Message.value('(/message/@type)[1]', 	'nvarchar(10)') AS [type],
+			@Message.value('(/message/@ip)[1]', 	'nvarchar(40)') AS [ip],
+			@Message.value('(/message/@ticket)[1]', 'nvarchar(10)')	AS [ticket]
 		) A
 	
 			

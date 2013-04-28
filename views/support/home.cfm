@@ -2,6 +2,10 @@
 
 <div class="main">
 
+
+<cfdump var="#rc#">
+
+
 <cfoutput>
 <h3>#application.GSAPI.i18n("GETTING_STARTED")#</h3>
 
@@ -14,11 +18,11 @@
 </ul>
 
 
-<p>Thank you for choosing PlumaCMS as your content management system! PlumaCMS makes managing a website as simple as possible. We strive to keep the system easy enough for anyone to use, yet powerful enough for a developer to enable all the features that are needed.</p>
+<p>
+#application.GSAPI.i18n("welcome_msg")#
+#application.GSAPI.i18n("welcome_p")#
+</p>
 
-
-
-<p><b>Some first steps that might be useful:</b></p>
 
 
 
@@ -32,18 +36,18 @@
 </ul>
 
 
-<h3>Recent Logins</h3>
+<h3>#application.GSAPI.i18n("SUPPORT")#</h3>
 
 <ul>
-	<li><a href="#buildURL('users.jour')#">View Recent Login</a></li>
+	<li><a href="#buildURL('.jour')#">#application.GSAPI.i18n("VIEW_FAILED_LOGIN")# </a></li>
 </ul>
-</cfoutput>
+
 
 
 	
 
-<h3>Third Party Technology</h3>
-<p>Portions of this site utilize the following:</p>
+<h3>#application.GSAPI.i18n("plumacms/OTHER_TECH")#</h3>
+<p>#application.GSAPI.i18n("plumacms/OTHER_TECH_DESC")#</p>
 
 		<ul>
 			<li><a href="http://www.adobe.com/products/coldfusion-family.html" target="_blank">Adobe ColdFusion </a></li>
@@ -59,9 +63,5 @@
 			<li><a href="http://get-simple.info/" target="_blank"> GetSimple CMS</a></li>
 		</ul>
 
-	
-
-
-
 </div>
-
+</cfoutput>

@@ -598,6 +598,12 @@ string function set_plugin(required string name, required string enabled) output
 	}
 	
 	
+query function get_log(string filter="") output="false"	{
+
+	return this.wsNode.getLog(arguments.filter);
+	}
+		
+
 		
 	
 	

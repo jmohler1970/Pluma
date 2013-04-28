@@ -1177,6 +1177,30 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
+<cffunction  name="getLog" output="no" returnType="query">
+	<cfargument  name="filter" required="true">
+
+	<cfquery name="local.qryRecentLogin">
+		SELECT  TOP 100 Kind, [by], [datetime], [message], [type], ip
+		FROM	dbo.DataLog
+		CROSS APPLY dbo.udf_4jRead(Created)		C
+		
+		WHERE	1 = 1
+		<cfif arguments.filter NEQ "">
+    		OR	Kind LIKE <cfqueryparam CFSQLType="string" value="%#arguments.filter#%">		
+    	</cfif>
+    	
+		ORDER BY [datetime] DESC
+	</cfquery>
+	
+	<cfreturn local.qryRecentLogin>
+</cffunction>
+
+
+
+
+
+
 <cffunction name="sluggify" output="false" returnType="string">
     <cfargument name="str">
  
