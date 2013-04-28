@@ -16,7 +16,8 @@
 
 <ul class="snav">	
 
-	<cfset application.GSAPI.exec_action("files_sidebar")>
+	<cfoutput>#application.GSAPI.exec_action("files_sidebar")#</cfoutput>
+
 	
 </ul>
 </cfoutput>

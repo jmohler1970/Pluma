@@ -7,20 +7,16 @@
 
 
 	<li><a href="http://www.webworldinc.com?plugins=true">#application.GSAPI.i18n("get_plugins_link")#</a></li>
-
-
-	<!---
-	<cfif getItem() EQ "settings">
-		<li class="current"><a href="#buildURL(action = 'plugins.register', querystring='plugin=#rc.plugin#')#">#ucase(left(rc.plugin, 1))##mid(rc.plugin, 2, 50)# Settings</a></li>
-	</cfif>
-	--->
 </ul>
+</cfoutput>
+
 	
 <ul class="snav">	
-	<cfset application.GSAPI.exec_action("plugins_sidebar")>
+
+	<cfoutput>#application.GSAPI.exec_action("plugins_sidebar")#</cfoutput>
+
 	
 </ul>
 
-</cfoutput>
 
 

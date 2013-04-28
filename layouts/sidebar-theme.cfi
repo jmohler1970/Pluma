@@ -15,10 +15,11 @@
 </ul>
 
 <ul class="snav">
-
-	<cfset application.GSAPI.exec_action("theme_sidebar")>
-
+	
+	<cfoutput>#application.GSAPI.exec_action("theme_sidebar")#</cfoutput>
+	
 </ul>
+
 
 
 

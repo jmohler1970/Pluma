@@ -16,7 +16,7 @@
 <cfoutput>
 <thead>
 <tr>
-	<th>#application.GSAPI.i18n("sort")#</th>
+	<th>#application.GSAPI.i18n("plumacms/sort")#</th>
 	<th>#application.GSAPI.i18n("menu_text")#</th>
 	<th style="text-align : right;">#application.GSAPI.i18n("page_title")#</th>
 	<th>&nbsp;</th>

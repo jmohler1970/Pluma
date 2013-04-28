@@ -3,7 +3,7 @@
 <div class="main">
 
 <cfoutput>
-	<h3>#application.GSAPI.i18n("search")#</h3>
+	<h3>#application.GSAPI.i18n("plumacms/search")#</h3>
 
 
 <form action="?" method="get" name="myFrm">
@@ -11,7 +11,7 @@
         	<input type="text" class="text" name="search" value="#htmleditformat(rc.search)#" placeholder="Part or all of title" />
        	
 
-	<button type="submit">#application.GSAPI.i18n("search")#</button>
+	<button type="submit">#application.GSAPI.i18n("plumacms/search")#</button>
 </form>
 </cfoutput>
 

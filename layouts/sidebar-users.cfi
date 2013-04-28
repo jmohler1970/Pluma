@@ -25,14 +25,16 @@
 	<li><a <cfif getItem() EQ "jour">class="current"</cfif> href="#buildURL(action = 'users.jour')#">#application.GSAPI.i18n("VIEW_FAILED_LOGIN")#</a></li>
 
 </ul>
+</cfoutput>
+
 
 <ul class="snav">
-	<cfset application.GSAPI.exec_action("users_sidebar")>
+	<cfoutput>#application.GSAPI.exec_action("users_sidebar")#</cfoutput>
 
 </ul>
 
 
 
-</cfoutput>
+
 	
 	

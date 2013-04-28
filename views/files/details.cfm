@@ -4,7 +4,9 @@
 
 <div class="main">
 
-	<h3>Image Control Panel</h3>
+<cfoutput>	
+	<h3>#application.GSAPI.i18n("IMG_CONTROl_PANEL")#</h3>
+</cfoutput>
 
 <script type="text/javascript">
 var copyKitTextArea = $('textarea.copykit');
@@ -21,17 +23,17 @@ function doCode()	{
 
 <cfoutput>
 <p>
-	<b>Original Image</b> <tt>#rc.info.width#&times;#rc.info.height#</tt> &nbsp;  | &nbsp;
-	<b>Current Thumbnail</b> <tt>#rc.infothumb.height#&times;#rc.infothumb.height#</tt>
+	<b>#application.GSAPI.i18n("ORIGINAL_IMG")#</b> <tt>#rc.info.width#&times;#rc.info.height#</tt> &nbsp;  | &nbsp;
+	<b>#application.GSAPI.i18n("CURRENT_THUMBNAIL")#</b> <tt>#rc.infothumb.height#&times;#rc.infothumb.height#</tt>
 </p>
 
 <form name="myFrm">
 	<select id="img_info" class="input-xxlarge" onchange="doCode();">
-		<option selected="selected" value="code-img-link" >Original Image Link</option>
-		<option value="code-img-html" >Original Image HTML</option>
-		<option value="code-thumb-html" >Thumbnail HTML</option>
-		<option value="code-thumb-link" >Thumbnail Link</option>
-		<option value="code-imgthumb-html" >Thumbnail-to-Image HTML</option>
+		<option selected="selected" value="code-img-link"	>#application.GSAPI.i18n("LINK_ORIG_IMG")#</option>
+		<option 					value="code-img-html"	>#application.GSAPI.i18n("HTML_ORIG_IMG")#</option>
+		<option 					value="code-thumb-html"	>#application.GSAPI.i18n("HTML_THUMBNAIL")#</option>
+		<option 					value="code-thumb-link"	>#application.GSAPI.i18n("LINK_THUMBNAIL")#</option>
+		<option 					value="code-imgthumb-html">#application.GSAPI.i18n("HTML_THUMB_ORIG")#</option>
 	</select><br />
 	<textarea class="copykit input-xxlarge" rows="3" >/data/uploads/#mypath##rc.name#</textarea>
 </form>

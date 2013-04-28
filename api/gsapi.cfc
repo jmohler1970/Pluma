@@ -503,8 +503,10 @@ string function get_site_version() {
 	<cfargument name="action" required="true" 	type="string" hint="what function to run in plugin">
 	<cfargument name="selected" required="false" type="string" default="">
 
-
+	
 	<cfsavecontent variable="local.result">
+
+
 
 	<cfloop from="1" to="#ArrayLen(request.arPlugins)#" index="i">
 		<cfif request.arPlugins[i].hook_name EQ arguments.action>

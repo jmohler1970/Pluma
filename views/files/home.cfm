@@ -104,11 +104,11 @@
 		
 		<td style="text-align : right;"></td>
 		
-		<td style="text-align : right;">#LSDateFormat(datelastmodified)#</td>
+		<td style="text-align : right;">#application.IOAPI.std_date(datelastmodified)#</td>
 	
 		
 		<td class="delete">
-			<a href="#buildURL(action='.delete', querystring='folder=#name#')#">&times;</a>
+			<a href="#buildURL(action='.delete', querystring='folder=#name#')#" title="#application.GSAPI.i18n("deletepage_title")#">&times;</a>
 		</td>
 	</tr>
 	
@@ -151,11 +151,11 @@
 		
 		<td style="text-align : right;">#LSNumberFormat(size \ 1024)# KB</td>
 		
-		<td style="text-align : right;">#LSDateFormat(datelastmodified)#</td>
+		<td style="text-align : right;">#application.IOAPI.std_date(datelastmodified)#</td>
 	
 		
 		<td class="delete">
-			<a href="#buildURL(action='.delete', querystring=querystring)#">&times;</a>
+			<a href="#buildURL(action='.delete', querystring=querystring)#" title="#application.GSAPI.i18n("deletepage_title")#">&times;</a>
 		</td>
 
 	</tr>

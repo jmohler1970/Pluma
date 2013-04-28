@@ -11,11 +11,12 @@
 		<li><a <cfif getItem() EQ "health">class="current"</cfif> href="#buildURL(action = '.health')#">#application.GSAPI.i18n("side_health_chk")#</a></li>
 
 </ul>
+</cfoutput>
+
 
 <ul class="snav">
-	<cfset application.GSAPI.exec_action("support_sidebar")>
+	<cfoutput>#application.GSAPI.exec_action("support_sidebar")#</cfoutput>
+
 </ul>
 
 
-
-</cfoutput>
