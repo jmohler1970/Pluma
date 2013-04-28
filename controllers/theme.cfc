@@ -23,10 +23,6 @@ void function before(required struct rc) output="false"	{
 
 	}
 	
-	
-
-
-
 
 void function home(required struct rc) output="false" {
 
@@ -46,9 +42,10 @@ void function home(required struct rc) output="false" {
 
 		
 		if (result == "")
-			this.AddMessage("Theme settings updated.");
+			this.addInfo("THEME_CHANGED");
+					
 		else
-			this.AddMessage(result);
+			this.addInfo("Error");
 			
 		} // end if
 		
@@ -89,10 +86,11 @@ void function components(required struct rc) output="false"	{
 		
 		
 		
-		if (result != "")
-			this.AddMessage(result, "Error");
+		if (result == "")
+			this.addInfo("ER_COMPONENT_SAVE");
 		else
-			this.AddMessage("Component <code>#htmleditformat(rc.title)#</code> has been updated.");
+			this.addInfo("Error");
+	
 		
 			
 		} // end if
@@ -119,9 +117,10 @@ void function delcomponents(required struct rc) output="false"	{
 	application.IOAPI.load_pref(1); 
 
 	if (result)	
-		this.AddMessage("Component <code>#htmleditformat(rc.pref)#</code> was deleted");
+		this.addInfo("ER_HASBEEN_DEL", [rc.pref]);
 	else
-		this.AddMessage("Component <code>#htmleditformat(rc.pref)#</code> could not be found", "Error");
+		this.addError("NOT_FOUND", [rc.pref]);
+	
 	
 
 	variables.fw.redirect('theme.components', "all");	
@@ -201,7 +200,8 @@ void function sitemap(required struct rc) output="false"	{
 		filewrite(target, strSiteMap);
 			
 	
-		this.AddMessage(stResult.message);
+		this.addInfo("SITEMAP_REFRESHED");
+
 		} /* end post */
 
 

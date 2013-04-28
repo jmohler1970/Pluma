@@ -21,6 +21,7 @@ void function before(required struct rc)	{
 	rc.uploadspath 	= "data/uploads/";
 	rc.thumbspath 	= "data/thumbs/";
 	}
+
 	
 void function home(required struct rc)	{
 
@@ -28,13 +29,16 @@ void function home(required struct rc)	{
 	rc.totalsize 		= 0;
 	rc.qryDirectory		= QueryNew("Empty");
 	
+	rc.path = replace(rc.path, '|', '/', 'all');
+	
+	
 	if (not DirectoryExists(application.GSDATAUPLOADPATH & rc.path))	{
-		this.addMessage("Folder #rc.path# does not exist");
+		this.addInfo("NOT_FOUND", [rc.path]);
 		
 		return;
 		}	
 	
-	rc.qryDirectory = DirectoryList(application.GSDATAUPLOADPATH & replace(rc.path, '|', '/', 'all'), 
+	rc.qryDirectory = DirectoryList(application.GSDATAUPLOADPATH & rc.path, 
 		false, "query", "", "type,name");
 	
 	
@@ -62,10 +66,11 @@ void function createfolder(required struct rc)	{
 	
 		directoryCreate(target);
 		
-		this.addMessage("Folder #rc.foldername# was created.");
+		this.addInfo("FOLDER_CREATED", [rc.foldername]);
+	
 		}
 	else	{
-		this.addMessage("Folder #rc.foldername# already exists.");
+		this.addError("ERROR_FOLDER_EXISTS");
 		}	
 		
 	
@@ -108,11 +113,6 @@ thumbpath = "#application.GSTHUMBNAILPATH##rc.path#/";
 		<cffile action="UPLOAD" filefield="csv1" destination="#targetpath#" nameconflict="#rc.nameconflict#">
 	
 		
-	
-		<cfoutput>
-			<p class="message">Working <tt>#cffile.serverfile#</tt>...
-		</cfoutput>
-		
 		
 		<cfscript>
 			variables.targetname = cffile.serverfile;
@@ -135,7 +135,7 @@ thumbpath = "#application.GSTHUMBNAILPATH##rc.path#/";
 						
 				
 		<cfif NOT cfcatch.message CONTAINS "did not contain a file">
-			<cfset this.AddMessage(cfcatch.message, "Error")>
+			<cfset this.addError("ERROR_UPLOAD")>
 		</cfif>
 		
 		
@@ -173,7 +173,7 @@ thumbpath = "#application.GSTHUMBNAILPATH##rc.path#/";
 			directoryDelete(targetThumb);
 			}
 	
-		this.addMessage("Folder Deleted");
+		this.addInfo("plumacms/folder_deleted", [rc.folder]);
 	
 		variables.fw.redirect("files.home", "all");
 		
@@ -191,14 +191,15 @@ thumbpath = "#application.GSTHUMBNAILPATH##rc.path#/";
 	
 			FileDelete(target);
 			
-			this.AddMessage("File was deleted");
+			this.addInfo("ER_FILE_DEL_SUC", [target]);
+	
 			}
 	
 	if (FileExists(targetThumb))	{
 	
 		FileDelete(targetThumb);
 		
-		this.AddMessage("Thumbnail was deleted");
+		//this.AddInfo("plumacms/THUMB_DEL_SEC"");
 		}
 
 	</cfscript>
@@ -213,7 +214,8 @@ void function details(required struct rc)	{
 	param rc.name = "";
 	
 	if (rc.name == "")	{
-		this.addMessage("Unable to show this file", "Error");
+
+		this.addInfo("NOT_FOUND", [rc.name]);
 		
 		variables.fw.redirect("files.home", "all");
 		}

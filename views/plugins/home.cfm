@@ -42,7 +42,8 @@
 
 	<td nowrap="nowrap">#Name#</td>
 	<td>#Description#<br />
-		<b>Version #Version#</b> - Author: <a href="#author_url#" target="_blank">#author#</a>
+		<b>#application.GSAPI.i18n("PLUGIN_VER")# #Version#</b> - 
+		#application.GSAPI.i18n("AUTHOR")#: <a href="#author_url#" target="_blank">#author#</a>
 	</td>
 </tr>
 
