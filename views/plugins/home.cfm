@@ -57,7 +57,7 @@
 	
 
 <p>
-	<i><cfoutput><b>#application.qryPlugins.recordcount#</b> plugins installed</cfoutput></i>
+	<i><cfoutput><b>#application.qryPlugins.recordcount#</b> #application.GSAPI.i18n("plugins_installed")#.</cfoutput></i>
 </p>
 
 

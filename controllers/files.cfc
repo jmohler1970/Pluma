@@ -24,7 +24,7 @@ void function before(required struct rc)	{
 	
 void function home(required struct rc)	{
 
-	param rc.imagefilter = "Show All";
+	param rc.imagefilter = "Show_All";
 	rc.totalsize 		= 0;
 	rc.qryDirectory		= QueryNew("Empty");
 	

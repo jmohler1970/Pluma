@@ -20,8 +20,10 @@
 
 <div id="filter-search" style="display : none; ">
 	<form>
-		<input type="text" autocomplete="off" class="text" id="q" placeholder="filter..." /> &nbsp; <a href="#buildurl('.home')#" class="cancel">#application.GSAPI.i18n("cancel")#</a>
-		</form>
+		<input type="text" autocomplete="off" class="text" id="q" 
+			placeholder="#application.GSAPI.strip_tags(application.GSAPI.i18n("filter"))#..." /> 
+		&nbsp; <a href="#buildurl('.home')#" class="cancel">#application.GSAPI.i18n("cancel")#</a>
+	</form>
 </div>
 </cfoutput>			
 
@@ -46,18 +48,19 @@
 	
 	
 		<cfif Kind EQ "Page">
-			<a title="Edit Page" href="#BuildURL(action = 'pages.edit', querystring = 'NodeID=#NodeID#')#"><cfif Root><b>#htmleditformat(title)#</b><cfelse>#htmleditformat(title)#</cfif> 
-			<cfif title EQ ""><i>No Title</i></cfif></a>
+			<a href="#BuildURL(action = 'pages.edit', querystring = 'NodeID=#NodeID#')#"
+			title="#application.GSAPI.i18n("editpage_title")#"><cfif Root><b>#htmleditformat(title)#</b><cfelse>#htmleditformat(title)#</cfif> 
+			<cfif title EQ "">#application.GSAPI.i18n("plumacms/notitle")#</cfif></a>
 		<cfelse>
 			<a title="Edit Page" href="#BuildURL(action = 'plugins.edit', querystring = 'NodeID=#NodeID#')#"><cfif Root><b>#htmleditformat(title)#</b><cfelse>#htmleditformat(title)#</cfif>
-			<cfif title EQ ""><i>No Title</i></cfif>
+			<cfif title EQ "">#application.GSAPI.i18n("plumacms/notitle")#</cfif>
 			</a>
 		</cfif>
 		
 		<span class="showstatus toggle" style="display : none;">
-			<cfif Root><sup>[homepage]</sup></cfif>	
-			<cfif MenuStatus EQ 1><sup>[menu item]</sup></cfif>
-			<cfif pStatus NEQ "Public"><sup>[#pStatus#]</sup></cfif>
+			<cfif Root><sup>[#application.GSAPI.i18n("homepage_subtitle")#]</sup></cfif>	
+			<cfif MenuStatus EQ 1><sup>[#application.GSAPI.i18n("menuitem_subtitle")#]</sup></cfif>
+			<cfif pStatus NEQ "Public"><sup>[#application.GSAPI.i18n("private_subtitle")#]</sup></cfif>
 			
 		</span>
 	</td>
@@ -65,12 +68,14 @@
 	<td style="text-align : right;"><span>#application.IOAPI.std_date(ModifyDate)#</span></td>
 	<td class="secondarylink">
 	
-		<a href="#application.GSAPI.get_site_root()#index.cfm/main/#slug#" rel="tooltip" title="View Page" target="_blank"><cfif Root><b>##</b><cfelse>##</cfif></a>
+		<a href="#application.GSAPI.get_site_root()#index.cfm/main/#slug#" rel="tooltip" 
+			title="#application.GSAPI.i18n("viewpage_title")#" target="_blank"><cfif Root><b>##</b><cfelse>##</cfif></a>
 	
 	</td>	
 	<td class="delete">
 		<cfif NoDelete EQ 0>	
-			<a href="#buildURL(action = 'pages.delete', querystring = 'NodeID=#NodeID#')#" rel="tooltip" title="Delete Page" id="delete-#slug#">&times;</a>
+			<a href="#buildURL(action = 'pages.delete', querystring = 'NodeID=#NodeID#')#" rel="tooltip" 
+				title="#application.GSAPI.i18n("deletepage_title")#" id="delete-#slug#">&times;</a>
 		</cfif>
 	</td>
 </tr>

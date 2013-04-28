@@ -19,7 +19,7 @@ void function home (required struct rc) output="false"	{
 		var stResult = session.LOGINAPI.dologin(rc.login, rc.password);
 	
 		if (stResult.result)	{
-			this.AddMessage("You successfully logged in"); 
+			// No special message shown 
 	
 			variables.fw.redirect("pages.home", "all");
 			return;

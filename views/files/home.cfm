@@ -8,7 +8,7 @@
 
 <h3 class="floated">#application.GSAPI.i18n("uploaded_files")#
 
-<span id="filetypetoggle">&nbsp; &nbsp;/&nbsp; &nbsp; #rc.imagefilter#</span>
+<span id="filetypetoggle">&nbsp; &nbsp;/&nbsp; &nbsp; #application.GSAPI.i18n(rc.imagefilter)#</span>
 </h3>
 
 <div class="edit-nav">
@@ -17,9 +17,9 @@
 	
 
 		<select name="imagefilter" onchange="myfilter.submit();">
-			<option value="Show All">#application.GSAPI.i18n("show_all")#</option>
-			<option value="Documents" 	<cfif rc.imagefilter EQ "documents">selected="selected"</cfif>>Documents</option>
-			<option value="Images" 		<cfif rc.imagefilter EQ "images">selected="selected"</cfif>>Images</option>
+			<option value="Show_All">#application.GSAPI.i18n("show_all")#</option>
+			<option value="Documents" 	<cfif rc.imagefilter EQ "documents">selected="selected"</cfif>>#application.GSAPI.i18n("ftype_documents")#</option>
+			<option value="Images" 		<cfif rc.imagefilter EQ "images">selected="selected"</cfif>>#application.GSAPI.i18n("images")#</option>
 		</select>
 		
 		<div class="clear"></div>
@@ -114,7 +114,7 @@
 	
 	<cfelse>
 	
-	<cfif 	rc.imagefilter EQ "Show All" 
+	<cfif 	rc.imagefilter EQ "Show_All" 
 		OR	rc.imagefilter EQ "Images" AND ListFindNoCase("jpg,jpeg,gif,png", listlast(name, ".")) 		NEQ 0
 		OR	rc.imagefilter EQ "Documents" AND ListFindNoCase("jpg,jpeg,gif,png", listlast(name, ".")) 	EQ 0
 		>
@@ -168,7 +168,7 @@
 
 
 <cfoutput>
-<p><i><b>#rc.qryDirectory.recordcount#</b> total files &amp; folders (#rc.totalsize# KB)</i></p>
+<p><i><b>#rc.qryDirectory.recordcount#</b> #application.GSAPI.i18n("total_files")# (#rc.totalsize# KB)</i></p>
 </cfoutput>
 
 <cfoutput>

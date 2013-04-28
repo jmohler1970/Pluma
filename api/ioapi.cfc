@@ -62,7 +62,7 @@ string function std_date(required string MyDate) output="false" {
 		)	return "Yesterday";
 	
 	
-	return left(DayofWeekAsString(DayOfWeek(arguments.MyDate)),3) & ", " & LSDateFormat(arguments.MyDate, "mmm dd, 'yy");
+	return LSDateFormat(arguments.MyDate, "ddd, mmm dd, 'yy", request.stMeta.language);
 	}
 	
 

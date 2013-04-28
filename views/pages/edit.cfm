@@ -57,7 +57,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 
 	<p>
-    	<input type="text" name="title" value="#htmleditFormat(title)#" class="text title" />
+    	<input type="text" name="title" value="#htmleditFormat(title)#" class="text title" placeholder="Page Title" />
 	</p>  
 	
 <div id="metadata_window" style="display : none;">
@@ -152,7 +152,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 <p class="inline post-menu clearfix">
 		<input type="checkbox" id="post-menu-enable" name="menustatus"
 			<cfif menustatus EQ 1>checked="checked"</cfif> value="1"
-			>&nbsp;&nbsp;&nbsp;<label for="post-menu-enable">Add this page to the menu</label>
+			>&nbsp;&nbsp;&nbsp;<label for="post-menu-enable">#application.GSAPI.i18n("add_to_menu")#</label>
 </p>
 
 	<div id="menu-items" <cfif menustatus NEQ 1> style="display : none;" </cfif>>
