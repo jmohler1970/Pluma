@@ -24,7 +24,7 @@
 <table class="comptable">
 <tbody>
 <tr>
-	<td><b>Title: </b><input type="text" class="text newtitle" name="new_title" value="" style="width : 100px" /></td>
+	<td><b>#application.GSAPI.i18n("title")#</b> <input type="text" class="text newtitle" name="new_title" value="" style="width : 100px" /></td>
 	<td></td>
 </tr>
 </tbody>

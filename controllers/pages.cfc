@@ -234,9 +234,8 @@ void function menu(required struct rc) output="false" {
 		 		);
 				
 			}
-			
-		this.AddMessage("Menu has been updated with #menusort#.");
-	
+		
+		this.AddInfo("MENU_MANAGER_SUCCESS");
 		}
 
 
