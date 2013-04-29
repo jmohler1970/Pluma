@@ -28,7 +28,7 @@ qryTag = application.IOAPI.get_by_tag(rc.tag, "Page");
 <tr>
 	<td>
 		
-		<h3><a href="/index.cfm/main/#slug#">#htmleditformat(Title)#</a></h3>
+		<h3><a href="#application.GSAPI.find_url(slug)#">#htmleditformat(Title)#</a></h3>
 
 	
 		<cfif isDate(CreateDate)>

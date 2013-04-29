@@ -28,7 +28,7 @@
 		<tr>
 			<td class="title" >Backup of:</td>
 			<td>
-			<a target="_blank" href="#application.GSAPI.get_site_root()#index.cfm/main/#slug#">#application.GSAPI.get_site_root()#index.cfm/main/#slug#</a>
+			<a target="_blank" href="#application.GSAPI.find_url(slug)#">#application.GSAPI.find_url(slug)#</a>
 			</td>
 		</tr>
 		<tr>

@@ -48,7 +48,7 @@
 	
 
 	<td class="secondarylink">
-		<a href="#application.GSAPI.get_site_root()#index.cfm/main/#slug#" rel="tooltip" title="View Page" target="_blank"><cfif Root><b>##</b><cfelse>##</cfif></a>
+		<a href="#application.GSAPI.find_url(slug)#" rel="tooltip" title="View Page" target="_blank"><cfif Root><b>##</b><cfelse>##</cfif></a>
 	</td>
 </tr>
 </cfoutput>

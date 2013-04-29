@@ -390,10 +390,10 @@ string function get_site_email()	{
 string function find_url(required string slug) {
 	
 	if (arguments.slug == 'index')	{
-		return "/";
+		return request.stMeta.root;
 		}
 	
-	return "/index.cfm/main/#arguments.slug#";
+	return "#request.stMeta.root#/index.cfm/main/#arguments.slug#";
 	}
 
 	
@@ -456,7 +456,7 @@ string function get_site_version() {
 			/ <a href="#arguments.base##NodeID#" rel="tooltip" title="Kind: #kind#" class="#arguments.class#">#MyTitle#</a>
 			
 		<cfelse>
-			<a href="/index.cfm/main/#slug#" class="#arguments.class#">#MyTitle#</a>
+			<a href="#this.find_url(slug)#" class="#arguments.class#">#MyTitle#</a>
 			/
 		</cfif>
 		

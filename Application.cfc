@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0355";
+	this.name 			= "PlumaCMS_0367";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -137,6 +137,8 @@ void function setupRequest()	{
 
 	/* Does at least one user exist, if not run install */
 	if (not application.USERAPI.at_least_one_user())	{
+		application.GSAPI.addWarning("NO_USER");
+	
 		//location("#application.GSAPI.get_site_root()#index.cfm/install/home", "no");
 		}	
 	
@@ -176,7 +178,7 @@ void function setupRequest()	{
 void function onMissingView()	{
 
 
-	//location("/index.cfm/main/404", "no");	
+	//location("#application.GSAPI.find_url('404')#", "no");	
 	}
 
 

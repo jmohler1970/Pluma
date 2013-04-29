@@ -30,7 +30,7 @@ qrySearch = application.IOAPI.get_by_search(rc.search, "Page");
 	<td>&nbsp;</td>
 	<td>
 		
-		<h3><a href="/index.cfm/main/#slug#">#htmleditformat(Title)#</a></h3>
+		<h3><a href="#application.GSAPI.find_url(slug)#">#htmleditformat(Title)#</a></h3>
 
 		
 		<p>#application.IOAPI.strip_tags(strData, 1000)#</p>

@@ -26,7 +26,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 	    <div class="edit-nav clearfix">	
 	    
 		<cfoutput query="rc.qryNode">   
-	    	<a href="/index.cfm/main/#slug#" target="_blank" accesskey="v">#application.GSAPI.i18n("view")#</a>
+	    	<a href="#application.GSAPI.find_url(slug)#" target="_blank" accesskey="v">#application.GSAPI.i18n("view")#</a>
 	    
 	    	<a href="##" id="metadata_toggle" accesskey="n">#application.GSAPI.i18n("page_options")#</a>
 	    	

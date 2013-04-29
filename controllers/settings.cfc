@@ -43,8 +43,12 @@ void function home(required struct rc) output="false"	{
 		
 		var result = application.IOAPI.set_pref("Meta", rc);
 		
+		if (left(rc.meta_root, 1) != "/")	{
+			rc.meta_root &= "/";			
+			}
+		
 		if (result == "")
-			this.AddMessage("Settings successfully updated");
+			this.AddInfo("SETTINGS_UPDATED");
 		
 		else	
 			this.AddMessage(result);

@@ -81,9 +81,9 @@ param prebody = "";
 	<script src="#application.GSAPI.get_site_root()#theme/bootswatch/js/application.js" type="text/javascript"></script>
 
 		
-	<link rel="start"  	href="#application.GSAPI.get_site_root()#index.cfm" />
-	<link rel="search"  href="#application.GSAPI.get_site_root()#index.cfm/main/search" />
-	<link rel="toc" 	href="#application.GSAPI.get_site_root()#index.cfm/main/toc" />
+	<link rel="start"  	href="#application.GSAPI.find_url('')#" />
+	<link rel="search"  href="#application.GSAPI.find_url('search')#" />
+	<link rel="toc" 	href="#application.GSAPI.find_url('toc')#" />
 	
 	</cfoutput>
 </head>	

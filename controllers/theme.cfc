@@ -129,99 +129,41 @@ void function delcomponents(required struct rc) output="false"	{
 	
 
 
-this.EntryCount = 8;
-
-
 void function sitemap(required struct rc) output="false"	{
-
-	param rc.submit = "";
-	param rc.siteMapID = "";
-	param rc.entrycount = 0;
-
-	rc.siteroot = "http://#cgi.http_host##cgi.script_name#/";
-	var target = GetDirectoryFromPath(GetBaseTemplatePath()) & "/sitemap.xml";
-			
-
-	if (cgi.request_method == "Post")	{
 	
-		if (rc.submit EQ "Delete")	{
-			application.IOAPI.delete_node(rc.SiteMapID);
+	
+	rc.qryAllPages = application.IOAPI.get_all("Page", '', "Menu");	
+	
+	rc.xmlData = '<?xml version="1.0" encoding="utf-8"?>'
+				& variables.crlf
+				& '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+	
+	for (var i = 1; i <= rc.qryAllPages.recordcount; i++)	{
+		
+				
+		if (rc.qryAllPages.pStatus[i] == "public")	{
 			
-			if (fileexists(target))	{
-				filedelete(target);
-				this.AddMessage("File was deleted");				
-				}
-			
-			
-			return;
+		
+			rc.xmlData &= "<url>"  & variables.crlf;
+			rc.xmlData &= "<loc>#application.GSAPI.find_url(rc.qryAllPages.slug[i])#</loc>" & variables.crlf;
+			rc.xmlData &= "<changefreq>Weekly</changefreq>" & variables.crlf;
+			rc.xmlData &= rc.qryAllPages.menustatus[i] == 1 ? "<priority>1.0</priority>" : "<priority>0.5</priority>";
+			rc.xmlData &= variables.crlf;
+			rc.xmlData &= "</url>" & variables.crlf;
 			}
-	
-		rc.xmlData = "";
-	
-		for (var i = 1; i <= this.entrycount; i++)	{
-			var loc = ""; 		if (isDefined("rc.loc_#i#")) 			{ loc = evaluate("rc.loc_#i#"); }
-			var changefreq = ""; if (isDefined("rc.changefreq_#i#")) 	{ changefreq = evaluate("rc.changefreq_#i#"); }
-			var priority = ""; 	if (isDefined("rc.priority_#i#")) 		{ priority = evaluate("rc.priority_#i#"); }
-		
 				
-			if (changefreq != "exclude")	{
-				rc.xmlData &= "<url>"  & variables.crlf;
-				rc.xmlData &= "<loc>#xmlformat(loc)#</loc>" & variables.crlf;
-				rc.xmlData &= "<changefreq>#changefreq#</changefreq>" & variables.crlf;
-				rc.xmlData &= "<priority>#LSNumberformat(priority, "9.9")#</priority>" & variables.crlf;
-				rc.xmlData &= "</url>" & variables.crlf;
-				}
-				
-			} /* end for */
+		} /* end for */
 	
-		
-		rc.Kind = "Sitemap";
+	rc.xmlData &= "</urlset>";
 	
-		var stResult  = application.IOAPI.set_node(rc.SiteMapID, rc);
+	param rc.refresh = 0;	
 	
-		rc.SiteMapID = stResult.NodeID;
+	if (rc.refresh)	{
 	
-		var stResult = application.IOAPI.set_node_XML(rc.SiteMapID, rc);
-		
-		/* Do write operation */
-		var strSiteMap = '<?xml version="1.0" encoding="utf-8"?>'
-			& variables.crlf
-			& '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' 
-			& variables.crlf
-			& rc.xmlData 
-			& variables.crlf
-			& '</urlset>';
-			
-		strSiteMap = replace(strSiteMap, "<loc>", "<loc>#rc.siteroot#", "all");	
-		
-		
-	
-		
-		filewrite(target, strSiteMap);
-			
-	
+		filewrite(application.GSROOTPATH & "sitemap.xml", rc.xmlData);
 		this.addInfo("SITEMAP_REFRESHED");
+		}
 
-		} /* end post */
-
-
-	
-	}
-	
-
-void function endsitemap(required struct rc) output="false"	{
-	
-
-	
-	rc.qryNode = application.IOAPI.get({NodeID = "max", Kind = "Sitemap" });
-	
-		
-	rc.qrySiteMap = application.IOAPI.get_site_map(rc.qryNode.NodeID, this.entryCount); 
-	
-	
-	
-	if (rc.qryNode.Kind == "Sitemap") 
-		rc.sitemapid = rc.qryNode.NodeID; 
 	}
 			
 	
