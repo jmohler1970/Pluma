@@ -31,14 +31,14 @@ param prebody = "";
 
 	<cfoutput>
 	<!-- Le styles -->
-   	<link href="#application.GSAPI.get_site_root()#theme/bootswatch/css/bootstrap.css" rel="stylesheet" />
-    <link href="#application.GSAPI.get_site_root()#theme/bootswatch/css/bootstrap-responsive.css" rel="stylesheet" />
-    <link href="#application.GSAPI.get_site_root()#theme/bootswatch/css/docs.css" 		rel="stylesheet" />
-    <link href="#application.GSAPI.get_site_root()#theme/bootswatch/css/prettify.css" 	rel="stylesheet" />
+   	<link href="#application.GSAPI.get_theme_url()#/css/bootstrap.css" rel="stylesheet" />
+    <link href="#application.GSAPI.get_theme_url()#/css/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="#application.GSAPI.get_theme_url()#/css/docs.css" 		rel="stylesheet" />
+    <link href="#application.GSAPI.get_theme_url()#/css/prettify.css" 	rel="stylesheet" />
     <cfif not isnull(request.stBootswatch.css) and request.stBootswatch.css NEQ "">
-    	<link href="#application.GSAPI.get_site_root()#theme/bootswatch/css/#request.stBootswatch.css#" 	rel="stylesheet" />
+    	<link href="#application.GSAPI.get_them_url()#/css/#request.stBootswatch.css#" 	rel="stylesheet" />
    	</cfif>
-    <link href="#application.GSAPI.get_site_root()#theme/bootswatch/css/calendar.css" 	rel="stylesheet" />
+    <link href="#application.GSAPI.get_theme_url()#/css/calendar.css" 	rel="stylesheet" />
 
 
 	

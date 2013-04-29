@@ -255,7 +255,7 @@ string function get_site_url()	{
 	
 /**
 * @display Get Theme URL
-* @hint Links to theme template
+* @hint Links to theme template. This is good for paths to theme specific css and js. Does not end in / because GS does not
 */	
 string function get_theme_url()	{
 	
