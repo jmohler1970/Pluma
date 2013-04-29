@@ -1,6 +1,6 @@
 
 
-<div class="main">
+
 
 <h3>Preview Registration Data</h3>
 
@@ -8,16 +8,14 @@
 
 
 <cfoutput>
-<form action="?plugin=anonymous_data&amp;plx=preview" method="post">
+<form action="?plugin=plumacms&amp;plx=preview" method="post">
 	<input type="hidden" name="sendData" value="1" /> 
 
-<cfoutput>
+
 	<textarea name="registrationData" readonly="readonly">
 		#htmleditformat(rc.registrationdata)#
 	</textarea>
 
-
-</cfoutput>
 
 <br />
 
@@ -26,5 +24,3 @@
 </form>
 </cfoutput>
 
-
-</div>

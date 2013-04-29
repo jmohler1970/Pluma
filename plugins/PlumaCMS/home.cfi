@@ -7,7 +7,7 @@
 
 
 <cfoutput>
-<form method="post" class="anondata" action="?plugin=anonymous_data&amp;plx=preview">
+<form method="post" class="anondata" action="?plugin=plumacms&amp;plx=preview">
 </cfoutput>		
 		 
 <p>Web World Inc needs to find out what type of people and businesses are using our product. This form allows you to voluntarily send us <u>completely

@@ -16,6 +16,7 @@ function Init()	{
 	'',
 	'icon-heart');
 	
+	application.GSAPI.add_action("plugins_sidebar", "createSideMenu", ["?plugin=plumacms", "Registration"]);
 	application.GSAPI.add_action("theme_sidebar", "createSideMenu", ["?plugin=plumacms", "Registration"]);
 	application.GSAPI.add_action("support_sidebar", "createSideMenu", ["?plugin=plumacms&plx=contact", "Support Options"]);
 	
@@ -37,6 +38,51 @@ function Init()	{
 
 
 <cfcase value="preview">
+
+	<cfparam name="rc.category" default="">
+	<cfparam name="rc.link_back" default="">
+	<cfparam name="rc.senddata" default="0">
+	
+	
+	<cfif cgi.request_method EQ "Post" AND rc.sendData EQ 1>
+		<cfparam name="rc.registrationdata" default="">
+		
+		<cfmail from="anon@site.com" to="james@webworldinc.com" subject="Pluma Registration">
+			#rc.registrationdata#
+		</cfmail>
+	
+		<cfsavecontent variable="variables.stResult.Content">
+			<h3>Success</h3>
+			
+			<p>Thank you for registering!</p>
+		</cfsavecontent>
+	
+		<cfreturn variables.stResult>
+	</cfif>	
+	
+	
+	
+	<cfset var stSiteInfo = application.IOAPI.get_site_info()>
+	
+<cfsavecontent variable="rc.registrationdata">
+<cfoutput>
+<p>
+<b>Submitted</b> #now()#<br />
+<b>Version:</b> #application.GSAPI.get_site_credits()#<br />
+<b>Language:</b><br /> 
+<b>Timezone:</b><br /> 
+<b>ColdFusion:</b> #stSiteInfo.cfversion#<br />
+<b>Data Nodes:</b><br />
+<b>Domain name:</b>#cgi.server_name#<br />
+
+<b>Category:</b>#rc.category#<br />
+<b>Link Back:</b>#rc.link_back#
+ 
+</p>
+</cfoutput>	
+</cfsavecontent>
+
+
 	<cfsavecontent variable="variables.stResult.Content">
 		<cfinclude template="plumacms/preview.cfi">
 	</cfsavecontent>
@@ -57,6 +103,16 @@ function Init()	{
 
 	<cfreturn variables.stResult>
 </cffunction>
+	
+	
+<cffunction name="preview" output="false">
+	<cfargument name="rc" required="true" type="struct">
+	
+
+	
+
+
+</cffunction>	
 	
 
 </cfcomponent>
