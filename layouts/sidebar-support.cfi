@@ -1,8 +1,6 @@
 
 
 <cfoutput>
-
-
 <ul class="snav">
 
 	<li><a <cfif getItem() EQ "home">class="current"</cfif> href="#buildURL(action = '.home')#">#application.GSAPI.i18n("SUPPORT")#</a></li>
@@ -15,7 +13,7 @@
 
 
 <ul class="snav">
-	<cfoutput>#application.GSAPI.exec_action("support_sidebar")#</cfoutput>
+	<cfoutput>#application.GSAPI.exec_action("support_sidebar", "?plugin=#rc.plugin#&plx=#rc.plx#")#</cfoutput>
 
 </ul>
 

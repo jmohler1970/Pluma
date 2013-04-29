@@ -6,7 +6,7 @@
 
 
 <div class="edit-nav clearfix">
-	<a href="##" accesskey="r">#application.GSAPI.i18n("CLEAR_THIS_LOG")#</a>
+	<a href="#buildURL(action='.', querystring="clear=1")#" accesskey="r">#application.GSAPI.i18n("CLEAR_THIS_LOG")#</a>
 </div>	
 </cfoutput>
 
@@ -18,9 +18,9 @@
 	<b style="line-height:20px;">#application.GSAPI.i18n("LOG_FILE_ENTRY")#</b><br />
 	
 
-	<b>Date</b>: <br/>	
-	<b>Username</b>: <br/>	
-	<b>IP_Address</b>: ##<br/>	
+	<b>Date</b>: #application.IOAPI.std_date(datetime)#<br/>	
+	<b>Username</b>: #by#<br/>	
+	<b>IP_Address</b>: #ip#<br/>	
 	<b>Reason</b>: #message#<br />	
 		
 	</p>

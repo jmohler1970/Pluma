@@ -139,12 +139,12 @@ GO
 
 
 /* Debug */
-create function [dbo].[udf_4jDebug](@title nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
+create function [dbo].[udf_4jDebug](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
 	
 	returns xml
 as
 begin
-	DECLARE @xmlResult xml = CONVERT(xml, '<msg:message type=''debug'' />')
+	DECLARE @xmlResult xml = CONVERT(xml, ('<message type=''debug''>' + @message + '</message>'))
 	
 	DECLARE @datetime datetime = getDate()
 
@@ -159,7 +159,6 @@ begin
 
 	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute title	{sql:variable("@title")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
 	
 
@@ -171,12 +170,12 @@ GO
 
 
 /* Error */
-create function [dbo].[udf_4jError](@title nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
+create function [dbo].[udf_4jError](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
 	
 	returns xml
 as
 begin
-	DECLARE @xmlResult xml = CONVERT(xml, '<msg:message type=''error'' />')
+	DECLARE @xmlResult xml = CONVERT(xml, ('<message type=''error''>' + @message + '</message>'))
 	
 	DECLARE @datetime datetime = getDate()
 
@@ -190,10 +189,7 @@ begin
 	END
 	
 	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
-	
-	
 	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute title	{sql:variable("@title")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
 	
 
@@ -205,12 +201,12 @@ GO
 
 
 
-create function [dbo].[udf_4jFatal](@title nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
+create function [dbo].[udf_4jFatal](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
 	
 	returns xml
 as
 begin
-	DECLARE @xmlResult xml = CONVERT(xml, '<msg:message type=''fatal'' />')
+	DECLARE @xmlResult xml = CONVERT(xml, ('<message type=''fatal''>' + @message + '</message>'))
 	
 	DECLARE @datetime datetime = getDate()
 
@@ -226,7 +222,6 @@ begin
 	
 	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute title	{sql:variable("@title")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
 	
 
@@ -239,12 +234,12 @@ GO
 
 
 
-create function [dbo].[udf_4jInfo](@title nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
+create function [dbo].[udf_4jInfo](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
 	
 	returns xml
 as
 begin
-	DECLARE @xmlResult xml = CONVERT(xml, '<message type=''info'' />')
+	DECLARE @xmlResult xml = CONVERT(xml, ('<message type=''info''>' + @message + '</message>'))
 	
 	DECLARE @datetime datetime = getDate()
 
@@ -259,7 +254,6 @@ begin
 	
 	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute title	{sql:variable("@title")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
 	
 
@@ -273,12 +267,12 @@ GO
 
 
 /* Success */
-create function [dbo].[udf_4jSuccess](@title nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
+create function [dbo].[udf_4jSuccess](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
 	
 	returns xml
 as
 begin
-	DECLARE @xmlResult xml = CONVERT(xml, '<message />')
+	DECLARE @xmlResult xml = CONVERT(xml, ('<message>' + @message + '</message>'))
 	
 	DECLARE @datetime datetime = getDate()
 
@@ -294,7 +288,6 @@ begin
 
 	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute title	{sql:variable("@title")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
 	
 
@@ -305,12 +298,12 @@ GO
 
 
 /* Debug */
-create function [dbo].[udf_4jTicket](@title nvarchar(max), @ip varchar(max), @ticket nvarchar(max), @userid varchar(max)=NULL) 
+create function [dbo].[udf_4jTicket](@message nvarchar(max), @ip varchar(max), @ticket nvarchar(max), @userid varchar(max)=NULL) 
 	
 	returns xml
 as
 begin
-	DECLARE @xmlResult xml = CONVERT(xml, '<msg:message type=''ticket'' />')
+	DECLARE @xmlResult xml = CONVERT(xml, ('<message type=''ticket''>' + @message + '</message>'))
 	
 	DECLARE @datetime datetime = getDate()
 
@@ -326,7 +319,6 @@ begin
 	
 	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute title	{sql:variable("@title")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute ticket 	{sql:variable("@ticket")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
 	
@@ -338,12 +330,12 @@ GO
 
 
 /* Warn */
-create function [dbo].[udf_4jWarn](@title nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
+create function [dbo].[udf_4jWarn](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
 	
 	returns xml
 as
 begin
-	DECLARE @xmlResult xml = CONVERT(xml, '<msg:message type=''warning'' />')
+	DECLARE @xmlResult xml = CONVERT(xml, ('<message type=''warning''>' + @message + '</message>'))
 	
 	DECLARE @datetime datetime = getDate()
 
@@ -358,7 +350,6 @@ begin
 	
 	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute title	{sql:variable("@title")} into (/message)[1]')
 	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
 	
 

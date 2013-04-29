@@ -602,8 +602,15 @@ query function get_log(string filter="") output="false"	{
 
 	return this.wsNode.getLog(arguments.filter);
 	}
+
+		
+boolean function clear_log(string filter="") output="false"	{
+
+	return this.wsNode.clearLog(arguments.filter);
+	}
 		
 
+		
 		
 	
 	

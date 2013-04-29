@@ -26,7 +26,7 @@ void function home (required struct rc) output="false"	{
 			}
 		else	{
 			this.AddError(stResult.key);
-			
+
 
 			}	
 			

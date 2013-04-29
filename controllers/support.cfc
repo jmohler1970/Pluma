@@ -12,10 +12,11 @@ void function before(required struct rc) output="false"	{
 
 
 	param rc.plugin = "";
+	param rc.plx = "";
 	// This is managed over there
 	if (rc.plugin != "" and fw.getItem() != "settings")	{
 	
-		variables.fw.redirect("settings.settings", "all");
+		variables.fw.redirect("support.settings", "all");
 		}
 
 
@@ -78,9 +79,18 @@ void function before(required struct rc) output="false"	{
 <cfscript>
 void function jour(required struct rc) output="false"	{
 
+	param rc.clear = 0;
 	param rc.Kind = "Login";
 
+	if (rc.clear == 1)	{
+		application.IOAPI.clear_log(rc.Kind);
+	
+		this.addWarning("MSG_HAS_BEEN_CLR", [rc.Kind]);		
+		}
+
 	rc.qryRecentLogin = application.IOAPI.get_log(rc.Kind);
+	
+	
 	}
 
 

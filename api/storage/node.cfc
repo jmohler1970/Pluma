@@ -690,8 +690,7 @@
 </cffunction>
 
 
-
-<cffunction returnType="void" name="addLog" output="no" access="remote" >
+<cffunction returnType="void" name="addLog" output="no">
 	<cfargument name="Kind" required="true" type="string">
 	<cfargument name="Message" required="true" type="string">
 	<cfargument name="Remote_addr" required="true" type="string">
@@ -713,18 +712,25 @@
 </cffunction> 
 
 
-<cffunction returnType="void" name="deleteLog" output="no" access="remote" >
+<cffunction returnType="boolean" name="clearLog" output="no">
 	<cfargument name="Kind" required="true" type="string">
 
 
 	<cfquery name="qryDeleted">
 		DELETE
 		FROM	dbo.DataLog
-		OUTPUT DataLogID
+		OUTPUT deleted.DataLogID
 		WHERE	Kind = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.kind#">
 	</cfquery>
+	
+	<cfif qryDeleted.recordcount EQ 0>
+		<cfreturn false>
+	</cfif>	
 
+	<cfreturn true>
 </cffunction>
 
 
 </cfcomponent>
+
+
