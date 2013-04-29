@@ -16,7 +16,7 @@
 
 <ul class="snav">
 	
-	<cfoutput>#application.GSAPI.exec_action("theme_sidebar")#</cfoutput>
+	<cfoutput>#application.GSAPI.exec_action("theme_sidebar", "?plugin=#rc.plugin#")#</cfoutput>
 	
 </ul>
 
