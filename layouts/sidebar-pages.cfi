@@ -41,10 +41,14 @@
 
 <ul class="snav">	
 	#application.GSAPI.exec_action("pages_sidebar", "?plugin=#rc.plugin#")#
-	
-
-	</cfoutput>
-
 </ul>
+
+
+<cfif getItem() EQ "edit" AND rc.NodeID NEQ "">
+	<button type="button" onclick="myFrm.submit();">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
+</cfif>
+
+
+</cfoutput>
 
 

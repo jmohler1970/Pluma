@@ -42,27 +42,35 @@ void function init() output="false" {
 
 
 	
-string function std_date(required string MyDate) output="false" {
+string function std_date(required string MyDate, boolean verbose = 0) output="false" {
+	// Support for verbose will come with CF 10
 	
 	var curDay = day(now());
 	var curMonth = month(now());
 	var curYear = year(now());
 	
-	if (not isDate(arguments.MyDate)) return "<i>Unknown</i>";
+	if (not isDate(arguments.MyDate)) return application.GSAPI.i18n("plumacms/Unknown");
 		
 		
 	if (day(arguments.MyDate) 		== curDay  
 		AND month(arguments.MyDate) == curMonth
 		AND year(arguments.MyDate) 	== curYear
-		) return "Today";
+		) return application.GSAPI.i18n("plumacms/Today");
 		
 	if (day(DateAdd("d", 1, arguments.MyDate)) 	== curDay
 		AND month(arguments.MyDate) 			== curMonth
 		AND year(arguments.MyDate) 				== curYear
-		)	return "Yesterday";
+		)	return application.GSAPI.i18n("plumacms/Yesterday");
 	
 	
-	return LSDateFormat(arguments.MyDate, "ddd, mmm dd, 'yy", request.stMeta.language);
+	var myDateformat = application.GSAPI.i18n("Date_Format");
+	
+	
+	if (myDateFormat == "")	{
+		myDateformat = 	"ddd, mmm dd, 'yy";		
+		}
+	
+	return LSDateFormat(arguments.MyDate, myDateFormat, request.stMeta.language);
 	}
 	
 

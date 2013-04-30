@@ -29,8 +29,6 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
     	<a href="#application.GSAPI.find_url(slug)#" target="_blank" accesskey="v">#application.GSAPI.i18n("view")#</a>
     
     	<a href="##" id="metadata_toggle" accesskey="n">#application.GSAPI.i18n("page_options")#</a>
-    	
-
     </cfoutput>
     	
 	</div>	 
@@ -50,9 +48,6 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 
 <cfoutput query="rc.qryNode">    
-
-
-
 
 	<p>
     	<input type="text" name="title" value="#htmleditFormat(title)#" class="text title"
@@ -181,10 +176,12 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 <cfoutput query="rc.qryNode">
 <p class="inline clearfix">
 		<label class="control-label" for="firstname">Custom URL (Slug):</label>
+	
+		<!--- This does not submit anything --->	
+		<input class="text short" type="text" value="#slug#" readonly="readonly" disabled="disabled" />
 		
-		<input class="text short" type="text"name="slug" value="#slug#" readonly="readonly" disabled="disabled" />
- 	
-		
+		<input type="hidden" name="slug" value="#slug#" />
+	
 </p>
 </cfoutput>
 

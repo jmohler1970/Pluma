@@ -78,6 +78,7 @@
 <tr>
 	<th>&nbsp;</th>
 	<th>#application.GSAPI.i18n("file_name")#</th>
+	
 	<th style="text-align : right;">#application.GSAPI.i18n("file_size")#</th>
 	<th style="text-align : right;">#application.GSAPI.i18n("date")#</th>
 	<th></th>

@@ -10,6 +10,7 @@
 
 
 
+
 <div class="edit-nav clearfix">
 	<a href="##" id="filtertable" accesskey="r">#application.GSAPI.i18n("filter")#</a>
 	

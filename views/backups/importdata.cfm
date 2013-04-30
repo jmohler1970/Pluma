@@ -13,13 +13,16 @@ managefiles = false;
 
 <table class="edittable highlight paginate">
 
+<cfoutput> 
+<thead>
 <tr>
-	<th>File</th>
-	<th>Date</th>
-	<th style="text-align : right;">Size</th>
+	<th>#application.GSAPI.i18n("file_name")#</th>
+	<th style="text-align : right;">#application.GSAPI.i18n("file_size")#</th>
+	<th style="text-align : right;">#application.GSAPI.i18n("date")#</th>
 	<th>&nbsp;</th>
 </tr>
-
+</thead>
+</cfoutput>
 
 		
 <cfoutput query="rc.qryDirectory">
@@ -38,14 +41,15 @@ managefiles = false;
 		</cfswitch> 
 		
 		</td>
-		<td>#application.IOAPI.std_date(datelastmodified)#, #LSTimeFormat(datelastmodified)#</td>
 		
-		<td style="text-align : right;">#LSNumberFormat(size \ 1024)# kB</td>
+		<td style="text-align : right;"><span>#LSNumberFormat(size \ 1024)# KB</span></td>
+		
+		<td style="text-align : right;"><span>#application.IOAPI.std_date(datelastmodified)#, #LSTimeFormat(datelastmodified)#</span></td>
 		
 	
 			
 		<td class="delete">	
-			<a href="#buildURL(action = 'backups.deletedata', querystring = 'name=#urlencodedformat(name)#')#"> &times;</a>
+			<a href="#buildURL(action = 'backups.deletedata', querystring = 'name=#urlencodedformat(name)#')#" title="#application.GSAPI.i18n("deletepage_title")#"> &times;</a>
 
 		
 		</td>

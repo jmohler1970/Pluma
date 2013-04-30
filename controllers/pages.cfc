@@ -102,10 +102,9 @@ void function edit(required struct rc) output="false" {
 				
 				application.IOAPI.set_Conf(NodeK, rc);
 				}
-							
-		
-			this.AddMessage("Page saved with nodeid of <tt>#rc.NodeID#</tt>"); 
 			
+			this.AddInfo("ER_YOUR_CHANGES", [rc.slug]);				
+					
 			}
 			
 		} // end post
