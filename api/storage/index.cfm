@@ -1,3 +1,18 @@
+
+<cfscript>
+wsUser 	= createobject("component", "Users");
+
+	rc = wsUser.doimpersonate(52);
+
+
+	
+	writedump(rc);
+
+</cfscript>	
+<cfexit>
+
+
+
 <cfscript>
 wsNode 	= createobject("component", "Node");
 

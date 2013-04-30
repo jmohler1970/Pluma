@@ -23,19 +23,17 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 </cfif>
 </cfoutput>
 
-	    <div class="edit-nav clearfix">	
-	    
-		<cfoutput query="rc.qryNode">   
-	    	<a href="#application.GSAPI.find_url(slug)#" target="_blank" accesskey="v">#application.GSAPI.i18n("view")#</a>
-	    
-	    	<a href="##" id="metadata_toggle" accesskey="n">#application.GSAPI.i18n("page_options")#</a>
-	    	
-	    	<cfif isnumeric(rc.nodeID)>
-	    		<a href="#buildURL(action = 'backups.history', querystring='nodeID=#NodeID#')#" onclick="doAdvanced()" accesskey="a">#application.GSAPI.i18n("page_backups")#</a>
-	    	</cfif>
-	    </cfoutput>
-	    	
-		</div>	 
+    <div class="edit-nav clearfix">	
+    
+	<cfoutput query="rc.qryNode">   
+    	<a href="#application.GSAPI.find_url(slug)#" target="_blank" accesskey="v">#application.GSAPI.i18n("view")#</a>
+    
+    	<a href="##" id="metadata_toggle" accesskey="n">#application.GSAPI.i18n("page_options")#</a>
+    	
+
+    </cfoutput>
+    	
+	</div>	 
 
 
 
@@ -287,7 +285,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 			
 
 			<cfif isnumeric(rc.NodeID)>	
-				<button type="submit" name="submit" value="clone">#application.GSAPI.i18n("clone")#</button>
+				<button type="submit" name="submit" value="clone">#application.GSAPI.i18n("CLONE")#</button>
 			</cfif>	
 		</cfif>
 		
@@ -306,6 +304,19 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 </cfform>	
 
+<cfif isnumeric(rc.nodeID)>
+<cfoutput query="rc.qryNode"> 
+	<p class="backuplink" >
+		#application.GSAPI.i18n("LAST_SAVED", [modifyby])# #application.IOAPI.std_date(modifyDate)#
+		
+		&nbsp;&nbsp;
+		&bull;
+		&nbsp;&nbsp; 
+
+  		<a href="#buildURL(action = 'backups.home', querystring='nodeID=#NodeID#')#"  accesskey="a">#application.GSAPI.i18n("BACKUP_AVAILABLE")#</a>
+  	</p>
+</cfoutput>
+</cfif>
 
 	<div class="clear"></div>
 	

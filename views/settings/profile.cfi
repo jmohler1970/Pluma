@@ -35,7 +35,7 @@
 <div class="leftsec">
 
 	<p class="clearfix">
-		<b>#application.GSAPI.i18n("label_firstname")#</b>
+		<b>#application.GSAPI.i18n("plumacms/label_firstname")#</b>
 		<br />
 	    <cfinput type="text" name="firstname" class="text" required="yes" value="#firstname#" maxLength="50" message="First name is required" />
 
@@ -52,7 +52,7 @@
 
 <div class="rightsec">	
 	<p>
-		<b>#application.GSAPI.i18n("label_lastname")#</b>
+		<b>#application.GSAPI.i18n("plumacms/label_lastname")#</b>
 		<br />
        	<cfinput type="text" name="lastname" class="text" required="yes" value="#lastname#" maxLength="50" message="Last name is required" />
 	</p>
@@ -63,7 +63,7 @@
 
 	<div class="clear"></div>
 	<p>
-		<b>#application.GSAPI.i18n('user_management/USER_BIO')#</b>
+		<b>#application.GSAPI.i18n('plumacms/USER_BIO')#</b>
 		<br />
 		<cftextarea name="comments" richtext="true" height="400" width="740">#comments#</cftextarea>
 	</p>

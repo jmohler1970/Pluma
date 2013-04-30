@@ -38,12 +38,17 @@ void function home (required struct rc) output="false"	{
 
 void function impersonate(required struct rc) output="false"	{
 	
+
+	try	{
 	var stResult = session.LOGINAPI.doImpersonate(rc.userid);
+	}
+	catch (any e) { this.AddMessage(e.message);}
+	
 	
 	if (stResult.result)	{
 		this.AddMessage("Impersonate successful"); 
 	
-		variables.fw.redirect("pages.home", "all");
+		//variables.fw.redirect("pages.home", "all");
 		return;
 		}
 

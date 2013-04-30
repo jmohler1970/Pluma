@@ -59,13 +59,17 @@ void function home(required struct rc) output="false"	{
 	// Post
 	if (cgi.request_method == "post" AND rc.submit == "profile")	{
 			
-		if (arguments.rc.sitepwd != "" AND arguments.rc.sitepwd == arguments.rc.sitepwd_confirm)	{
-			arguments.rc.passhash = left(hash(rc.sitepwd), 10);
+		if (arguments.rc.sitepwd != "")	{
+			if (arguments.rc.sitepwd == arguments.rc.sitepwd_confirm)	{
+				arguments.rc.passhash = left(hash(rc.sitepwd), 10);
 			
-			this.AddMessage("Password has been updated.");
+				this.AddMessage("Password has been updated.");
+				}
+			else	{
+				this.AddInfo("PASSWORD_NO_MATCH");
+				}
 			
-			
-			}
+			} // end if sitepwd
 	
 		
 		application.USERAPI.set(session.LOGINAPI.userid, arguments.rc);
@@ -73,8 +77,8 @@ void function home(required struct rc) output="false"	{
 	
 		
 		 
+		this.AddInfo("ER_YOUR_CHANGES", ['#arguments.rc.firstname# #arguments.rc.lastname#']);
 		
-		this.AddMessage("User &quot;#arguments.rc.firstname# #arguments.rc.lastname#&quot; saved");
 		}
 	
 	// All

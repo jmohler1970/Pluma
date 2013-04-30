@@ -34,14 +34,14 @@ function formCheck()
     <p>
    		<b>#application.GSAPI.i18n("label_userName")#</b>
    	 	<br />
-    	<input type="text" name="login" class="text" placeholder="Login" autofocus="autofocus" />
+    	<input type="text" name="login" class="text" autofocus="autofocus" />
     </p>
    
    
    	<p>
     	<b>#application.GSAPI.i18n("Password")#</b>
     	<br />
-        <input type="password" name="password" class="text" placeholder="Password" />
+        <input type="password" name="password" class="text" />
     </p>
    
    

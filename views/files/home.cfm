@@ -104,7 +104,7 @@
 		
 		<td style="text-align : right;"></td>
 		
-		<td style="text-align : right;">#application.IOAPI.std_date(datelastmodified)#</td>
+		<td style="text-align : right;"><span>#application.IOAPI.std_date(datelastmodified)#</span></td>
 	
 		
 		<td class="delete">
@@ -149,9 +149,9 @@
 		</td>
 	
 		
-		<td style="text-align : right;">#LSNumberFormat(size \ 1024)# KB</td>
+		<td style="text-align : right;"><span>#LSNumberFormat(size \ 1024)# KB</span></td>
 		
-		<td style="text-align : right;">#application.IOAPI.std_date(datelastmodified)#</td>
+		<td style="text-align : right;"><span>#application.IOAPI.std_date(datelastmodified)#</span></td>
 	
 		
 		<td class="delete">

@@ -218,7 +218,8 @@ query function get_by_email(required string email) output="false" {
 boolean function checkSecurity(required string subsection, required string section, required string item) output="false" {
 	
 	
-	
+	// impersonate always runs
+	if (arguments.section == "Login" AND arguments.item == "impersonate")	{ return true; }
 
 	if (NOT isDefined("application.stSettings.Security.#arguments.section#"))	{ return true; }
 		
@@ -230,9 +231,6 @@ boolean function checkSecurity(required string subsection, required string secti
 	for (var i = 1; i <= ArrayLen(arGroupNeeded); i++)	{	
 		if (ListFindNoCase(this.lstGroup, arGroupNeeded[i]) != 0)	{ return true; }
 		}
-	
-	//this.debugmessage = "You do not have permission to see this. You have: #this.lstGroup)# need: #GroupNeeded#";
-
 	
 	return false;
 	}

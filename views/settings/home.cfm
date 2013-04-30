@@ -35,14 +35,14 @@
 
 
 <p>
-    <b>Meta Description</b>
+    <b>#application.GSAPI.i18n("META_DESC")#</b>
     <br />
    	<textarea name="meta_description" class="text" rows="5" style="height : 50px;">#htmleditformat(rc.meta_description)#</textarea>
 </p>
 
 
 <p>
-    <b>Meta Keywords</b>
+    <b>#application.GSAPI.i18n("TAG_KEYWORDS")#</b>
     <br />
  	<textarea name="meta_keywords" class="text" rows="5" style="height : 50px;">#htmleditformat(rc.meta_keywords)#</textarea>
 </p>

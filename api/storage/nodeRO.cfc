@@ -1156,7 +1156,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		SET     @NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">)
 		
 	
-		SELECT 	TOP 20 NodeArchiveID, NodeID, CONVERT(date, VersionDate) AS ShortDate,
+		SELECT 	TOP 200 NodeArchiveID, NodeID, slug, CONVERT(date, VersionDate) AS ShortDate,
 			VersionDate, m.[by] AS ModifyBy, Kind, Root, NoDelete, 
 			xmlTitle.value('/title[1]', 'nvarchar(max)') AS title, DataSize
 		

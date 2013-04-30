@@ -25,6 +25,17 @@ struct function before(required struct rc) output="false" {
 	
 	
 void function home(required struct rc) output="false" {
+
+	
+	param rc.nodeID = "";
+	
+	if (isnumeric(rc.nodeID))	{
+		
+		rc.qryArchive = application.IOAPI.get_archive({NodeID = rc.NodeID});
+		
+		return;
+		}
+
 	
 	rc.qryArchive = application.IOAPI.get_archive({Kind = "Page"});
 	}	

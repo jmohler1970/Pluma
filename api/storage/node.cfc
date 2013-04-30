@@ -8,9 +8,7 @@
 	<cfargument name="nodek" type="struct" required="true">
 	<cfargument name="remote_addr" 	required="true" type="string">
 	<cfargument name="byuserid" type="string" required="true">
-	
-
-	
+		
 	
 	<cfquery>
 		UPDATE	dbo.Node
@@ -63,8 +61,7 @@
 	<cfreturn this.stResults>
 </cffunction>  
 
- 	
- 	 
+	 
 
 
 <cffunction name="XMLSave" returnType="struct" output="no" access="remote">

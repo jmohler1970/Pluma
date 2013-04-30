@@ -234,7 +234,7 @@ GO
 
 
 
-create function [dbo].[udf_4jInfo](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
+create function [dbo].[udf_4jInfo](@message nvarchar(max)='', @ip varchar(max)=NULL, @userid varchar(max)=NULL) 
 	
 	returns xml
 as
@@ -253,7 +253,11 @@ begin
 	END
 	
 	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
+	IF @ip IS NOT NULL
+	BEGIN
+		SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
+	END
+	
 	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
 	
 

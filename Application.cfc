@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0384";
+	this.name 			= "PlumaCMS_0397";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -21,21 +21,22 @@
 		};
 		
 	variables.framework.routes = [
-		{ "/login" 			= "/login/home"},
-		{ "/forgot" 		= "/login/email"},
-		{ "/logout" 		= "/login/signout"},
+		{ "/login/impersonate"	= "/login/impersonate"},
+		{ "/login" 				= "/login/home"},
+		{ "/forgot" 			= "/login/email"},
+		{ "/logout" 			= "/login/signout"},
 
 		// content
-		{ "/id/:id" 		= "/main/home/id/:id"},
-		{ "/id" 			= "/main/home/slug/404"},
+		{ "/id/:id" 			= "/main/home/id/:id"},
+		{ "/id" 				= "/main/home/slug/404"},
 		
 		
-		{ "/main/tag" 		= "/main/home/slug/tag"},
-		{ "/main/archive" 	= "/main/home/slug/archive"},
-		{ "/main/profile" 	= "/main/home/slug/profile"},
-		{ "/main/search" 	= "/main/home/slug/search"},
-		{ "/main/error" 	= "/main/error"},
-		{ "/main/:id" 		= "/main/home/slug/:id"},
+		{ "/main/tag" 			= "/main/home/slug/tag"},
+		{ "/main/archive" 		= "/main/home/slug/archive"},
+		{ "/main/profile" 		= "/main/home/slug/profile"},
+		{ "/main/search" 		= "/main/home/slug/search"},
+		{ "/main/error" 		= "/main/error"},
+		{ "/main/:id" 			= "/main/home/slug/:id"},
 
 		
 		// taxonomy
