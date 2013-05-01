@@ -48,10 +48,10 @@
 	<th>#application.GSAPI.i18n("label_username")#</th>
 	<th>#application.GSAPI.i18n("label_email")#</th>
 	<th>Permission</th>
-	<th>#application.GSAPI.i18n("USER_LAST_LOGIN")#</th>
-	<th>#application.GSAPI.i18n("expiration")#</th>
+	<th>#application.GSAPI.i18n("PLUMACMS/USER_LAST_LOGIN")#</th>
+	<th>#application.GSAPI.i18n("PLUMACMS/expiration")#</th>
 	<th>&nbsp;</th>
-	<th>#application.GSAPI.i18n("renew")#</th>
+	<th>#application.GSAPI.i18n("PLUMACMS/renew")#</th>
 	<th>&nbsp;</th>
 </tr>
 </thead>
@@ -116,7 +116,10 @@
 		
 	<td class="delete">	
 		<cfif NOT groups CONTAINS "system">	
-			<a href="#buildURL(action = 'users.delete', querystring = 'UserID=#UserID#')#" onclick="return alert('Are you sure you want to delete this?')">&times;</a>
+			<a href="#buildURL(action = 'users.delete', querystring = 'UserID=#UserID#')#" 
+			onclick="return confirm('#application.GSAPI.i18n("API_CONFIRM")#')"
+			#application.GSAPI.i18n("PLUMACMS/user_delete")#
+			>&times;</a>
 		</cfif>			
 	</td>
 

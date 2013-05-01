@@ -43,7 +43,7 @@ void function edit(required struct rc) output="false"	{
 		application.USERAPI.set(rc.UserID, rc);
 			 
 		
-		this.AddMessage("User &quot;#rc.firstname# #rc.lastname#&quot; saved");
+		this.AddInfo("PLUMACMS/USER_ADDED");
 		}
 	
 	// All
@@ -80,7 +80,7 @@ void function delete(required struct rc) output="false"	{
 	
 	
 	// Results
-	this.AddMessage("User deleted.");
+	this.AddWarn("PLUMACMS/User_deleted");
 
 	variables.fw.redirect("users.home", "all");
 	}

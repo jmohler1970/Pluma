@@ -67,10 +67,42 @@
 	</div>
 </cfif>
 
+
+
+
+<div class="leftsec">
+	<p>
+		<b>#application.GSAPI.i18n("label_userName")#</b>
+		<br />
+	    <input type="text" name="login" class="text" value="#login#" maxLength="25" 
+	    
+	    <cfif isnumeric(rc.UserID)>
+	    	readonly="readonly"
+	    </cfif>
+	    />
+	</p>
+	
+		
+		
+	</div>
+	
+	<div class="rightsec">
+	
+	<p>
+		<b>#application.GSAPI.i18n("label_email")#</b>
+		<br />
+		<input type="text" name="email" class="text" value="#email#" maxLength="80"  />
+	</p>
+	
+</div>
+
+
+
+
 <div class="leftsec">
 
 	<p class="clearfix">
-		<b>First Name</b>
+		<b>#application.GSAPI.i18n("plumacms/label_firstname")#</b>
 		
 	    <cfinput type="text" name="firstname" class="text" required="yes" value="#firstname#" maxLength="50" message="First name is required" />
 
@@ -87,7 +119,7 @@
 
 <div class="rightsec">	
 	<p>
-		<b>Last Name</b>
+		<b>#application.GSAPI.i18n("plumacms/label_lastname")#</b>
 		
        	<cfinput type="text" name="lastname" class="text" required="yes" value="#lastname#" maxLength="50" message="Last name is required" />
 	</p>
@@ -100,28 +132,6 @@
 
 
 
-
-
-<div class="leftsec">
-	<p>
-		<b>Login</b>
-		<br />
-	    <cfinput type="text" name="login" class="text" value="#login#" maxLength="25" readonly="readonly"  />
-	</p>
-	
-		
-		
-	</div>
-	
-	<div class="rightsec">
-	
-	<p>
-		<b>Email</b>
-		<br />
-		<cfinput type="text" name="email" class="text" value="#email#" maxLength="80"  />
-	</p>
-	
-	</div>
 
 
 

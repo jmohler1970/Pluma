@@ -109,7 +109,9 @@
 	
 		
 		<td class="delete">
-			<a href="#buildURL(action='.delete', querystring='folder=#name#')#" title="#application.GSAPI.i18n("deletepage_title")#">&times;</a>
+			<a 	href="#buildURL(action='.delete', querystring='folder=#name#')#"
+				onclick="return confirm('#application.GSAPI.i18n("API_CONFIRM")#')"
+				title="#application.GSAPI.i18n("deletepage_title")#">&times;</a>
 		</td>
 	</tr>
 	

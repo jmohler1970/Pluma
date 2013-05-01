@@ -75,7 +75,8 @@
 	</td>	
 	<td class="delete">
 		<cfif NoDelete EQ 0>	
-			<a href="#buildURL(action = 'pages.delete', querystring = 'NodeID=#NodeID#')#" rel="tooltip" 
+			<a href="#buildURL(action = 'pages.delete', querystring = 'NodeID=#NodeID#')#" rel="tooltip"
+				onclick="return confirm('#application.GSAPI.i18n("API_CONFIRM")#')" 
 				title="#application.GSAPI.i18n("deletepage_title")#" id="delete-#slug#">&times;</a>
 		</cfif>
 	</td>

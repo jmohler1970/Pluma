@@ -45,7 +45,7 @@
 
 
 <cfif getItem() EQ "edit" AND rc.NodeID NEQ "">
-	<button type="button" onclick="myFrm.submit();">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
+	<button type="button" onclick="myFrm.submit()">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
 </cfif>
 
 

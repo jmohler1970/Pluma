@@ -17,7 +17,7 @@ void function Init() output="false" {
 	this.lstGroup	= "";
 	this.qryUser = QueryNew("Email");
 	this.login = 'Unknown';
-	this.LoginTarget = 'pages.home';
+	this.loginTarget = 'pages.home';
 	
 	
 	this.wsNode = CreateObject(application.stSettings.storage.node);
@@ -72,7 +72,7 @@ query function get_by_email(required string email) output="false" {
 	<cfscript>
 	if (not isnumeric(arguments.userid))	{
 		stResult.result = false;
-		stResult.message = "Invalid UserID";
+		stResult.key = "NOT_FOUND";
 	
 		return false;
 		}
@@ -81,7 +81,7 @@ query function get_by_email(required string email) output="false" {
 	if (not this.adhocSecurity('System'))	{
 	
 		stResult.result = false;
-		stResult.message = "Not Authorized";
+		stResult.key = "DENIED";
 	
 		return false;
 		}
@@ -162,7 +162,7 @@ query function get_by_email(required string email) output="false" {
 	if (this.lstGroup == "")	{
 	
 		variables.stResult.result = false;
-		variables.stResult.message = "Login failed: No permissions have been granted.";
+		variables.stResult.key = "plumacms/No_Permission";
 	
 		return variables.stResult;
 		}
@@ -172,7 +172,7 @@ query function get_by_email(required string email) output="false" {
 		if (this.qryUser.ExpirationDate < now())	{
 	
 			variables.stResult.result = false;
-			variables.stResult.message = "Login failed: Account has expired.";
+			variables.stResult.key = "plumacms/Expired_user";
 	
 			return variables.stResult;
 			}			
@@ -182,7 +182,7 @@ query function get_by_email(required string email) output="false" {
 	if (this.qryUser.Deleted)	{
 	
 		variables.stResult.result = false;
-		variables.stResult.message = "Login failed: Account has deleted."; // we never want to see you again
+		variables.stResult.key = "plumacms/deleted_user"; // we never want to see you again
 	
 		return variables.stResult;
 		}
@@ -193,7 +193,9 @@ query function get_by_email(required string email) output="false" {
 	this.lastname 	= this.qryUser.lastName;
 	this.homepath	= this.qryUser.HomePath;
 	this.login		= this.qryUser.Login;
-		
+	
+	this.targetlogin = structkeyExists(application.stSettings.Landing, this.qryUser.groups) ? 
+		evaluate(application.stSettings.Landingsession.this.qryUser.groups)	: "main.home";
 
 	
 	
@@ -236,34 +238,7 @@ boolean function checkSecurity(required string subsection, required string secti
 	}
 
 	
-	
-boolean function isReplyable(required any ormNode) output="false"	{
 
-	switch (arguments.ormNode.getCommentMode())	{
-		case "members + public" :
-			return true;
-			break;	
-		
-		case "members" :
-			return isnumeric(this.userid) ? true : false;	
-		
-			break;
-			
-		case "my group" :
-			return StructKeyExists(this.stGroup, arguments.ormNode.getGroup()) ? true : false;			
-		
-			break;	
-		
-		case "myself" :
-			return arguments.ormNode.getOwnerID() == this.userID ? true : false;
-		
-			break;
-		}
-		
-	return false;
-	}	
-
-	
 	
 
 boolean function adhocSecurity(required string role) output="false" {

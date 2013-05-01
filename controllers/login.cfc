@@ -21,7 +21,7 @@ void function home (required struct rc) output="false"	{
 		if (stResult.result)	{
 			// No special message shown 
 	
-			variables.fw.redirect("pages.home", "all");
+			variables.fw.redirect(session.LOGINAPI.loginTarget, "all");
 			return;
 			}
 		else	{
@@ -46,9 +46,9 @@ void function impersonate(required struct rc) output="false"	{
 	
 	
 	if (stResult.result)	{
-		this.AddMessage("Impersonate successful"); 
+		this.AddInfo("PLUMACMS/Impersonate_success"); 
 	
-		//variables.fw.redirect("pages.home", "all");
+		variables.fw.redirect(session.LOGINAPI.loginTarget, "all");
 		return;
 		}
 

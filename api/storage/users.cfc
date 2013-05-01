@@ -275,10 +275,11 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 	<cfif NOT isnumeric(arguments.userID)>
 		<cfquery name="qryAdd">
 		INSERT 
-		INTO	dbo.Users (PersonName, Email, Comments, Modified, Created)
+		INTO	dbo.Users (PersonName, login, Email, Comments, Modified, Created)
 		OUTPUT inserted.userid
 		VALUES (
-			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#local.personname#">,
+			'',
+			'<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.login#">'
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.email#">,
 						
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.comments#" null="#IIF(rc.Comments EQ "", 1, 0)#">,
@@ -298,11 +299,10 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 		
 	<cfquery>
 		UPDATE	dbo.Users
-		SET		PersonName = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#local.personname#">,
-			Email 		= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.email#">,
-			Comments 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.comments#" null="#IIF(rc.Comments EQ "", 1, 0)#">,
+		SET	PersonName 		= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#local.personname#">,
+			Email 			= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.email#">,
+			Comments 		= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.comments#" null="#IIF(rc.Comments EQ "", 1, 0)#">,
 			
-			login		 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.rc.login#">,
 			expirationDate 	= <cfqueryparam CFSQLType="CF_SQL_DATE" value="#rc.expirationDate#">,
 		
 			
