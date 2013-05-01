@@ -279,7 +279,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 		OUTPUT inserted.userid
 		VALUES (
 			'',
-			'<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.login#">'
+			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.login#">,
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.email#">,
 						
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.comments#" null="#IIF(rc.Comments EQ "", 1, 0)#">,

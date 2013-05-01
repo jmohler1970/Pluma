@@ -71,19 +71,19 @@ query function get_by_email(required string email) output="false" {
 
 	<cfscript>
 	if (not isnumeric(arguments.userid))	{
-		stResult.result = false;
-		stResult.key = "NOT_FOUND";
+		variables.stResult.result = false;
+		variables.stResult.key = "NOT_FOUND";
 	
-		return false;
+		return variables.result;
 		}
 	
 	
 	if (not this.adhocSecurity('System'))	{
 	
-		stResult.result = false;
-		stResult.key = "DENIED";
+		variables.stResult.result = false;
+		variables.stResult.key = "DENIED";
 	
-		return false;
+		return variables.result;
 		}
 	
 			

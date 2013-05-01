@@ -9,13 +9,6 @@
 
 	<li><a href="#buildURL(action = 'settings.home')###profile">#application.GSAPI.i18n("SIDE_USER_PROFILE")#</a></li>
 
-
-	<cfif session.LOGINAPI.adhocSecurity("system")>
-		<li id="nav_users">
-			<a class="users" href="#buildURL(action = 'users.home')#">#application.GSAPI.i18n("user_management/SIDEBAR")#</a>
-
-		</li>
-	</cfif>
 </ul>
 
 

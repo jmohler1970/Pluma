@@ -61,6 +61,16 @@
 	</cfif>
 
 
+	<cfif session.LOGINAPI.adhocSecurity("system")>
+		<li id="nav_users">
+			<a class="users"  id="nav_users_link"
+				href="#buildURL(action = 'users.home')#">#application.GSAPI.i18n("plumacms/users_nav")#</a>
+
+		</li>
+	</cfif>
+
+
+
 
 	<cfif session.LOGINAPI.adhocSecurity("system")>
 		<li class="rightnav">

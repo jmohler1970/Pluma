@@ -43,7 +43,7 @@ void function edit(required struct rc) output="false"	{
 		application.USERAPI.set(rc.UserID, rc);
 			 
 		
-		this.AddInfo("PLUMACMS/USER_ADDED");
+		this.AddInfo("PLUMACMS/USER_ADDED", [rc.userid]);
 		}
 	
 	// All
@@ -71,16 +71,16 @@ void function delete(required struct rc) output="false"	{
 	
 	if (not isnumeric(rc.userid))	{
 	
-		this.AddMessage("This is an invalid UserID.", "Error");
+		this.AddError("NOT_FOUND", [rc.userid]);
 		variables.fw.redirect("users.home", "all");
 		}
 	
 		
-	application.LOGINAPI.delete(rc.UserID);
+	application.USERAPI.delete(rc.UserID);
 	
 	
 	// Results
-	this.AddWarn("PLUMACMS/User_deleted");
+	this.AddWarning("PLUMACMS/User_deleted");
 
 	variables.fw.redirect("users.home", "all");
 	}

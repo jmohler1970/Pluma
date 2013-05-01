@@ -94,6 +94,12 @@ boolean function renew(required string userid, string expirationDate) output="fa
 
 	return this.wsUser.renew(arguments.userID, argumetns.expirationDate, cgi.remote_addr, session.LOGINAPI.userID);
 	}
+
+
+boolean function delete(required string userid) output="false"	{
+
+	return this.wsUser.delete(arguments.userID, cgi.remote_addr, session.LOGINAPI.userID);
+	}
 	
 </cfscript>
 	

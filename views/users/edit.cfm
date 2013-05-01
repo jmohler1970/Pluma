@@ -99,33 +99,6 @@
 
 
 
-<div class="leftsec">
-
-	<p class="clearfix">
-		<b>#application.GSAPI.i18n("plumacms/label_firstname")#</b>
-		
-	    <cfinput type="text" name="firstname" class="text" required="yes" value="#firstname#" maxLength="50" message="First name is required" />
-
-	</p>
-
-<!---	
-	<p>
-		<b>Middle Name</b>
-		<br />
-		<cfinput type="text" name="middleName" maxLength="1" value="#middleName#" class="text" />
-	</p>
---->	
-</div>	
-
-<div class="rightsec">	
-	<p>
-		<b>#application.GSAPI.i18n("plumacms/label_lastname")#</b>
-		
-       	<cfinput type="text" name="lastname" class="text" required="yes" value="#lastname#" maxLength="50" message="Last name is required" />
-	</p>
-	
-	
-</div>
 
 	<div class="clear"></div>
 
@@ -154,6 +127,45 @@
 			<p style="margin:0px 0 5px 0;font-size:12px;color:##999;">#application.GSAPI.i18n('only_new_password')#</p>
 		</cfif>
 		
+<div class="leftsec">
+
+	<p class="clearfix">
+		<b>#application.GSAPI.i18n("plumacms/label_firstname")#</b>
+		
+	    <cfinput type="text" name="firstname" class="text" required="yes" value="#firstname#" maxLength="50" message="First name is required" />
+
+	</p>
+
+<!---	
+	<p>
+		<b>Middle Name</b>
+		<br />
+		<cfinput type="text" name="middleName" maxLength="1" value="#middleName#" class="text" />
+	</p>
+--->	
+</div>	
+
+<div class="rightsec">	
+	<p>
+		<b>#application.GSAPI.i18n("plumacms/label_lastname")#</b>
+		
+       	<cfinput type="text" name="lastname" class="text" required="yes" value="#lastname#" maxLength="50" message="Last name is required" />
+	</p>
+	
+	
+</div>
+
+	
+	<div class="clear"></div>
+	<p>
+		<b>#application.GSAPI.i18n('plumacms/USER_BIO')#</b>
+		<br />
+		<cftextarea name="comments" richtext="true" height="400" width="740">#comments#</cftextarea>
+	</p>
+	
+	
+	<div class="clear"></div>	
+	
 	<div class="leftsec">
 			
 		<p>
@@ -167,17 +179,6 @@
 			<input autocomplete="off" class="text" id="sitepwd_confirm" name="sitepwd_confirm" type="password" value="" />
 		</p>
 	</div>
-	
-	<div class="clear"></div>
-	<p>
-		<b>#application.GSAPI.i18n('plumacms/USER_BIO')#</b>
-		<br />
-		<cftextarea name="comments" richtext="true" height="400" width="740">#comments#</cftextarea>
-	</p>
-	
-	
-	<div class="clear"></div>	
-	<p></p>
 
 	<div class="edit-nav clearfix">	
 	
@@ -193,6 +194,13 @@
 	
 	</cfform>
 
+
+
+<cfif isnumeric(rc.UserID)>
+	<p class="backuplink" >
+		#application.GSAPI.i18n("LAST_SAVED", [modifyby])# #application.IOAPI.std_date(modifyDate)#
+	</p>
+</cfif>
 
 </cfoutput>
 
