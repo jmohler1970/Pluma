@@ -271,9 +271,8 @@ void function linkCategory(required struct rc) output="false"	{
 	if (cgi.request_method == "post")	{
 		application.IOAPI.add_taxonomy("Link_Category", rc.Title);
 		
-		var message = "Link Category item: <tt>#rc.Title#</tt> has been added.";
 		
-		this.AddMessage(message);
+		this.AddInfo("plumacms/link_cat_added", [rc.title]);
 	
 		}
 		
@@ -287,7 +286,8 @@ void function linkCategoryDelete(required struct rc) output="false"	{
 
 	
 	if (not isnumeric(rc.Nodeid))	{
-		this.AddMessage("<b>Error:</b> You must choose at least one link category to delete.");
+			
+		this.addError("plumacms/link_cat_del_err");
 		
 		variables.fw.redirect('pages.linkcategory', "all");
 		return;
@@ -296,9 +296,7 @@ void function linkCategoryDelete(required struct rc) output="false"	{
 	application.IOAPI.delete({NodeID = rc.NodeID, Kind = "Facet"}); 
 		
 	
-	var message = "#ListLen(rc.NodeID)# link categories were deleted.";
-	
-	this.AddMessage(message);
+	this.AddInfo("plumacms/link_cat_del", [rc.NodeID]);
 
 	
 	variables.fw.redirect('pages.linkcategory', "all");
@@ -371,9 +369,6 @@ void function after(required struct rc) output="false" {
 	}
 	
 </cfscript>
-
-
-
 
 
 </cfcomponent>

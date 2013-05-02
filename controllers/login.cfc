@@ -90,7 +90,8 @@ void function email(rc) output="false"	{
 	
 	
 	if (NOT rc.Email CONTAINS "@")	{
-		this.AddMessage("Email address must contain an @", "Error");
+	
+		this.addWarning("WARN_EMAILINVALID");
 		
 		variables.fw.redirect("login.email", "all");	
 		return;
@@ -103,50 +104,27 @@ void function email(rc) output="false"	{
 	
 	
 	if (qryUser.recordcount == 0)	{
-		this.AddMessage("Your info could not be found with this email. Try a different email", "Error");
+			
+		
+		this.addError("EMAIL_ERROR");
 		
 		variables.fw.redirect("login.email", "all");
 		return;
 		}
 	
-	/*
-	if (qryUser.uStatus == 'suspended')	{
-		this.AddMessage("Your account has been administratively suspended. You are not allowed to login", "Warning");
-		
-		variables.fw.redirect("login.home", "all");
-		return;
-		}
-
-		
-	if (qryUser.uStatus == 'pending')	{
-		this.AddMessage("Your account is still pending approval. You are not allowed to login", "Warning");
-		
-		variables.fw.redirect("login.home", "all");
-		return;
-		}
-	*/
 	
 	if (qryUser.ExpirationDate > now())	{
-		this.AddMessage("Your account has expired. You are not allowed to login", "Warning");
+		this.addError("PLUMACMS/EXPIRED");
 		
+
 		variables.fw.redirect("login.home", "all");
 		return;
 		}
 	
 	
-	
-	if (qryUser.Login == "")	{
-		this.AddMessage("Your account was setup as read only. Please contract the site administrator to upgrade your account", "Warning");
-		
-		variables.fw.redirect("login.home", "all");
-		return;
-		}
 	
 	// Really going to reset
 	NewPassword = application.USERAPI.reset_password_by_Email(rc.email);
-	
-	
-	//this.AddMessage(SerializeJSON(qryUser), "Debug");
 	</cfscript>	
 		
 	
@@ -170,14 +148,12 @@ Best Regards,
 Pluma CMS Customer Support
 </cfmail>
 	
-		<cfset this.AddMessage(newPassword, "Debug")>
-		
-	<cfset this.AddMessage("Your login information info has been sent to you. Check your email in a few minutes and try logging in again")>
-		
+	
+	<cfset this.addInfo("ER_NEW_PWD_SENT")>
+
 	
 		
 	<cfset variables.fw.redirect("login.home", "all")>
-
 </cffunction>
 
 

@@ -73,9 +73,7 @@ void function components(required struct rc) output="false"	{
 		if ("rc.components_new" != "" and rc.title != "")	{
 			
 			
-			//setVariable("rc.Components_#rc.title#", rc.components_new);
-			
-			StructDelete(rc, rc.components_new);
+				StructDelete(rc, rc.components_new);
 			}
 	
 			
