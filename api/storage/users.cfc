@@ -6,17 +6,17 @@
 
 <cffunction name="getStatus" output="false" access="remote" returnType="string" hint="Is this object ready to read and write data">
 
-	<cfreturn "">
+	<cfreturn "OK">
 
 	<cftry>
 		<cfset this.get()>
 		
-		<cfreturn "">
+		<cfreturn "OK">
 
 		<cfcatch />
 	</cftry>
 	
-	<cfreturn "Unable to query preferences DB">
+	<cfreturn "ER_REQ_PROC_FAIL">
 </cffunction>
 
 

@@ -89,7 +89,7 @@ void function edit(required struct rc) output="false" {
 			var stResult = application.IOAPI.set(NodeK, rc);
 		
 			if (not stResult.result)	{
-				this.AddMessage(stResult.message);
+				this.AddInfoe(stResult.key);
 				
 				return;
 				}
@@ -149,7 +149,7 @@ void function delete(required struct rc) output="false" {
 	var stResult = application.IOAPI.delete({NodeID = rc.NodeID});
 	
 		
-	this.AddMessage(stResult.message);
+	this.AddInfo(stResult.key);
 	
 
 	variables.fw.redirect("pages.home", "all");
@@ -165,7 +165,7 @@ void function addLink(required struct rc) output="false" {
 
 	var message = "Page Link added";
 		
-	this.AddMessage(message);
+	this.AddInfo("PLUMACMS/Link_Added");
 	
 
 	variables.fw.redirect('pages.edit?tab=link', "all");		
@@ -187,7 +187,7 @@ void function saveLink(required struct rc) output="false" {
 				stResult = application.IOAPI.add_link({NodeID = rc.NodeID}, rc);
 
 		
-				this.AddMessage(stResult.message);
+				this.AddInfo(stResult.key);
 			break;
 			
 			case "Save" :
@@ -195,7 +195,7 @@ void function saveLink(required struct rc) output="false" {
 				stResult = application.IOAPI.set_link({NodeID = rc.NodeID}, rc);
 
 		
-				this.AddMessage(stResult.message);
+				this.AddInfo(stResult.key);
 
 			break;
 		
@@ -204,7 +204,7 @@ void function saveLink(required struct rc) output="false" {
 
 
 		
-	this.AddMessage("Page link saved");
+	this.AddInfo("PLUMACMS/link_saved");
 
 	
 

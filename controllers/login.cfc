@@ -42,7 +42,7 @@ void function impersonate(required struct rc) output="false"	{
 	try	{
 	var stResult = session.LOGINAPI.doImpersonate(rc.userid);
 	}
-	catch (any e) { this.AddMessage(e.message);}
+	catch (any e) { this.ERROR("PLUMACMS/FAILURE", [e.message]);}
 	
 	
 	if (stResult.result)	{
@@ -52,7 +52,7 @@ void function impersonate(required struct rc) output="false"	{
 		return;
 		}
 
-	this.AddMessage(stResult.message, "Error");
+	this.AddERROR("PLUMACMS/FAILURE", [stResult.message]);
 
 	variables.fw.redirect("login.home", "all");
 	}

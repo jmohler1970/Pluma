@@ -11,12 +11,12 @@
 	<cftry>
 		<cfset this.get()>
 		
-		<cfreturn "">
+		<cfreturn "OK">
 
 		<cfcatch />
 	</cftry>
 	
-	<cfreturn "Unable to query preferences DB">
+	<cfreturn "ER_REQ_PROC_FAIL">
 </cffunction>
 
  

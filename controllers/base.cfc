@@ -14,7 +14,7 @@ void function after(required struct rc) output="false" {
 	
 		var strMessage = "Don&apos;t forget to <a href='#target#'>change your password</a> from that random generated one you have now...";
 		
-		this.AddMessage(strMessage, "Error");
+		this.AddError("PLUMACMS/FAILURE", [strMessage]);
 		}
 		
 	var qryRootDir = DirectoryList(application.GSROOTPATH, false, "query", '_*');
@@ -106,7 +106,7 @@ void function settings(required struct rc) output="false" {
 	param rc.UserID 	= session.LOGINAPI.UserID;
 	
 	if (rc.Plugin == "")	{
-		this.AddMessage("You must chose a plugin in order to update its settings.", "Error");
+		this.AddError("API_ERR_MISSINGPARAM");
 		
 		variables.fw.redirect('.home', "all");
 		return;	
@@ -142,7 +142,7 @@ void function settings(required struct rc) output="false" {
 	
 	if (NOT structKeyExists(request, "stNotif"))	{
 	
-		stResult.message = "Notification has not been setup at all";
+		stResult.Key = "PLUMACMS/Notif_NOT_SETUP";
 		stResult.result = false;
 		return stResult;
 		}
@@ -150,14 +150,14 @@ void function settings(required struct rc) output="false" {
 	
 	if (NOT structKeyExists(request.stNotif, "Level"))	{
 	
-		stResult.message = "Notification level has not been set";
+		stResult.key = "PLUMACMS/Notif_NOT_SETUP";
 		stResult.result = false;
 		return stResult;
 		}
 	
 	if (request.stNotif.level > arguments.Level)	{
 	
-		stResult.message = "This message not is severe enough to send notification";
+		stResult.key = "DISABLED";
 		stResult.result = false;
 		return stResult;
 		}
@@ -180,7 +180,7 @@ void function settings(required struct rc) output="false" {
 	
 	if (NOT structKeyExists(request.stNotif, "Subject"))	{
 	
-		stResult.message = "Subject has not been set";
+		stResult.key = "PLUMACMS/NOTIF_NO_Subject";
 		stResult.result = false;
 		return stResult;
 		}	
@@ -188,7 +188,7 @@ void function settings(required struct rc) output="false" {
 	
 	if (NOT structKeyExists(request.stMeta, "Email") OR trim(request.stMeta.Email) == "")	{
 	
-		stResult.message = "From needs to be set on the basic setting page";
+		stResult.key = "PLUMACMS/MISSING_FROM";
 		stResult.result = false;
 		return stResult;
 		}		
@@ -206,7 +206,7 @@ This message level #arguments.level# was sent by an automatic mailer:
 Action was done by: #session.LOGINAPI.getLoginName()# 
 	</cfmail>
 	<cfcatch>
-		<cfset this.AddMessage("Unable to send email from: <tt>#request.stMeta.Email#</tt>.")>
+		<cfset this.AddError("PLUMACMS/UNABLE_TO_SEND_EMAIL", [request.stMeta.Email])>
 	</cfcatch>
 	</cftry>
 

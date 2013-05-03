@@ -51,7 +51,7 @@ void function home(required struct rc) output="false"	{
 			this.AddInfo("SETTINGS_UPDATED");
 		
 		else	
-			this.AddMessage(result);
+			this.AddWarning(result);
 		
 		} // end if
 		
@@ -63,7 +63,7 @@ void function home(required struct rc) output="false"	{
 			if (arguments.rc.sitepwd == arguments.rc.sitepwd_confirm)	{
 				arguments.rc.passhash = left(hash(rc.sitepwd), 10);
 			
-				this.AddMessage("Password has been updated.");
+				this.AddInfo("PLUMACMS/Password_updated");
 				}
 			else	{
 				this.AddInfo("PASSWORD_NO_MATCH");
@@ -135,7 +135,7 @@ void function sitemap(required struct rc) output="false"	{
 			
 			if (fileexists(target))	{
 				filedelete(target);
-				this.AddMessage("File was deleted");				
+				this.AddInfo("ER_FILE_DEL_SUC");				
 				}
 			
 			
@@ -186,7 +186,7 @@ void function sitemap(required struct rc) output="false"	{
 		filewrite(target, strSiteMap);
 			
 	
-		this.addMessage(stResult.message);
+		this.addInfo(stResult.key);
 		} /* end post */
 
 
@@ -223,7 +223,7 @@ void function error404(required struct rc) output="false"	{
 		application.IOAPI.set_pref("Err", rc);
 		
 		
-		this.AddMessage("Error settings updated.");
+		this.AddInfo("SETTINGS_UPDATED");
 		
 		} // end if
 
@@ -241,7 +241,7 @@ void function enderror404(required struct rc) output="false"	{
 	param rc.err_type = "";
 	
 	if (rc.err_email != "" and not rc.err_email contains "@")	{
-		this.AddMessage("Error notification email needs to have an @.", "Warning");
+		this.AddError("Email_error", "Warning");
 		}
 
 	}
@@ -257,7 +257,7 @@ void function feedback(required struct rc) output="false"	{
 		application.IOAPI.set_pref("Feedback", rc);
 		
 		
-		this.AddMessage("Feedback settings updated.");
+		this.AddInfo("PLUMACMS/Feedback_updated");
 		
 
 		} // end if
@@ -275,10 +275,10 @@ void function endfeedback(required struct rc) output="false"	{
 	param rc.feedback_Email = "";
 	
 	if (rc.feedback_SysAdminEmail == "" AND rc.feedback_Email == "")
-		this.addMessage("No one has been set to receive feedback emails.", "Warning");
+		this.addWarning("PLUMACMS/Email_NOONE");
 
 	if (rc.feedback_email != "" and not rc.feedback_email contains "@")	{
-		this.AddMessage("Feedback email needs to have an @.", "Warning");
+		this.AddError("Email_Error");
 		}
 
 	}	
@@ -296,7 +296,7 @@ void function notification(required struct rc) output="false"	{
 			
 		application.IOAPI.set_pref("Notif", rc);
 		
-		this.AddMessage("Notification settings updated.");
+		this.AddInfo("SETTINGS_UPDATED");
 		
 
 		} // end if
@@ -314,7 +314,7 @@ void function endnotification(required struct rc) output="false"	{
 	param rc.notif_Email = "";
 
 	if (rc.notif_email != "" and not rc.notif_email contains "@")	{
-		this.AddMessage("Notification email needs to have an @.", "Warning");
+		this.AddError("EMAIL_ERROR");
 		}
 
 	}	
@@ -334,7 +334,7 @@ void function clearAll(required struct rc) output="false"	{
 		cacheRemove(i);
 		}
 		
-	this.AddMessage("All options have been removed from: #SuccessOn#");	
+	this.AddInfo("PLUMACMS/Options_removed", [SuccessOn]);	
 		
 
 	}
@@ -351,7 +351,7 @@ void function clearAll(required struct rc) output="false"	{
 	ALTER FULLTEXT CATALOG ftc_Node REBUILD
 	</cfquery>
 	
-	<cfset this.AddMessage("Main Text Index Rebuilt")> 
+	<cfset this.AddInfo("Index_Rebuilt")> 
 
 
 	<cfset variables.fw.redirect("system.health", "all")>

@@ -53,7 +53,7 @@ void function edit(required struct rc) output="false"	{
 	
 	if (rc.qryUser.UserID == "" AND isnumeric(rc.UserID))	{
 	
-		this.AddMessage("User could not be loaded. There are no matching records for this userid","Error");
+		this.AddError("IS_MISSING", [rc.userid]);
 	
 		variables.fw.redirect("users.home", "all");
 		}
@@ -93,7 +93,7 @@ void function renew(required struct rc) output="false"	{
 	
 	var stResult = application.USERAPI.renew(rc.userid);
 
-	this.AddMessage(stResult.message);
+	this.AddInfo(stResult.key);
 
 	variables.fw.redirect("users.edit", "all");
 	}

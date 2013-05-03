@@ -56,10 +56,10 @@ void function restore(required struct rc) output="false"	{
 	stResult = application.IOAPI.restore_Archive(rc.nodeArchiveID);
 	
 	if (stResult.result)	{
-		this.addMessage("Archive was successfully restored");
+		this.addInfo("ER_HASBEEN_REST", [rc.nodeArchiveID]);
 		}
 	else	{
-		this.addMessage("Archive could not be restore", "Error");
+		this.addError("ER_REQ_PROC_FAIL");
 		}	
 	
 	
@@ -75,10 +75,10 @@ void function delete(required struct rc) output="false"	{
 	stResult = application.IOAPI.delete_Archive(rc.nodeArchiveID);
 	
 	if (stResult.result)	{
-		this.addMessage("Archive was successfully deleted");
+		this.addInfo("ARCHIVE_DELETED");
 		}
 	else	{
-		this.addMessage("Archive could not be deleted", "Error");
+		this.addError("IS_MISSING", [rc.nodeArchiveID]);
 		}	
 	
 	
@@ -92,7 +92,7 @@ void function history(required struct rc) output="false" {
 	
 	if (not isnumeric(rc.nodeID))	{
 		
-		this.addMessage("Invalid NodeID", "Error");
+		this.addError("PAGE_NOTEXIST");
 		
 		variables.fw.redirect("backups.home", "all");
 		}
@@ -128,11 +128,11 @@ void function deletedata(required struct rc) output="false"	{
 	
 			FileDelete(target);
 			
-			this.AddMessage("File was deleted");
+			this.AddInfo("ER_FILE_DEL_SUC");
 			}
 	
 	else	{
-		this.AddMessage("File #htmleditformat(rc.name)# does not exist", "Error");
+		this.AddError("NOT_FOUND", [rc.name]);
 		}
 		
 	
@@ -159,7 +159,7 @@ void function process(required struct rc) output="false" {
 	
 		} // end try
 		catch (any err) {
-			this.AddMessage(err.message); 
+			this.AddError(ERR_CANNOT_DELETE, [err.message]); 
 			}
 
 
@@ -213,7 +213,7 @@ void function process(required struct rc) output="false" {
 		<cfinclude template="backupfilter/spreadsheet.cfi">
 	</cfcase>
 	<cfdefaultcase>
-		<cfset this.AddMessage("Unable to preview <tt>#rc.name#</tt>")>	
+		<cfset this.AddInfo("API_ERR_BADMETHOD", [rc.name])>	
 	</cfdefaultcase>
 	
 	</cfswitch>	
@@ -228,7 +228,7 @@ void function process(required struct rc) output="false" {
 	
 		<cfset result = application.IOAPI.set_XMLData({NodeID = rc.NodeID}, {xmlData = rc.xmlData})>
 
-		<cfset this.AddMessage(result.Message)>
+		<cfset this.AddInfo(result.key)>
 
 		<cfset variables.fw.redirect("backup.import", "all")>
 	</cfif>
@@ -288,15 +288,15 @@ void function process(required struct rc) output="false" {
 		
 				FileDelete(target);
 				
-				// this.AddMessage("Old export file was deleted");
 				}
 		</cfscript>
 		
-		<cffile action="write" file="#application.GSBACKUPSPATH##rc.slug#.xml" output="#trim(rc.xmlResult)#">
+			<cffile action="write" file="#application.GSBACKUPSPATH##rc.slug#.xml" output="#trim(rc.xmlResult)#">
 		
-		<cfset this.addMessage('<a href="/backups/#rc.slug#.xml" target="_blank"><tt>#rc.slug#.xml</tt></a> export file was created.')>
+			<cfset Link = '<a href="/backups/#rc.slug#.xml" target="_blank"><tt>#rc.slug#.xml</tt></a>'> 
+			<cfset this.addInfo("PLUMACMS/XML_CREATED", [link])>
 		<cfelse>
-			<cfset this.addMessage("Unable to find data", "Error")>
+			<cfset this.addError("NOT_FOUND")>
 		</cfif>
 		
 		

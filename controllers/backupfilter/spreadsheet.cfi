@@ -5,7 +5,7 @@
 
 
  	if (NOT isSpreadsheetFile(theFile))	{
- 		this.AddMessage("File <tt>#rc.name#</tt> could not be read as a spreadsheet", "Error");
+ 		this.AddError("PLUMACMS/ERR_PROCESS", [rc.name]);
 	 
 	 	variables.fw.redirect("backups.importdata", "all");
 	 	exit;
@@ -22,7 +22,7 @@
 		
 
 	if (qrydata.recordcount <= 1)	{
-		this.AddMessage("This spreadsheet appears to have no data.", "Error");
+		this.AddWarning("PLUMACMS/NO_DATA", [rc.name]);
 	 
 	 	variables.fw.redirect("backups.importdata", "all");
 	 	exit;

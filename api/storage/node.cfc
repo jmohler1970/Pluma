@@ -52,9 +52,9 @@
 	
 	<cfif qryUpdate.NodeID EQ "">
 		<cfset this.stResults.result = false>
-		<cfset this.stResults.message = "Node could not be found.">
+		<cfset this.stResults.key = "NOT_FOUND">
 	<cfelse>
-		<cfset this.stResults.message = "Node was deleted.">
+		<cfset this.stResults.key = "ER_HASBEEN_DEL">
 	</cfif>
 	
 
@@ -84,7 +84,7 @@
 	</cfquery>
 
 	<cfscript>
-	this.stResults.message="<b>Success:</b> XML Data was successfully set. Length: #Len(rc.xmlData)# bytes";
+	this.stResults.key="SETTINGS_UPDATED";
 	
 
 	return this.stResults;
@@ -111,7 +111,7 @@
 	if (arguments.NodeK.Kind == "")	{
 		
 		this.stResult.result = false;
-		this.stResult.message = "Kind is a required field";
+		this.stResult.key = "ER_REQ_PROC_FAIL";
 		
 		return this.stResults;
 		}
@@ -281,7 +281,7 @@
 	this.XMLConfSave(arguments.NodeK, rc, arguments.Remote_addr, arguments.byUserID);
 
 	
-	this.stResults.message="<b>Success:</b> XML Data was successfully set. Length: #Len(rc.xmlData)# bytes";
+	this.stResults.key="ER_YOUR_CHANGES";
 	
 
 	return this.stResults;
@@ -438,12 +438,14 @@
 	param rc.type = '';
 	
 	if (rc.type == '')	{
-		this.stResults.message &= "Link Category was blank or missing.";	
+		this.stResults.key = "plumacms/blank";	
+		
+		retrurn this.stResults
 		}
 		
 	if (this.LinkExists(arguments.NodeK.NodeID, rc))	{
 		this.stResults.result = false;
-		this.stResults.message = "Link was not added because it already exists.";
+		this.stResults.key = "plumacms/already_exists";
 		return this.stResults;
 		}
 		
@@ -473,7 +475,7 @@
 		AND		Kind = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.Kind#">
 	</cfquery>
 
-	<cfset this.stResults.message &= "Link to: #htmleditformat(trim(rc.message))# has been saved.">
+	<cfset this.stResults.key = "ER_YOUR_CHANGES">
 
 	
 	<cfreturn this.stResults>
