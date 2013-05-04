@@ -247,12 +247,6 @@ GO
 INSERT [dbo].[Pref] ([Pref], [xmlPref], [DeleteDate], [Modified], [Created]) VALUES (N'Innovation', N'<data type="facebook">https://www.facebook.com/james.mohler.182</data><data type="stackoverflow">http://stackoverflow.com/users/1845869/james-mohler</data><data type="search">1</data><data type="linkedin" /><data type="tags">1</data><data type="twitter">https://twitter.com/JamesAMohler</data><data type="login">1</data>', NULL, N'<message by="James Mohler" date="2013-04-11T18:51:48.780" title="Preferences Saved" ip="142.136.11.230" />', N'<message by="James Mohler" date="2013-04-07T23:43:00.637" title="Created" ip="142.136.11.230" />')
 GO
 
-INSERT [dbo].[Pref] ([Pref], [xmlPref], [DeleteDate], [Modified], [Created]) VALUES (N'Meta', N'<data type="title">PlumaCMS</data><data type="root">http://foundation.qcliving.com/</data><data type="email">james@webworldinc.com</data>', NULL, N'<message by="" date="2013-04-03T21:52:57.900" title="Preferences Saved" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:57.900" title="Created" ip="142.136.11.230" />')
-GO
 
-INSERT [dbo].[Pref] ([Pref], [xmlPref], [DeleteDate], [Modified], [Created]) VALUES (N'Plugin', N'<data type="bootswatch">1</data><data type="traffic">1</data><data type="event">1</data>', NULL, N'<message by="James Mohler" date="2013-04-07T22:24:10.833" title="Preferences Saved" ip="142.136.11.230" />', N'<message by="James Mohler" date="2013-04-07T21:31:49.423" title="Created" ip="142.136.11.230" />')
-GO
 
-INSERT [dbo].[Pref] ([Pref], [xmlPref], [DeleteDate], [Modified], [Created]) VALUES (N'Theme', N'<data type="current">Innovation</data>', NULL, N'<message by="" date="2013-04-03T21:52:57.930" title="Preferences Saved" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:57.930" title="Created" ip="142.136.11.230" />')
-GO
 

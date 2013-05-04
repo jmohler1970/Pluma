@@ -514,7 +514,7 @@ string function get_site_version() {
 			
 			<cfcase value="CreateSideMenu">
 				<cfoutput>
-					<li><a href="#request.arPlugins[i].attr[1]#"
+					<li id="sb_#request.arPlugins[i].attr[3]#"><a href="#request.arPlugins[i].attr[1]#"
 						<cfif arguments.selected EQ request.arPlugins[i].attr[1]>class="current"</cfif>
 						>#request.arPlugins[i].attr[2]#</a></li>	
 				</cfoutput>
@@ -564,7 +564,6 @@ function add_action(required string hook_name, required string added_function, r
 	
 	ArrayAppend(request.arPlugins, {hook_name = arguments.hook_name, added_function = arguments.added_function, attr = arguments.attr});
 	
-	request.arPluginsCount = ArrayLen(request.arPlugins);
 	}
 </cfscript>
 

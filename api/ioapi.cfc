@@ -370,8 +370,10 @@ struct function get_pref(required string Pref) output="false"	{
 
 <cfscript>
 
+// this is similar to load_ini()
+struct function load_pref(boolean force = 0) output="false"	{	
 
-void function load_pref(boolean force = 0) output="false"	{	
+	result = {};
 
 	if (this.InitStatus != "")	{
 		
@@ -380,7 +382,6 @@ void function load_pref(boolean force = 0) output="false"	{
 
 
 	
-	param request.stPref = {};
 	
 	if (arguments.force == 1)	{
 		cacheRemove("stPref");
@@ -395,14 +396,13 @@ void function load_pref(boolean force = 0) output="false"	{
 		}
 	
 	for (var i = 1; i <= ListLen(structKeyList(tempPref)); i++)	{
-		StructDelete(request, ListGetAt(structKeyList(tempPref), i));	
+		StructDelete(result, ListGetAt(structKeyList(tempPref), i));	
 		
-		request.keyRef = i;
+		
 		}
 	
-	request.keyCount = i;
 	
-	StructAppend(request, tempPref);
+	return result;
 	}
 
 

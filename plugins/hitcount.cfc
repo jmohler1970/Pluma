@@ -18,7 +18,7 @@ function Init()	{
 	'icon-heart');
 
 
-	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=hitcount", "Hits & Visits"]);
+	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=hitcount", "Hits & Visits", "hits_and_visits"]);
 	}	
 </cfscript>
 

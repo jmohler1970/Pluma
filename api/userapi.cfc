@@ -19,7 +19,7 @@ void function Init() output="false" {
 	//this.LoginTarget = 'login.suspend';
 	
 	// settings
-	this.stSettings 		= this.loadini("api/config.ini");
+	this.stSettings 		= this.load_ini("api/config.ini");
 	
 	
 	this.wsUser = CreateObject(application.stSettings.storage.users);

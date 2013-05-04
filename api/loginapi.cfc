@@ -195,7 +195,7 @@ query function get_by_email(required string email) output="false" {
 	this.login		= this.qryUser.Login;
 	
 	this.targetlogin = structkeyExists(application.stSettings.Landing, this.qryUser.groups) ? 
-		evaluate("application.stSettings.Landingsession.#this.qryUser.groups#")	: "main.home";
+		evaluate("application.stSettings.Landing.#this.qryUser.groups#")	: "main.home";
 
 	
 	

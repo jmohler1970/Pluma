@@ -18,7 +18,7 @@ function Init()	{
 		'icon-cog');
 	
 	
-	application.GSAPI.add_action("theme_sidebar", "createSideMenu", ["?plugin=innovation", "Innovation Theme Settings"]);
+	application.GSAPI.add_action("theme_sidebar", "createSideMenu", ["?plugin=innovation", "Innovation Theme Settings", "innovation"]);
 	}
 		
 </cfscript>

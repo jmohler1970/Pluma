@@ -12,7 +12,7 @@ string function strip_tags(required string str, numeric trimTo=100000) output="f
 </cfscript>
 	
 
-<cffunction name="loadini" output="false" returnType="struct">
+<cffunction name="load_ini" output="false" returnType="struct">
 	<cfargument name="configfile" required="true" type="string" hint="reads from currentTemplate">
 
 

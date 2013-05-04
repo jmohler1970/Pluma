@@ -20,10 +20,12 @@ function Init()	{
 	'icon-calendar');
 	
 	
-	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=event", "Event Manager"]);
-	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=event&plx=edit", "Create New Event"]);
+	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=event", "Event Manager", "news_manager"]);
+	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=event&plx=edit", "Create New Event", "news_manager_add"]);
 	
-	application.GSAPI.add_action("plugin_content", "createSelectMenu", ["event_summary", "Event Summary"]);
+	//application.GSAPI.add_action("plugin_content", "createSelectMenu", ["event_summary", "Event Summary", "news_manager"]);
+	
+	application.GSAPI.add_action("plugins_sidebar", "createSideMenu", ["?plugin=event&plx=edit", "Add/Edit Event", "news_manager_addedit"])>
 	}	
 </cfscript>
 
@@ -102,7 +104,7 @@ function Init()	{
 </cfdefaultcase>
 </cfswitch>
 
-	<cfset this.add_action("plugins_sidebar", "createSideMenu", ["?plugin=event&plx=edit", "Add/Edit Event"])>
+
 		
 	<cfreturn variables.stResult>
 </cffunction>

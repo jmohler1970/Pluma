@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0425";
+	this.name 			= "PlumaCMS_0433";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -96,8 +96,8 @@ fileclose(objAppFile);
 	application.USERAPI = createobject("component", "api.userapi");
 	application.GSAPI 	= createobject("component", "api.gsapi"); 	
 		
-	application.stSettings 	= application.IOAPI.loadini("api/config.ini");
-	
+	application.stSettings 	= application.IOAPI.load_ini("api/config.ini");
+		
 	application.IOAPI.Init();
 	application.USERAPI.Init();
 	application.GSAPI.Init();
@@ -120,14 +120,16 @@ void function setupRequest()	{
 	param rc.slug	= "index"; // There are slugs with blank no many objects that are not pages --->
 
 
-
-	
-	application.IOAPI.load_pref();
+	// reset then override
+	StructAppend(request, application.stSettings);
+	StructAppend(request, application.IOAPI.load_pref());
 	
 	
 	
 	// Languages
 	param request.stMeta.language = "en_US";
+	param request.stMeta.Root = application.GSAPI.suggest_site_path();
+	
 	application.GSAPI.i18n_merge();	
 	
 	request.arPlugins 	= [];
@@ -154,10 +156,22 @@ void function setupRequest()	{
 
 	if (session.LOGINAPI.checkSecurity(getSubSystem(), getSection(), getItem()) == 0)	{
 		// Note: if you are on a public page, you pass security and there is no redirect --->
-		location("#application.GSAPI.get_site_root()#index.cfm/login?message=Login Expired", "no");
+		location("#application.GSAPI.get_site_root()#index.cfm/login?key=Login_Expired", "no");
 		
 		return;
 		} 
+	
+		
+	// No theme setup	
+	if (getSection() == "main" and application.GSAPI.get_theme() == "")	{
+	
+		
+	
+		location("#application.GSAPI.get_site_root()#index.cfm/login?key=No_Theme", "no");
+		
+		return;
+		}	
+		
 
 	if (isnumeric(rc.id))	{
 		StructAppend(request.stIOR, application.IOAPI.get_bundle({NodeID = rc.id, Kind = ""}));
