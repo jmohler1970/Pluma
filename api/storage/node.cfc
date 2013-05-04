@@ -440,7 +440,7 @@
 	if (rc.type == '')	{
 		this.stResults.key = "plumacms/blank";	
 		
-		retrurn this.stResults
+		return this.stResults;
 		}
 		
 	if (this.LinkExists(arguments.NodeK.NodeID, rc))	{

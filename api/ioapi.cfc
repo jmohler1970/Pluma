@@ -23,10 +23,10 @@ void function init() output="false" {
 			var tmpWS = CreateObject(i);
 		
 			
-			if (tmpWS.getStatus() == "")	{
+			if (tmpWS.getStatus() == "OK")	{
 				setVariable("this.ws#key#", tmpWS);
 				}
-			else if (key != "Setup")
+			else 
 				{
 				this.InitStatus &= "Storage Service <tt>#key#</tt> is not ready.";
 				}
@@ -374,6 +374,7 @@ struct function get_pref(required string Pref) output="false"	{
 void function load_pref(boolean force = 0) output="false"	{	
 
 	if (this.InitStatus != "")	{
+		
 		return; // Can't connect to webservice
 		}
 
@@ -386,16 +387,20 @@ void function load_pref(boolean force = 0) output="false"	{
 		}
 	
 	var tempPref = cacheGet("stPref");
-	if (isNull (tempPref) or arguments.force == 1)	{
+	if (isNull(tempPref) or arguments.force == 1)	{
 		tempPref = this.wsPref.get();
 		tempPref.loadedon = now();
 		
 		cachePut("stPref", tempPref, CreateTimeSpan(0, 6, 0, 0));
 		}
 	
-	for (i = 1; i <= ListLen(structKeyList(tempPref)); i++)	{
+	for (var i = 1; i <= ListLen(structKeyList(tempPref)); i++)	{
 		StructDelete(request, ListGetAt(structKeyList(tempPref), i));	
+		
+		request.keyRef = i;
 		}
+	
+	request.keyCount = i;
 	
 	StructAppend(request, tempPref);
 	}

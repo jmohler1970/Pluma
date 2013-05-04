@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0408";
+	this.name 			= "PlumaCMS_0425";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -123,6 +123,8 @@ void function setupRequest()	{
 
 	
 	application.IOAPI.load_pref();
+	
+	
 	
 	// Languages
 	param request.stMeta.language = "en_US";

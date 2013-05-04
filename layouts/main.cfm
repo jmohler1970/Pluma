@@ -80,7 +80,26 @@ if (getItem() EQ "404" AND
 </cfif>	
 
 
-<cfinclude template="../theme/#theme#/#theme_template#">
+<cfif fileExists(expandpath("theme/#theme#/#theme_template#"))>
+	<cfinclude template="../theme/#theme#/#theme_template#">
+	<cfexit>
+</cfif>
+
+
+
+<html>
+<head> 
+	<title>Error Loading Template</title>
+</head>
+
+<body>
+	<cfdump var="#application#"> 
+	
+	<cfdump var="#request#">
+</body>
+</html>
+
+
 
 
 

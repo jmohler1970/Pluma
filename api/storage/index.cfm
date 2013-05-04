@@ -2,11 +2,13 @@
 <cfscript>
 wsUser 	= createobject("component", "Users");
 
-	rc = wsUser.doimpersonate(52);
+	wsUser.init();
+
+	//rc = wsUser.doimpersonate(52);
 
 
 	
-	writedump(rc);
+	//writedump(rc);
 
 </cfscript>	
 <cfexit>

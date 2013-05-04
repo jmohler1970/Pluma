@@ -31,17 +31,8 @@
 
 <cffunction name="getStatus" output="false" access="remote" returnType="string" hint="Is this object ready to read and write data">
 
-	<cfreturn "">
+	<cfreturn "OK">
 
-	<cftry>
-		<cfset this.get()>
-		
-		<cfreturn "">
-
-		<cfcatch />
-	</cftry>
-	
-	<cfreturn "Unable to query preferences DB">
 </cffunction>
 
 
