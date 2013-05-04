@@ -11,9 +11,9 @@
 
 
 <ul>
-	<li><a href="https://github.com/jmohler1970/Pluma/wiki">#application.GSAPI.i18n("SIDE_DOCUMENTATION")#</a></li>
-	<li><a href="#buildURL('support.security')#">Security</a></li>
-	<li><a href="#buildURL('support.contact')#">Support Options</a></li>
+	<li id="documentation"><a href="https://github.com/jmohler1970/Pluma/wiki">#application.GSAPI.i18n("SIDE_DOCUMENTATION")#</a></li>
+	<li id="security"><a href="#buildURL('support.security')#">Security</a></li>
+	<li id="support"><a href="#buildURL('support.contact')#">Support Options</a></li>
 </ul>
 
 
@@ -38,7 +38,7 @@
 <h3>#application.GSAPI.i18n("SUPPORT")#</h3>
 
 <ul>
-	<li><a href="#buildURL('.jour')#">#application.GSAPI.i18n("VIEW_FAILED_LOGIN")# </a></li>
+	<li id="recent_login"><a href="#buildURL('.jour')#">#application.GSAPI.i18n("VIEW_FAILED_LOGIN")# </a></li>
 </ul>
 
 

@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0433";
+	this.name 			= "PlumaCMS_0449";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -25,6 +25,10 @@
 		{ "/login" 				= "/login/home"},
 		{ "/forgot" 			= "/login/email"},
 		{ "/logout" 			= "/login/signout"},
+		
+		/* make admin pages work as expected */
+		{ "/settings/feedback" 	= "/settings/feedback"},
+		
 
 		// content
 		{ "/id/:id" 			= "/main/home/id/:id"},
@@ -127,8 +131,8 @@ void function setupRequest()	{
 	
 	
 	// Languages
-	param request.stMeta.language = "en_US";
-	param request.stMeta.Root = application.GSAPI.suggest_site_path();
+	param request.Meta.language = "en_US";
+	param request.Meta.Root = application.GSAPI.suggest_site_path();
 	
 	application.GSAPI.i18n_merge();	
 	
@@ -195,7 +199,7 @@ void function setupRequest()	{
 void function onMissingView()	{
 
 
-	//location("#application.GSAPI.find_url('404')#", "no");	
+	location("#application.GSAPI.find_url('404')#", "no");	
 	}
 
 

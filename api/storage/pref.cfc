@@ -29,7 +29,7 @@
 		
 	<cfquery name="local.qryPref">
 		SELECT 	Pref, type, message
-		FROM	dbo.Pref
+		FROM	dbo.Pref WITH (NOLOCK)
 		CROSS APPLY dbo.udf_xmlRead(xmlPref)
 		WHERE	Deleted = 0
 		AND		type IS NOT NULL
@@ -40,8 +40,8 @@
 	<cfloop query="local.qryPref">
 		
 		<cfscript>
-		if (not structKeyExists(stResult, "st#Pref#"))
-			setVariable ("stResult.st#pref#", {});		
+		if (not structKeyExists(stResult, Pref))
+			setVariable ("stResult.#pref#", {});		
 		
 		
 		mytype = type == "" ? "default" : type;
@@ -49,7 +49,7 @@
 		
 		try	{
 			
-		setVariable("stResult.st#Pref#['#myType#']", message);
+		setVariable("stResult.#Pref#['#myType#']", message);
 		}
 		catch(any e) {}		
 				

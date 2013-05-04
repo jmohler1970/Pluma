@@ -67,7 +67,7 @@
 
 			<button type="submit">#application.GSAPI.i18n("create_folder")#</button> 
 	
-			<a class="cancel" href="##">#application.GSAPI.i18n("cancel")#</a>
+			<a id="cancelfolder" class="cancel" href="##">#application.GSAPI.i18n("cancel")#</a>
 
 	</form>
 	</div>

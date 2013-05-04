@@ -186,7 +186,7 @@ void function settings(required struct rc) output="false" {
 		}	
 		
 	
-	if (NOT structKeyExists(request.stMeta, "Email") OR trim(request.stMeta.Email) == "")	{
+	if (NOT structKeyExists(request.meta, "Email") OR trim(request.meta.Email) == "")	{
 	
 		stResult.key = "PLUMACMS/MISSING_FROM";
 		stResult.result = false;
@@ -197,7 +197,7 @@ void function settings(required struct rc) output="false" {
 	
 	<cftry>
 	<cfmail to	= "#combinedEmail#" 
-		from		= "#request.stMeta.Email#" 
+		from		= "#request.meta.Email#" 
 		subject 	= "#request.stNotif.subject#">  
 This message level #arguments.level# was sent by an automatic mailer:
 = = = = = = = = = = = = = = = = = = = = = = = = = = = 
@@ -206,7 +206,7 @@ This message level #arguments.level# was sent by an automatic mailer:
 Action was done by: #session.LOGINAPI.getLoginName()# 
 	</cfmail>
 	<cfcatch>
-		<cfset this.AddError("PLUMACMS/UNABLE_TO_SEND_EMAIL", [request.stMeta.Email])>
+		<cfset this.AddError("PLUMACMS/UNABLE_TO_SEND_EMAIL", [request.meta.Email])>
 	</cfcatch>
 	</cftry>
 

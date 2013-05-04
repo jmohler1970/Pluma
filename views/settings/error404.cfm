@@ -1,20 +1,19 @@
 
+<cfoutput>
+
 
 <div class="main">
 
-	<h3 class="floated">404 Error Settings</h3>
+	<h3 class="floated">#application.GSAPI.i18n("PLUMACMS/Error404_settings")#</h3>
 
 
 	<div class="edit-nav clearfix">
-		<cfoutput>							
-			<a href="#buildURL(action='main:home.missing')#"> Test</a>
-		</cfoutput>
-		</div>
+		<a href="#buildURL(action='home.missing')#">#application.GSAPI.i18n("PLUMACMS/TEST")#</a>
+	</div>
 
 
 
 
-<cfoutput>
 <form action="#buildURL(action = '.error404')#" method="post">
 </cfoutput>
 
@@ -33,6 +32,7 @@
 			<tr>
 				<td><input type="checkbox" name="err_sysAdminEmail" value="#email#" 
 					<cfif listFind(rc.err_SysAdminEmail, email) NEQ 0>checked = "checked"</cfif>
+					<cfif email EQ "">disabled="disabled"</cfif>
 					/>
 				</td>
 				<td>

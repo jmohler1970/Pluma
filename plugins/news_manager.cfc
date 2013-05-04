@@ -25,7 +25,7 @@ function Init()	{
 	
 	//application.GSAPI.add_action("plugin_content", "createSelectMenu", ["event_summary", "Event Summary", "news_manager"]);
 	
-	application.GSAPI.add_action("plugins_sidebar", "createSideMenu", ["?plugin=event&plx=edit", "Add/Edit Event", "news_manager_addedit"])>
+	application.GSAPI.add_action("plugins_sidebar", "createSideMenu", ["?plugin=event&plx=edit", "Add/Edit Event", "news_manager_addedit"]);
 	}	
 </cfscript>
 

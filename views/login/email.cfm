@@ -29,9 +29,9 @@
 
 
 <p class="cta" >
-	<b>&laquo;</b> <a href="#application.GSAPI.get_site_root()#">#application.GSAPI.i18n("back_to_website")#</a> 
+	<b>&laquo;</b> <a id="back_to_website" href="#application.GSAPI.get_site_root()#">#application.GSAPI.i18n("back_to_website")#</a> 
 	&nbsp; | &nbsp; 
-	<a href="#buildURL(action = '.home')#">#application.GSAPI.i18n("control_panel")#</a> &raquo;
+	<a id="control_panel" href="#buildURL(action = '.home')#">#application.GSAPI.i18n("control_panel")#</a> &raquo;
 </p>
 </cfoutput>		
 

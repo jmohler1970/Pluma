@@ -5,7 +5,7 @@
 
 	<div class="edit-nav clearfix">
 		<cfoutput>							
-		<a href="#buildURL(action='settings.notificationtest')#"> Test</a>
+		<a href="#buildURL(action='settings.notificationtest')#">#application.GSAPI.i18n("PLUMACMS/TEST")#</a>
 		</cfoutput>
 	</div>
 
@@ -43,6 +43,7 @@
 			<tr>
 				<td><input type="checkbox" name="notif_sysAdminEmail" value="#email#" 
 					<cfif listFind(rc.notif_SysAdminEmail, email) NEQ 0>checked="checked"</cfif>
+					<cfif email EQ "">disabled="disabled"</cfif>
 					/></td>
 				<td>
 					#firstname# #lastname#
@@ -77,7 +78,7 @@
 	
 </form>
 	
-<p></p>	
+<div class="clear"></div>
 	
 <p>Notifications send an email to the recipients whenever data has been updated.</p>	
 	

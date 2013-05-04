@@ -92,7 +92,7 @@ void function home(required struct rc) output="false"	{
 
 void function endhome(required struct rc) output="false"	{
 
-	StructAppend(rc, application.IOAPI.get_pref("Meta"));
+	StructAppend(rc, application.IOAPI.get_pref("meta"));
 
 	param rc.meta_title  	= "";
 	param rc.meta_root 		= "";
@@ -249,7 +249,7 @@ void function enderror404(required struct rc) output="false"	{
 
 void function feedback(required struct rc) output="false"	{
 
-
+	
 
 
 	if (cgi.request_method == "Post")	{
@@ -262,13 +262,15 @@ void function feedback(required struct rc) output="false"	{
 
 		} // end if
 
-
+		
 	}
 	
 
 void function endfeedback(required struct rc) output="false"	{
 
 	StructAppend(rc, application.IOAPI.get_pref("Feedback"));
+
+	
 
 	param rc.feedback_subject = "";
 	param rc.feedback_SysAdminEmail = "";
@@ -280,6 +282,8 @@ void function endfeedback(required struct rc) output="false"	{
 	if (rc.feedback_email != "" and not rc.feedback_email contains "@")	{
 		this.AddError("Email_Error");
 		}
+
+		
 
 	}	
 	

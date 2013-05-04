@@ -51,9 +51,9 @@ function formCheck()
    </p>       
           
 <p class="cta" >
-	<b>&laquo;</b> <a href="/">#application.GSAPI.i18n("Back_To_Website")#</a> 
+	<b>&laquo;</b> <a id="back_to_website" href="/">#application.GSAPI.i18n("Back_To_Website")#</a> 
 	&nbsp; | &nbsp; 
-	<a href="#buildURL(action = '.email')#">#application.GSAPI.i18n("Forgot_pwd")#</a> &raquo;
+	<a id="forgot_pwd" href="#application.GSAPI.get_site_root()#index.cfm/forgot">#application.GSAPI.i18n("Forgot_pwd")#</a> &raquo;
 </p>
 			
    	

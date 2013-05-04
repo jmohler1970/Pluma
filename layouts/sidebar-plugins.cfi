@@ -2,11 +2,11 @@
 
 <cfoutput>
 <ul class="snav">
-	<li><a <cfif getItem() EQ "home">class="current"</cfif>  href="#buildURL(action = 'plugins.home')#">#application.GSAPI.i18n("show_plugins")#</a></li>
+	<li id="sb_plugins"><a <cfif getItem() EQ "home">class="current"</cfif>  href="#buildURL(action = 'plugins.home')#">#application.GSAPI.i18n("show_plugins")#</a></li>
 
 	#application.GSAPI.exec_action("plugins_sidebar")#
 
-	<li><a href="https://github.com/jmohler1970">#application.GSAPI.i18n("get_plugins_link")#</a></li>
+	<li id="sb_extend"><a href="https://github.com/jmohler1970">#application.GSAPI.i18n("get_plugins_link")#</a></li>
 </ul>
 </cfoutput>
 

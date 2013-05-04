@@ -5,19 +5,19 @@
 
 <ul class="snav">
 
-	<li><a <cfif getItem() EQ "home">class="current"</cfif>  href="#buildURL(action = 'backups.home')#">#application.GSAPI.i18n("side_web_archives")#</a></li>
+	<li id="sb_backups"><a <cfif getItem() EQ "home">class="current"</cfif>  href="#buildURL(action = 'backups.home')#">#application.GSAPI.i18n("side_web_archives")#</a></li>
 
 	<cfif isDefined("rc.NodeID")>
 		<cfif getItem() EQ "history" AND isnumeric(rc.nodeID)>
-			<li><a class="current" href="#buildURL(action = 'backups.history', querystring="nodeID=#rc.NodeID#")#">#application.GSAPI.i18n("side_view_bak")#</a></li>
+			<li id=sb_backupshistory""><a class="current" href="#buildURL(action = 'backups.history', querystring="nodeID=#rc.NodeID#")#">#application.GSAPI.i18n("side_view_bak")#</a></li>
 		</cfif>
 	</cfif>
 
-	<li><a <cfif getItem() EQ "importdata">class="current"</cfif>  href="#buildURL(action = 'backups.importdata')#">#application.GSAPI.i18n("plumacms/side_import")#</a></li>
+	<li id="sb_import"><a <cfif getItem() EQ "importdata">class="current"</cfif>  href="#buildURL(action = 'backups.importdata')#">#application.GSAPI.i18n("plumacms/side_import")#</a></li>
 	
-	<li><a <cfif getItem() EQ "exportdata">class="current"</cfif>  href="#buildURL(action = 'backups.exportdata')#">#application.GSAPI.i18n("plumacms/side_export")#</a></li>	
+	<li id="sb_export"><a <cfif getItem() EQ "exportdata">class="current"</cfif>  href="#buildURL(action = 'backups.exportdata')#">#application.GSAPI.i18n("plumacms/side_export")#</a></li>	
 
-	<li><a href="#buildURL(action = 'settings.notification')#">#application.GSAPI.i18n("plumacms/notification_settings")#</a></li>
+	<li id="sb_notification"><a href="#buildURL(action = 'settings.notification')#">#application.GSAPI.i18n("plumacms/notification_settings")#</a></li>
 
 </ul>
 

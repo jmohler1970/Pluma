@@ -1,5 +1,8 @@
 
 
+<cfdump var="#request#">
+<cfexit>
+
 
 
 

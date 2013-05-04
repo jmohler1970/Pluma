@@ -3,10 +3,10 @@
 <cfoutput>
 <ul class="snav">
 
-	<li><a <cfif getItem() EQ "home">class="current"</cfif> href="#buildURL(action = '.home')#">#application.GSAPI.i18n("SUPPORT")#</a></li>
+	<li id="sb_support"><a <cfif getItem() EQ "home">class="current"</cfif> href="#buildURL(action = '.home')#">#application.GSAPI.i18n("SUPPORT")#</a></li>
 
 
-		<li><a <cfif getItem() EQ "health">class="current"</cfif> href="#buildURL(action = '.health')#">#application.GSAPI.i18n("side_health_chk")#</a></li>
+	<li id="sb_healthcheck"><a <cfif getItem() EQ "health">class="current"</cfif> href="#buildURL(action = '.health')#">#application.GSAPI.i18n("side_health_chk")#</a></li>
 
 </ul>
 </cfoutput>

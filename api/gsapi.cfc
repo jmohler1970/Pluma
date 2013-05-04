@@ -17,11 +17,11 @@ void function i18n_merge(string plugin="") output="false"{
 	
 	if (arguments.plugin == "") {
 		
-		var fileToRead = "#application.GSLANGPATH##request.stMeta.language#.properties";	
+		var fileToRead = "#application.GSLANGPATH##request.Meta.language#.properties";	
 		}
 	else	{
 		
-		var fileToRead = "#application.GSPLUGINPATH##arguments.plugin#\lang\#request.stMeta.language#.properties";	
+		var fileToRead = "#application.GSPLUGINPATH##arguments.plugin#\lang\#request.Meta.language#.properties";	
 		}	
 
 
@@ -132,8 +132,8 @@ public string function get_page_meta_keywords()	{
 */	
 public string function get_page_meta_desc()	{
 	
-	if (structkeyexists(request.stMeta, "Description"))	{
-		return this.strip_tags(request.stMeta.Description);
+	if (structkeyexists(request.Meta, "Description"))	{
+		return this.strip_tags(request.Meta.Description);
 		}
 		
 	return "";	
@@ -199,8 +199,8 @@ string function get_page_date()	{
 * @hint This is used to create canonical links. Slugs can change, canonical links can't
 */
 string function get_page_url()	{
-	if (isDefined("request.stMeta.root"))
-		return request.stMeta.root;
+	if (isDefined("request.Meta.root"))
+		return request.Meta.root;
 		
 	return "";	
 	}
@@ -246,8 +246,8 @@ string function get_footer()	{
 * @hint Links to admin edit page. It blank if user can't edit
 */	
 string function get_site_url()	{
-	if (isDefined("request.stMeta.root"))
-		return request.stMeta.root;
+	if (isDefined("request.Meta.root"))
+		return request.Meta.root;
 		
 	return "";	
 	}
@@ -259,7 +259,7 @@ string function get_site_url()	{
 */	
 string function get_theme_url()	{
 	
-	return request.stMeta.root & "theme/" & this.get_theme();
+	return request.Meta.root & "theme/" & this.get_theme();
 	}
 
 /**
@@ -267,10 +267,7 @@ string function get_theme_url()	{
 */	
 string function get_site_name()	{
 	
-	if (isDefined("request.stMeta.title"))
-		return request.stMeta.title;
-		
-	return "";	
+	return isDefined("request.Meta.title") ? request.Meta.title : "";
 	}
 	
 string function get_site_credits(string poweredby = "Powered By")	{
@@ -289,8 +286,8 @@ query function menu_data() output="false" {
 
 string function get_component(required string id) {
 	
-	if (isDefined("request.stComponents.#arguments.id#"))
-		return replace(evaluate("request.stComponents.#arguments.id#"), "~/" , this.get_site_root() , "all");
+	if (isDefined("request.Components.#arguments.id#"))
+		return replace(evaluate("request.Components.#arguments.id#"), "~/" , this.get_site_root() , "all");
 	
 	return "<b>Error:</b> Component <tt>#arguments.id#</tt> could not be found. You can add this component in themes -> edit components.";
 	} 
@@ -368,8 +365,8 @@ string function get_theme_template()		{
 
 
 string function get_site_root()	{
-	if (isDefined("request.stMeta.root") AND request.stMeta.root NEQ "")
-		return request.stMeta.root;
+	if (isDefined("request.Meta.root") AND request.Meta.root NEQ "")
+		return request.Meta.root;
 		
 	return "/";	
 	}
@@ -379,8 +376,8 @@ string function get_site_root()	{
 
 string function get_site_email()	{
 	
-	if (isDefined("request.stMeta.email"))
-		return request.stMeta.Email;
+	if (isDefined("request.Meta.email"))
+		return request.Meta.Email;
 	
 	return "";
 	}
@@ -390,10 +387,10 @@ string function get_site_email()	{
 string function find_url(required string slug) {
 	
 	if (arguments.slug == 'index')	{
-		return request.stMeta.root;
+		return request.Meta.root;
 		}
 	
-	return "#request.stMeta.root#/index.cfm/main/#arguments.slug#";
+	return "#request.Meta.root#/index.cfm/main/#arguments.slug#";
 	}
 
 	
@@ -415,11 +412,9 @@ string function suggest_site_path() {
 
 string function get_site_version() {
 
-		
 
 	return application.GSVERSION;
-
-}
+	}
 
 
 
@@ -514,7 +509,8 @@ string function get_site_version() {
 			
 			<cfcase value="CreateSideMenu">
 				<cfoutput>
-					<li id="sb_#request.arPlugins[i].attr[3]#"><a href="#request.arPlugins[i].attr[1]#"
+					<li id="sb_#request.arPlugins[i].attr[3]#"><a 
+						href="#request.arPlugins[i].attr[1]#"
 						<cfif arguments.selected EQ request.arPlugins[i].attr[1]>class="current"</cfif>
 						>#request.arPlugins[i].attr[2]#</a></li>	
 				</cfoutput>

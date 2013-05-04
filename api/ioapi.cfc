@@ -70,7 +70,7 @@ string function std_date(required string MyDate, boolean verbose = 0) output="fa
 		myDateformat = 	"ddd, mmm dd, 'yy";		
 		}
 	
-	return LSDateFormat(arguments.MyDate, myDateFormat, request.stMeta.language);
+	return LSDateFormat(arguments.MyDate, myDateFormat, request.meta.language);
 	}
 	
 
@@ -258,10 +258,10 @@ struct function get_pref(required string Pref) output="false"	{
 	
 		
 	
-	if (isDefined("request.st#arguments.Pref#"))	{
+	if (isDefined("request.#arguments.Pref#"))	{
 		var stData = {};
 		
-		var tempData = evaluate("request.st#arguments.Pref#");
+		var tempData = evaluate("request.#arguments.Pref#");
 		
 		var lstKey = StructKeyList(tempData);
 		
@@ -373,7 +373,7 @@ struct function get_pref(required string Pref) output="false"	{
 // this is similar to load_ini()
 struct function load_pref(boolean force = 0) output="false"	{	
 
-	result = {};
+	
 
 	if (this.InitStatus != "")	{
 		
@@ -390,19 +390,14 @@ struct function load_pref(boolean force = 0) output="false"	{
 	var tempPref = cacheGet("stPref");
 	if (isNull(tempPref) or arguments.force == 1)	{
 		tempPref = this.wsPref.get();
-		tempPref.loadedon = now();
-		
+				
 		cachePut("stPref", tempPref, CreateTimeSpan(0, 6, 0, 0));
 		}
 	
-	for (var i = 1; i <= ListLen(structKeyList(tempPref)); i++)	{
-		StructDelete(result, ListGetAt(structKeyList(tempPref), i));	
 		
-		
-		}
 	
 	
-	return result;
+	return tempPref;
 	}
 
 
@@ -410,7 +405,7 @@ struct function load_pref(boolean force = 0) output="false"	{
 
 string function set_pref(required string prefGroup, required struct rc) output="false"	{
 	
-	result = this.wsPref.commit(arguments.prefGroup, arguments.rc, cgi.remote_addr, session.LOGINAPI.UserID);
+	var result = this.wsPref.commit(arguments.prefGroup, arguments.rc, cgi.remote_addr, session.LOGINAPI.UserID);
 	
 		
 	this.load_pref(1); //resets all preferences
