@@ -29,7 +29,7 @@ void function home(required struct rc) output="false" {
 	param rc.plugin = "";
 
 
-	param request.stTheme.current = "";
+	param request.Theme.current = "";
 	
 
 	

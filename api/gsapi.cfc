@@ -341,8 +341,8 @@ string function get_scripts_frontend() {;} // not implemented
 */
 string function get_theme()		{
 	
-	if (isDefined("request.stTheme.current"))
-		return request.stTheme.current;
+	if (isDefined("request.Theme.current"))
+		return request.Theme.current;
 	
 	return "";	
 	}

@@ -13,7 +13,7 @@
 	<select class="text" style="width : 300px;" name="theme_current"> 
 	<cfoutput query="rc.qryTheme">
 	<cfif type EQ "dir">
-		<option value="#name#" <cfif request.stTheme.current EQ name>selected="selected"</cfif>>#ucase(left(name, 1))##mid(name, 2, 50)# Theme</option>
+		<option value="#name#" <cfif request.Theme.current EQ name>selected="selected"</cfif>>#ucase(left(name, 1))##mid(name, 2, 50)# Theme</option>
 	</cfif>
 	</cfoutput>
 	</select>
@@ -24,7 +24,7 @@
 </form>
 
 
-	<img src="#application.GSAPI.get_site_root()#theme/#request.stTheme.current#/images/screenshot.png" />
+	<img src="#application.GSAPI.get_site_root()#theme/#request.theme.current#/images/screenshot.png" />
 
 </cfoutput>
 

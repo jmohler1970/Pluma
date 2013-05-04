@@ -43,11 +43,11 @@ theme_template 	= application.GSAPI.get_theme_template();
 
 <!--- Load ini --->
 <cfif fileExists(expandpath("theme/#theme#/title.ini"))>
-	<cfset request.stTitle = application.GSAPI.loadini("theme/#theme#/title.ini")>
+	<cfset request.stTitle = application.GSAPI.load_ini("theme/#theme#/title.ini")>
 </cfif>
 
 <cfif fileExists(expandpath("theme/#theme#/settings.ini"))>
-	<cfset request.stSettings = application.GSAPI.loadini("theme/#theme#/settings.ini")>
+	<cfset request.stSettings = application.GSAPI.load_ini("theme/#theme#/settings.ini")>
 </cfif>
 
 

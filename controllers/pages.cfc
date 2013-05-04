@@ -121,10 +121,10 @@ void function endedit(required struct rc) output="false" {
 	
 	rc.lstTheme_template = "";
 	
-	param request.stTheme.current = "";
+	param request.Theme.current = "";
 	
 
-	var qryTheme = DirectoryList(application.GSTHEMESPATH & request.stTheme.current & "/", false, "query");
+	var qryTheme = DirectoryList(application.GSTHEMESPATH & request.Theme.current & "/", false, "query");
 	
 	for (var i = 1; i <= qryTheme.recordcount; i++)	{
 		if (qryTheme.type[i] == "File" AND qryTheme.name[i] != "functions.cfm" AND qryTheme.name[i] CONTAINS "cfm")	{
