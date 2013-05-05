@@ -27,8 +27,8 @@
 
 	
 	<cfoutput>
-	<p><b>Title:</b> #htmleditformat(rc.title)# <cfif rc.title EQ ""><i>None</i></cfif></p>
-	<p><b>pStatus:</b> #htmleditformat(rc.pStatus)# <cfif rc.pstatus EQ ""><i>None</i></cfif></p>
+	<p><b>Title:</b> #xmlformat(rc.title)# <cfif rc.title EQ ""><i>None</i></cfif></p>
+	<p><b>pStatus:</b> #xmlformat(rc.pStatus)# <cfif rc.pstatus EQ ""><i>None</i></cfif></p>
 
 	<blockquote> 	
 		#rc.strData#
@@ -56,7 +56,7 @@
 							<span>&nbsp; &mdash; &nbsp;</span>
 					</cfloop>
 					
-					 #htmleditformat(Title)#</option>
+					 #xmlformat(Title)#</option>
 			</cfoutput>
 			
 		</select>

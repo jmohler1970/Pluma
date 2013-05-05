@@ -26,7 +26,7 @@
 <p>
     <label class="control-label" for="bootswatch_backgroundcolor">Background Color</label>
    
-    	<input type="text" class="text" name="bootswatch_backgroundcolor" value="#htmleditformat(rc.bootswatch_backgroundcolor)#" />
+    	<input type="text" class="text" name="bootswatch_backgroundcolor" value="#xmlformat(rc.bootswatch_backgroundcolor)#" />
   
 </p>
 

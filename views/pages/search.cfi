@@ -61,13 +61,13 @@
 	
 			<p>
 			<b>Parent Page:</b>
-			<a href="#buildURL(action = 'pages.edit', querystring = 'NodeID=#ParentNodeID#')#">#htmlEditFormat(ParentTitle)#</a> 
+			<a href="#buildURL(action = 'pages.edit', querystring = 'NodeID=#ParentNodeID#')#">#xmlformat(ParentTitle)#</a> 
 			
 			
 			<b>Tags:</b> 	
 			<cfloop index="i" list="#tags#">
 				<a href="/index.cfm/tag/#URLEncodedFormat(i)#" style="white-space:nowrap;" 
-					>#htmleditformat(i)#</a><cfif i NEQ ListLast(tags)>,</cfif>
+					>#xmlformat(i)#</a><cfif i NEQ ListLast(tags)>,</cfif>
 			</cfloop>
 			
 			</p>

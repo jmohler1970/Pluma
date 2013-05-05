@@ -50,7 +50,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 <cfoutput query="rc.qryNode">    
 
 	<p>
-    	<input type="text" name="title" value="#htmleditFormat(title)#" class="text title"
+    	<input type="text" name="title" value="#xmlformat(title)#" class="text title"
     		placeholder="#application.GSAPI.i18n("Page_title")#" />
 	</p>  
 	
@@ -64,7 +64,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 	<p class="inline clearfix">
 		<label class="control-label" for="firstname">#application.GSAPI.i18n("plumacms/Page_subtitle")#</label>
 	   
-	    <input type="text" name="subtitle" value="#htmleditFormat(subtitle)#" maxlength="75"  class="text autowidth" />
+	    <input type="text" name="subtitle" value="#xmlformat(subtitle)#" maxlength="75"  class="text autowidth" />
 	    
 	</p>    
 
@@ -96,7 +96,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 							<span>&nbsp; &mdash; &nbsp;</span>
 					</cfloop>
 					
-					 #htmleditformat(Title)#</option>
+					 #xmlformat(Title)#</option>
 			</cfoutput>
 			
 		</select>
@@ -154,7 +154,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 		<span style="float:left;width:81%;"><label for="post-menu">Menu Text</label></span>
 		<span style="float:left;width:10%;"><label for="post-menu-order">Priority</label></span>
 		<div class="clear"></div>
-		<input class="text" style="width:73%;" id="post-menu" name="menu" type="text" value="#htmleditformat(menu)#" />
+		<input class="text" style="width:73%;" id="post-menu" name="menu" type="text" value="#xmlformat(menu)#" />
 		
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		
@@ -215,7 +215,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 							<span>&nbsp; &mdash; &nbsp;</span>
 					</cfloop>
 					
-					 #htmleditformat(Title)#</option>
+					 #xmlformat(Title)#</option>
 			</cfoutput>
 		</select>	
 

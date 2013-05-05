@@ -49,9 +49,9 @@
 		<cfset partialPath = ListAppend(PartialPath, i, '|')>
 		
 		<cfif i NEQ listlast(rc.path, "|")>
-			<a href="#buildURL(action='.home', querystring='path=#partialpath#')#">#htmleditformat(i)#</a>	
+			<a href="#buildURL(action='.home', querystring='path=#partialpath#')#">#xmlformat(i)#</a>	
 		<cfelse>
-			#htmleditformat(i)#
+			#xmlformat(i)#
 		</cfif>
 		
 		/

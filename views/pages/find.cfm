@@ -8,7 +8,7 @@
 
 <form action="?" method="get" name="myFrm">
        
-        	<input type="text" class="text" name="search" value="#htmleditformat(rc.search)#" placeholder="Part or all of title" />
+        	<input type="text" class="text" name="search" value="#xmlformat(rc.search)#" placeholder="Part or all of title" />
        	
 
 	<button type="submit">#application.GSAPI.i18n("plumacms/search")#</button>
@@ -50,7 +50,7 @@
 	
 			<b>Parent Page:</b> 
 			<cfif ParentTitle EQ ""><i>None</i></cfif>
-			<a href="#buildURL(action = 'pages.edit', querystring = 'NodeID=#ParentNodeID#')#">#htmlEditFormat(ParentTitle)#</a> 
+			<a href="#buildURL(action = 'pages.edit', querystring = 'NodeID=#ParentNodeID#')#">#xmlformat(ParentTitle)#</a> 
 			
 			
 			<b>Tags:</b> 
@@ -58,7 +58,7 @@
 				
 			<cfloop index="i" list="#tags#">
 				<a href="/index.cfm/tag/#URLEncodedFormat(i)#" style="white-space:nowrap;" 
-					>#htmleditformat(i)#</a><cfif i NEQ ListLast(tags)>,</cfif>
+					>#xmlformat(i)#</a><cfif i NEQ ListLast(tags)>,</cfif>
 			</cfloop>
 			
 			</p>	

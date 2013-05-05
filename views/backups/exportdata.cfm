@@ -22,7 +22,7 @@
 							<span>&nbsp; &mdash; &nbsp;</span>
 					</cfloop>
 					
-					 #htmleditformat(Title)#</option>
+					 #xmlformat(Title)#</option>
 			</cfoutput>
 			
 		</select>

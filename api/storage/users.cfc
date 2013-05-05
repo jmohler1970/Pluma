@@ -352,18 +352,18 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 	for (var MyFormField in rc)	{
 			
 		if (ListFindNoCase("action,submit,fieldnames,href", MyFormField) == 0)	{
-			if (evaluate("rc.#MyFormField#") != "")	{
+			if (arguments.rc[MyFormField] != "")	{
 				
 				var href = "";
 				
 				if (isDefined("rc.#myFormField#_href"))	{							
-					var href_field = xmlFormat(evaluate("arguments.rc.#MyFormField#"));
+					var href_field = xmlFormat(arguments.rc[MyFormField]);
 					
 					href = 'href="#href_field#"';							
 					}								
 													
 													
-				xmlData &= '<data type="#lcase(MyFormField)#" #href#>' & xmlFormat(evaluate("arguments.rc.#MyFormField#")) & '</data>';
+				xmlData &= '<data type="#lcase(MyFormField)#" #href#>' & xmlFormat(arguments.rc[MyFormField]) & '</data>';
 				}
 			}
 		}

@@ -17,17 +17,17 @@
 <tr>
 	<td>#type# <cfif type EQ ""><i>None</i></cfif>
 	
-		<input type="hidden" name="key_#currentrow#" 		value="#htmleditformat(type)#|#htmleditformat(href)#" />
+		<input type="hidden" name="key_#currentrow#" 		value="#xmlformat(type)#|#xmlformat(href)#" />
 		<input type="hidden" name="type_#currentrow#" 	value="#type#" />
 	</td>
 	
 	<td>
-    	<input type="text" name="message_#currentrow#" value="#htmleditformat(message)#" />  
+    	<input type="text" name="message_#currentrow#" value="#xmlformat(message)#" />  
 	</td>
 		
 
 	<td>
-		<input type="text" name="href_#currentrow#" value="#htmleditformat(href)#" size="30" />
+		<input type="text" name="href_#currentrow#" value="#xmlformat(href)#" size="30" />
 	
 		<a href="#href#" target="_blank"  class="edit-nav">Go</a>
 	</td>

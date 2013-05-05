@@ -17,7 +17,7 @@
     <b>#application.GSAPI.i18n("label_website")#</b>
     <br />
    
-		<input type="text" name="meta_title" class="text" placeholder="Your Website's Name" value="#htmleditformat(rc.meta_title)#" />
+		<input type="text" name="meta_title" class="text" placeholder="Your Website's Name" value="#xmlformat(rc.meta_title)#" />
 </p>
 
 </div>
@@ -27,7 +27,7 @@
     <b>#application.GSAPI.i18n("label_baseurl")#</b>
     <br />
    
-		<input type="text" name="meta_root" class="text" placeholder="#application.GSAPI.suggest_site_path()#" value="#htmleditformat(rc.meta_root)#" />
+		<input type="text" name="meta_root" class="text" placeholder="#application.GSAPI.suggest_site_path()#" value="#xmlformat(rc.meta_root)#" />
 	</p>
 </div>
 
@@ -37,14 +37,14 @@
 <p>
     <b>#application.GSAPI.i18n("META_DESC")#</b>
     <br />
-   	<textarea name="meta_description" class="text" rows="5" style="height : 50px;">#htmleditformat(rc.meta_description)#</textarea>
+   	<textarea name="meta_description" class="text" rows="5" style="height : 50px;">#xmlformat(rc.meta_description)#</textarea>
 </p>
 
 
 <p>
     <b>#application.GSAPI.i18n("TAG_KEYWORDS")#</b>
     <br />
- 	<textarea name="meta_keywords" class="text" rows="5" style="height : 50px;">#htmleditformat(rc.meta_keywords)#</textarea>
+ 	<textarea name="meta_keywords" class="text" rows="5" style="height : 50px;">#xmlformat(rc.meta_keywords)#</textarea>
 </p>
 
 
@@ -53,7 +53,7 @@
 <p>
     <b>#application.GSAPI.i18n("label_email")#</b>
     <br />
-  	<input type="text" name="meta_email" class="text"  placeholder="Contact" value="#htmleditformat(rc.meta_Email)#" />
+  	<input type="text" name="meta_email" class="text"  placeholder="Contact" value="#xmlformat(rc.meta_Email)#" />
 </p>
 </div>
 

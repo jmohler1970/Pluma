@@ -35,7 +35,7 @@
 	<p>
 		<b>#application.GSAPI.i18n("PLUMACMS/SUBJECT")#</b>
 		<br />
-		<input type="text" name="err_subject" class="text" placeholder="Who wrote this" value="#htmleditformat(rc.err_subject)#" />
+		<input type="text" name="err_subject" class="text" placeholder="Who wrote this" value="#xmlformat(rc.err_subject)#" />
 	</p>
 
 
@@ -64,7 +64,7 @@
 		<p>
 			<b>#application.GSAPI.i18n("PLUMACMS/ADDITIONAL_EMAIL")#</b>
 			<br />
-				<input type="text" class="text" name="err_Email" placeholder="john.smith@example.org" value="#htmleditformat(rc.err_Email)#" />
+				<input type="text" class="text" name="err_Email" placeholder="john.smith@example.org" value="#xmlformat(rc.err_Email)#" />
 			
 		</p>
 		

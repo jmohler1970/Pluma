@@ -33,10 +33,10 @@ managefiles = false;
 		<td>
 		<cfswitch expression="#listlast(name, ".")#">
 		<cfcase value="txt,xml,xls,xlsx">
-			<a href="#buildURL(action = 'backups.preview', querystring = 'name=#urlencodedformat(name)#')#">#htmleditformat(name)#</a>
+			<a href="#buildURL(action = 'backups.preview', querystring = 'name=#urlencodedformat(name)#')#">#xmlformat(name)#</a>
 		</cfcase>
 		<cfdefaultcase>
-			#htmleditformat(name)#
+			#xmlformat(name)#
 		</cfdefaultcase>
 		</cfswitch> 
 		

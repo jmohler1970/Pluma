@@ -21,7 +21,7 @@
 
 <cfoutput query="rc.qryLinkCategory">
 	<tr>
-		<td>#htmleditformat(Title)#</td>
+		<td>#xmlformat(Title)#</td>
 		
 		<td style="text-align : right;"><!--- #FacetCount# ---></td>	
 		

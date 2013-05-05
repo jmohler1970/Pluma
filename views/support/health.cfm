@@ -59,7 +59,7 @@
 	<cfloop index="i" list="#structKeyList(rc.stSiteInfo)#">
 	<tr>
 		<td style="width : 450px; text-transform : capitalize;">#lcase(i)#</td>
-		<td>#evaluate("rc.stSiteInfo.#i#")#</td>
+		<td>#rc.stSiteInfo[i]#</td>
 	</tr>
 	</cfloop>
 </cfoutput>
@@ -230,7 +230,7 @@ for( i=1; i lte arrayLen(pools); i=i+1 ) 	{
 <cfloop list="#structkeylist(jvm)#" index="i">
 	<tr>
 	
-	<cfset amount = evaluate('jvm["#i#"]')>
+	<cfset amount = jvm[i]>
 	<cfset baramount = amount \ 10>
 	<cfoutput>
 		<td style="width : 400px;">#i#</td>

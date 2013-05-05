@@ -41,7 +41,7 @@
 		
 		<cfscript>
 		if (not structKeyExists(stResult, Pref))
-			setVariable ("stResult.#pref#", {});		
+			stResult[pref] =  {};		
 		
 		
 		mytype = type == "" ? "default" : type;
@@ -49,7 +49,7 @@
 		
 		try	{
 			
-		setVariable("stResult.#Pref#['#myType#']", message);
+		setVariable("stResult.#Pref#[myType]", message);
 		}
 		catch(any e) {}		
 				
@@ -149,7 +149,7 @@
 				
 				
 				if (shortField == "" AND arguments.rc.new_title != "")	{
-					return "A valid key could not be created from &quot;#htmlEditFormat(arguments.rc.new_title)#&quot;";
+					return "A valid key could not be created from &quot;#xmlformat(arguments.rc.new_title)#&quot;";
 					}
 					
 					
@@ -160,7 +160,7 @@
 				}
 	
 			if (shortField != "")	{
-				xmlPref &= '<data type="#lcase(shortfield)#">#xmlformat(evaluate("rc.#i#"))#</data>';
+				xmlPref &= '<data type="#lcase(shortfield)#">#xmlformat(rc[i])#</data>';
 				}
 		
 			} // end if

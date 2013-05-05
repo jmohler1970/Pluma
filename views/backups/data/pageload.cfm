@@ -20,7 +20,7 @@
 		<cfoutput query="rc.qrytoppage" group="ParentTitle">
 			<optgroup label="#ParentTitle#"> 
 			<cfoutput>
-				<option value="#NodeID#">#htmleditformat(title)# <cfif title EQ "">No Title</cfif></option>
+				<option value="#NodeID#">#xmlformat(title)# <cfif title EQ "">No Title</cfif></option>
 			</cfoutput>
 		</cfoutput>
 		

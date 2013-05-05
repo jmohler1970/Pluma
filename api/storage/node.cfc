@@ -391,7 +391,7 @@
 	// Anything simple
 	var i = 0;
 		
-	for (MyFormField in rc)	{
+	for (var MyFormField in rc)	{
 		
 		
 		
@@ -399,11 +399,11 @@
 			i++;
 			
 			
-			if (evaluate("rc.#MyFormField#") != "" and i < 100)	{
+			if (rc[MyFormField] != "" and i < 100)	{
 			
 				type = listlast(MyFormField, '_');
 						
-				xmlConf &= '<simple type="#lcase(type)#">' & xmlFormat(evaluate("rc.#MyFormField#")) & '</simple>';
+				xmlConf &= '<simple type="#lcase(type)#">' & xmlFormat(rc[MyFormField]) & '</simple>';
 				}
 			}
 		}	

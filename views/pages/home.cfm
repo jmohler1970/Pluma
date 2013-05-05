@@ -50,10 +50,10 @@
 	
 		<cfif Kind EQ "Page">
 			<a href="#BuildURL(action = 'pages.edit', querystring = 'NodeID=#NodeID#')#"
-			title="#application.GSAPI.i18n("editpage_title")#"><cfif Root><b>#htmleditformat(title)#</b><cfelse>#htmleditformat(title)#</cfif> 
+			title="#application.GSAPI.i18n("editpage_title")#"><cfif Root><b>#xmlformat(title)#</b><cfelse>#xmlformat(title)#</cfif> 
 			<cfif title EQ "">#application.GSAPI.i18n("plumacms/notitle")#</cfif></a>
 		<cfelse>
-			<a title="Edit Page" href="#BuildURL(action = 'plugins.edit', querystring = 'NodeID=#NodeID#')#"><cfif Root><b>#htmleditformat(title)#</b><cfelse>#htmleditformat(title)#</cfif>
+			<a title="Edit Page" href="#BuildURL(action = 'plugins.edit', querystring = 'NodeID=#NodeID#')#"><cfif Root><b>#xmlformat(title)#</b><cfelse>#xmlformat(title)#</cfif>
 			<cfif title EQ "">#application.GSAPI.i18n("plumacms/notitle")#</cfif>
 			</a>
 		</cfif>

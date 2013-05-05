@@ -15,7 +15,7 @@ void function init() output="false" {
 		
 		setVariable("this.ws#key#", ""); // at least the variable exists	
 		
-		var i = evaluate("application.stSettings.storage.#key#");
+		var i = application.stSettings.storage[key];
 		
 		
 		try	{
@@ -266,14 +266,14 @@ struct function get_pref(required string Pref) output="false"	{
 	if (isDefined("request.#arguments.Pref#"))	{
 		var stData = {};
 		
-		var tempData = evaluate("request.#arguments.Pref#");
+		var tempData = request[arguments.Pref];
 		
 		var lstKey = StructKeyList(tempData);
 		
 		
 		for (i = 1; i <= ListLen(lstKey); i++)	{
 			var key   = lcase(ListGetAt(lstKey,i));
-			var value = evaluate("tempData.#key#");
+			var value = tempData[key];
 			
 			
 			if (key != "")	{		

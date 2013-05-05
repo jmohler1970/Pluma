@@ -25,7 +25,7 @@ string function strip_tags(required string str, numeric trimTo=100000) output="f
      
 	for(var section in stSection)	{
       
-      	var CurrentSection = evaluate("stSection.#section#");	
+      	var CurrentSection = stSection[section];	
                
 	 	var stData = {};
 	  	
@@ -36,7 +36,7 @@ string function strip_tags(required string str, numeric trimTo=100000) output="f
 	       	
 	       	}
       
-     	setvariable("stResult.#section#", stData);
+     	stResult[section] = stData;
      	}
      	
    

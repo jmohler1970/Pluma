@@ -186,13 +186,13 @@ else	{
 			
 	
 			<p>
-			Parent Page: <a href="/index.cfm/category/#urlencodedformat(ParentTitle)#">#htmlEditFormat(ParentTitle)#</a> Tags: 	
+			Parent Page: <a href="/index.cfm/category/#urlencodedformat(ParentTitle)#">#xmlformat(ParentTitle)#</a> Tags: 	
 			
 			
 			
 			<cfloop index="i" list="#tags#">
 				<a href="/index.cfm/tag/#URLEncodedFormat(i)#" style="white-space:nowrap;" 
-					>#htmleditformat(i)#</a><cfif i NEQ ListLast(tags)>,</cfif>
+					>#xmlformat(i)#</a><cfif i NEQ ListLast(tags)>,</cfif>
 			</cfloop>
 			</p>
 		</cfif>

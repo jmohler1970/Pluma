@@ -28,11 +28,11 @@
 	<td>#LSTimeFormat(CreateDate)#</td>
 	
 	<cfif mode EQ "referer">
-		<td>#htmleditformat(referer)#</td>
+		<td>#xmlformat(referer)#</td>
 	<cfelse>
 		<td>#SubSystem#:#Section#.#Item#</td>
-		<td>#HTMLEditFormat(Search)#</td>
-		<td>#HTMLEditFormat(Tags)#</td>
+		<td>#xmlformat(Search)#</td>
+		<td>#xmlformat(Tags)#</td>
 	</cfif>
 	
 	

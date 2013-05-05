@@ -22,7 +22,7 @@
 <cfoutput>
 <p>
 	<label>Organization (if any)</label>
-   	<input type="text" name="additionalAddress" class="text" value="#htmleditformat(rc.organization)#" />
+   	<input type="text" name="additionalAddress" class="text" value="#xmlformat(rc.organization)#" />
 </p>
 
 
@@ -30,7 +30,7 @@
 
 <p>
 	<label>Street</label>
-	<input type="text" name="address" class="text" value="#htmleditformat(rc.address)#" />
+	<input type="text" name="address" class="text" value="#xmlformat(rc.address)#" />
 </p>
 
 
@@ -39,21 +39,21 @@
 <p>
 	<label>City</label>
 
-    <input type="text" name="city" class="text" value="#htmleditformat(rc.city)#" />
+    <input type="text" name="city" class="text" value="#xmlformat(rc.city)#" />
 </p>
 
 <div class="clear"></div>
 
 <p>
 	<label>State/Province</label>
-	<input type="text" name="stateprovince" class="text" maxlength="2" value="#htmleditformat(rc.stateprovince)#" />
+	<input type="text" name="stateprovince" class="text" maxlength="2" value="#xmlformat(rc.stateprovince)#" />
 </p>
 
 <div class="clear"></div>
 
 <p>
 	<label>Postal Code</label>
-   	<input type="text" name="postalcode" class="text" value="#htmleditformat(rc.postalcode)#"  />
+   	<input type="text" name="postalcode" class="text" value="#xmlformat(rc.postalcode)#"  />
 </p>
 
 

@@ -77,7 +77,7 @@
 </div>
 
 	
-<cftextarea name="strData" richtext="true" toolbar="Enhanced"  height="400" style="width : 800px;">#htmleditformat(strData)#</cftextarea>
+<cftextarea name="strData" richtext="true" toolbar="Enhanced"  height="400" style="width : 800px;">#xmlformat(strData)#</cftextarea>
 
 
 <cfparam name="simple_location" default="">
@@ -90,7 +90,7 @@
 
 <p>
    <b>Map URL</b>
-   		<cfinput type="text" name="map" value="#htmleditformat(map)#" class="text" />	
+   		<cfinput type="text" name="map" value="#xmlformat(map)#" class="text" />	
 </p>
 
 

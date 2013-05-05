@@ -9,7 +9,7 @@
 	<cfloop index="i" list="#structKeyList(info)#">
    		<tr>
  	  		<th>#i#</th>
- 	  		<td>#evaluate("info.#i#")#</td>    
+ 	  		<td>#info[i]#</td>    
   		
    		</tr>
  	</cfloop>

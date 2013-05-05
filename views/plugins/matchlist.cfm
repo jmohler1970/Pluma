@@ -6,7 +6,7 @@
 <tr>
 	<td>#Kind#</td>
 	<td style="text-align : right;"><a href="#BuildURL(action = '.edit', querystring = 'NodeID=#NodeID#')#">#NodeID#</a></td>
-	<td>#htmleditformat(title)#</td>
+	<td>#xmlformat(title)#</td>
 	<td>#slug#</td>
 	<td>#pStatus#</td>
 	

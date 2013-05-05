@@ -13,7 +13,7 @@
 
 
 	<textarea name="registrationData" readonly="readonly">
-		#htmleditformat(rc.registrationdata)#
+		#xmlformat(rc.registrationdata)#
 	</textarea>
 
 

@@ -96,7 +96,7 @@
 	<cfloop index="i" list="#structKeyList(info)#">
    		<tr>
  	  		<th style="text-transform : capitalize">#lcase(i)#</th>
- 	  		<td>#evaluate("info.#i#")#</td>    
+ 	  		<td>#info[i]#</td>    
   		
    		</tr>
  	</cfloop>

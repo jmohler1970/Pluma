@@ -28,7 +28,7 @@ qryTag = application.IOAPI.get_by_tag(rc.tag, "Page");
 <tr>
 	<td>
 		
-		<h3><a href="#application.GSAPI.find_url(slug)#">#htmleditformat(Title)#</a></h3>
+		<h3><a href="#application.GSAPI.find_url(slug)#">#xmlformat(Title)#</a></h3>
 
 	
 		<cfif isDate(CreateDate)>
@@ -40,7 +40,7 @@ qryTag = application.IOAPI.get_by_tag(rc.tag, "Page");
 		<h6>
 			<b>Parent Page:</b> 
 			<cfif ParentTitle EQ ""><i>None</i></cfif>
-			<a href="#buildURL(action = 'pages.edit', querystring = 'NodeID=#ParentNodeID#')#">#htmlEditFormat(ParentTitle)#</a> 
+			<a href="#buildURL(action = 'pages.edit', querystring = 'NodeID=#ParentNodeID#')#">#xmlformat(ParentTitle)#</a> 
 			
 			
 			<b>Tags:</b> 
@@ -48,7 +48,7 @@ qryTag = application.IOAPI.get_by_tag(rc.tag, "Page");
 				
 			<cfloop index="i" list="#tags#">
 				<a href="/index.cfm/tag/#URLEncodedFormat(i)#" style="white-space:nowrap;" 
-					>#htmleditformat(i)#</a><cfif i NEQ ListLast(tags)>,</cfif>
+					>#xmlformat(i)#</a><cfif i NEQ ListLast(tags)>,</cfif>
 			</cfloop>
 		</h6>
 	</td>

@@ -62,7 +62,7 @@
 </table>
 
  
- 	<textarea name="components_#ii#" class="code" style="height : 120px;">#htmleditformat(evaluate('rc.stComponents.#i#'))#</textarea>
+ 	<textarea name="components_#ii#" class="code" style="height : 120px;">#xmlformat(rc.stComponent[i])#</textarea>
 
 	<br />
 

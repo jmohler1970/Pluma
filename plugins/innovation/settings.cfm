@@ -12,14 +12,14 @@
 <p>
     <label class="control-label" for="innovation_facebook">Facebook URL</label>
    
-    <input type="text" class="text" name="innovation_facebook" value="#htmleditformat(rc.innovation_facebook)#" />
+    <input type="text" class="text" name="innovation_facebook" value="#xmlformat(rc.innovation_facebook)#" />
   
 </p>
 
 <p>
     <label class="control-label" for="innovation_twitter">Twitter URL</label>
    
-    <input type="text" class="text" name="innovation_twitter" value="#htmleditformat(rc.innovation_twitter)#" />
+    <input type="text" class="text" name="innovation_twitter" value="#xmlformat(rc.innovation_twitter)#" />
   
 </p>
 
@@ -27,7 +27,7 @@
 <p>
     <label class="control-label" for="innovation_linkedin">LinkedIn URL</label>
    
-    <input type="text" class="text" name="innovation_linkedin" value="#htmleditformat(rc.innovation_linkedin)#" />
+    <input type="text" class="text" name="innovation_linkedin" value="#xmlformat(rc.innovation_linkedin)#" />
   
 </p>
 
@@ -35,7 +35,7 @@
 <p>
     <label class="control-label" for="innovation_stackoverflow">Stackoverflow URL</label>
    
-    <input type="text" class="text" name="innovation_stackoverflow" value="#htmleditformat(rc.innovation_stackoverflow)#" />
+    <input type="text" class="text" name="innovation_stackoverflow" value="#xmlformat(rc.innovation_stackoverflow)#" />
   
 </p>
 

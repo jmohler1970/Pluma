@@ -30,7 +30,7 @@ qrySearch = application.IOAPI.get_by_search(rc.search, "Page");
 	<td>&nbsp;</td>
 	<td>
 		
-		<h3><a href="#application.GSAPI.find_url(slug)#">#htmleditformat(Title)#</a></h3>
+		<h3><a href="#application.GSAPI.find_url(slug)#">#xmlformat(Title)#</a></h3>
 
 		
 		<p>#application.IOAPI.strip_tags(strData, 1000)#</p>
@@ -40,7 +40,7 @@ qrySearch = application.IOAPI.get_by_search(rc.search, "Page");
 	
 			<b>Parent Page:</b> 
 			<cfif ParentTitle EQ ""><i>None</i></cfif>
-			<a href="#buildURL(action = 'pages.edit', querystring = 'NodeID=#ParentNodeID#')#">#htmlEditFormat(ParentTitle)#</a> 
+			<a href="#buildURL(action = 'pages.edit', querystring = 'NodeID=#ParentNodeID#')#">#xmlformat(ParentTitle)#</a> 
 			
 			
 			<b>Tags:</b> 
@@ -48,7 +48,7 @@ qrySearch = application.IOAPI.get_by_search(rc.search, "Page");
 				
 			<cfloop index="i" list="#tags#">
 				<a href="/index.cfm/tag/#URLEncodedFormat(i)#" style="white-space:nowrap;" 
-					>#htmleditformat(i)#</a><cfif i NEQ ListLast(tags)>,</cfif>
+					>#xmlformat(i)#</a><cfif i NEQ ListLast(tags)>,</cfif>
 			</cfloop>
 			
 		</h6>	

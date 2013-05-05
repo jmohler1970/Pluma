@@ -29,7 +29,7 @@ param request.exception = {type = "unknown"};
 				<cfif i CONTAINS "password">
 					******
 				<cfelse>
-					#evaluate("form.#i#")#
+					#form[i]#
 				</cfif>
 			</cfoutput>
 			<br />

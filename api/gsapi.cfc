@@ -38,7 +38,7 @@ string function i18n(required string key, array placeholder = []) output="false"
 
 	if (structKeyExists(this.i18n_data, arguments.key))	{
 		
-		var myString = evaluate("this.i18n_data['#arguments.key#']");
+		var myString = this.i18n_data[arguments.key];
 		
 		
 		for (var i in arguments.placeholder)	{
@@ -121,7 +121,7 @@ public string function get_page_excerpt(numeric n=200){
 public string function get_page_meta_keywords()	{
 
 	if (StructKeyExists(request.stIOR, "tags"))	{
-		return request.stIOR.tags;
+		return xmlformat(request.stIOR.tags);
 		}
 	
 	return "";	
@@ -287,7 +287,7 @@ query function menu_data() output="false" {
 string function get_component(required string id) {
 	
 	if (isDefined("request.Components.#arguments.id#"))
-		return replace(evaluate("request.Components.#arguments.id#"), "~/" , this.get_site_root() , "all");
+		return replace(request.Components[arguments.id], "~/" , this.get_site_root() , "all");
 	
 	return "<b>Error:</b> Component <tt>#arguments.id#</tt> could not be found. You can add this component in themes -> edit components.";
 	} 
@@ -441,7 +441,7 @@ string function get_site_version() {
 <cfoutput query="qryNodePath">
 	
 		
-		<cfset MyTitle = htmleditformat(title)>
+		<cfset MyTitle = xmlformat(title)>
 		<cfif title EQ "">
 			<cfset MyTitle = "<i>No Title</i>">
 		</cfif>

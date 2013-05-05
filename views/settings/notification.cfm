@@ -33,7 +33,7 @@
 			<label>Subject</label>
 		
 			<cfoutput>
-				<input type="text" name="notif_subject" class="text" placeholder="Subject of email" value="#htmleditformat(rc.notif_subject)#" />
+				<input type="text" name="notif_subject" class="text" placeholder="Subject of email" value="#xmlformat(rc.notif_subject)#" />
 			</cfoutput>
 		</p>
 		
@@ -63,7 +63,7 @@
 		<p class="clearfix">
 			<label>CC:</label>
 			<br />
-				<input type="text" class="text" name="notif_email" placeholder="john.smith@example.org" value="#htmleditformat(rc.notif_email)#" />
+				<input type="text" class="text" name="notif_email" placeholder="john.smith@example.org" value="#xmlformat(rc.notif_email)#" />
 		
 		</p>
 
