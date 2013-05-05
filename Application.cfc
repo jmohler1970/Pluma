@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0453";
+	this.name 			= "PlumaCMS_0455";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -197,6 +197,10 @@ void function setupRequest()	{
 <cfscript>
 
 void function onMissingView()	{
+	
+	if (request.err.uselog)	{
+		application.IOAPI.add_log("404", "Invalid requested page: <tt>#getSection()#.#getItem()#</tt>");			
+		}
 
 
 	location("#application.GSAPI.find_url('404')#", "no");	

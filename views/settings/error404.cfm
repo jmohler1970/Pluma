@@ -8,7 +8,7 @@
 
 
 	<div class="edit-nav clearfix">
-		<a href="#buildURL(action='support.jour', querystring='kind=404')#" target="_blank" accesskey="v">#application.GSAPI.i18n("view")#</a>
+		<a href="#buildURL(action='support.jour', querystring='kind=404')#" target="_blank" accesskey="v">#application.GSAPI.i18n("SIDE_VIEW_LOG")#</a>
 	
 		<a href="#buildURL(action='home.missing')#">#application.GSAPI.i18n("PLUMACMS/TEST")#</a>
 	</div>
@@ -17,18 +17,31 @@
 
 
 <form action="#buildURL(action = '.error404')#" method="post">
-</cfoutput>
 
 
+
+	<h2>#application.GSAPI.i18n("LOG")#</h2>
+	
+	
 	<p>
-		<b>Subject</b>
-		<br />
-		<cfoutput>
-			<input type="text" name="err_subject" class="text" placeholder="Who wrote this" value="#htmleditformat(rc.err_subject)#" />
-		</cfoutput>
+		<input type="checkbox" name="err_uselog" value="1" <cfif rc.err_uselog>checked="checked"</cfif> />
+		
+		<b>#application.GSAPI.i18n("PLUMACMS/USELOG")#</b>
 	</p>
 	
-	<b>To:</b>
+	
+	<h2>#application.GSAPI.i18n("PLUMACMS/SEND_EMAIL")#</h2>
+	
+	<p>
+		<b>#application.GSAPI.i18n("PLUMACMS/SUBJECT")#</b>
+		<br />
+		<input type="text" name="err_subject" class="text" placeholder="Who wrote this" value="#htmleditformat(rc.err_subject)#" />
+	</p>
+
+
+	
+	<b>#application.GSAPI.i18n("PLUMACMS/TO")#</b>
+</cfoutput>	
 		<table>
 		<cfoutput query="request.qrySystemAdmin">
 			<tr>
@@ -49,7 +62,7 @@
 
 		<cfoutput>
 		<p>
-			<b>Additional Email</b>
+			<b>#application.GSAPI.i18n("PLUMACMS/ADDITIONAL_EMAIL")#</b>
 			<br />
 				<input type="text" class="text" name="err_Email" placeholder="john.smith@example.org" value="#htmleditformat(rc.err_Email)#" />
 			

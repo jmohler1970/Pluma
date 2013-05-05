@@ -41,6 +41,11 @@ void function init() output="false" {
 	}
 
 
+void function add_log(required string Kind, required string message)	output="false"	{
+	
+	this.wsNode.addLog(arguments.Kind, arguments.message, cgi.remote_addr, session.LOGINAPI.UserID); 
+	}
+
 	
 string function std_date(required string MyDate, boolean verbose = 0) output="false" {
 	// Support for verbose will come with CF 10

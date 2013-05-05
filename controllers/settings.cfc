@@ -217,6 +217,12 @@ void function endsitemap(required struct rc) output="false"	{
 
 void function error404(required struct rc) output="false"	{
 
+	param rc.err_uselog = 0;
+	param rc.err_subject = "";
+	param rc.err_SysAdminEmail = "";
+	param rc.err_Email = "";
+	param rc.err_type = "";
+
 
 	if (cgi.request_method == "Post")	{
 		
@@ -235,13 +241,9 @@ void function enderror404(required struct rc) output="false"	{
 
 	StructAppend(rc, application.IOAPI.get_pref("Err"));
 
-	param rc.err_subject = "";
-	param rc.err_SysAdminEmail = "";
-	param rc.err_Email = "";
-	param rc.err_type = "";
 	
 	if (rc.err_email != "" and not rc.err_email contains "@")	{
-		this.AddError("Email_error", "Warning");
+		this.AddError("Email_error");
 		}
 
 	}

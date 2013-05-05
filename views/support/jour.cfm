@@ -6,7 +6,7 @@
 
 
 <div class="edit-nav clearfix">
-	<a href="#buildURL(action='.', querystring="clear=1")#" accesskey="r">#application.GSAPI.i18n("CLEAR_THIS_LOG")#</a>
+	<a href="#buildURL(action='.', querystring="Kind=#rc.Kind#&clear=1")#" accesskey="r">#application.GSAPI.i18n("CLEAR_THIS_LOG")#</a>
 </div>	
 </cfoutput>
 
