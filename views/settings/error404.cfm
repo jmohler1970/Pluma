@@ -8,6 +8,8 @@
 
 
 	<div class="edit-nav clearfix">
+		<a href="#buildURL(action='support.jour', querystring='kind=404')#" target="_blank" accesskey="v">#application.GSAPI.i18n("view")#</a>
+	
 		<a href="#buildURL(action='home.missing')#">#application.GSAPI.i18n("PLUMACMS/TEST")#</a>
 	</div>
 

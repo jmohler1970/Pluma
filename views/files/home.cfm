@@ -8,7 +8,13 @@
 
 <h3 class="floated">#application.GSAPI.i18n("uploaded_files")#
 
-<span id="filetypetoggle">&nbsp; &nbsp;/&nbsp; &nbsp; #application.GSAPI.i18n(rc.imagefilter)#</span>
+<span id="filetypetoggle">&nbsp; &nbsp;/&nbsp; &nbsp;
+<cfif rc.imagefilter EQ "documents">
+	#application.GSAPI.i18n("ftype_documents")#
+<cfelse>
+	#application.GSAPI.i18n(rc.imagefilter)#
+</cfif>	
+</span>
 </h3>
 
 <div class="edit-nav">

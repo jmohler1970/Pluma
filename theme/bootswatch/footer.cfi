@@ -1,0 +1,9 @@
+<cfoutput>#application.GSAPI.get_footer()#</cfoutput>
+
+</div><!-- /container -->
+
+
+
+
+</body>
+</html>

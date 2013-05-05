@@ -1,0 +1,146 @@
+
+
+<cfscript>
+param splash = "";
+param prebody = "";
+</cfscript>
+
+<!--- Normal output begins --->
+<!--- Normal output begins --->
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+
+
+<cfoutput>
+	<title>#application.GSAPI.get_site_name()#</title>
+	#application.GSAPI.get_header()#
+
+	<meta name="email" 			content="#application.GSAPI.get_site_email()#" />
+	
+</cfoutput>	
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+	<!--[if lt IE 9]>
+          <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+
+	<cfoutput>
+	<!-- Le styles -->
+   	<link href="#application.GSAPI.get_theme_url()#/css/bootstrap.css" rel="stylesheet" />
+    <link href="#application.GSAPI.get_theme_url()#/css/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="#application.GSAPI.get_theme_url()#/css/docs.css" 		rel="stylesheet" />
+    <link href="#application.GSAPI.get_theme_url()#/css/prettify.css" 	rel="stylesheet" />
+    <cfif not isnull(request.stBootswatch.css) and request.stBootswatch.css NEQ "">
+    	<link href="#application.GSAPI.get_them_url()#/css/#request.stBootswatch.css#" 	rel="stylesheet" />
+   	</cfif>
+    <link href="#application.GSAPI.get_theme_url()#/css/calendar.css" 	rel="stylesheet" />
+
+
+	
+	
+		<style type="text/css">
+		body	{
+			<cfif not isnull(request.stBootswatch.Backgroundcolor)>
+				<cfif request.stBootswatch.backgroundcolor NEQ "">background-color : #request.stBootswatch.backgroundcolor#;</cfif>
+			</cfif>
+			<cfif not isnull(request.stBootswatch.Backgroundimage)>
+				<cfset background = "#application.GSAPI.get_site_root()#theme/bootswatch/assets/background/#request.stBootswatch.backgroundimage#">
+			
+				<cfif request.stBootswatch.backgroundimage NEQ "">background-image : url('#background#');</cfif>
+			</cfif>
+			<cfif not isnull(request.stBootswatch.Backgroundrepeat)>background-repeat : #request.stBootswatch.backgroundrepeat#;</cfif>
+			<cfif not isnull(request.stBootswatch.Backgroundattachment)>
+				<cfif request.stBootswatch.backgroundattachment EQ 1>background-attachment : fixed;</cfif>
+			</cfif>
+			} 
+		</style>  
+	
+
+	
+	
+    <!-- Le javascript
+    ================================================== -->
+    <script src="#application.GSAPI.get_site_root()#theme/bootswatch/js/less.js"  type="text/javascript"></script> 
+    <script src="#application.GSAPI.get_site_root()#theme/bootswatch/js/sorttable.js" type="text/javascript"></script>
+    <script src="#application.GSAPI.get_site_root()#theme/bootswatch/js/calendar_us.js" type="text/javascript"></script>
+    
+    <script src="#application.GSAPI.get_site_root()#theme/bootswatch/js/jquery.js" type="text/javascript"></script>
+    <script src="#application.GSAPI.get_site_root()#theme/bootswatch/js/bootstrap-transition.js" type="text/javascript"></script>
+    <script src="#application.GSAPI.get_site_root()#theme/bootswatch/js/bootstrap-modal.js" type="text/javascript"></script>
+	<script src="#application.GSAPI.get_site_root()#theme/bootswatch/js/bootstrap-dropdown.js" type="text/javascript"></script>
+    <script src="#application.GSAPI.get_site_root()#theme/bootswatch/js/bootstrap-scrollspy.js" type="text/javascript"></script>
+    <script src="#application.GSAPI.get_site_root()#theme/bootswatch/js/bootstrap-carousel.js" type="text/javascript"></script>
+    <script src="#application.GSAPI.get_site_root()#theme/bootswatch/js/bootstrap-collapse.js" type="text/javascript"></script>
+    <script src="#application.GSAPI.get_site_root()#theme/bootswatch/js/bootstrap-tooltip.js" type="text/javascript"></script>
+	<script src="#application.GSAPI.get_site_root()#theme/bootswatch/js/bootstrap-popover.js" type="text/javascript"></script>
+	<script src="#application.GSAPI.get_site_root()#theme/bootswatch/js/application.js" type="text/javascript"></script>
+
+		
+	<link rel="start"  	href="#application.GSAPI.find_url('')#" />
+	<link rel="search"  href="#application.GSAPI.find_url('search')#" />
+	<link rel="toc" 	href="#application.GSAPI.find_url('toc')#" />
+	
+	</cfoutput>
+</head>	
+
+
+<body data-spy="scroll" data-target=".subnav" data-offset="50">
+
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+
+
+
+	<div class="navbar-inner">
+		<div class="container">
+		<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</a>
+		
+		<cfoutput>	
+		
+		<a class="brand" href="#application.GSAPI.get_site_root()#">888 266 6486 - Web World Inc.</a>
+			<div class="nav-collapse">
+
+			<ul class="nav">
+				
+				<cfset baseclass = (getSection() EQ "main" AND getItem() EQ "page") ? "active" : "">
+				
+				
+				<li class="#baseclass#"><a href="#application.GSAPI.get_site_root()#" target="_top"><i class="icon-home icon-white"></i> Home</a></li>
+				
+
+
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#application.GSAPI.get_site_root()#" target="_top">Quick Links <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						#application.GSAPI.get_navigation()#
+						
+					<li class="#baseclass#"><a href="http://www.webworldinc.com/usersonly/index.htm" target="_top">Users Only</a></li>	
+				
+						
+						<li class="#baseclass#"><a href="#application.GSAPI.get_site_root()#index.cfm/login" target="_top">Login</a></li>
+					</ul>
+				</li>
+
+				<li class="#baseclass#"><a href="http://mail.webworldinc.com" target="_top"><i class="icon-envelope icon-white"></i> Webmail</a></li>
+
+				
+			</ul>
+
+
+			</cfoutput>
+
+			</div><!-- /.nav-collapse -->
+		</div>
+	</div><!-- /navbar-inner -->
+</div><!-- /navbar -->
+

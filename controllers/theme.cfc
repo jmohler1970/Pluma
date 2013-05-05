@@ -60,6 +60,21 @@ void function endhome(required struct rc) output="false" {
 	rc.qryTheme = DirectoryList(application.GSTHEMESPATH, false, "query");
 	}	
 	
+
+
+void function edit(required struct rc) output="false" {
+
+	param rc.theme_files = "template.cfm";
+
+		
+	rc.qryTemplates = DirectoryList(application.GSTHEMESPATH & application.GSAPI.get_theme(), false, "query");
+	
+	rc.strTemplate = FileRead(application.GSTHEMESPATH & application.GSAPI.get_theme() & "\" & rc.theme_files);
+	}	
+
+
+
+
 	
 
 void function components(required struct rc) output="false"	{

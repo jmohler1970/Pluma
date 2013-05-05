@@ -72,24 +72,25 @@ managefiles = false;
 
 
 
-
-<h3>Uploaded New Files</h3>
-
-
 <cfoutput>
+<h3>#application.GSAPI.i18n("uploadify_button")#</h3>
+
+
+
 <form action="#buildURL(action = 'backups.process')#" method="post" enctype="multipart/form-data"  class="anondata">
-</cfoutput>
+
 
 	
-	<p>
-	<label>File to upload</label>
+<p>
+	<label>&nbsp;</label> 
 	<input type="file" name="csv" class="text" />
-</p>
+</p>	
 
+<div class="clear"></div>
 
 
 	<p>
-      	<label>Duplicate handling</label>
+      	<label>#application.GSAPI.i18n("PLUMACMS/duplicate_handling")#</label>
       	
       
 		<select name="nameconflict">
@@ -102,10 +103,10 @@ managefiles = false;
 	</p>
 
 
-	<input type="submit" class="submit" value="Upload" />
+	<button type="submit" class="submit">#application.GSAPI.i18n("file_upload")#</button>
 
 </form>
-
+</cfoutput>
 
 </div>
 

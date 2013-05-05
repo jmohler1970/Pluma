@@ -143,8 +143,7 @@ thumbpath = "#application.GSTHUMBNAILPATH##rc.path#/";
 	</cfcatch>
 	</cftry>
 	
-
-
+	<cfset this.addInfo("PLUMACMS/FILE_SUC", [targetname])>
 	
 	<cfset variables.fw.redirect("files.home", "all")>
 </cffunction>

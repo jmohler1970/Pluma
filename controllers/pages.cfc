@@ -78,12 +78,15 @@ void function edit(required struct rc) output="false" {
 	// Post
 	if (cgi.request_method == "post")	{
 	
+		this.addmessage("Doing post");
+	
 		if (rc.submit CONTAINS "Reactivate")	{
 			application.IOAPI.Reactivate(rc.NodeID);
 			}
 	
-		if (rc.submit CONTAINS "Save")	{
+		if (rc.submit == "Save")	{
 			
+					
 			var NodeK = {NodeID = rc.NodeID, Kind = "Page"};	
 				
 			var stResult = application.IOAPI.set(NodeK, rc);
@@ -110,7 +113,7 @@ void function edit(required struct rc) output="false" {
 		} // end post
 	
 	}
-	
+
 
 	
 void function endedit(required struct rc) output="false" {	

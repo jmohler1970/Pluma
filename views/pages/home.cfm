@@ -41,7 +41,7 @@
 
 <tbody>
 <cfoutput query="rc.qryAllPages">
-<tr>
+<tr id="tr-#slug#">
 	<td <cfif Root>style="text : bold;"</cfif> class="pagetitle">
 		<cfloop from="1" to="#level#" index="i">
 			<span>&nbsp; &nbsp; &mdash; &nbsp; &nbsp; </span>

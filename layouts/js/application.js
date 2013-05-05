@@ -31,6 +31,15 @@ jQuery(document).ready(function() {
 	  $('#post-metad').keyup(updateMetaDescriptionCounter);
 	}	
 
+	
+  var edit_line = $('#submit_line span').html();
+  $('#js_submit_line').html(edit_line);
+  $("#js_submit_line button").live("click", function() {
+   
+   
+    $("#submit_line button").trigger('click');
+	});
+
 
 	//title filtering on pages, backups, & users
 	var filterSearchInput = $("#filter-search");

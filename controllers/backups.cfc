@@ -299,9 +299,9 @@ void function process(required struct rc) output="false" {
 			<cfset this.addError("NOT_FOUND")>
 		</cfif>
 		
-		
-		
 	</cfif>
+
+	<cfset variables.fw.redirect("backups.importdata", "all")>
 
 </cffunction>
 

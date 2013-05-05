@@ -266,20 +266,22 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 		<cfinclude template="links.cfi">
 			
 		<cfinclude template="data.cfi">
-</div>		
-		
+</div>
 
 
 
-<h3 class="floated">
+
+
+
+<h3 class="floated" id="submit_line">
 	
 		<cfif deleted EQ 1>
 			<button type="submit" name="submit">#application.GSAPI.i18n("ask_restore")#</button>
-	
 		<cfelse>
 				
-			<button type="submit" name="submit" value="save updates">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
-			
+			<span>	
+				<button name="submit" type="submit" value="Save">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
+			</span>
 
 			<cfif isnumeric(rc.NodeID)>	
 				<button type="submit" name="submit" value="clone">#application.GSAPI.i18n("CLONE")#</button>
@@ -290,7 +292,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 			
 			<cfif isnumeric(rc.NodeID)>
-				<div class="edit-nav clearfix">
+				<div class="edit-nav clearfix" id="alertme">
 									
 					<a href="#buildURL(action='pages.delete', querystring = 'nodeid=#rc.nodeid#')#"> #application.GSAPI.i18n("deletepage_title")#</a>
 				</div>
