@@ -20,7 +20,7 @@
 
 
 <cfoutput query="rc.qryNode">
-<cfform action="?plugin=event&plx=edit" method="post" name="myFrm" class="form-horizontal" onSubmit="doPull();">
+<cfform action="?plugin=news_manager&plx=edit" method="post" name="myFrm" class="form-horizontal">
 
 
 

@@ -1,7 +1,7 @@
 
 
 
-<h3>Event Manager</h3>
+<h3 class="floated">Event Manager</h3>
 
 <div class="edit-nav">
         <a <cfif rc.filter EQ "">class="current"</cfif> href="?plugin=event">All</a>
@@ -35,7 +35,7 @@
 	
 
 		<th>Title</th>
-		<th>Event Date</th>
+		<th style="text-align : right;">Event Date</th>
 		<th>&nbsp;</th>
 		<th>&nbsp;</th>
 	</tr>
@@ -50,14 +50,16 @@
 			
 				
 				
-				<td>#application.IOAPI.std_date(ExpirationDate)#</td>
+				<td style="text-align : right;">#application.IOAPI.std_date(ExpirationDate)#</td>
 				
 				<td class="secondarylink">
 					<a href="#application.GSAPI.get_site_root()#index.cfm/id/#NodeID#">##</a>
   				</td>			
   					
   				<td class="delete">			
-  					<a href="?plugin=event&plx=delete&NodeID=#NodeID#">&times;</a>
+  					<a class="delconfirm" 
+  						href="?plugin=event&plx=delete&NodeID=#NodeID#"
+  						title="#application.GSAPI.i18n("API_CONFIRM")#">&times;</a>
 				</td>
 			</tr>
 	</cfoutput>
