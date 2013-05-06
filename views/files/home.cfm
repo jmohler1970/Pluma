@@ -45,10 +45,10 @@
 	
 	<cfset partialPath = "">
 	
-	<cfloop index="i" list="#rc.path#" delimiters="|">
+	<cfloop index="i" list="#rc.path#" delimiters="/">
 		<cfset partialPath = ListAppend(PartialPath, i, '|')>
 		
-		<cfif i NEQ listlast(rc.path, "|")>
+		<cfif i NEQ listlast(rc.path, "/")>
 			<a href="#buildURL(action='.home', querystring='path=#partialpath#')#">#xmlformat(i)#</a>	
 		<cfelse>
 			#xmlformat(i)#
@@ -117,8 +117,7 @@
 		<td class="delete">
 			<a class="delconfirm"
 				href="#buildURL(action='.delete', querystring='folder=#name#')#"
-				onclick="return confirm('#application.GSAPI.i18n("API_CONFIRM")#')"
-				title="#application.GSAPI.i18n("deletepage_title")#">&times;</a>
+				title="#application.GSAPI.i18n("delete_FOLDER")#">&times;</a>
 		</td>
 	</tr>
 	

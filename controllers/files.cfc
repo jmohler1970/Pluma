@@ -158,16 +158,30 @@ thumbpath = "#application.GSTHUMBNAILPATH##rc.path#/";
 	param rc.folder = "";
 	
 	if (rc.folder != "")	{
-		var target 		= application.GSDATAUPLOADPATH & rc.path & '/' & rc.folder;
-		var targetThumb = application.GSTHUMBNAILPATH & rc.path & '/' & rc.folder;
+		var target 		= application.GSDATAUPLOADPATH 	& (rc.path == "" ? "" : rc.path & '/') & rc.folder;
+		var targetThumb = application.GSTHUMBNAILPATH 	& (rc.path == "" ? "" : rc.path & '/') & rc.folder;
 	
 	
 		if (DirectoryExists(target))	{
+			
+			var arDir = DirectoryList(target, true, "path");
+	
+			for (i in arDir)	{
+				FileDelete(i);
+				}
+
 	
 			directoryDelete(target);
 			}
 	
 		if (DirectoryExists(targetThumb))	{
+	
+			var arDir = DirectoryList(targetThumb, true, "path");
+	
+			for (i in arDir)	{
+				FileDelete(i);
+				}
+
 	
 			directoryDelete(targetThumb);
 			}
