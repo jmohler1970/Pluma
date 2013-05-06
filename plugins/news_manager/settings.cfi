@@ -18,19 +18,23 @@
 
 
 
-
+<table class="edittable highlight paginate">
 <cfoutput query="rc.qryEvent" group="TimeFrame">
 
+	<thead>
+	<tr>
+		<td colspan="4">
 	<cfswitch expression="#TimeFrame#">
 		<cfcase value="NextMonth"><h2><a name="future"></a>Future Events</h2></cfcase>
 		<cfcase value="PastMonth"><h2><a name="past"></a>Past Events</h2></cfcase>
 		<cfdefaultcase><h2><a name="thismonth"></a>This Months Events</h2></cfdefaultcase> 
 	</cfswitch>
-
+		</td>
+	</tr>
 
 	<cfset areacount = 0>
-	<table class="edittable highlight paginate">
-	<thead> 
+	
+ 
 	<tr>
 	
 
@@ -63,10 +67,10 @@
 				</td>
 			</tr>
 	</cfoutput>
-	</table>
+	
 	
 </cfoutput>
-		
+</table>		
 
 
 <cfoutput>
