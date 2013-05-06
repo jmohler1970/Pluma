@@ -9,7 +9,7 @@ function init(fw) { variables.fw = fw; }
 void function home (required struct rc) output="false"	{
 
 	if (session.LOGINAPI.lstGroup != "")	{
-		variables.fw.redirect("pages.home", "all");	
+		variables.fw.redirect(session.LOGINAPI.loginTarget, "all");	
 		return;
 		}
 
@@ -42,11 +42,15 @@ void function impersonate(required struct rc) output="false"	{
 	try	{
 	var stResult = session.LOGINAPI.doImpersonate(rc.userid);
 	}
-	catch (any e) { this.ERROR("PLUMACMS/FAILURE", [e.message]);}
+	catch (any e) { 
+		this.ERROR("PLUMACMS/FAILURE", [e.message]);
+		
+		return;
+		}
 	
 	
 	if (stResult.result)	{
-		this.AddInfo("PLUMACMS/Impersonate_success"); 
+		this.AddSuccess("PLUMACMS/Impersonate_success", [rc.userid]); 
 	
 		variables.fw.redirect(session.LOGINAPI.loginTarget, "all");
 		return;

@@ -123,6 +123,24 @@ jQuery(document).ready(function() {
         }
     });
     
+    
+    $(".delconfirm").live("click", function() {
+		var message = $(this).attr("title");
+		var dlink = $(this).attr("href");
+		var mytr=$(this).parents("tr");
+		mytr.css("font-style", "italic");
+	    var answer = confirm(message);
+	    if (answer)	{	
+	    	return true;
+	    	}
+	    else
+	    	{
+	    	mytr.css('font-style', 'normal');
+	    	return false;
+	    	}
+	});
+    
+    
 	
 //end of javascript for getsimple
 }); 

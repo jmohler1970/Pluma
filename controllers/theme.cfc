@@ -42,7 +42,7 @@ void function home(required struct rc) output="false" {
 
 		
 		if (result == "")
-			this.addInfo("THEME_CHANGED");
+			this.addSuccess("THEME_CHANGED");
 					
 		else
 			this.addInfo("Error");
@@ -85,24 +85,21 @@ void function components(required struct rc) output="false"	{
 	
 	if (cgi.request_method == "POST")	{
 	
-		if ("rc.components_new" != "" and rc.title != "")	{
-			
-			
-				StructDelete(rc, rc.components_new);
+		if (rc.components_new == "" and rc.new_title != "")	{
+			this.addWarning("PLUMACMS/ISBLANK", ["Component Title"]);
 			}
+
 	
-			
+
 		
 		var result = application.IOAPI.set_pref("Components", rc);
 				
-		
-		
-		
+	
 		
 		if (result == "")
-			this.addInfo("ER_COMPONENT_SAVE");
+			this.addSuccess("ER_COMPONENT_SAVE");
 		else
-			this.addInfo("Error");
+			this.addError("Error");
 	
 		
 			
@@ -113,8 +110,9 @@ void function components(required struct rc) output="false"	{
 
 void function endcomponents(required struct rc) output="false"	{
 
-	application.IOAPI.load_pref(1); //resets all preferences
+	StructAppend(request, application.IOAPI.load_pref(1)); //resets all preferences
 	
+
 	rc.stComponents = application.IOAPI.get_pref("Components");
 	rc.arComponents = StructSort(application.IOAPI.get_pref("Components"),"textnocase");
 	}
@@ -130,7 +128,7 @@ void function delcomponents(required struct rc) output="false"	{
 	application.IOAPI.load_pref(1); 
 
 	if (result)	
-		this.addInfo("ER_HASBEEN_DEL", [rc.pref]);
+		this.addSuccess("ER_HASBEEN_DEL", [rc.pref]);
 	else
 		this.addError("NOT_FOUND", [rc.pref]);
 	
@@ -146,6 +144,11 @@ void function sitemap(required struct rc) output="false"	{
 	
 	
 	rc.qryAllPages = application.IOAPI.get_all("Page", '', "Menu");	
+	
+	if (rc.qryAllPages.recordcount == 0) {
+		this.addWarning("PLUMACMS/ISEMPTY", ['Sitemap']);		
+		}
+	
 	
 	rc.xmlData = '<?xml version="1.0" encoding="utf-8"?>'
 				& variables.crlf
@@ -174,7 +177,7 @@ void function sitemap(required struct rc) output="false"	{
 	if (rc.refresh)	{
 	
 		filewrite(application.GSROOTPATH & "sitemap.xml", rc.xmlData);
-		this.addInfo("SITEMAP_REFRESHED");
+		this.addSuccess("SITEMAP_REFRESHED");
 		}
 
 	}

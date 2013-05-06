@@ -78,8 +78,7 @@ void function edit(required struct rc) output="false" {
 	// Post
 	if (cgi.request_method == "post")	{
 	
-		this.addmessage("Doing post");
-	
+		
 		if (rc.submit CONTAINS "Reactivate")	{
 			application.IOAPI.Reactivate(rc.NodeID);
 			}
@@ -92,7 +91,7 @@ void function edit(required struct rc) output="false" {
 			var stResult = application.IOAPI.set(NodeK, rc);
 		
 			if (not stResult.result)	{
-				this.AddInfoe(stResult.key);
+				this.AddError(stResult.key);
 				
 				return;
 				}
@@ -106,7 +105,7 @@ void function edit(required struct rc) output="false" {
 				application.IOAPI.set_Conf(NodeK, rc);
 				}
 			
-			this.AddInfo("ER_YOUR_CHANGES", [rc.slug]);				
+			this.AddSuccess("ER_YOUR_CHANGES", [rc.slug]);				
 					
 			}
 			
@@ -246,7 +245,12 @@ void function menu(required struct rc) output="false" {
 	
 void function endmenu(required struct rc) output="false" {
 
-	rc.qryMenu = application.IOAPI.get_all("Page", '', "Menu");	
+	rc.qryMenu = application.IOAPI.get_all("Page", '', "Menu");
+	
+	if (rc.qryMenu.recordcount == 0)	{
+		this.AddInfo("PLUMACMS/ISEMPTY", ["Menu"]);		
+		}
+		
 	}
 
 

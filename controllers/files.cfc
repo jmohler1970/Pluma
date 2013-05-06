@@ -66,7 +66,7 @@ void function createfolder(required struct rc)	{
 	
 		directoryCreate(target);
 		
-		this.addInfo("FOLDER_CREATED", [rc.foldername]);
+		this.addSuccess("FOLDER_CREATED", [rc.foldername]);
 	
 		}
 	else	{
@@ -143,7 +143,7 @@ thumbpath = "#application.GSTHUMBNAILPATH##rc.path#/";
 	</cfcatch>
 	</cftry>
 	
-	<cfset this.addInfo("PLUMACMS/FILE_SUC", [targetname])>
+	<cfset this.addSuccess("PLUMACMS/FILE_SUC", [targetname])>
 	
 	<cfset variables.fw.redirect("files.home", "all")>
 </cffunction>
@@ -172,7 +172,7 @@ thumbpath = "#application.GSTHUMBNAILPATH##rc.path#/";
 			directoryDelete(targetThumb);
 			}
 	
-		this.addInfo("plumacms/folder_deleted", [rc.folder]);
+		this.addSuccess("plumacms/folder_deleted", [rc.folder]);
 	
 		variables.fw.redirect("files.home", "all");
 		
@@ -190,7 +190,7 @@ thumbpath = "#application.GSTHUMBNAILPATH##rc.path#/";
 	
 			FileDelete(target);
 			
-			this.addInfo("ER_FILE_DEL_SUC", [target]);
+			this.addSuccess("ER_FILE_DEL_SUC", [target]);
 	
 			}
 	
@@ -214,7 +214,7 @@ void function details(required struct rc)	{
 	
 	if (rc.name == "")	{
 
-		this.addInfo("NOT_FOUND", [rc.name]);
+		this.addError("NOT_FOUND", [rc.name]);
 		
 		variables.fw.redirect("files.home", "all");
 		}

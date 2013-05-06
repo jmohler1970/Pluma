@@ -89,13 +89,19 @@ param rc.silent = 0;
 	<cfif isDefined("session.qryMessageQueue")>
 		<cfoutput query="session.qryMessageQueue">
 			<cfswitch expression="#Priority#">
-			<cfcase value="2,3">
+			<cfcase value="3,4">
 				<div class="error">
 					#message#
 				</div>	
 			</cfcase>
+			<cfcase value="2">
+				<div class="error">
+					#message#
+				</div>	
+			</cfcase>
+			
 			<cfcase value="1">
-				<div class="updated">
+				<div class="success">
 					#message#
 				</div>	
 			</cfcase>

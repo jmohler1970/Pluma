@@ -5,29 +5,6 @@
 
 <cfscript>
 
-void function after(required struct rc) output="false" {
-
-	
-
-	if (session.LOGINAPI.isPasswordBlank())	{
-		var target = variables.fw.buildURL("profile.home");
-	
-		var strMessage = "Don&apos;t forget to <a href='#target#'>change your password</a> from that random generated one you have now...";
-		
-		this.AddError("PLUMACMS/FAILURE", [strMessage]);
-		}
-		
-	var qryRootDir = DirectoryList(application.GSROOTPATH, false, "query", '_*');
-	
-	for (var i = 1; i <= qryRootDir.recordcount; i++)	{
-		
-		this.addError("plumacms/installation_directory", [qryRootDir.name[i]]);
-		
-	
-		}		
-		
-
-	}
 
 
 
@@ -35,6 +12,7 @@ void function after(required struct rc) output="false" {
 variables.CRLF = Chr(13) & Chr(10);
 variables.NotifyKind = "Unknown";
 
+/* Action caused hard error. page may not fully render */
 void function addFatal(required key, array placeholdervalues = []) output="false" access="package"	{
 	
 	var message = application.GSAPI.i18n(key, arguments.placeholdervalues);
@@ -43,8 +21,7 @@ void function addFatal(required key, array placeholdervalues = []) output="false
 			
 	}
 
-
-
+/* Action could not complete expected operation. Expected values were missing? */
 void function addError(required key, array placeholdervalues = []) output="false" access="package"	{
 	
 	var message = application.GSAPI.i18n(key, arguments.placeholdervalues);
@@ -53,7 +30,7 @@ void function addError(required key, array placeholdervalues = []) output="false
 			
 	}
 
-
+/* Action completed but maybe data was strange. Use should make sure this is what was really wanted  */
 void function addWarning(required key, array placeholdervalues = []) output="false" access="package"	{
 	
 	var message = application.GSAPI.i18n(key, arguments.placeholdervalues);
@@ -61,6 +38,16 @@ void function addWarning(required key, array placeholdervalues = []) output="fal
 	this.addMessage(message, "Warning");
 	}
 
+/* Action completed without reservation */
+void function addSuccess(required key, array placeholdervalues = []) output="false" access="package"	{
+	
+	var message = application.GSAPI.i18n(key, arguments.placeholdervalues);
+	
+	this.addMessage(message, "Success");
+	}
+
+
+/* User should be made aware of this */
 void function addInfo(required key, array placeholdervalues = []) output="false" access="package"	{
 	
 	var message = application.GSAPI.i18n(key, arguments.placeholdervalues);
@@ -79,9 +66,11 @@ void function addMessage(required string message, string priority = "Info") outp
 	var NumericPriority = 0;
 	
 	switch(arguments.priority)	{
-		case "Fatal" : NumericPriority = "3"; break;
-		case "Error" : NumericPriority = "2"; break;
-		case "Warning" : NumericPriority = "1"; break;
+		case "Fatal" : NumericPriority = "4"; break;
+		case "Error" : NumericPriority = "3"; break;
+		case "Warning" : NumericPriority = "2"; break;
+		case "Success" : NumericPriority = "1"; break;
+		/* Info */
 		case "Debug" : NumericPriority = "-1"; break;
 		}
 
@@ -215,7 +204,27 @@ Action was done by: #session.LOGINAPI.getLoginName()#
 </cffunction>
 
 
+<cfscript>
+void function after(required struct rc) output="false" {
 
+	
+
+	if (session.LOGINAPI.isPasswordBlank())	{
+		var target = variables.fw.buildURL("profile.home");
+	
+		var strMessage = "Don&apos;t forget to <a href='#target#'>change your password</a> from that random generated one you have now...";
+		
+		this.AddError("PLUMACMS/FAILURE", [strMessage]);
+		}
+		
+	var qryRootDir = DirectoryList(application.GSROOTPATH, false, "query", '_*');
+	
+	for (var i = 1; i <= qryRootDir.recordcount; i++)	{
+		
+		this.addInfo("plumacms/installation_directory", [qryRootDir.name[i]]);
+		}		
+	}
+</cfscript>
 
 
 </cfcomponent>

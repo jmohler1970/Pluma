@@ -116,8 +116,7 @@
 		
 	<td class="delete">	
 		<cfif NOT groups CONTAINS "system">	
-			<a href="#buildURL(action = 'users.delete', querystring = 'UserID=#UserID#')#" 
-			onclick="return confirm('#application.GSAPI.i18n("API_CONFIRM")#')"
+			<a class="delconfirm" href="#buildURL(action = 'users.delete', querystring = 'UserID=#UserID#')#" 
 			title="#application.GSAPI.i18n("PLUMACMS/user_delete")#"
 			>&times;</a>
 		</cfif>			

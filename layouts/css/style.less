@@ -634,24 +634,46 @@ table.comptable tr td input.newtitle {margin-bottom:2px !important;}
 
 
 /* alert styles */
-.updated, .error {
-	border:1px solid #E6DB55;
+.updated, .success, .error {
+	border:1px solid #FCD344;
 	border-radius:2px;
 	background:#FFFBCC;
-	background: -moz-linear-gradient(top, #FFFBCC 0%, #FFFBC1 100%); /* firefox */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFBCC), color-stop(100%,#FFFBC1)); /* webkit */
+
+	background-image: url(../images/note.gif);
+	background-position: 10px 9px !important;  
+	background-repeat: no-repeat;
 	line-height:22px;
-	padding:5px 10px;
+	padding:8px 8px 8px 32px;
 	margin-bottom:20px;
-}
-.updated p, .error p {margin:0;line-height:22px;}
+	}
+	
+.updated p, .success p, .error p {	
+	padding:8px 8px 8px 32px;
+	line-height:22px;
+	}
+
+.success	{
+	background-color:#eff5ea;
+	border-color:#446423; 
+	background-image: url(../images/success.gif);
+	background-position: 10px 9px !important;  
+	background-repeat: no-repeat;
+	}
+
+
 .error {
 	color:#990000;
 	border-color: #cc0000;
 	background:#F9DFDD;
-	background: -moz-linear-gradient(top, #FCF0EF 0%, #F9DFDD 100%); /* firefox */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FCF0EF), color-stop(100%,#F9DFDD)); /* webkit */
-}
+	background-image: url(../images/error.gif);
+	background-position: 10px 9px !important;  
+	background-repeat: no-repeat;
+	
+	}
+
+
+
+
 .deletedrow {background-color:#FFB19B}
 .error code {
 	color:#990000;
@@ -662,7 +684,7 @@ table.comptable tr td input.newtitle {margin-bottom:2px !important;}
 	opacity:.8;
 	padding:1px;
 }
-.updated, #temp_good_flash {color:#308000;}
+.updated, .success, #temp_good_flash {color:#308000;}
 .hint {color:#777;}
 
 
@@ -931,8 +953,14 @@ body#index {background:#f9f9f9;}
 #resetpassword p.cta a {font-weight:100;}
 #setup .error, #setup .updated,
 #install .error, #install .updated,
-#index .error, #index .updated,
-#resetpassword .error, #resetpassword .updated {margin:25px auto -23px auto;width:290px;line-height:18px;padding:5px 10px;}
+#index .error, #index .updated, #index .success,
+#resetpassword .error, #resetpassword .updated {
+	margin:25px auto -23px auto;
+	width:290px;line-height:18px;
+	padding:8px 8px 8px 32px;
+	}
+
+
 #setup #footer,#install #footer,#index #footer, #resetpassword #footer {width:270px;border-top:none;margin:0 auto 20px auto;text-align:center;}
 #index .footer-left,#resetpassword .footer-left  {float:none;width:100%;}
 

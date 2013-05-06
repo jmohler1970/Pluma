@@ -32,7 +32,7 @@
 			<cfif FacetCount EQ 0>
 		--->
 		
-				<a class="delconfirm" href="#buildURL(action='.linkCategoryDelete', querystring ='NodeID=#NodeID#')#" onclick="return confirm('Are you sure?');" id="delete-#slug#" title="#application.GSAPI.i18n('delete')#">&times;</a>
+				<a class="delconfirm" href="#buildURL(action='.linkCategoryDelete', querystring ='NodeID=#NodeID#')#" id="delete-#slug#" title="#application.GSAPI.i18n('delete')#">&times;</a>
 		
 		<!---
 			<cfelse>

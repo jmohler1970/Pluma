@@ -13,21 +13,21 @@
 			
 			<!-- Social Media URLs are set within this theme's settings plugin -->
 		
-			<cfif isDefined("request.stInnovation.facebook") AND request.stInnovation.facebook NEQ "">
-				<a href="#request.stInnovation.facebook#"><img src="#application.GSAPI.get_site_root()#theme/innovation/img/facebook.png" /></a>
+			<cfif isDefined("request.Innovation.facebook") AND request.Innovation.facebook NEQ "">
+				<a href="#request.Innovation.facebook#"><img src="#application.GSAPI.get_site_root()#theme/innovation/img/facebook.png" /></a>
 			</cfif>
 			
-			<cfif isDefined("request.stInnovation.twitter") AND request.stInnovation.twitter NEQ "">
-				<a href="#request.stInnovation.twitter#"><img src="#application.GSAPI.get_site_root()#theme/innovation/img/twitter.png" /></a>
+			<cfif isDefined("request.Innovation.twitter") AND request.Innovation.twitter NEQ "">
+				<a href="#request.Innovation.twitter#"><img src="#application.GSAPI.get_site_root()#theme/innovation/img/twitter.png" /></a>
 			</cfif>
 
-			<cfif isDefined("request.stInnovation.linkedin") AND request.stInnovation.linkedin NEQ "">
-				<a href="#request.stInnovation.linkedin#"><img src="#application.GSAPI.get_site_root()#theme/innovation/img/linkedin.png" /></a>
+			<cfif isDefined("request.Innovation.linkedin") AND request.Innovation.linkedin NEQ "">
+				<a href="#request.Innovation.linkedin#"><img src="#application.GSAPI.get_site_root()#theme/innovation/img/linkedin.png" /></a>
 			</cfif>
 
 
-			<cfif isDefined("request.stInnovation.stackoverflow") AND request.stInnovation.stackoverflow NEQ "">
-				<a href="#request.stInnovation.stackoverflow#"><img src="#application.GSAPI.get_site_root()#theme/innovation/img/stackoverflow.png" /></a>
+			<cfif isDefined("request.Innovation.stackoverflow") AND request.Innovation.stackoverflow NEQ "">
+				<a href="#request.Innovation.stackoverflow#"><img src="#application.GSAPI.get_site_root()#theme/innovation/img/stackoverflow.png" /></a>
 			</cfif>
 			
 
@@ -63,32 +63,41 @@
 	
 	
 	
-	<cfif isDefined("request.stInnovation.login") AND request.stInnovation.login>
+	<cfif isDefined("request.Innovation.login") AND request.Innovation.login>
 	<div class="section">
 		<h2>Login Status</h2>
-		<p>You are not currently logged in</p>
 		
-		<form action="/index.cfm/login" method="post">
+		<cfif session.LOGINAPI.is_Logged_In()>
+			<p>You are currently logged in</p>
 			
-			<p>
-			<small>#application.GSAPI.i18n("label_userName")#</small><br />
-			<input type="text" name="login" />
-			</p>
+			<a href="/index.cfm/logout">Logout</a>				
+		<cfelse>
+			<p>You are not currently logged in</p>
 			
-			<p>
-			<small>#application.GSAPI.i18n("Password")#</small><br />
-			<input type="password" name="password" />
-			</p>
+					
+			<form action="/index.cfm/login" method="post">
+				<p>
+					<small>#application.GSAPI.i18n("label_userName")#</small><br />
+					<input type="text" name="login" />
+					</p>
 			
-			<button type="submit">Login</button> 
+				<p>
+					<small>#application.GSAPI.i18n("Password")#</small><br />
+					<input type="password" name="password" />
+					</p>
 			
-			<a href="/index.cfm/forgot">Forgot?</a>	
-		</form>
+					<button type="submit">Login</button> 
+			
+					<a href="/index.cfm/forgot">Forgot?</a>	
+			</form>
+		
+		</cfif>
+		
 	</div>
 	</cfif>
 	
 	
-	<cfif isDefined("request.stInnovation.search") AND request.stInnovation.search>
+	<cfif isDefined("request.Innovation.search") AND request.Innovation.search>
 	<div class="section">
 		<h2>Search</h2>
 		
@@ -106,7 +115,7 @@
 	</div>
 	</cfif>
 	
-	<cfif isDefined("request.stInnovation.tags") AND request.stInnovation.tags>
+	<cfif isDefined("request.Innovation.tags") AND request.Innovation.tags>
 	<div class="section">
 		<h2>Tags</h2>
 		
@@ -120,7 +129,7 @@
 	</div>
 	</cfif>
 	
-	<cfif isDefined("request.stInnovation.archive") AND request.stInnovation.archive>
+	<cfif isDefined("request.Innovation.archive") AND request.Innovation.archive>
 	<div class="section">
 		<h2>Tags</h2>
 		

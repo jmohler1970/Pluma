@@ -186,9 +186,8 @@
 		#strButtons#
 
 		<cfif isnumeric(rc.UserID)>
-	
 			
-			<a href="#buildURL(action = 'users.delete', querystring = 'UserID=#rc.UserID#')#" onclick="return confirm('Are you sure you want to deactivate this user?')" accesskey="D"> <em>D</em>elete</a>
+			<a class="delconfirm" href="#buildURL(action = 'users.delete', querystring = 'UserID=#rc.UserID#')#" accesskey="D"> <em>D</em>elete</a>
 		</cfif>
 	</div>
 	

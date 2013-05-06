@@ -56,7 +56,7 @@ void function starthome(required struct rc) output="false" {
 
 		<cfset application.IOAPI.set_pref("Plugin", rc)>
 	
-		<cfset this.AddInfo("plumacms/plugins_saved")>
+		<cfset this.AddSuccess("plumacms/plugins_saved")>
 	
 		<cfset application.IOAPI.load_plugins()>
 	</cfif>

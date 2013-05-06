@@ -54,7 +54,7 @@
 	<td><b>#lcase(ii)#</b></td>
 	<td style="text-align:right;"><code>##application.GSAPI.get_component(<span class="compslugcode">'#lcase(ii)#'</span>)##</code></td>
 	<td class="delete">
-		<a href="#buildURL(action = '.delcomponents', querystring = 'pref=#lcase(ii)#')#"
+		<a class="delconfirm" href="#buildURL(action = '.delcomponents', querystring = 'pref=#lcase(ii)#')#"
 			title="#application.GSAPI.i18n('delete_component')#: #lcase(ii)#?" class="delcomponent" rel="1" id="del_#ii#">&times;</a>
 	</td>
 </tr>
@@ -62,7 +62,7 @@
 </table>
 
  
- 	<textarea name="components_#ii#" class="code" style="height : 120px;">#xmlformat(rc.stComponent[i])#</textarea>
+ 	<textarea name="components_#ii#" class="code" style="height : 120px;">#xmlformat(rc.stComponents[i])#</textarea>
 
 	<br />
 

@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0459";
+	this.name 			= "PlumaCMS_0492";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -168,7 +168,6 @@ void function setupRequest()	{
 		
 	// No theme setup	
 	if (getSection() == "main" and application.GSAPI.get_theme() == "")	{
-	
 		
 	
 		location("#application.GSAPI.get_site_root()#index.cfm/login?key=No_Theme", "no");

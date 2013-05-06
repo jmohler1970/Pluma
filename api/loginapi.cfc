@@ -34,6 +34,12 @@ string function isPasswordBlank() output="false" {
 	}
 
 
+boolean function is_Logged_In()	{
+	
+	return this.userid == -1 ? 0 : 1; 	
+	}
+
+
 
 string function getEmail() output="false" {
 
@@ -194,7 +200,7 @@ query function get_by_email(required string email) output="false" {
 	this.homepath	= this.qryUser.HomePath;
 	this.login		= this.qryUser.Login;
 	
-	this.targetlogin = structkeyExists(application.stSettings.Landing, this.qryUser.groups) ? 
+	this.logintarget = structkeyExists(application.stSettings.Landing, this.qryUser.groups) ? 
 		application.stSettings.Landing[this.qryUser.groups]	: "main.home";
 
 	

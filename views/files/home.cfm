@@ -115,7 +115,8 @@
 	
 		
 		<td class="delete">
-			<a 	href="#buildURL(action='.delete', querystring='folder=#name#')#"
+			<a class="delconfirm"
+				href="#buildURL(action='.delete', querystring='folder=#name#')#"
 				onclick="return confirm('#application.GSAPI.i18n("API_CONFIRM")#')"
 				title="#application.GSAPI.i18n("deletepage_title")#">&times;</a>
 		</td>
@@ -131,7 +132,9 @@
 	<tr>
 		<td>
 			<cfif rc.imagefilter EQ "images">
-			<img src="#rc.thumbspath##rc.path#/#name#" alt="#name#" style="width : 100px;" />
+			
+			
+			<img src="#application.GSAPI.get_site_root()##rc.thumbspath##rc.path#/#name#" alt="#name#" style="width : 100px;" />
 			</cfif>
 		</td>
 		<td>
@@ -164,7 +167,9 @@
 	
 		
 		<td class="delete">
-			<a href="#buildURL(action='.delete', querystring=querystring)#" title="#application.GSAPI.i18n("deletepage_title")#">&times;</a>
+			<a class="delconfirm"
+				href="#buildURL(action='.delete', querystring=querystring)#" 
+				title="#application.GSAPI.i18n("deletepage_title")#">&times;</a>
 		</td>
 
 	</tr>

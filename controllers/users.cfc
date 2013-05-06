@@ -40,10 +40,10 @@ void function edit(required struct rc) output="false"	{
 	// Post
 	if (cgi.request_method == "post")	{
 		
-		application.USERAPI.set(rc.UserID, rc);
+		rc.UserID = application.USERAPI.set(rc.UserID, rc).UserID;
 			 
 		
-		this.AddInfo("PLUMACMS/USER_ADDED", [rc.userid]);
+		this.AddSuccess("PLUMACMS/USER_SAVED", [rc.login]);
 		}
 	
 	// All
@@ -80,7 +80,7 @@ void function delete(required struct rc) output="false"	{
 	
 	
 	// Results
-	this.AddWarning("PLUMACMS/User_deleted");
+	this.AddSuccess("PLUMACMS/User_deleted", [rc.userid]);
 
 	variables.fw.redirect("users.home", "all");
 	}
@@ -91,11 +91,15 @@ void function delete(required struct rc) output="false"	{
 
 void function renew(required struct rc) output="false"	{
 	
-	var stResult = application.USERAPI.renew(rc.userid);
+	param rc.expiration = "renew";
+	
+	var result = application.USERAPI.renew(rc.userid, rc.expiration );
 
-	this.AddInfo(stResult.key);
+	if (result)	{
+		this.AddSuccess("PLUMACMS/RENEW_SUC");
+		}
 
-	variables.fw.redirect("users.edit", "all");
+	variables.fw.redirect("users.home", "all");
 	}
 
 

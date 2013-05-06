@@ -56,7 +56,7 @@ void function restore(required struct rc) output="false"	{
 	stResult = application.IOAPI.restore_Archive(rc.nodeArchiveID);
 	
 	if (stResult.result)	{
-		this.addInfo("ER_HASBEEN_REST", [rc.nodeArchiveID]);
+		this.addSuccess("ER_HASBEEN_REST", [rc.nodeArchiveID]);
 		}
 	else	{
 		this.addError("ER_REQ_PROC_FAIL");
@@ -75,7 +75,7 @@ void function delete(required struct rc) output="false"	{
 	stResult = application.IOAPI.delete_Archive(rc.nodeArchiveID);
 	
 	if (stResult.result)	{
-		this.addInfo("ARCHIVE_DELETED");
+		this.addSuccess("ARCHIVE_DELETED");
 		}
 	else	{
 		this.addError("IS_MISSING", [rc.nodeArchiveID]);
@@ -128,7 +128,7 @@ void function deletedata(required struct rc) output="false"	{
 	
 			FileDelete(target);
 			
-			this.AddInfo("ER_FILE_DEL_SUC");
+			this.AddSuccess("ER_FILE_DEL_SUC");
 			}
 	
 	else	{
@@ -213,15 +213,11 @@ void function process(required struct rc) output="false" {
 		<cfinclude template="backupfilter/spreadsheet.cfi">
 	</cfcase>
 	<cfdefaultcase>
-		<cfset this.AddInfo("API_ERR_BADMETHOD", [rc.name])>	
+		<cfset this.AddWarning("API_ERR_BADMETHOD", [rc.name])>	
 	</cfdefaultcase>
 	
 	</cfswitch>	
 	
-
-
-
-
 
 	<cfif cgi.request_method EQ "POST">
 	

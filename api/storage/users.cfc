@@ -460,22 +460,27 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 	
 
 
-	<cfquery>
+	<cfquery name="qryUpdate">
 	UPDATE	dbo.Users
 	SET		expirationDate	= 
 		<cfif arguments.expiration EQ "renew">
-			expirationDate = DateAdd(yy, 1, expirationDate)
+			CASE WHEN  expirationDate IS NULL THEN DateAdd(yy, 1, getDate())
+			ELSE	DateAdd(yy, 1, expirationDate)
+			END,
 		<cfelse>
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.expiration#" null="#IIF(expiration EQ "", 1, 0)#">,
 		</cfif>
 		Modified 	= dbo.udf_4jInfo('User logged in',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.userID#">)
-		 	
+	OUTPUT inserted.UserID
 	WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
 	AND		Deleted = 0
 	</cfquery>	
 	
+	<cfif qryUpdate.recordcount EQ 0>
+		<cfreturn false>
+	</cfif>
 
 	<cfreturn true>	
 </cffunction>
