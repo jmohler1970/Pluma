@@ -36,24 +36,6 @@
 <div id="metadata_window">
 <div class="leftopt">	
 
-<!---
-<p class="inline clearfix">
-	<label class="control-label" for="startDate">Event Start</label>
-
-	<cfset myStartDate = startDate>
-	<cfif myStartDate EQ "">
-		<cfset myStartDate = LSDateFormat(now(), "mm/dd/yyyy")>
-	</cfif>
-	
-	
- 	<cfset application.IOAPI.showDatePicker("startDate", myStartDate)>
-</p>
-
-</div>
-
-
-<div class="rightopt">	
---->
 
 
 <p class="inline clearfix">
@@ -104,5 +86,5 @@
 </cfform>
 </cfoutput>
 
-</div>
+
 

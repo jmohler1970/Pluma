@@ -20,12 +20,9 @@ function Init()	{
 	'icon-calendar');
 	
 	
-	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=event", "Event Manager", "news_manager"]);
-	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=event&plx=edit", "Create New Event", "news_manager_add"]);
-	
-	//application.GSAPI.add_action("plugin_content", "createSelectMenu", ["event_summary", "Event Summary", "news_manager"]);
-	
-	application.GSAPI.add_action("plugins_sidebar", "createSideMenu", ["?plugin=event&plx=edit", "Add/Edit Event", "news_manager_addedit"]);
+	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=news_manager", "Event Manager", "news_manager"]);
+	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=news_manager&plx=edit", "Create New Event", "news_manager_add"]);
+
 	}	
 </cfscript>
 
@@ -36,7 +33,7 @@ function Init()	{
 	<cfset variables.qryEvent 	= application.IOAPI.get_All("Event", 1, "ExpirationDate DESC")>
 	
 	<cfsavecontent variable="variables.stResult.content">
-		<cfinclude template="event/content/summary.cfm">
+		<cfinclude template="event/summary.cfi">
 	</cfsavecontent>
 	
 	<cfreturn variables.stResult>
@@ -78,7 +75,7 @@ function Init()	{
 
 
 	<cfsavecontent variable="variables.stResult.content">
-		<cfinclude template="event/edit.cfm">
+		<cfinclude template="news_manager/edit.cfi">
 	</cfsavecontent>
 </cfcase>
 
@@ -93,13 +90,13 @@ function Init()	{
 	</cfscript>
 
 	<cfsavecontent variable="variables.stResult.content">
-		<cfinclude template="event/settings.cfm">
+		<cfinclude template="news_manager/settings.cfi">
 	</cfsavecontent>
 </cfcase>
 
 <cfdefaultcase> 
 	<cfsavecontent variable="variables.stResult.content">
-		<cfinclude template="event/settings.cfm">
+		<cfinclude template="news_manager/settings.cfi">
 	</cfsavecontent>
 </cfdefaultcase>
 </cfswitch>
