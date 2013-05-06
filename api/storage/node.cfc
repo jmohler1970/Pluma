@@ -4,7 +4,7 @@
 <cfcomponent extends="nodero">		
 
  	
-<cffunction name="Reactivate" returnType="struct" output="false" access="remote" hint="Unmarks as deleted">
+<cffunction name="Reactivate" returnType="struct" output="false"  hint="Unmarks as deleted">
 	<cfargument name="nodek" type="struct" required="true">
 	<cfargument name="remote_addr" 	required="true" type="string">
 	<cfargument name="byuserid" type="string" required="true">
@@ -26,7 +26,7 @@
 </cffunction> 
  	
  
-<cffunction name="Delete" returnType="struct" output="false" access="remote" hint="marks as deleted">
+<cffunction name="Delete" returnType="struct" output="false"  hint="marks as deleted">
 	<cfargument name="nodek" type="struct" required="true">
 	<cfargument name="remote_addr" 	required="true" type="string">
 	<cfargument name="byuserid" type="string" required="true">
@@ -64,7 +64,7 @@
 	 
 
 
-<cffunction name="XMLSave" returnType="struct" output="no" access="remote">
+<cffunction name="XMLSave" returnType="struct" output="no" >
 	<cfargument name="NodeK" type="struct" required="true">
 	<cfargument name="rc" type="struct" required="true">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -94,7 +94,7 @@
 
 
 
-<cffunction name="commit" returnType="struct" output="no" access="remote">
+<cffunction name="commit" returnType="struct" output="no" >
 	<cfargument name="NodeK" type="struct" required="true">
 	<cfargument name="rc" type="struct" required="true">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -292,7 +292,7 @@
 
 
 
-<cffunction name="TaxonomyAdd" output="false" returnType="boolean" access="remote" hint="Valid value list of taxonomy types">
+<cffunction name="TaxonomyAdd" output="false" returnType="boolean"  hint="Valid value list of taxonomy types">
 	<cfargument name="Extra" required="true" type="string">
 	<cfargument name="Title" required="true" type="string">
 	<cfargument name="Remote_addr" required="true" type="string">
@@ -329,7 +329,7 @@
 
 
 
-<cffunction name="xmlConfSave" returnType="struct" output="no" access="remote">
+<cffunction name="xmlConfSave" returnType="struct" output="no" >
 	<cfargument name="NodeK" type="struct" required="true">
 	<cfargument name="rc" type="struct" required="true">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -484,7 +484,7 @@
 
 
 
-<cffunction name="LinkSave" output="false" returntype="struct" access="remote">
+<cffunction name="LinkSave" output="false" returntype="struct" >
 	<cfargument name="NodeK" required="true" type="struct">
 	<cfargument name="rc" required="true" type="struct">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -540,7 +540,7 @@
 
 
 <!--- menu, tags, facets --->
-<cffunction name="TaxonomySave" returnType="boolean" access="remote" outut="false">
+<cffunction name="TaxonomySave" returnType="boolean"  outut="false">
 	<cfargument name="NodeK" required="true" type="struct">
 	<cfargument name="rc" type="struct" required="true" hint="This is a list">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -617,7 +617,7 @@
 </cffunction>
 
 
-<cffunction name="deleteArchive" returnType="struct" output="no" access="remote">
+<cffunction name="deleteArchive" returnType="struct" output="no" >
 	<cfargument name="NodeArchiveID" type="string" required="true">
 	<cfargument name="remote_addr" required="true" type="string">
 	<cfargument name="byUserID" required="true" type="string">
@@ -641,8 +641,40 @@
 
 </cffunction>
 
+<cffunction name="deleteArchiveByDate" returnType="struct" output="no" >
+	<cfargument name="ClearDate" type="date" required="true">
+	<cfargument name="NodeID" type="string" default="">
+	<cfargument name="remote_addr" required="true" type="string">
+	<cfargument name="byUserID" required="true" type="string">
+	
+	
+	<cfquery name="qryDelete">
+	DELETE
+	FROM	dbo.NodeArchive
+	OUTPUT 	deleted.NodeID
+	WHERE	CONVERT(date, versionDate) = <cfqueryparam CFSQLType="CF_SQL_DATE" value="#clearDate#">
+	<cfif isnumeric(arguments.NodeID)>
+		AND		NodeID = <cfqueryparam CFSQLType="CF_SQL_INTEGER" value="#arguments.NodeID#">
+	</cfif>
+	
+	</cfquery>
 
-<cffunction name="restoreArchive" returnType="struct" output="no" access="remote">
+	<cfscript>
+	if (qryDelete.recordcount == 0)	{
+		this.stResults.result = false;
+		}
+	
+
+	return this.stResults;
+	</cfscript>
+
+</cffunction>
+
+
+
+
+
+<cffunction name="restoreArchive" returnType="struct" output="no" >
 	<cfargument name="NodeArchiveID" type="string" required="true">
 	<cfargument name="remote_addr" required="true" type="string">
 	<cfargument name="byUserID" required="true" type="string">

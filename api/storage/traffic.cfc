@@ -5,14 +5,14 @@
 <cfset variables.geo = "http://freegeoip.net/xml">
 
 
-<cffunction name="getStatus" output="false" access="remote" returnType="string" hint="Is this object ready to read and write data">
+<cffunction name="getStatus" output="false"  returnType="string" hint="Is this object ready to read and write data">
 
 	<cfreturn "OK">
 </cffunction>
 		
 
 
-<cffunction name="add" returnType="struct" access="remote">
+<cffunction name="add" returnType="struct" >
 	<cfargument name="action" type="struct">
 	
 	<cfargument name="ispost" type="boolean" default="0">
@@ -109,7 +109,7 @@ variables.stResults = {result = true, resultCode = 0, Message = ''};
 
 
 <!--- New Summary --->
-<cffunction name="getTrafficDetails" returnType="query" access="remote" output="no">
+<cffunction name="getTrafficDetails" returnType="query"  output="no">
 	<cfargument name="filter" required="true" type="struct">
 
 	<!---
@@ -195,7 +195,7 @@ variables.stResults = {result = true, resultCode = 0, Message = ''};
 </cffunction>
 
 
-<cffunction name="getLastHits" access="remote" output="false" returntype="query">
+<cffunction name="getLastHits"  output="false" returntype="query">
 	<cfargument name="mode" required="true" type="string">
 	<cfargument name="servername" required="true" type="string">
 

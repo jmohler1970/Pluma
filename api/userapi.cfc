@@ -43,7 +43,7 @@ query function get(string userid=session.LOGINAPI.UserID) output="false"	{
 </cfscript>
 
 
-<cffunction name="get_all" returnType="query" access="remote">
+<cffunction name="get_all" returnType="query" >
 
 
 	<cfreturn this.wsUser.getAll()>

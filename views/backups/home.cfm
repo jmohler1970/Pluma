@@ -5,7 +5,7 @@
 
 
 <cfoutput>
-	<h3 class="floated">#application.GSAPI.i18n("bak_management")#</h3>
+	<h3 class="floated">#application.GSAPI.i18n("page_backups")#</h3>
 	
 	
 <div class="edit-nav clearfix">
@@ -31,12 +31,17 @@
 		<h2>#application.IOAPI.std_date(ShortDate)#</h2>
 	</td>
 	
+	
+	
 	<td colspan="3">
 		<div class="edit-nav clearfix">	
-		<a href="#buildURL(action='.home', querystring='clear=#shortdate#')#">#application.GSAPI.i18n("ASK_DELETE")#</a>
+		<a class="delconfirm" 
+			href="#buildURL(action='.home', querystring='clear=#shortdate#&NodeID=#rc.nodeID#')#"
+			title="#application.GSAPI.i18n("API_CONFIRM")#">#application.GSAPI.i18n("ASK_DELETE")#</a>
 		</div>	 
 	</td>
 
+	
 
 
 <tr>
@@ -67,10 +72,10 @@
 		<td style="text-align : right;"><span>#ModifyBy#</span></td>
 		
 		<td <cfif Root>style="text : bold;"</cfif> class="delete">
-		<cfif NoDelete EQ 0>	
-			<a href="#buildURL(action = 'backups.delete', querystring = 'NodeArchiveID=#NodeArchiveID#')#" rel="tooltip" 
-			title="#application.GSAPI.i18n("delete")#">&times;</a>
-		</cfif>
+			<a class="delconfirm"
+				href="#buildURL(action = 'backups.delete', querystring = 'NodeArchiveID=#NodeArchiveID#')#" rel="tooltip" 
+				title="#application.GSAPI.i18n("PLUMACMS/SURE_LONG", ["this archive"])#">&times;</a>
+		
 		</td>
 	</tr>
 </cfoutput>

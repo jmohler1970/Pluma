@@ -29,7 +29,7 @@
 </cfscript>
 
 
-<cffunction name="getStatus" output="false" access="remote" returnType="string" hint="Is this object ready to read and write data">
+<cffunction name="getStatus" output="false"  returnType="string" hint="Is this object ready to read and write data">
 
 	<cfreturn "OK">
 
@@ -38,7 +38,7 @@
 
 
 
-<cffunction name="getOne" returntype="query" access="remote" hint="Even if there is no match, one is returned">
+<cffunction name="getOne" returntype="query"  hint="Even if there is no match, one is returned">
 	<cfargument name="nodek" required="true" type="struct">
 	
 	<cfscript>
@@ -149,7 +149,7 @@
 </cffunction>
 
 
-<cffunction name="getArchiveDetails" returntype="query" access="remote" hint="Returns a specific archive">
+<cffunction name="getArchiveDetails" returntype="query"  hint="Returns a specific archive">
 	<cfargument name="nodeArchiveID" required="true" type="string">
 	
 	<cfquery name="local.qryNodeArchive">
@@ -166,7 +166,7 @@
 	
 
 
-<cffunction  name="getAllByExtra" returnType="query" output="no" access="remote">
+<cffunction  name="getAllByExtra" returnType="query" output="no" >
 	<cfargument name="Kind" type="string" required="true">
 	<cfargument name="Extra" type="string" required="true">
 	<cfargument name="SortBy" type="string" required="true"><!--- Not in use --->
@@ -195,7 +195,7 @@
 
 
 
-<cffunction  name="getAllByUserID" returnType="query" output="no" access="remote">
+<cffunction  name="getAllByUserID" returnType="query" output="no" >
 	<cfargument name="Kind" type="string" required="true">
 	<cfargument name="UserID" type="string" required="true">
 	<cfargument name="SortBy" type="string" required="true"><!--- Not in use --->
@@ -213,7 +213,7 @@
 </cffunction>
 
 
-<cffunction name="getEvent" output="false" returntype="query" access="remote">
+<cffunction name="getEvent" output="false" returntype="query" >
 	<cfargument name="Kind" type="string" required="true">	
 			
 	<cfquery name="local.qryEvent">
@@ -252,7 +252,7 @@
 
 
 
-struct function getBundle(required struct NodeK, required string Kind, required string UserID) output="false" access="remote"	{
+struct function getBundle(required struct NodeK, required string Kind, required string UserID) output="false" 	{
 
 	
 	
@@ -304,7 +304,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getAll" output="false" returntype="query" access="remote">
+<cffunction name="getAll" output="false" returntype="query" >
 	<cfargument name="kind" required="true" type="string">
 	<cfargument name="cstatus" required="true" type="string">
 	<cfargument name="sortBy" required="true" type="string">		
@@ -387,7 +387,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getSubNode" output="false" returntype="query" access="remote">
+<cffunction name="getSubNode" output="false" returntype="query" >
 	<cfargument name="NodeID" required="true" type="string">	
 	<cfargument name="Kind" required="true" type="string">		
 			
@@ -431,7 +431,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getKindHistory" output="false" returntype="query" access="remote">
+<cffunction name="getKindHistory" output="false" returntype="query" >
 
 	<cfquery name="local.qryKind">
 		
@@ -459,7 +459,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getKindCount" output="false" returntype="query" access="remote">
+<cffunction name="getKindCount" output="false" returntype="query" >
 	
 		
 	<cfquery name="local.qryKind">
@@ -497,7 +497,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 </cffunction>
 
 
-<cffunction name="getCountByKind" output="false" returntype="numeric" access="remote">
+<cffunction name="getCountByKind" output="false" returntype="numeric" >
 	<cfargument name="kind" required="true" type="string">
 	<cfargument name="cstatus" required="true" type="string" hint="any,1,0">			
 			
@@ -521,7 +521,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getAllFacet" returnType="query" access="remote" output="false" hint="This searching one facets in use">
+<cffunction name="getAllFacet" returnType="query"  output="false" hint="This searching one facets in use">
 	
 
 	<cfquery name="local.qryFacet">
@@ -547,7 +547,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getAllTags" returnType="query" access="remote" output="false">
+<cffunction name="getAllTags" returnType="query"  output="false">
 
 	<cfquery name="local.qryTags">
 		SELECT Tags, dbo.udf_Slugify(Tags) AS TagSlug, NTile(6) OVER(ORDER BY TagCount) AS TagLevel, TagCount
@@ -572,7 +572,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="facetGet" returnType="query" access="remote" output="false">
+<cffunction name="facetGet" returnType="query"  output="false">
 	<cfargument name="NodeID" required="true" type="string">
 
 	<cfquery name="local.qryFacet">
@@ -594,7 +594,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="tagsGet" returnType="query" output="false" access="remote">
+<cffunction name="tagsGet" returnType="query" output="false" >
 	<cfargument name="NodeID" required="true" type="string">
 	
 	
@@ -621,7 +621,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getTagsCountByKind" output="false" returntype="numeric" access="remote">
+<cffunction name="getTagsCountByKind" output="false" returntype="numeric" >
 	<cfargument name="kind" required="true" type="string">	
 			
 	
@@ -648,7 +648,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getMatchlist" returnType="query" access="remote">
+<cffunction name="getMatchlist" returnType="query" >
 	<cfargument name="kind" required="true" type="string">	
 	<cfargument name="filter" required="true" type="string">
 	<cfargument name="group" required="true" type="string">
@@ -712,7 +712,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getFeed" output="false" returntype="query" access="remote">
+<cffunction name="getFeed" output="false" returntype="query" >
 	<cfargument name="kind" required="true" type="string" hint="can be list">
 	<cfargument name="baselink" required="true" type="string">
 			
@@ -746,7 +746,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 <!--- Was IOR --->
-<cffunction name="getNodePath" output="false" returnType="query" access="remote">
+<cffunction name="getNodePath" output="false" returnType="query" >
 	<cfargument name="NodeID" required="false" default="">
 		
 	<cfset var qryNode = "">
@@ -787,7 +787,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 <!--- Used by searching --->
-<cffunction name="getBySearch" output="false" returntype="query" access="remote">
+<cffunction name="getBySearch" output="false" returntype="query" >
 	<cfargument name="search" required="true" type="string">
 	<cfargument name="kind" required="true" type="string">
 		
@@ -829,7 +829,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 </cffunction>
 
 
-<cffunction name="getByFacet" output="false" returntype="query" access="remote">
+<cffunction name="getByFacet" output="false" returntype="query" >
 	<cfargument name="facetType" required="true" type="string" hint="case insensitive">
 	<cfargument name="facet" required="true" type="string" hint="case insensitive">
 	<cfargument name="kind" required="true" type="string">
@@ -867,7 +867,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getByTag" output="false" returntype="query" access="remote">
+<cffunction name="getByTag" output="false" returntype="query" >
 	<cfargument name="tag" required="true" type="string" hint="case insensitive">
 	<cfargument name="kind" required="true" type="string">
 
@@ -895,7 +895,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 </cffunction>	
 	
 
-<cffunction name="getByArchive" output="false" returntype="query" access="remote">	
+<cffunction name="getByArchive" output="false" returntype="query" >	
 	<cfargument name="archiveyear" required="true" type="string">
 	<cfargument name="archivemonth" required="true" type="string" hint="can be blank">
 	<cfargument name="kind" required="true" type="string">
@@ -922,7 +922,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 </cffunction>		
 
 
-<cffunction name="getByCategory" output="false" returntype="query" access="remote">	
+<cffunction name="getByCategory" output="false" returntype="query" >	
 	<cfargument name="category" required="true" type="string">	
 	<cfargument name="kind" required="true" type="string">
 	
@@ -943,7 +943,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 </cffunction>		
 
 
-<cffunction name="getByRandom" output="false" returntype="query" access="remote">	
+<cffunction name="getByRandom" output="false" returntype="query" >	
 	<cfargument name="kind" required="true" type="string">
 	
 	<cfquery name="local.qryRandom">
@@ -965,7 +965,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getTOC" output="false" returntype="query" access="remote">
+<cffunction name="getTOC" output="false" returntype="query" >
 				
 	<cfquery name="local.qryCategory">
 		SELECT TOP 1000 	*
@@ -986,7 +986,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="LinkExists" output="false" returntype="boolean" access="remote">
+<cffunction name="LinkExists" output="false" returntype="boolean" >
 	<cfargument name="NodeID" required="true" type="numeric">
 	<cfargument name="rc" required="true" type="struct">
 
@@ -1018,7 +1018,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 <!--- Summary for tool bar --->
-<cffunction name="getSecondary" output="false" access="remote" returnType="struct">
+<cffunction name="getSecondary" output="false"  returnType="struct">
 
 	
 	<cfset stResult = {Inbox = 0, PendingUser = 0}>
@@ -1058,7 +1058,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 <!--- XML stuff --->
-<cffunction name="getSitemap" output="false" access="remote" returnType="query">
+<cffunction name="getSitemap" output="false"  returnType="query">
 	<cfargument name="NodeID" required="true" type="string">
 	<cfargument name="EntryCount" required="true" type="numeric">
 
@@ -1087,7 +1087,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getData" output="false" returntype="query" access="remote">
+<cffunction name="getData" output="false" returntype="query" >
 	<cfargument name="NodeID" required="true" type="string">
 
 	<cfquery name="local.qryData">
@@ -1104,7 +1104,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 </cffunction>
 
 
-<cffunction name="getConf" output="false" returntype="query" access="remote">
+<cffunction name="getConf" output="false" returntype="query" >
 	<cfargument name="NodeID" required="true" type="string">
 
 
@@ -1120,7 +1120,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 </cffunction>
 
 
-<cffunction name="getLink" output="false" returntype="query" access="remote">
+<cffunction name="getLink" output="false" returntype="query" >
 	<cfargument name="NodeID" required="true" type="string">
 
 
@@ -1138,7 +1138,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getArchive" output="false" access="remote" returnType="query" hint="Old versions of this node">
+<cffunction name="getArchive" output="false"  returnType="query" hint="Old versions of this node">
 	<cfargument name="NodeID" required="true" type="string">
 	
 	
@@ -1243,7 +1243,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getDBSchema" output="false" returnType="query" hint="Dump of tables, if possible" access="remote">
+<cffunction name="getDBSchema" output="false" returnType="query" hint="Dump of tables, if possible" >
 
 
 	<cfquery name="local.qryPlugin">
@@ -1258,7 +1258,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 </cffunction>
 
 
-<cffunction name="getDBVersion" output="false" returnType="string" hint="SQL Version" access="remote">
+<cffunction name="getDBVersion" output="false" returnType="string" hint="SQL Version" >
 
 
 	<cfquery name="local.qryDB">
@@ -1270,7 +1270,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getDBDSN" output="false" returnType="string" access="remote">
+<cffunction name="getDBDSN" output="false" returnType="string" >
 
 	<!--- CF 9 --->
 	<cfreturn application.getApplicationSettings().datasource>

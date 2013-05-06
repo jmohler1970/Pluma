@@ -4,7 +4,7 @@
 <cfcomponent hint="Manages Preferences" output="false">
 
 
-<cffunction name="getStatus" output="false" access="remote" returnType="string" hint="Is this object ready to read and write data">
+<cffunction name="getStatus" output="false"  returnType="string" hint="Is this object ready to read and write data">
 
 	
 
@@ -22,7 +22,7 @@
  
 
 
-<cffunction name="get" output="false" access="remote" returnType="struct" hint="loads all preferences into a single structure">
+<cffunction name="get" output="false"  returnType="struct" hint="loads all preferences into a single structure">
 	
 	<cfset var stResult = {}>
 
@@ -65,7 +65,7 @@
 
 
 
-<cffunction name="delete" output="false" access="remote" returnType="boolean" hint="clears out single part of xml. No long term prunning is done">
+<cffunction name="delete" output="false"  returnType="boolean" hint="clears out single part of xml. No long term prunning is done">
 	<cfargument name="pref" type="string" required="true">
 	<cfargument name="type" type="string" required="true" hint="individual row to remove from xml">
 	
@@ -118,7 +118,7 @@
 
 
 
-<cffunction name="commit" output="false" access="remote" returnType="string" hint="">
+<cffunction name="commit" output="false"  returnType="string" hint="">
 	<cfargument name="Pref" 		required="true" type="string">
 	<cfargument name="rc" 			required="true" type="struct">
 	<cfargument name="remote_addr" 	required="true" type="string">

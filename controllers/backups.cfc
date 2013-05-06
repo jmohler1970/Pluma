@@ -28,13 +28,27 @@ void function home(required struct rc) output="false" {
 
 	
 	param rc.nodeID = "";
+	param rc.clear = "";
 	
+	
+		
+	if (isDate(rc.clear))	{
+		
+		stResults = application.IOAPI.delete_archive_by_date(rc.clear, rc.nodeID);
+		
+		if (stResults.result)	{
+			this.AddSuccess("SUCC_WEB_ARC_DEL");
+			
+			}
+		}	
+		
 	if (isnumeric(rc.nodeID))	{
 		
 		rc.qryArchive = application.IOAPI.get_archive({NodeID = rc.NodeID});
 		
 		return;
 		}
+		
 
 	
 	rc.qryArchive = application.IOAPI.get_archive({Kind = "Page"});

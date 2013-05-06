@@ -4,7 +4,7 @@
 <cfcomponent hint="Gets Users">
 
 
-<cffunction name="getStatus" output="false" access="remote" returnType="string" hint="Is this object ready to read and write data">
+<cffunction name="getStatus" output="false"  returnType="string" hint="Is this object ready to read and write data">
 
 	<cfreturn "OK">
 
@@ -38,7 +38,7 @@
 
 
 
-<cffunction name="getAll" returnType="query" access="remote">
+<cffunction name="getAll" returnType="query" >
 	
 	
 	<cfquery name="local.qryUsers">
@@ -52,7 +52,7 @@
 </cffunction> 
 
 
-<cffunction name="getByEmail" output="no" access="remote" returnType="query">	
+<cffunction name="getByEmail" output="no"  returnType="query">	
 	<cfargument name="email" required="true" type="string">
 	
 	<cfquery name="local.qryUsers">
@@ -69,7 +69,7 @@
 
 
 <cfscript>
-query function getByGroup(required string group) output="no" access="remote"	{
+query function getByGroup(required string group) output="no" 	{
 
 
 	return this.getMatchlist("", arguments.group, "", 0, 0);
@@ -80,7 +80,7 @@ query function getByGroup(required string group) output="no" access="remote"	{
 
 
 
-<cffunction name="passwordReset" output="no" access="remote" returnType="void">
+<cffunction name="passwordReset" output="no"  returnType="void">
 	<cfargument name="userid" required="true" type="numeric">		
 	<cfargument name="passhash" required="true" type="string">		
 	<cfargument name="byUserID" required="true" type="string">
@@ -104,7 +104,7 @@ query function getByGroup(required string group) output="no" access="remote"	{
 </cffunction>	
 
 
-<cffunction name="resetviaEmail" output="no" access="remote" returnType="string">
+<cffunction name="resetviaEmail" output="no"  returnType="string">
 	<cfargument name="email" required="true" type="string">
 	<cfargument name="remote_addr" required="true" type="string">
 	
@@ -131,7 +131,7 @@ query function getByGroup(required string group) output="no" access="remote"	{
 	
 
 
-<cffunction name="getUserByLogin" output="no" access="remote" returnType="query">
+<cffunction name="getUserByLogin" output="no"  returnType="query">
 	<cfargument name="login" required="true" type="string">		
 	<cfargument name="passhash" required="true" type="string">
 	
@@ -156,7 +156,7 @@ query function getByGroup(required string group) output="no" access="remote"	{
 
 
 
-<cffunction name="getOne" output="no" access="remote" returnType="query">
+<cffunction name="getOne" output="no"  returnType="query">
 	<cfargument name="userid" required="true" type="string">		
 	
 	
@@ -184,7 +184,7 @@ query function getByGroup(required string group) output="no" access="remote"	{
 <cfscript>
 
 
-query function getUserByUserHomeAsQuery(required string userhome) output="no" access="remote"	{
+query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 
 
 	variables.QueryService.addParam(value = arguments.userhome, cfsqltype="cf_sql_varchar");
@@ -196,7 +196,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 </cfscript>
 
 
-<cffunction name="setLastLogin" output="no" access="remote" returnType="boolean">
+<cffunction name="setLastLogin" output="no"  returnType="boolean">
 	<cfargument name="userid" required="true" type="numeric">		
 	<cfargument name="remote_addr" required="true" type="string">
 	
@@ -226,7 +226,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 
 
 
-<cffunction name="commit" returnType="boolean" access="remote" hint="Does both insert and update">
+<cffunction name="commit" returnType="boolean"  hint="Does both insert and update">
 	<cfargument name="UserID" required="true" type="string" hint="blank is valid and will create a new user">
 	<cfargument name="rc" required="true" type="struct">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -340,7 +340,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 
 
 
-<cffunction name="encodeXML" output="no" access="remote" returnType="string">
+<cffunction name="encodeXML" output="no"  returnType="string">
 	<cfargument name="rc" required="true" type="struct">
 
 
@@ -374,7 +374,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 
 	
 	
-<cffunction name="setProfile" output="no" access="remote" returnType="boolean">
+<cffunction name="setProfile" output="no"  returnType="boolean">
 	<cfargument name="UserID" required="true" type="numeric">
 	<cfargument name="rc" required="true" type="struct">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -397,7 +397,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 </cffunction>	
 	
 	
-<cffunction name="setContact" output="no" access="remote" returnType="boolean">
+<cffunction name="setContact" output="no"  returnType="boolean">
 	<cfargument name="UserID" required="true" type="numeric">
 	<cfargument name="rc" required="true" type="struct">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -426,7 +426,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 	
 
 
-<cffunction name="encodeXMLPersonal" output="no" access="remote" returnType="boolean">
+<cffunction name="encodeXMLPersonal" output="no"  returnType="boolean">
 	<cfargument name="UserID" required="true" type="string">
 	<cfargument name="rc" required="true" type="struct">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -452,7 +452,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 
 
 
-<cffunction name="renew" output="no" access="remote" returnType="boolean">
+<cffunction name="renew" output="no"  returnType="boolean">
 	<cfargument name="UserID" required="true" type="string">
 	<cfargument name="expiration" required="true" type="string">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -487,7 +487,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 
 
 
-<cffunction name="getProfile" output="no" access="remote" returnType="struct">
+<cffunction name="getProfile" output="no"  returnType="struct">
 	<cfargument name="UserID" required="true" type="string">
 	
 	
@@ -516,7 +516,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 </cffunction>
 
 
-<cffunction name="getContact" output="no" access="remote" returnType="struct">
+<cffunction name="getContact" output="no"  returnType="struct">
 	<cfargument name="UserID" required="true" type="string">
 	
 	
@@ -547,7 +547,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 
 
 
-<cffunction name="getPersonal" output="no" access="remote" returnType="query">
+<cffunction name="getPersonal" output="no"  returnType="query">
 	<cfargument name="UserID" required="true" type="string">
 
 
@@ -576,7 +576,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 </cffunction>	
 	
 	
-<cffunction name="getPref" output="no" access="remote" returnType="struct">
+<cffunction name="getPref" output="no"  returnType="struct">
 	<cfargument name="UserID" required="true" type="string">
 
 
@@ -610,7 +610,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" ac
 
 	
 <cfscript>	
-string function getFullName(required numeric UserID) output="no" access="remote"	{
+string function getFullName(required numeric UserID) output="no" 	{
 
 
 	variables.QueryService.addParam(value = arguments.userID, cfsqltype="cf_sql_integer");
@@ -625,7 +625,7 @@ string function getFullName(required numeric UserID) output="no" access="remote"
 
 
 
-<cffunction name="delete" output="no" access="remote" returnType="boolean">
+<cffunction name="delete" output="no"  returnType="boolean">
 	<cfargument name="userid" required="true" type="numeric">		
 	<cfargument name="byUserID" required="true" type="string">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -649,7 +649,7 @@ string function getFullName(required numeric UserID) output="no" access="remote"
 	
 
 
-<cffunction name="existsUsername" returntype="boolean" output="no" access="remote">
+<cffunction name="existsUsername" returntype="boolean" output="no" >
 	<cfargument name="username" required="true" type="string">
 	
 	
@@ -669,7 +669,7 @@ string function getFullName(required numeric UserID) output="no" access="remote"
 
 
 
-<cffunction name="atLeastOneUser" returntype="boolean" output="no" access="remote">
+<cffunction name="atLeastOneUser" returntype="boolean" output="no" >
 	
 	
 	<cfquery name="qryExists">

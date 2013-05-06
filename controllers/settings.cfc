@@ -357,10 +357,10 @@ void function clearAll(required struct rc) output="false"	{
 	ALTER FULLTEXT CATALOG ftc_Node REBUILD
 	</cfquery>
 	
-	<cfset this.AddInfo("Index_Rebuilt")> 
+	<cfset this.AddSuccess("PLUMACMS/Index_Rebuilt")> 
 
 
-	<cfset variables.fw.redirect("system.health", "all")>
+	<cfset variables.fw.redirect("support.health", "all")>
 </cffunction>
 
 

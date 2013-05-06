@@ -148,6 +148,15 @@ struct function delete_archive(required string NodeArchiveID) output="false"	{
 	return this.wsNode.deleteArchive(arguments.nodeArchiveID, cgi.remote_addr,  session.LOGINAPI.UserID);
 	}	
 	
+	
+struct function delete_archive_by_date(required date clearDate, string nodeid="") output="false"	{
+
+
+	return this.wsNode.deleteArchiveByDate(arguments.clearDate, arguments.nodeid, cgi.remote_addr,  session.LOGINAPI.UserID);
+	}	
+	
+
+
 
 query function get_path(required struct NodeK) output="false"	{
 
@@ -358,7 +367,7 @@ struct function get_pref(required string Pref) output="false"	{
 
 
 
-<cffunction name="get_matchlist" returnType="query" access="remote">
+<cffunction name="get_matchlist" returnType="query" >
 	<cfargument name="kind" required="true" type="string">	
 	<cfargument name="filter" required="true" type="string">
 	<cfargument name="group" required="true" type="string">

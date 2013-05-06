@@ -241,7 +241,7 @@ for( i=1; i lte arrayLen(pools); i=i+1 ) 	{
 		<td style="text-align : center;">
 		<cfif i EQ "JVM_Free">
 			<cfif amount GTE 200>
-				<span class="OKmsg"><b>OK</b></span>
+				<span class="OKmsg"><b>#application.GSAPI.i18n("OK")#</b></span>
 			<cfelseif amount GTE 100>
 				Warning
 			<cfelse>	
@@ -265,12 +265,12 @@ for( i=1; i lte arrayLen(pools); i=i+1 ) 	{
 <p></p>
 
 <h3>Search Index</h3>
-<p>Rebuilt Text search index. You should do this after making lots of changes</p>
+<p>Rebuild Text search index. You may want do this after making lots of changes</p>
 
 <cfoutput>
-<form action="#buildURL(action = 'system.reindex')#" method="post">
+<form action="#buildURL(action = 'settings.reindex')#" method="post">
 </cfoutput>
-	<input type="submit" name="submit" class="submit" value="Reindex" />
+	<button type="submit" name="submit">Reindex</button>
 </form>
 
 
