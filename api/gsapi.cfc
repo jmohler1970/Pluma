@@ -505,6 +505,7 @@ string function get_site_version() {
 
 	<cfloop from="1" to="#ArrayLen(request.arPlugins)#" index="i">
 		<cfif request.arPlugins[i].hook_name EQ arguments.action>
+			
 			<cfswitch expression="#request.arPlugins[i].added_function#">
 			
 			<cfcase value="CreateSideMenu">
@@ -512,7 +513,7 @@ string function get_site_version() {
 					<li id="sb_#request.arPlugins[i].attr[3]#"><a 
 						href="#request.arPlugins[i].attr[1]#"
 						<cfif arguments.selected EQ request.arPlugins[i].attr[1]>class="current"</cfif>
-						>#request.arPlugins[i].attr[2]#</a></li>	
+						>#this.i18n(request.arPlugins[i].attr[2])#</a></li>	
 				</cfoutput>
 			</cfcase>
 			
@@ -520,14 +521,25 @@ string function get_site_version() {
 				<cfoutput>
 					<option value="#request.arPlugins[i].attr[1]#"
 						<cfif request.arPlugins[i].attr[1] EQ arguments.selected>selected="selected"</cfif>
-						>#request.arPlugins[i].attr[2]#</option>	
+						>#this.i18n(request.arPlugins[i].attr[2])#</option>	
+				</cfoutput>
+			</cfcase>
+			
+			<cfcase value="CreateNavTab">
+				<cfoutput>
+					<li><a 
+						href="#this.loadtab##request.arPlugins[i].attr[1]#"
+						<cfif arguments.selected EQ request.arPlugins[i].attr[1]>class="tabSelected"</cfif>
+						>#this.i18n(request.arPlugins[i].attr[2])#</a>
+					</li>	
+						
 				</cfoutput>
 			</cfcase>
 			</cfswitch>
 		</cfif>
 	</cfloop>
-	
 	</cfsavecontent>
+	
 	
 	<cfreturn local.result>
 </cffunction>

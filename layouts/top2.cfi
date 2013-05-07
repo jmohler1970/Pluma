@@ -70,6 +70,12 @@
 	</cfif>
 
 
+	
+	#application.GSAPI.exec_action("nav-tab", "?plugin=#rc.plugin#")#
+	
+
+
+
 	<cfif session.LOGINAPI.adhocSecurity("system")>
 		<li class="rightnav" id="nav_settings">
 			<a class="settings first" 

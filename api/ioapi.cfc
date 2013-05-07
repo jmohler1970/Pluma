@@ -353,6 +353,7 @@ struct function get_pref(required string Pref) output="false"	{
  	</cfloop>
 
  	<cfloop query="qryPlugins">
+ 		<cfset SetVariable("application.GSAPI.status#plugin#", enabled)>	
  		<cfif enabled>
  			<cfset application.GSAPI.i18n_merge(plugin)>
  		</cfif> 		 	

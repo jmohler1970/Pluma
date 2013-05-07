@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0519";
+	this.name 			= "PlumaCMS_0541";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -106,6 +106,7 @@ fileclose(objAppFile);
 	application.USERAPI.Init();
 	application.GSAPI.Init();
 	
+	
 	}
 
 
@@ -134,6 +135,7 @@ void function setupRequest()	{
 	param request.Meta.language = "en_US";
 	param request.Meta.Root = application.GSAPI.suggest_site_path();
 	
+	application.GSAPI.loadTab = buildURL('load.settings');
 	application.GSAPI.i18n_merge();	
 	
 	request.arPlugins 	= [];

@@ -84,6 +84,7 @@ html {overflow-y: scroll;}
 		}
 	
 	
+	.wrapper .nav li a.tabSelected, 
 	#profile .wrapper #pill li.rightnav a,
 	#edit .wrapper .nav li a.pages,
 	#pages .wrapper .nav li a.pages,
@@ -114,8 +115,8 @@ html {overflow-y: scroll;}
 	#load .wrapper .support li a.support,
 	#load .wrapper .nav li a.current,
 	#loadtab .wrapper .nav li a.current {
-		color : @primary_1;
-		background:#f6f6f6;
+		color : @primary_1 !important;
+		background:#f6f6f6 !important;
 		background: -moz-linear-gradient(top, #FFF 3%, #F6F6F6 100%); /* firefox */
 		background: -webkit-gradient(linear, left top, left bottom, color-stop(3%,#FFF), color-stop(100%,#F6F6F6)); /* webkit */
 		font-weight:bold !important;
@@ -126,7 +127,7 @@ html {overflow-y: scroll;}
 	}
 	.wrapper .nav li a:active, .wrapper .nav li a:focus, .wrapper .nav li a:hover, .wrapper #pill li a:hover, .wrapper #pill li a:focus {
 		color:#FFF;background : @primary_0;
-		text-shadow: 1px 1px 0px rgba(0,0,0,.4);
+	//	text-shadow: 1px 1px 0px rgba(0,0,0,.4);
 	}	
 	.wrapper .nav li {float:left; margin:0 8px 0 0;position:relative;}
 	.wrapper .nav li.rightnav { float:right; margin:0 0 0 0; font-size:11px; }
@@ -1105,6 +1106,4 @@ blockquote {
 		.edit-pointer {
 			cursor:pointer;
 		}
-
-
 

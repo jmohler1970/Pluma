@@ -62,8 +62,7 @@ string function strip_tags(required string str, numeric trimTo=100000) output="f
     
     
     if (NOT FileExists(arguments.propertiesFilePath))	{
-    	stProperties.noload = "Could not load #propertiesFilePath#";
-    
+        
      	return stProperties;
         }
     </cfscript>
@@ -133,6 +132,8 @@ string function strip_tags(required string str, numeric trimTo=100000) output="f
           	}
         </cfscript>
     </cfloop>
+    
+
 
     <cfreturn stProperties>
 </cffunction>

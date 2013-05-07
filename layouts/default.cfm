@@ -137,12 +137,11 @@ param rc.silent = 0;
 
 	
 		<div id="sidebar">
-			<cftry>
+			<cfif fileexists(expandpath("sidebar-#getSection()#.cfi"))>
+			
 				<cfinclude template="sidebar-#getSection()#.cfi">
-			<cfcatch><cfdump var="#cfcatch#"></cfcatch>
-			</cftry>
+			</cfif>
 		</div>
-		
 
 </div>
 
