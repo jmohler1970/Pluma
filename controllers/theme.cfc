@@ -143,7 +143,7 @@ void function delcomponents(required struct rc) output="false"	{
 void function sitemap(required struct rc) output="false"	{
 	
 	
-	rc.qryAllPages = application.IOAPI.get_all("Page", '', "Menu");	
+	rc.qryAllPages = application.IOAPI.get_all("Page", {}, "Menu");	
 	
 	if (rc.qryAllPages.recordcount == 0) {
 		this.addWarning("PLUMACMS/ISEMPTY", ['Sitemap']);		

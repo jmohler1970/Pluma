@@ -175,7 +175,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 <cfif isnumeric(rc.nodeid)>
 <cfoutput query="rc.qryNode">
 <p class="inline clearfix">
-		<label class="control-label" for="firstname">Custom URL (Slug):</label>
+		<label class="control-label">#application.GSAPI.i18n("SLUG_URL")#</label>
 	
 		<!--- This does not submit anything --->	
 		<input class="text short" type="text" value="#slug#" readonly="readonly" disabled="disabled" />

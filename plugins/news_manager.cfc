@@ -20,8 +20,8 @@ function Init()	{
 	'icon-calendar');
 	
 	
-	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=news_manager", "Event Manager", "news_manager"]);
-	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=news_manager&plx=edit", "Create New Event", "news_manager_add"]);
+	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=news_manager", "News Manager", "news_manager"]);
+	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=news_manager&plx=edit", "Create New Post", "news_manager_add"]);
 
 	}	
 </cfscript>
@@ -30,7 +30,7 @@ function Init()	{
 
 <cffunction name="summary" returnType="struct">
 
-	<cfset variables.qryEvent 	= application.IOAPI.get_All("Event", 1, "ExpirationDate DESC")>
+	<cfset variables.qryEvent 	= application.IOAPI.get_All("Event", {trimframe=rc.filter}, "ExpirationDate DESC")>
 	
 	<cfsavecontent variable="variables.stResult.content">
 		<cfinclude template="event/summary.cfi">
@@ -47,7 +47,7 @@ function Init()	{
 <cfscript>
 	param rc.filter = "";
 
-	rc.qryEvent 		= application.IOAPI.get_event("Event");
+	rc.qryEvent 		= application.IOAPI.get_All("Event", {timeframe=rc.filter}, "ExpirationDate DESC");
 
 </cfscript>
 

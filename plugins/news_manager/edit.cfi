@@ -1,8 +1,17 @@
 
 
-<h3>Add / Edit Event</h3>
+<cfoutput>
+<h3 class="floated">#application.GSAPI.i18n("news_manager/NEW_POST")#</h3>
 
 
+<div class="edit-nav">
+    <a href="##" id="metadata_toggle">
+    #application.GSAPI.i18n("news_manager/POST_OPTIONS")# </a>
+    <div class="clear"></div>
+</div>
+</cfoutput>
+
+  
 
 <cfparam name="rc.simple_location" default="">
 
@@ -20,7 +29,7 @@
 
 
 <cfoutput query="rc.qryNode">
-<cfform action="?plugin=news_manager&plx=edit" method="post" name="myFrm" class="form-horizontal">
+<cfform action="?plugin=news_manager&plx=edit" method="post" name="edit" class="large-form">
 
 
 
@@ -29,17 +38,38 @@
 
 
 <p>
-	<cfinput type="Text" name="title" value="#title#" class="text" maxlength="50" required="yes" message="Title is required" placeholder="Title of Event" />
+	<cfinput type="text" name="title" value="#title#" class="text title required" maxlength="50" required="yes" message="Title is required" placeholder="Title of Event" />
 </p>
 
 
-<div id="metadata_window">
+<div id="metadata_window" style="display : none;">
 <div class="leftopt">	
+
+
+<cfif isnumeric(rc.nodeid)>
+
+<p class="inline clearfix">
+		<label class="control-label" for="firstname">#application.GSAPI.i18n("SLUG_URL")#</label>
+	
+		<!--- This does not submit anything --->	
+		<input class="text short" type="text" value="#slug#" readonly="readonly" disabled="disabled" />
+		
+		<input type="hidden" name="slug" value="#slug#" />
+	
+</p>
+
+</cfif>
+
+
+<p class="inline clearfix">
+   <label>#application.GSAPI.i18n("PLUMACMS/LOCATION")#</label>
+   	<cfinput type="Text" name="simple_location" value="#rc.simple_location#" class="text" maxlength="50" />	
+</p>
 
 
 
 <p class="inline clearfix">
-	<label class="control-label" for="expirationDate">Event End</label>
+	<label class="control-label" for="expirationDate">#application.GSAPI.i18n("PLUMACMS/EVENT_END")#</label>
 	
 	
 	<cfset myExpirationDate = ExpirationDate>
@@ -48,10 +78,49 @@
 	</cfif>
   	
   
-  	<cfset application.IOAPI.showDatePicker("expirationDate", myExpirationDate)>
+  	<cfset application.IOAPI.showDatePicker("expirationDate", myExpirationDate, "text autowidth")>
 </p>
 
+
+	<p class="inline clearfix">
+		<label class="control-label" for="pstatus">#application.GSAPI.i18n("keep_private")#</label>
+	   
+	       	<select name="pstatus"  class="text autowidth">
+			<cfloop index="ii" list="#application.stSettings.Node.lstpstatus#">
+				<option value="#ii#" <cfif ii EQ pStatus>selected</cfif>>#ii#</option>
+			</cfloop>
+			</select>
+	</p>
+
+
 </div>
+
+
+<div class="rightopt">	
+<cfoutput>
+
+ 	<p class="inline clearfix">
+	   <label class="control-label">#application.GSAPI.i18n("PLUMACMS/MAP_URL")#</label>
+   		<cfinput type="text" name="map" value="#xmlformat(map)#" class="text" />	
+   	</p>
+
+
+
+
+
+	<p class="inline clearfix">
+		<label class="control-label" for="tags">#application.GSAPI.i18n("tag_keywords")#</label>	
+
+		<input type="text" name="tags" value="#rc.qryNode.Tags#" class="text"  />
+ 	</p>
+
+
+</cfoutput>
+
+
+</div>
+
+
 
 
 <div class="clear"></div>
@@ -64,22 +133,10 @@
 
 <cfparam name="simple_location" default="">
 
-<p>
-   <b>Location</b>
-   		<cfinput type="Text" name="simple_location" value="#simple_location#" class="text" maxlength="50" />	
-</p>
-
-
-<p>
-   <b>Map URL</b>
-   		<cfinput type="text" name="map" value="#xmlformat(map)#" class="text" />	
-</p>
-
-
 
 	
 		
-<button type="submit">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
+<button type="submit">#application.GSAPI.i18n("NEWS_MANAGER/SAVE_POST")#</button>
 			
 
 

@@ -213,37 +213,6 @@
 </cffunction>
 
 
-<cffunction name="getEvent" output="false" returntype="query" >
-	<cfargument name="Kind" type="string" required="true">	
-			
-	<cfquery name="local.qryEvent">
-		SELECT 	 #variables.lstNode#,
-			
-			CASE WHEN ExpirationDate > getDate()
-				AND		(
-					Month(ExpirationDate) <> Month(getDate())
-					OR
-					Year(ExpirationDate) <> Year(getDate())
-					) THEN 'FutureMonth'
-				WHEN ExpirationDate < getDate()
-				AND		(
-					Month(ExpirationDate) <> Month(getDate())
-					OR
-					Year(ExpirationDate) <> Year(getDate())
-					) THEN 'PastMonth'
-				ELSE 'ThisMonth'
-			END AS TimeFrame			
-			
-		FROM 	dbo.vwNode
-		WHERE	Kind = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.Kind#">
-		AND		Deleted = 0
-		ORDER BY	ExpirationDate DESC
-	</cfquery>
-
-			
-	<cfreturn local.qryEvent>
-</cffunction>
-
 
 <cfscript>
 
@@ -306,17 +275,38 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 <cffunction name="getAll" output="false" returntype="query" >
 	<cfargument name="kind" required="true" type="string">
-	<cfargument name="cstatus" required="true" type="string">
+	<cfargument name="criteria" required="true" type="struct">
 	<cfargument name="sortBy" required="true" type="string">		
 	<cfargument name="maxrows" required="true" type="numeric">
 	
-	
 
+	<cfscript>
+	param arguments.criteria.cstatus 	= "";
+	param arguments.criteria.timeframe 	= "";
+	</cfscript>
 			
 			
 	<cfquery name="local.qryAll">
 		SELECT TOP 	<cfif isnumeric(arguments.maxrows)>#arguments.maxrows#</cfif> 	
-			#variables.lstNode#, 0 AS Level
+			#variables.lstNode#, 0 AS Level,
+			
+			
+			CASE WHEN ExpirationDate > getDate()
+				AND		(
+					Month(ExpirationDate) <> Month(getDate())
+					OR
+					Year(ExpirationDate) <> Year(getDate())
+					) THEN 'Future'
+				WHEN ExpirationDate < getDate()
+				AND		(
+					Month(ExpirationDate) <> Month(getDate())
+					OR
+					Year(ExpirationDate) <> Year(getDate())
+					) THEN 'Past'
+				ELSE 'ThisMonth'
+			END AS TimeFrame		
+			
+			
 		FROM 	dbo.vwNode WITH (NOLOCK)
 		WHERE	deleted = 0
 		
@@ -324,12 +314,33 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 			AND		kind IN (<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.kind#" list="yes">)
 		</cfif>
 		
-		<cfif isboolean(cstatus)>
-			AND	cStatus = <cfqueryparam CFSQLType="CF_SQL_BIT" value="#arguments.cstatus#">
+		<cfif isboolean(arguments.criteria.cstatus)>
+			AND	cStatus = <cfqueryparam CFSQLType="CF_SQL_BIT" value="#arguments.criteria.cstatus#">
 		</cfif>
 		
 		<cfif arguments.sortBy EQ "Menu">
 			AND	MenuStatus = 1
+		</cfif>
+		
+		<cfif arguments.criteria.timeframe NEQ "">
+			AND 			
+						
+			CASE WHEN ExpirationDate > getDate()
+				AND		(
+					Month(ExpirationDate) <> Month(getDate())
+					OR
+					Year(ExpirationDate) <> Year(getDate())
+					) THEN 'Future'
+				WHEN ExpirationDate < getDate()
+				AND		(
+					Month(ExpirationDate) <> Month(getDate())
+					OR
+					Year(ExpirationDate) <> Year(getDate())
+					) THEN 'Past'
+				ELSE 'ThisMonth'
+			END  
+			
+			= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.criteria.timeframe#">
 		</cfif>
 		
 		ORDER BY
@@ -369,12 +380,11 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		</cfcase>
 		
 		
-		
-		
 		<cfdefaultcase>
 			<cfthrow>
 		</cfdefaultcase> 
 		</cfswitch>
+		
 
 	</cfquery>
 

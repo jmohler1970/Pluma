@@ -278,7 +278,7 @@ string function get_site_credits(string poweredby = "Powered By")	{
 
 query function menu_data() output="false" {
 	
-	return application.IOAPI.get_all("Page", '', "Menu");
+	return application.IOAPI.get_all("Page", {}, "Menu");
 	}	
 	
 

@@ -50,7 +50,7 @@ void function home(required struct rc) output="false" {
 	if (isDefined("rc.Mode")) {
 		switch (rc.Mode)	{
 		case "all" :
-			rc.qryPage = application.IOAPI.get_all("Page", "All", 'Title');
+			rc.qryPage = application.IOAPI.get_all("Page", {}, 'Title');
 			return;
 			break;
 			}

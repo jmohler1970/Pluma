@@ -94,10 +94,7 @@ query function get_all_tags() output="false"	{
 	}
 	
 
-query function get_event(string Kind="Page") output="false"	{
 
-	return this.wsNode.getEvent(arguments.Kind);
-	}	
 
 
 query function get_feed(required string plugin, required string baselink) output="false"	{
@@ -222,9 +219,9 @@ query function get_traffic_last_hits(string Filter="") output="false"	{
 
 
 
-query function get_all(required string Kind, required string cstatus, required string sortby, numeric maxrows=100) output="false" {
+query function get_all(required string Kind, required struct criteria, required string sortby, numeric maxrows=100) output="false" {
 
-	return this.wsNode.getAll(arguments.kind, arguments.cstatus, arguments.sortBy, arguments.maxrows);
+	return this.wsNode.getAll(arguments.kind, arguments.criteria, arguments.sortBy, arguments.maxrows);
 	}
 
 query function get_all_by_userid(required string Kind, required string userid, required string sortby) output="false" {
@@ -587,11 +584,12 @@ string function get_page_edit_link()	{
 
 <cffunction name="showDatePicker" returnType="void"> 
 	<cfargument name="fieldname" required="true" type="string">
-	<cfargument name="myvalue" required="false" type="string" default="#now()#">
+	<cfargument name="myvalue" 	type="string" default="#now()#">
+	<cfargument name="class"	type="string" default="text">
 
 	<cfoutput>
 		
-		<input type="text" name="#arguments.fieldname#" class="text" maxlength="12" style = "width : 100px;" onclick="displayDatePicker('#arguments.fieldname#');" 
+		<input type="text" name="#arguments.fieldname#" class="#arguments.class#" maxlength="12" onclick="displayDatePicker('#arguments.fieldname#');" 
 			<cfif isDate(arguments.myvalue)>
 				value="#LSDateFormat(arguments.myvalue, "mm/dd/yyyy")#"
 			</cfif>
