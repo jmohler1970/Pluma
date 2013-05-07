@@ -1,0 +1,10 @@
+
+<cfset thisrequest = "?plugin=#rc.plugin#">
+<cfif rc.plx NEQ "settings">
+	<cfset thisrequest &= "&plx=#rc.plx#">
+</cfif>	
+
+
+<ul class="snav">
+	<cfoutput>#application.GSAPI.exec_action("#rc.plugin#_sidebar", thisrequest)#</cfoutput>
+</ul>

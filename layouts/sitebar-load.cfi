@@ -1,5 +1,0 @@
-
-
-<ul class="snav">
-	<cfoutput>#application.GSAPI.exec_action("load_#rc.plugin#")#</cfoutput>
-</ul>

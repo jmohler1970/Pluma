@@ -136,9 +136,9 @@ param rc.silent = 0;
 	
 
 	
-		<div id="sidebar">
-			<cfif fileexists(expandpath("sidebar-#getSection()#.cfi"))>
-			
+		<div id="sidebar"> 
+		
+			<cfif fileexists("#getDirectoryFromPath(getCurrentTemplatePath())#/sidebar-#getSection()#.cfi")>
 				<cfinclude template="sidebar-#getSection()#.cfi">
 			</cfif>
 		</div>

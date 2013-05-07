@@ -19,7 +19,10 @@ this.stPlugin_info =
 		'icon-cog');
 	
 		application.GSAPI.add_action('nav-tab', 'createNavTab', ["?plugin=gallery", "Gallery/TAB", "gallery"]);
-
+		
+		application.GSAPI.add_action("gallery_sidebar", "createSideMenu", ["?plugin=gallery", "GALLERY/OVERVIEW_HEADER", "gallery"]);
+		application.GSAPI.add_action("gallery_sidebar", "createSideMenu", ["?plugin=gallery&plx=edit", "GALLERY/CREATE_GALLERY", "gallery"]);
+		application.GSAPI.add_action("gallery_sidebar", "createSideMenu", ["?plugin=gallery&plx=options", "GALLERY/SETTINGS", "gallery"]);	
 	}
 		
 </cfscript>
