@@ -5,9 +5,8 @@ myNodeID = isnumeric(rc.NodeID) ? "&NodeID=#rc.NodeID#" : "";
 
 
 
-
 <cfoutput>
-<h3 class="floated">#application.GSAPI.i18n("GALLERY/EDIT_HEADER")#</h3>
+<h3 class="floated">#application.GSAPI.i18n("GALLERY/EDIT_TITLE")#</h3>
 
 	<div class="clear"></div>
 	
@@ -15,20 +14,45 @@ myNodeID = isnumeric(rc.NodeID) ? "&NodeID=#rc.NodeID#" : "";
 <p>#application.GSAPI.i18n("GALLERY/ADD_EDIT_INFO")#</p>
 
 
-<form action="?plugin=gallery&plx=edit#myNodeID#" method="post">
+<form action="?plugin=gallery&plx=edit#myNodeID#" method="post" name="myFrm">
 </cfoutput>
 
 
 <cfoutput query="rc.qryNode">
 <div class="leftopt">
-	<p class="inline clearfix">
-		<label class="control-label" for="titlename">#application.GSAPI.i18n("GALLERY/NAME_LABEL")#</label>
+	<p>
+	
 	   
-	    <input type="text" name="title" value="#xmlformat(title)#" maxlength="75"  class="text autowidth" />
+	    <input type="text" name="title" value="#xmlformat(title)#" maxlength="75"  class="text title" 
+	    placeholder="#application.GSAPI.i18n("GALLERY/NAME_LABEL")#" />
 	    
 	</p> 
 </div>
+
+
+<script type="text/javascript">
+	function doRelocate()	{
+	
+
+		
+	location = '?plugin=gallery&plx=edit&path=' + myFrm.path.options[myFrm.path.selectedIndex].value + '&NodeID=#rc.NodeID#';
+	}
+
+</script>
+
+
+
+<select name="path" onchange="doRelocate();">
 </cfoutput>
+
+	<option value="">[Root]</option>
+<cfoutput query="rc.qryPath">
+	<cfif type EQ "dir">
+		<option value="#name#" <cfif rc.path EQ name>selected="selected"</cfif>>#name#</option>	
+	</cfif>
+</cfoutput>
+</select>
+
 
 
 <cfoutput> 
@@ -40,7 +64,7 @@ myNodeID = isnumeric(rc.NodeID) ? "&NodeID=#rc.NodeID#" : "";
 	
 	<th style="text-align : right;">#application.GSAPI.i18n("file_size")#</th>
 	<th style="text-align : right;">#application.GSAPI.i18n("date")#</th>
-	<th style="text-align : center;">#application.GSAPI.i18n("gallery/LIST_HEAD_CAPTION")#</th>
+	<th style="text-align : center;"></th>
 	<th></th>
 </tr>
 </thead>
@@ -54,6 +78,23 @@ myNodeID = isnumeric(rc.NodeID) ? "&NodeID=#rc.NodeID#" : "";
 	
 	<cfelseif 	ListFindNoCase("jpg,jpeg,gif,png", listlast(name, ".")) 		NEQ 0>
 	<cfset myrow++>
+	
+	<cfset myname = name>
+	<cfset mymessage = "">
+	<cfset myhref = "">
+	<cfset mytype = 0>
+	
+	
+	
+	<cfloop query="rc.qryLink">
+		<cfif type EQ myname>
+			<cfset mymessage = message>
+			<cfset myhref = href>
+			<cfset mytype = 1>
+		</cfif>
+	</cfloop>
+	
+	
 	<input type="hidden" name="key_#myrow#" 		value="#xmlformat(name)#|" />
 		
 	<tr>
@@ -84,11 +125,14 @@ myNodeID = isnumeric(rc.NodeID) ? "&NodeID=#rc.NodeID#" : "";
 		<td style="text-align : right;"><span>#application.IOAPI.std_date(datelastmodified)#</span></td>
 	
 		<td>
-			<input type="text" name="message_#myrow#" value="" />
+			#application.GSAPI.i18n("gallery/LIST_HEAD_CAPTION")#<br />
+			<input type="text" name="message_#myrow#" value="#xmlformat(mymessage)#" /><br />
+			#application.GSAPI.i18n("gallery/LIST_HEAD_LINK")#<br />
+			<input type="text" name="href_#myrow#" value="#xmlformat(myhref)#" placeholder="http://" /><br />
 		</td>
 	
 		<td>
-			<input type="checkbox" name="type_#myrow#" value="#name#" />
+			<input type="checkbox" name="type_#myrow#" value="#name#" <cfif mytype>checked="checked"</cfif> />
 		</td>
 	</tr>
 	

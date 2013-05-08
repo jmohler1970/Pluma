@@ -87,7 +87,7 @@ this.stPlugin_info =
 	
 	
 		if (not DirectoryExists(application.GSDATAUPLOADPATH & rc.path))	{
-			this.addInfo("NOT_FOUND", [rc.path]);
+		//	this.addInfo("NOT_FOUND", [rc.path]);
 		
 			return;
 			}	
@@ -102,6 +102,9 @@ this.stPlugin_info =
 			}
 	
 		rc.totalsize = rc.totalsize \ 1024; 
+		
+		// path pulldown
+		rc.qryPath = DirectoryList(application.GSDATAUPLOADPATH, 'true', 'query');
 		</cfscript>	
 	
 		<cfsavecontent variable="variables.stResult.Content">
