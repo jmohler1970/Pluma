@@ -1,0 +1,50 @@
+
+<cfoutput>
+	
+	<h3>#application.GSAPI.i18n("gallery/PLUGIN_NAME")#</h3>
+
+
+
+
+	<p>#application.GSAPI.i18n("gallery/HELP_TEXT")#</p>
+
+	
+	<table class="edittable highlight paginate">
+	<thead>
+	<tr>
+		<th>#application.GSAPI.i18n("gallery/NAME_LABEL")#</th>
+		<th>#application.GSAPI.i18n("gallery/LIST_HEAD_CODE")#</th>
+		<th colspan="2">&nbsp; </th>
+	</tr>
+	</thead>
+
+</cfoutput>	
+	
+	<tbody>
+	<cfoutput query="rc.qryGallery">
+	<tr>
+		<td><a href="?plugin=gallery&plx=edit&NodeID=#NodeID#">#xmlformat(title)#</a></td>
+		<td>{gallery #NodeID#}</td>
+		<td class="delete">
+		<cfif NoDelete EQ 0>	
+			<a class="delconfirm" href="?plugin=gallery&plx=delete&NodeID=#NodeID#" rel="tooltip"
+				title="#application.GSAPI.i18n("GALLERY/LIST_CONFIRM_DEL")#">&times;</a>
+		</cfif>
+	</td>
+	</tr>
+	</cfoutput>
+	</tbody>
+	</table>
+	
+<cfoutput>
+	<p>#application.GSAPI.i18n("gallery/TOTAL", [rc.qryGallery.recordcount])#</p>
+</cfoutput>	
+	
+	
+
+<cfif rc.qryGallery.recordcount EQ 0>
+	<cfoutput> 
+	<p>#application.GSAPI.i18n("gallery/LIST_EMPTY")#</p>
+	</cfoutput>
+</cfif>
+

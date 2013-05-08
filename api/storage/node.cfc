@@ -281,7 +281,7 @@
 	this.XMLConfSave(arguments.NodeK, rc, arguments.Remote_addr, arguments.byUserID);
 
 	
-	this.stResults.key="ER_YOUR_CHANGES";
+	//this.stResults.key="ER_YOUR_CHANGES";
 	
 
 	return this.stResults;
@@ -491,7 +491,7 @@
 	<cfargument name="byUserID" required="true" type="string">
 	
 	
-	<cftry>
+	
 	<cfquery>
 	UPDATE	dbo.Node
 	SET		xmlLink = '',
@@ -505,15 +505,13 @@
 	
 	
 	<cfscript>
-	
-	
 	for (var i = 1; isDefined("rc.type_#i#") and evaluate("rc.type_#i#") != ""; i++)	{
 		attr = {
 			type 		= evaluate("rc.type_#i#"), 
-			href 		= evaluate("rc.href_#i#"), 
-			message 	= evaluate("rc.message_#i#"),
-			title 		= isDefined("rc.title_#i#") ? evaluate("rc.title_#i#") : '',
-			position	= isDefined("rc.position_#i#")? evaluate("rc.position_#i#") : ''
+			href 		= isDefined("rc.href_#i#") 		? evaluate("rc.href_#i#") 		: '', 
+			message 	= isDefined("rc.message_#i#") 	? evaluate("rc.message_#i#") 	: '',
+			title 		= isDefined("rc.title_#i#") 	? evaluate("rc.title_#i#") 		: '',
+			position	= isDefined("rc.position_#i#")	? evaluate("rc.position_#i#") 	: ''
 			};
 
 		if (not isDefined("rc.delete_#i#"))	{
@@ -524,11 +522,6 @@
 	
 		}
 	</cfscript>
-	
-		<cfcatch>
-			<cfreturn this.stResults>
-		</cfcatch>
-	</cftry>
 	
 	
 	

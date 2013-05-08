@@ -100,8 +100,10 @@
 	
 
 	<tr>
-	
+		
+		<cfif rc.imagefilter EQ "images">
 		<td>&nbsp;</td>
+		</cfif>
 	
 		<td>
 			<cfset mypath = rc.path EQ "" ? urlencodedformat(name) : urlencodedformat("#rc.path#|#name#")>
@@ -129,13 +131,15 @@
 		>
 		
 	<tr>
-		<td>
-			<cfif rc.imagefilter EQ "images">
+		<cfif rc.imagefilter EQ "images">
+		<td class="imgthumb" style="display : table-cell;">
+			
 			
 			
 			<img src="#application.GSAPI.get_site_root()##rc.thumbspath##rc.path#/#name#" alt="#name#" style="width : 100px;" />
-			</cfif>
 		</td>
+		</cfif>
+		
 		<td>
 			<cfif rc.path EQ "">
 				<cfset querystring = "name=#name#">

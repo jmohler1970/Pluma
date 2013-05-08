@@ -3,11 +3,6 @@
 
 <div class="main">
 
-
-
-
-
-
-<cfoutput>#rc.content#</cfoutput>
+	<cfoutput>#rc.content#</cfoutput>
 
 </div>

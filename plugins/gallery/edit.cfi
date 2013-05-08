@@ -1,0 +1,113 @@
+
+<cfscript>
+myNodeID = isnumeric(rc.NodeID) ? "&NodeID=#rc.NodeID#" : "";
+</cfscript>
+
+
+
+
+<cfoutput>
+<h3 class="floated">#application.GSAPI.i18n("GALLERY/EDIT_HEADER")#</h3>
+
+	<div class="clear"></div>
+	
+
+<p>#application.GSAPI.i18n("GALLERY/ADD_EDIT_INFO")#</p>
+
+
+<form action="?plugin=gallery&plx=edit#myNodeID#" method="post">
+</cfoutput>
+
+
+<cfoutput query="rc.qryNode">
+<div class="leftopt">
+	<p class="inline clearfix">
+		<label class="control-label" for="titlename">#application.GSAPI.i18n("GALLERY/NAME_LABEL")#</label>
+	   
+	    <input type="text" name="title" value="#xmlformat(title)#" maxlength="75"  class="text autowidth" />
+	    
+	</p> 
+</div>
+</cfoutput>
+
+
+<cfoutput> 
+<table class="edittable highlight paginate">
+<thead>
+<tr>
+	<th>&nbsp;</th>
+	<th>#application.GSAPI.i18n("file_name")#</th>
+	
+	<th style="text-align : right;">#application.GSAPI.i18n("file_size")#</th>
+	<th style="text-align : right;">#application.GSAPI.i18n("date")#</th>
+	<th style="text-align : center;">#application.GSAPI.i18n("gallery/LIST_HEAD_CAPTION")#</th>
+	<th></th>
+</tr>
+</thead>
+</cfoutput>
+
+<cfset myrow = 0>
+<cfoutput query="rc.qryDirectory">
+	<cfif name EQ ".ds_store">
+	
+	<cfelseif type EQ "dir">
+	
+	<cfelseif 	ListFindNoCase("jpg,jpeg,gif,png", listlast(name, ".")) 		NEQ 0>
+	<cfset myrow++>
+	<input type="hidden" name="key_#myrow#" 		value="#xmlformat(name)#|" />
+		
+	<tr>
+		<td class="imgthumb" style="display : table-cell;">
+						
+			<img src="#application.GSAPI.get_site_root()##rc.thumbspath##rc.path#/#name#" alt="#name#" style="width : 100px;" />
+		</td>
+		<td>
+			<cfif rc.path EQ "">
+				<cfset querystring = "name=#name#">
+			<cfelse>
+				<cfset querystring = "path=#rc.path#&name=#name#">
+			</cfif>
+			
+		<cfif ListFindNoCase("jpg,jpeg,gif,png", listlast(name, ".")) NEQ 0>
+		
+			#name#
+			<!---
+			<a href="#buildURL(action='.details', querystring=querystring)#">#name#</a>
+			--->	
+		</cfif>
+		
+		</td>
+	
+		
+		<td style="text-align : right;"><span>#LSNumberFormat(size \ 1024)# KB</span></td>
+		
+		<td style="text-align : right;"><span>#application.IOAPI.std_date(datelastmodified)#</span></td>
+	
+		<td>
+			<input type="text" name="message_#myrow#" value="" />
+		</td>
+	
+		<td>
+			<input type="checkbox" name="type_#myrow#" value="#name#" />
+		</td>
+	</tr>
+	
+	
+	</cfif>
+
+</cfoutput>
+</table>
+
+
+<cfoutput>
+<p><i><b>#myrow#</b> #application.GSAPI.i18n("total_files")# (#rc.totalsize# KB)</i></p>
+
+
+<span>	
+	<button name="submit" type="submit" value="Save">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
+</span>
+</cfoutput>
+
+</form>
+
+
