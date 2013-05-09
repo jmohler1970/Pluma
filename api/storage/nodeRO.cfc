@@ -118,26 +118,8 @@
 	
 	
 	<cfif arguments.nodeK.Slug NEQ "">
-		<cfquery name="qryNode">
-			DECLARE @Slug 	varchar(20)
-			SET		@Slug 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.nodek.Slug#">
-	
-			SELECT 	TOP 1 #variables.lstNode#  
-			FROM 	dbo.vwNode WITH (NOLOCK)
-			WHERE	Deleted = 0
-			AND		(
-					(Slug = @Slug AND Root <> 1)
-				OR 	(@Slug = 'index' AND Root = 1)
-				)
-			ORDER BY CreateDate DESC
-		</cfquery>
-	
-		<cfreturn local.qryNode>
+		<cfreturn this.getBySlug(arguments.nodek.slug)>
 	</cfif>
-
-
-	
-
 
 
 	<cfset local.qryNode = QueryNew(variables.lstNode)>
@@ -147,6 +129,30 @@
 	
 	<cfreturn local.qryNode>	
 </cffunction>
+
+
+<cffunction name="getBySlug" output="false" returnType="query">
+	<cfargument name="slug" required="true" type="string">
+
+	<cfquery name="local.qryGetBySlug">
+		DECLARE @Slug 	varchar(20)
+		SET		@Slug 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.Slug#">
+
+		SELECT 	TOP 1 #variables.lstNode#  
+		FROM 	dbo.vwNode WITH (NOLOCK)
+		WHERE	Deleted = 0
+		AND		(
+				(Slug = @Slug AND Root <> 1)
+			OR 	(@Slug = 'index' AND Root = 1)
+			)
+		ORDER BY CreateDate DESC
+	</cfquery>
+
+	<cfreturn local.qryGetBySlug>
+
+</cffunction>
+
+
 
 
 <cffunction name="getArchiveDetails" returntype="query"  hint="Returns a specific archive">

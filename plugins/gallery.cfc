@@ -67,8 +67,17 @@ this.stPlugin_info =
 				}
 			
 			//Application.IOAPI.AddSuccess("ER_YOUR_CHANGES", [rc.slug]);				
-					
 			}
+			
+			// Add page if it does not exist
+			application.IOAPI.set({Kind="Page"}, {
+				slug = "gallery",
+				title = "Gallery : #rc.title#",
+				strData = "{gallery:#rc.NodeID#}",
+				allowupdate = 0
+				});
+			
+			//location("?plugin=gallery", "no");			
 			
 		} // end post
 	
@@ -121,13 +130,7 @@ this.stPlugin_info =
 	<cfdefaultcase>
 		<cfset rc.qryGallery = application.IOAPI.get_all("Gallery", {}, 'Title')>
 	
-		<!--- Create Gallery Page if it does not exist --->
-		<cfset application.IOAPI.set({Kind="Page"}, {
-			slug = "gallery",
-			title = "Gallery",
-			strData = "{gallery}",
-			allowupdate = 0
-			})>
+	
 	
 	
 		

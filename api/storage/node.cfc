@@ -201,13 +201,26 @@
 	<!---: The root is the default page that is shown --->
 	<!---: The nodelete applies to any page that cannot be deleted --->
 	 
-	 
+	<cfset var alreadyExists = false>
+	<cfscript>
+		// operations based on slug
+		if (rc.slug != "")	{
+			var qryNode = this.getBySlug(rc.slug);
+			
+			if (qryNode.recordcount != 0)	{
+				alreadyExists = true;
+				}					
+			} 
+	</cfscript>
 	
 	
-	<cfif rc.submit CONTAINS "clone" OR arguments.NodeK.NodeID EQ "">
+	<cfif rc.submit CONTAINS "clone" OR arguments.NodeK.NodeID EQ "" OR alreadyExists EQ false>
 	
-		<cfset Slug = qryTest.Nodecount EQ 0 ?  'index' : this.doSlug(rc.Title)>
-	
+
+		
+		<cfset rc.slug = qryTest.Nodecount EQ 0 ?  'index' : this.doSlug(rc.Title)>
+		
+		
 	
 		<cfquery name="qryNewNode">
 		INSERT
@@ -218,8 +231,8 @@
 			<cfqueryparam CFSQLType="CF_SQL_BIT" 	value="#IIF(qryTest.Nodecount EQ 0, 1, 0)#">,
 			<cfqueryparam CFSQLType="CF_SQL_BIT" 	value="#IIF(qryTest.Nodecount EQ 0, 1, 0)#">,
 			
-			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#Slug#">,
-			<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#trim(rc.strData)#"  null="#yesnoformat(rc.strData EQ "")#">
+			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.Slug#">,
+			<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#trim(rc.strData)#"  null="#yesnoformat(rc.strData EQ "")#">,
 			
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pStatus#">,
 			
@@ -424,6 +437,7 @@
 		WHERE	NodeID 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.NodeID#">
 		AND		Kind 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.Kind#">
 		AND		Deleted = 0
+		AND		CONVERT(varchar(max), xmlConf) <> <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#xmlConf#">
 	</cfquery>
 	
 		
@@ -496,7 +510,7 @@
 	
 	
 	
-	<cfquery>
+	<cfquery name="qryClearLink">
 	UPDATE	dbo.Node
 	SET		xmlLink = '',
 		Modified = dbo.udf_4jInfo('Link has been updated',
@@ -505,6 +519,7 @@
 			
 	WHERE	Deleted = 0
 	AND		NodeID = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.nodeid#">
+	AND		CONVERT(varchar(max), xmlLink) <> ''
 	</cfquery>
 	
 	
