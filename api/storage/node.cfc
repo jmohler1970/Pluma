@@ -142,7 +142,8 @@
 		
 	
 	param rc.StartDate			= "";	 
-	param rc.ExpirationDate		= "";	
+	param rc.ExpirationDate		= "";
+	param rc.allowupdate 		= 1;	
 	
 	rc.cstatus = (rc.submit CONTAINS "draft") ? 0 : 1;
 	
@@ -177,13 +178,12 @@
 		 		<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byUserID#">)
 		 		)
 		</cfquery>
-	
 	</cfif>
 	
 	<cfquery name="qryPrimaryRecord">
-	SELECT 	MIN(NodeID) AS NodeID
-	FROM 	dbo.Node
-	WHERE	PrimaryRecord = 1
+		SELECT 	MIN(NodeID) AS NodeID
+		FROM 	dbo.Node
+		WHERE	PrimaryRecord = 1
 	</cfquery>
 	
 	<cfparam name="rc.ParentNodeID" default="#qryPrimaryRecord.NodeID#">
@@ -211,15 +211,16 @@
 	
 		<cfquery name="qryNewNode">
 		INSERT
-		INTO dbo.Node(Kind, Root, NoDelete, Slug, pStatus, Created)
+		INTO dbo.Node(Kind, Root, NoDelete, Slug, strData, pStatus, Created)
 		OUTPUT Inserted.NodeID
 		VALUES (<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.nodeK.Kind#">,
 			
-			<cfqueryparam CFSQLType="CF_SQL_BIT" value="#IIF(qryTest.Nodecount EQ 0, 1, 0)#">,
-			<cfqueryparam CFSQLType="CF_SQL_BIT" value="#IIF(qryTest.Nodecount EQ 0, 1, 0)#">,
-			
+			<cfqueryparam CFSQLType="CF_SQL_BIT" 	value="#IIF(qryTest.Nodecount EQ 0, 1, 0)#">,
+			<cfqueryparam CFSQLType="CF_SQL_BIT" 	value="#IIF(qryTest.Nodecount EQ 0, 1, 0)#">,
 			
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#Slug#">,
+			<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#trim(rc.strData)#"  null="#yesnoformat(rc.strData EQ "")#">
+			
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.pStatus#">,
 			
 			dbo.udf_4jInfo('Created',
@@ -233,6 +234,9 @@
 	</cfif>
 	
 	
+	<cfif rc.allowupdate EQ 0>
+		<cfreturn this.stResults>
+	</cfif>
 	
 	
 	<cftry>

@@ -25,6 +25,12 @@
 	<tr>
 		<td><a href="?plugin=gallery&plx=edit&NodeID=#NodeID#">#xmlformat(title)#</a></td>
 		<td>{gallery #NodeID#}</td>
+		<td class="secondarylink">
+			
+			<a href="#application.GSAPI.find_url('gallery')#?gallery=#nodeid#" rel="tooltip" 
+				title="#application.GSAPI.i18n("view")#" target="_blank">##</a>	
+			
+		</td>
 		<td class="delete">
 		<cfif NoDelete EQ 0>	
 			<a class="delconfirm" href="?plugin=gallery&plx=delete&NodeID=#NodeID#" rel="tooltip"

@@ -120,12 +120,21 @@ this.stPlugin_info =
 	</cfcase>
 	<cfdefaultcase>
 		<cfset rc.qryGallery = application.IOAPI.get_all("Gallery", {}, 'Title')>
+	
+		<!--- Create Gallery Page if it does not exist --->
+		<cfset application.IOAPI.set({Kind="Page"}, {
+			slug = "gallery",
+			title = "Gallery",
+			strData = "{gallery}",
+			allowupdate = 0
+			})>
+	
+	
 		
 		<cfsavecontent variable="variables.stResult.Content">
 			<cfinclude template="gallery/home.cfi"> 
 		</cfsavecontent>	
-		
-		
+			
 	</cfdefaultcase>
 	</cfswitch>
 
