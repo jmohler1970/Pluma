@@ -524,22 +524,24 @@
 	
 	
 	<cfscript>
-	for (var i = 1; isDefined("rc.type_#i#") and evaluate("rc.type_#i#") != ""; i++)	{
-		attr = {
-			type 		= evaluate("rc.type_#i#"), 
-			href 		= isDefined("rc.href_#i#") 		? evaluate("rc.href_#i#") 		: '', 
-			message 	= isDefined("rc.message_#i#") 	? evaluate("rc.message_#i#") 	: '',
-			title 		= isDefined("rc.title_#i#") 	? evaluate("rc.title_#i#") 		: '',
-			position	= isDefined("rc.position_#i#")	? evaluate("rc.position_#i#") 	: ''
-			};
+	for (var i = 1; isDefined("rc.type_#i#") or isDefined("rc.href_#i#"); i++)	{
+		
+		if (isDefined("rc.type_#i#") and evaluate("rc.type_#i#") != "" and not isDefined("rc.delete_#i#"))	{
+			attr = {
+				type 		= evaluate("rc.type_#i#"), 
+				href 		= isDefined("rc.href_#i#") 		? evaluate("rc.href_#i#") 		: '', 
+				message 	= isDefined("rc.message_#i#") 	? evaluate("rc.message_#i#") 	: '',
+				title 		= isDefined("rc.title_#i#") 	? evaluate("rc.title_#i#") 		: '',
+				position	= isDefined("rc.position_#i#")	? evaluate("rc.position_#i#") 	: ''
+				};
 
-		if (not isDefined("rc.delete_#i#"))	{
+
 		
 			this.stResults = this.LinkAdd(arguments.NodeK, attr, arguments.remote_addr, arguments.byUserID);	
-		
-			}
+					
+			}	// isDefined
 	
-		}
+		} // end loop
 	</cfscript>
 	
 	
