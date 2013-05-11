@@ -7,7 +7,9 @@
 <cfscript>
 void function init() output="false"{
 
-	this.i18n_data = {};	
+	this.i18n_data = {};
+	
+	this.stFilter = {};	
 	}
 
 
@@ -94,7 +96,7 @@ public string function get_page_content(){
 		
 
 	if (not isnull(request.stIOR.qryNode.strData))	{
-		local.result &= request.stIOR.qryNode.strData; // no strip decode here
+		local.result &= this.exec_filter(request.stIOR.qryNode.strData); // no strip decode here
 		}	
 	
 	local.result &= this.exec_action('content-bottom');	
@@ -393,7 +395,16 @@ string function find_url(required string slug) {
 	return "#request.Meta.root#/index.cfm/main/#arguments.slug#";
 	}
 
+
+/* Does all string replacements */
+string function exec_filter(required string strIn) output="false"	{
 	
+	for (var i in this.stFilter)	{
+		strIn = replace(strIn, "{#i#}", this.stFilter[i], "all");		
+		}
+		
+	return strIn;	
+	}	
 
 
 
