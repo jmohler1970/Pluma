@@ -505,6 +505,7 @@ string function get_site_version() {
 	<cfreturn stResult>
 </cffunction>
 
+
 <cffunction name="exec_action" returnType="string">
 	<cfargument name="action" required="true" 	type="string" hint="what function to run in plugin">
 	<cfargument name="selected" required="false" type="string" default="">
@@ -582,8 +583,17 @@ function add_action(required string hook_name, required string added_function, r
 	
 	
 	ArrayAppend(request.arPlugins, {hook_name = arguments.hook_name, added_function = arguments.added_function, attr = arguments.attr});
-	
 	}
+
+/* This is very different from GetSimple */
+function add_filter(required struct filter_data)	{
+	
+		
+	StructAppend(this.stFilter, filter_date);	
+	}
+
+
+
 </cfscript>
 
 

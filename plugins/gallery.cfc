@@ -19,13 +19,23 @@ this.stPlugin_info =
 		'icon-cog');
 	
 		application.GSAPI.add_action('nav-tab', 'createNavTab', ["?plugin=gallery", "Gallery/TAB_NAME", "gallery"]);
-		
 		application.GSAPI.add_action("gallery_sidebar", "createSideMenu", ["?plugin=gallery", "GALLERY/PLUGIN_NAME", "gallery"]);
 		application.GSAPI.add_action("gallery_sidebar", "createSideMenu", ["?plugin=gallery&plx=edit", "GALLERY/ADD_TITLE", "gallery"]);
 	//	application.GSAPI.add_action("gallery_sidebar", "createSideMenu", ["?plugin=gallery&plx=options", "GALLERY/SETTINGS", "gallery"]);	
+	
+		application.GSAPI.add_filter(this.display_gallery());
+	
 	}
 		
 </cfscript>
+
+
+<cffunction name="display_gallery" returnType="struct" output="false">
+
+	<cfreturn {}>
+</cffunction>
+
+
 
 <cffunction name="settings" returnType="struct">
 
