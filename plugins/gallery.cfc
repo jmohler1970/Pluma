@@ -32,6 +32,9 @@ this.stPlugin_info =
 
 <cffunction name="display_gallery" returnType="struct" output="false">
 
+
+
+
 	<cfreturn {}>
 </cffunction>
 

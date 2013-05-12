@@ -172,6 +172,10 @@
 	
 
 
+
+	
+
+
 <cffunction  name="getAllByExtra" returnType="query" output="no" >
 	<cfargument name="Kind" type="string" required="true">
 	<cfargument name="Extra" type="string" required="true">
@@ -243,7 +247,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	
 		qryData 		= this.getData(qryNode.NodeID),
 		qryConfig 		= this.getConf(qryNode.NodeID),
-		qryLink 		= this.getLink(qryNode.NodeID),
+		qryLink 		= this.getLink(arguments.NodeK),
 	
 		qryFacet		= this.FacetGet(qryNode.NodeID)
 		
@@ -1137,7 +1141,12 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 <cffunction name="getLink" output="false" returntype="query" >
-	<cfargument name="NodeID" required="true" type="string">
+	<cfargument name="NodeK" required="true" type="struct">
+
+	<cfparam  name="arguments.NodeK.NodeID" default="">
+	<cfparam  name="arguments.NodeK.Kind" 	default="">
+	
+
 
 
 	<cfquery name="local.qryLink">
@@ -1145,8 +1154,19 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		FROM   	dbo.Node WITH (NOLOCK)
 		CROSS 	APPLY dbo.udf_xmlRead(xmlLink)
 		WHERE	Deleted = 0
-		AND		NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">)
-		ORDER BY type, Position, title
+
+		<cfif arguments.NodeK.Kind NEQ "">
+			AND		Kind = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeK.Kind#">)
+		</cfif>	
+
+		
+		<cfif arguments.NodeK.NodeID NEQ "">
+			AND		NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeK.NodeID#">)
+		</cfif>	
+		
+		
+	
+		ORDER BY NodeID, type, Position, title
 	</cfquery>
 
 	<cfreturn local.qryLink>

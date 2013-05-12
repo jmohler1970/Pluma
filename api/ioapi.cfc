@@ -189,9 +189,9 @@ struct function get_bundle(required struct NodeK) output="false"	{
 query function get_link(struct NodeK) output="false"	{
 
 	param arguments.NodeK.Kind = "Page";
-	param arguments.NodeK.NodeID = request.stIOR.qryNode.NodeID;
+	param arguments.NodeK.NodeID = "";
 
-	return this.wsNode.getLink(arguments.nodeK.NodeID);
+	return this.wsNode.getLink(arguments.nodeK);
 	}
 
 

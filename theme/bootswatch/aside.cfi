@@ -6,7 +6,7 @@
 	
 		<cfset qryNode = application.IOAPI.getOne({Extra = arguments.Extra, Kind = "Menu"})>	
 	
-		<cfset qryMenu = application.IOAPI.getLink(qryNode.NodeID)>
+		<cfset qryMenu = application.IOAPI.getLink({NodeID = qryNode.NodeID})>
 	
 		
 		<div class="well">
