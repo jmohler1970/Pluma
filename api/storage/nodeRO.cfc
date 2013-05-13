@@ -1150,23 +1150,23 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 	<cfquery name="local.qryLink">
-		SELECT 	type, href, title, message, Position
+		SELECT 	NodeID, [type], href, title, message, Position
 		FROM   	dbo.Node WITH (NOLOCK)
 		CROSS 	APPLY dbo.udf_xmlRead(xmlLink)
 		WHERE	Deleted = 0
 
 		<cfif arguments.NodeK.Kind NEQ "">
-			AND		Kind = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeK.Kind#">)
+			AND		Kind = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeK.Kind#">
 		</cfif>	
 
 		
-		<cfif arguments.NodeK.NodeID NEQ "">
+		<cfif isnumeric(arguments.NodeK.NodeID)>
 			AND		NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeK.NodeID#">)
 		</cfif>	
 		
 		
 	
-		ORDER BY NodeID, type, Position, title
+		ORDER BY NodeID, [type], Position, title
 	</cfquery>
 
 	<cfreturn local.qryLink>

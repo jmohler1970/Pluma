@@ -30,12 +30,38 @@ this.stPlugin_info =
 </cfscript>
 
 
-<cffunction name="display_gallery" returnType="struct" output="false">
+
+<cffunction name="display_gallery" returnType="struct" output="false" hint="uses colorbox">
+
+		
+	<cfset rc.thumbspath 	= "data/thumbs/">	
+	<cfset var stResults = {}>
+	<cfset var qryGallery = application.IOAPI.get_link({Kind = "Gallery"})>
+	<cfset rc.path = "">
+	
+	<cfoutput query="qryGallery" group="NodeID">
+		<cfset var gallery = "">
+		
+		
+		<cfsavecontent variable="gallery">
+		<ul>
+		<cfoutput>
+			
+		 
+			<li><a class="group3" href="#application.GSAPI.get_site_root()##rc.thumbspath##rc.path#/#type#" title="#message#">
+				<img src="#application.GSAPI.get_site_root()##rc.thumbspath##rc.path#/#type#" alt="#type#" style="width : 100px;" /></a></li>
+					
+	
+		</cfoutput>	
+		<ul>
+		</cfsavecontent>
+		
+		
+		<cfset setVariable("stResults.gallery_#NodeID#", trim(gallery))>
+	</cfoutput>
 
 
-
-
-	<cfreturn {}>
+	<cfreturn stResults>
 </cffunction>
 
 
@@ -84,7 +110,7 @@ this.stPlugin_info =
 			
 			// Add page if it does not exist
 			application.IOAPI.set({Kind="Page"}, {
-				slug = "gallery",
+				slug = "gallery_#rc.nodeid#",
 				title = "Gallery : #rc.title#",
 				strData = "{gallery:#rc.NodeID#}",
 				allowupdate = 0

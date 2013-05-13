@@ -586,10 +586,10 @@ function add_action(required string hook_name, required string added_function, r
 	}
 
 /* This is very different from GetSimple */
-function add_filter(required struct filter_data)	{
+void function add_filter(required struct filter_data) output="false"	{
 	
 		
-	StructAppend(this.stFilter, filter_date);	
+	StructAppend(this.stFilter, arguments.filter_data);	
 	}
 
 

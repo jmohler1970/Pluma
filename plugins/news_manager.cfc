@@ -23,7 +23,7 @@ function Init()	{
 	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=news_manager", "News Manager", "news_manager"]);
 	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=news_manager&plx=edit", "Create New Post", "news_manager_add"]);
 
-	application.GSAPI.add_filter(this.display_events();
+	application.GSAPI.add_filter(this.display_events());
 	}	
 </cfscript>
 
