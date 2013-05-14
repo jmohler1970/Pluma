@@ -7,9 +7,12 @@
 <cfscript>
 void function init() output="false"{
 
-	this.i18n_data = {};
+	this.i18n_data = {}; // For language strings
 	
-	this.stFilter = {};	
+	this.stFilter = {};	// For data that will be subsituted
+	
+	this.GS_scripts = queryNew("handle,src,ver,in_footer,where"); // JavaScript
+	this.GS_styles 	= queryNew("handle,src,ver,media,where");
 	}
 
 
@@ -211,7 +214,7 @@ string function get_page_url()	{
 
 
 <cffunction name="get_header">
-	<cfargument  name="full" required="false" default="false" type="boolean">
+	<cfargument  name="full" required="false" default="true" type="boolean">
 
 	<!--- configuration.php settings should be in application.cfc --->
 
@@ -223,11 +226,9 @@ string function get_page_url()	{
 		<meta name="generator" 	content="#application.GSSITE_FULL_NAME#" />
 		<link rel="canonical" 	href="#this.get_page_url()#" />
 	
-		<!---
-		<cfset this.get_scripts_frontend()>
-		--->
 		
-		<cfset this.exec_action('theme-header')>
+		#this.get_scripts_frontend()#
+		#this.exec_action('theme-header')#
 	</cfif>
 	</cfoutput>
 </cffunction>
@@ -326,8 +327,74 @@ boolean function is_logged_in() {
 	}
 
 
+void function register_script(string handle, string src, string ver, boolean in_footer=false)	{
+	
+	arguments.src = replacelist(arguments.src, "~/", this.get_site_url());
+	
+	QueryAddRow(this.GS_scripts);
+	QuerySetCell(this.GS_scripts, "handle", 	arguments.handle);
+	QuerySetCell(this.GS_scripts, "src", 		arguments.src);
+	QuerySetCell(this.GS_scripts, "ver", 		arguments.ver);
+	QuerySetCell(this.GS_scripts, "in_footer", 	arguments.in_footer);
+	}
 
-string function get_scripts_frontend() {;} // not implemented
+
+
+string function get_scripts_frontend(boolean footer=false) {
+
+	var strResult = "";
+
+	if (!arguments.footer)	{
+		strResult = this.get_styles_frontend();
+		}
+	
+	for(var i = 1; i <= this.GS_scripts.recordcount; i++)	{
+		if (arguments.footer == this.GS_scripts.in_footer[i])	{
+			strResult &= '<script src="#this.GS_scripts.src[i]#?v=#this.GS_scripts.ver[i]#"></script>
+			';
+			}		
+		}
+
+	return strResult;
+	} 
+
+
+void function register_style(string handle, string src, string ver="", string media="")	{
+	
+	arguments.src = replacelist(arguments.src, "~/", this.get_site_url());
+	
+	
+	QueryAddRow(this.GS_styles);
+	QuerySetCell(this.GS_styles, "handle", 	arguments.handle);
+	QuerySetCell(this.GS_styles, "src", 	arguments.src);
+	QuerySetCell(this.GS_styles, "ver", 	arguments.ver);
+	QuerySetCell(this.GS_styles, "media", 	arguments.media);
+	}
+
+
+
+string function get_styles_frontend() {
+
+	var strResult = "";
+
+	
+	for(var i = 1; i <= this.GS_styles.recordcount; i++)	{
+											strResult &= '<link href="#this.GS_styles.src[i]#';
+		if (this.GS_styles.ver[i] != "") 	strResult &= '?v=#this.GS_styles.ver[i]#';	
+		
+											strResult &= '" rel="stylesheet" type="text/css"';
+		if (this.GS_styles.media[i] != "") 	strResult &= ' media="#this.GS_styles.media[i]#"';		
+											strResult &= "/>
+";
+		
+		}
+
+	return strResult;
+	} 
+
+
+
+
 /* Everything above was in theme_functions.php */
 	
 

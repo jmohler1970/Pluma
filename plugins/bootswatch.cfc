@@ -21,7 +21,8 @@ this.stPlugin_info =
 		'icon-cog');
 	
 	
-		application.GSAPI.add_action("theme_sidebar", "createSideMenu", ["?plugin=bootswatch", "Bootswatch Theme Settings", "bootswatch"]);
+	application.GSAPI.add_action("theme_sidebar", "createSideMenu", ["?plugin=bootswatch", "Bootswatch Theme Settings", "bootswatch"]);
+	
 	}
 		
 </cfscript>

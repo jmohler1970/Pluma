@@ -2,10 +2,6 @@
 
 
 
-<cfset Innovation_Settings()>
-
-
-
 <cfinclude template="header.cfi"> 
 
 

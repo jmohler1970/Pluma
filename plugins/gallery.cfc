@@ -18,13 +18,17 @@ this.stPlugin_info =
 		'',
 		'icon-cog');
 	
-		application.GSAPI.add_action('nav-tab', 'createNavTab', ["?plugin=gallery", "Gallery/TAB_NAME", "gallery"]);
-		application.GSAPI.add_action("gallery_sidebar", "createSideMenu", ["?plugin=gallery", "GALLERY/PLUGIN_NAME", "gallery"]);
-		application.GSAPI.add_action("gallery_sidebar", "createSideMenu", ["?plugin=gallery&plx=edit", "GALLERY/ADD_TITLE", "gallery"]);
+	
+		application.GSAPI.add_action('nav-tab', 		"createNavTab", 	["?plugin=gallery", "Gallery/TAB_NAME", "gallery"]);
+		application.GSAPI.add_action("gallery_sidebar", "createSideMenu",	["?plugin=gallery", "GALLERY/PLUGIN_NAME", "gallery"]);
+		application.GSAPI.add_action("gallery_sidebar", "createSideMenu", 	["?plugin=gallery&plx=edit", "GALLERY/ADD_TITLE", "gallery"]);
 	//	application.GSAPI.add_action("gallery_sidebar", "createSideMenu", ["?plugin=gallery&plx=options", "GALLERY/SETTINGS", "gallery"]);	
 	
 		application.GSAPI.add_filter(this.display_gallery());
 	
+		application.GSAPI.register_style('colorbox', 	'~/plugins/gallery/assets/colorbox.css', 	'2.0.4', false);
+		application.GSAPI.register_script('colorbox', 	'~/plugins/gallery/assets/jquery.colorbox.js', 	'2.0.4', false);
+		application.GSAPI.register_script('colorbox', 	'~/plugins/gallery/assets/ready.js', 	'2.0.4', true);
 	}
 		
 </cfscript>
@@ -48,7 +52,7 @@ this.stPlugin_info =
 		<cfoutput>
 			
 		 
-			<li><a class="group3" href="#application.GSAPI.get_site_root()##rc.thumbspath##rc.path#/#type#" title="#message#">
+			<li><a class="group4" href="#application.GSAPI.get_site_root()##rc.thumbspath##rc.path#/#type#" title="#message#">
 				<img src="#application.GSAPI.get_site_root()##rc.thumbspath##rc.path#/#type#" alt="#type#" style="width : 100px;" /></a></li>
 					
 	

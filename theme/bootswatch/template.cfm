@@ -73,6 +73,8 @@
 <article>		
 	<cfoutput>#application.GSAPI.get_page_content()#
 	
+
+	
 	
 	<p><small>Published on &nbsp;#application.GSAPI.get_page_date()#</small></p>	
 	</cfoutput>

@@ -15,9 +15,7 @@
 	
 	<meta name="robots" content="index, follow">
 
-	<link href='//fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
-	<link href="#application.GSAPI.get_theme_url()#/reset.css" rel="stylesheet">
-	<link href="#application.GSAPI.get_theme_url()#/style.css?v=3.1.2" rel="stylesheet">
+
 	
 
 	#application.GSAPI.get_header()#
