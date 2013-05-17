@@ -26,7 +26,7 @@ this.stPlugin_info =
 	
 		application.GSAPI.add_filter(this.display_gallery());
 	
-		application.GSAPI.register_style('colorbox', 	'~/plugins/gallery/assets/colorbox.css', 	'2.0.4', false);
+		application.GSAPI.register_style('colorbox', 	'~/plugins/gallery/assets/colorbox.css', 	'2.0.4', "screen");
 		application.GSAPI.register_script('colorbox', 	'~/plugins/gallery/assets/jquery.colorbox.js', 	'2.0.4', false);
 		application.GSAPI.register_script('colorbox', 	'~/plugins/gallery/assets/ready.js', 	'2.0.4', true);
 	}

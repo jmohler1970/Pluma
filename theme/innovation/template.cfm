@@ -17,6 +17,8 @@
 				#application.GSAPI.get_page_content()#
 				
 				
+		
+				
 				
 				<!-- page footer -->
 				<div class="footer">

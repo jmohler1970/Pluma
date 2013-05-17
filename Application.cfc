@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0590";
+	this.name 			= "PlumaCMS_0599";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -102,9 +102,8 @@ fileclose(objAppFile);
 		
 	application.stSettings 	= application.IOAPI.load_ini("api/config.ini");
 		
-	application.IOAPI.Init();
-	application.USERAPI.Init();
-	application.GSAPI.Init();
+
+	
 	
 	
 	}
@@ -123,6 +122,10 @@ void function setupRequest()	{
 	param rc.id 	= "";  // This is used for page requests
 	param rc.nodeid = "" ; // Admin use only, use id for normal requests --->
 	param rc.slug	= "index"; // There are slugs with blank no many objects that are not pages --->
+
+	application.IOAPI.Init();
+	application.USERAPI.Init();
+	application.GSAPI.Init();
 
 
 	// reset then override

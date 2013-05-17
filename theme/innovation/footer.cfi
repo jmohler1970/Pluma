@@ -3,7 +3,7 @@
 	<!-- site footer -->
 	<footer class="clearfix" >
 		
-		<?php get_footer(); ?>
+		#application.GSAPI.get_footer()#
 		
 		<!-- 
 			Theme Credits

@@ -11,9 +11,11 @@ void function init() output="false"{
 	
 	this.stFilter = {};	// For data that will be subsituted
 	
-	this.GS_scripts = queryNew("handle,src,ver,in_footer,where"); // JavaScript
-	this.GS_styles 	= queryNew("handle,src,ver,media,where");
+	this.GS_scripts = queryNew("handle,src,ver,in_footer,sortby"); // JavaScript, sortby low is first
+	this.GS_styles 	= queryNew("handle,src,ver,media,sortby");
 	}
+
+
 
 
 void function i18n_merge(string plugin="") output="false"{
@@ -327,7 +329,7 @@ boolean function is_logged_in() {
 	}
 
 
-void function register_script(string handle, string src, string ver, boolean in_footer=false)	{
+void function register_script(string handle, string src, string ver, boolean in_footer=false, numeric sortBy=5)	{
 	
 	arguments.src = replacelist(arguments.src, "~/", this.get_site_url());
 	
@@ -336,28 +338,40 @@ void function register_script(string handle, string src, string ver, boolean in_
 	QuerySetCell(this.GS_scripts, "src", 		arguments.src);
 	QuerySetCell(this.GS_scripts, "ver", 		arguments.ver);
 	QuerySetCell(this.GS_scripts, "in_footer", 	arguments.in_footer);
+	QuerySetCell(this.GS_scripts, "sortby", 	arguments.sortby);
 	}
 
+</cfscript>
 
 
-string function get_scripts_frontend(boolean footer=false) {
+<cffunction name="get_scripts_frontend" returnType="string" output="false">
+	<cfargument name="footer" type="boolean" default="0">
 
-	var strResult = "";
+	<cfset	var strResult = "">
+	<cfset var qryTemp = this.GS_scripts>
 
-	if (!arguments.footer)	{
-		strResult = this.get_styles_frontend();
-		}
+	<cfif not arguments.footer>
+		<cfset strResult = this.get_styles_frontend()>
+	</cfif>
 	
-	for(var i = 1; i <= this.GS_scripts.recordcount; i++)	{
-		if (arguments.footer == this.GS_scripts.in_footer[i])	{
-			strResult &= '<script src="#this.GS_scripts.src[i]#?v=#this.GS_scripts.ver[i]#"></script>
-			';
-			}		
-		}
+	<cfquery name="qryScripts" dbtype="query">
+		SELECT 	in_footer, src, ver
+		FROM 	qryTemp
+		ORDER BY SortBy
+	</cfquery>
+	
+	<cfloop query="qryScripts">
+		<cfset strResult &= '<script src="#src#?v=#ver#"></script>
+		'>
+	</cfloop>
+	
+	<cfreturn strResult>	
+</cffunction>
 
-	return strResult;
-	} 
 
+
+
+<cfscript>
 
 void function register_style(string handle, string src, string ver="", string media="")	{
 	
@@ -397,11 +411,6 @@ string function get_styles_frontend() {
 
 /* Everything above was in theme_functions.php */
 	
-
-
-
-
-
 
 
 
@@ -493,10 +502,6 @@ string function get_site_version() {
 
 	return application.GSVERSION;
 	}
-
-
-
-
 </cfscript>
 
 
