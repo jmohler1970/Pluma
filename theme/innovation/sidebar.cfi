@@ -70,7 +70,12 @@
 		<cfif session.LOGINAPI.is_Logged_In()>
 			<p>You are currently logged in</p>
 			
-			<a href="/index.cfm/logout">Logout</a>				
+			<p><a href="/index.cfm/login">Control Panel</a></p>		
+			
+			
+			<p><a href="/index.cfm/logout">Logout</a></p>	
+			
+				
 		<cfelse>
 			<p>You are not currently logged in</p>
 			
