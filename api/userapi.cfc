@@ -58,7 +58,7 @@ struct function set(required string userid, required struct rc) output="false"	{
 
 	result = this.wsUser.commit(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
 	
-	return {result = result};
+	return result;
 	}
 
 struct function set_password(required string userid, required string password) output="false"	{

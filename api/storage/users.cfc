@@ -226,7 +226,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 
 
 
-<cffunction name="commit" returnType="boolean"  hint="Does both insert and update">
+<cffunction name="commit" returnType="struct"  hint="Does both insert and update">
 	<cfargument name="UserID" required="true" type="string" hint="blank is valid and will create a new user">
 	<cfargument name="rc" required="true" type="struct">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -328,13 +328,16 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 			 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byuserID#">)
 				 	
+				 	
 		WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_integer" value="#arguments.userid#">
 		AND		Deleted = 0
 	</cfquery>
 	
+	
+	<cfset variables.stResults.UserID = arguments.UserID>
 
 
-	<cfreturn true>
+	<cfreturn variables.stResults>
 </cffunction> 
 
 
