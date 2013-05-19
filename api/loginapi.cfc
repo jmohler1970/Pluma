@@ -170,6 +170,8 @@ query function get_by_email(required string email) output="false" {
 		variables.stResult.result = false;
 		variables.stResult.key = "plumacms/No_Permission";
 	
+		this.doLogout();
+	
 		return variables.stResult;
 		}
 	
@@ -180,6 +182,8 @@ query function get_by_email(required string email) output="false" {
 			variables.stResult.result = false;
 			variables.stResult.key = "plumacms/Expired_user";
 	
+			this.doLogout();
+	
 			return variables.stResult;
 			}			
 		}
@@ -189,6 +193,8 @@ query function get_by_email(required string email) output="false" {
 	
 		variables.stResult.result = false;
 		variables.stResult.key = "plumacms/deleted_user"; // we never want to see you again
+	
+		this.dologout();
 	
 		return variables.stResult;
 		}

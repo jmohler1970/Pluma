@@ -107,9 +107,9 @@
 
 
 
-
+<div class="leftsec">
   <p>
-    <b>Permission</b>
+    <b>#application.GSAPI.i18n("USER_MANAGEMENT/PERMISSION")#</b>
     <br />
        <select name="group" class="text">
        <cfloop index="ii" list="#Application.stSettings.Group.lstAccess#">
@@ -118,6 +118,21 @@
     </select>
  
   </p>
+</div>  
+  
+ 
+<div class="rightsec"> 
+
+
+
+	<p>
+		<b>#application.GSAPI.i18n("USER_MANAGEMENT/EXPIRATION")#</b>
+		<br />
+		  	<cfset application.IOAPI.showDatePicker("expirationDate", ExpirationDate, "text autowidth")>
+
+	</p>
+</div>
+
 
 
 	<div class="clear"></div>

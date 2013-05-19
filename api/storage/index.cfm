@@ -1,5 +1,21 @@
 
 <cfscript>
+wsUser 	= createobject("component", "Users");
+
+	//wsUser.init();
+
+	rc = wsUser.getOne(61);
+
+
+	
+	writedump(rc);
+
+</cfscript>	
+<cfexit>
+
+
+
+<cfscript>
 ar = DirectoryList(getdirectoryfrompath(getBaseTemplatePath()), true, "path");
 
 writedump(ar);
