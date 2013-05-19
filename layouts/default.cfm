@@ -95,7 +95,7 @@ param rc.silent = 0;
 				</div>	
 			</cfcase>
 			<cfcase value="2">
-				<div class="error">
+				<div class="warning">
 					#message#
 				</div>	
 			</cfcase>

@@ -1,19 +1,18 @@
 
+<cfoutput>							
 <div class="main">
 
-	<h3 class="floated">Feedback Forms</h3>
+	<h3 class="floated">#application.GSAPI.i18n("PLUMACMS/FEEDBACK_SETTINGS")#</h3>
 	
-	<cfexit>	
+
 	
 	
 	<div class="edit-nav clearfix">
-		<cfoutput>							
 			<a href="#buildURL(action='home.feedback')#" target="_blank">#application.GSAPI.i18n("PLUMACMS/TEST")#</a>
-		</cfoutput>
+		
 	</div>
 
 
-<cfoutput>
 <form action="#buildURL(action = '.feedback')#" method="post">
 </cfoutput>
 	

@@ -243,7 +243,7 @@ void function enderror404(required struct rc) output="false"	{
 
 	
 	if (rc.err_email != "" and not rc.err_email contains "@")	{
-		this.AddError("Email_error");
+		this.AddWarning("PLUMACMS/Email_NO_AT");
 		}
 
 	}
@@ -279,10 +279,10 @@ void function endfeedback(required struct rc) output="false"	{
 	param rc.feedback_Email = "";
 	
 	if (rc.feedback_SysAdminEmail == "" AND rc.feedback_Email == "")
-		this.addWarning("PLUMACMS/Email_NOONE");
+		this.AddWarning("PLUMACMS/EMAIL_NOT_SETUP");
 
 	if (rc.feedback_email != "" and not rc.feedback_email contains "@")	{
-		this.AddError("Email_Error");
+		this.AddWarning("PLUMACMS/Email_NO_AT", [rc.feedback_email]);
 		}
 
 		
@@ -320,7 +320,7 @@ void function endnotification(required struct rc) output="false"	{
 	param rc.notif_Email = "";
 
 	if (rc.notif_email != "" and not rc.notif_email contains "@")	{
-		this.AddError("EMAIL_ERROR");
+		this.AddWarning("PLUMACMS/EMAIL_NO_AT");
 		}
 
 	}	
