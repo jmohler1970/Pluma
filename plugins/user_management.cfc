@@ -15,7 +15,9 @@ function Init()	{
 	'',
 	'',
 	'icon-heart');
-
+	
+	application.GSAPI.add_action("settings-user-extras", "settings_form_data",["user_management"]);
+	
 	}	
 </cfscript>
 

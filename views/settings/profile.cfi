@@ -62,6 +62,11 @@
 
 
 	<div class="clear"></div>
+	
+	<cfoutput>#application.GSAPI.exec_action("settings-user-extras")#</cfoutput>
+	
+	
+	
 	<p>
 		<b>#application.GSAPI.i18n('plumacms/USER_BIO')#</b>
 		<br />

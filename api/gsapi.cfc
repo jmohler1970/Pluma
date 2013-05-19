@@ -579,8 +579,10 @@ string function get_site_version() {
 
 
 <cffunction name="exec_action" returnType="string">
-	<cfargument name="action" required="true" 	type="string" hint="what function to run in plugin">
+	<cfargument name="action" 	required="true" type="string" hint="what function to run in plugin">
 	<cfargument name="selected" required="false" type="string" default="">
+	<cfargument name="rc" 		required="false" type="struct" default="#structNew()#">
+	
 
 	
 	<cfsavecontent variable="local.result">
@@ -619,6 +621,22 @@ string function get_site_version() {
 						
 				</cfoutput>
 			</cfcase>
+			
+			<cfdefaultcase>
+				<cfoutput> 
+				<!-- Run: plugins.#request.arPlugins[i].attr[1]#.#request.arPlugins[i].added_function# -->
+				</cfoutput>
+			
+				<cftry>
+					<cfinvoke component="plugins.#request.arPlugins[i].attr[1]#" 
+						method="#request.arPlugins[i].added_function#" 
+						argumentCollection="#arguments.rc#" />						
+				
+				
+				<cfcatch><cfoutput><p class="error">#cfcatch.message#</p></cfoutput></cfcatch>
+				</cftry>
+				
+			</cfdefaultcase>
 			</cfswitch>
 		</cfif>
 	</cfloop>
