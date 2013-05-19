@@ -56,7 +56,7 @@ void function impersonate(required struct rc) output="false"	{
 		return;
 		}
 
-	this.AddERROR("PLUMACMS/FAILURE", [stResult.message]);
+	this.AddERROR(stResult.key);
 
 	variables.fw.redirect("login.home", "all");
 	}
