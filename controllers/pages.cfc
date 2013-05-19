@@ -91,7 +91,7 @@ void function edit(required struct rc) output="false" {
 			var stResult = application.IOAPI.set(NodeK, rc);
 		
 			if (not stResult.result)	{
-				this.AddError(stResult.key);
+				this.AddError(stResult.key, [stResult.message]);
 				
 				return;
 				}

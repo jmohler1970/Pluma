@@ -69,6 +69,8 @@
 		
 		<cfif session.LOGINAPI.is_Logged_In()>
 			<p>You are currently logged in</p>
+
+			
 			
 			<p><a href="/index.cfm/login">Control Panel</a></p>		
 			

@@ -254,21 +254,33 @@
 	
 	<cftry>
 	<cfquery>
+	DECLARE	@parentNodeID int 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR"	value="#rc.parentnodeid#">,
+		@xmlTitle xml 			= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#xmlTitle#">,
+		@strData varchar(max) 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#trim(rc.strData)#"  null="#yesnoformat(rc.strData EQ "")#">,
+		@xmlData xml			= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#rc.xmlData#">,
+		@CommentMode varchar(50) = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#rc.commentMode#">,
+		@pinned bit				= <cfqueryparam CFSQLType="CF_SQL_bit" 		value="#rc.pinned#">,
+		@cStatus bit			= <cfqueryparam CFSQLType="CF_SQL_bit" 		value="#rc.cStatus#">,
+		@pStatus varchar(50)	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#rc.pStatus#">,
+		@startDate date			= <cfqueryparam CFSQLType="CF_SQL_date" 	value="#rc.startDate#" 		null="#yesnoformat(isDate(rc.startDate) AND startDate NEQ "")#">,
+		@expirationDate date	= <cfqueryparam CFSQLType="CF_SQL_date" value="#rc.expirationDate#" null="#yesnoformat(not isDate(rc.expirationDate) OR rc.expirationDate EQ "")#">
+		
+	
 	
 	UPDATE	dbo.Node
-	SET		ParentNodeID = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.parentnodeid#">,
+	SET		ParentNodeID = @ParentNodeID,
 						
-			xmlTitle 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#xmlTitle#">,
-			strData 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#trim(rc.strData)#"  null="#yesnoformat(rc.strData EQ "")#">,
-			xmlData		= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#rc.xmlData#" null="#yesnoformat(rc.xmlData EQ "")#">,
+			xmlTitle 	= @xmlTitle,
+			strData 	= @strData,
+			xmlData		= @xmlData,
 			
-			CommentMode = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#rc.commentMode#">,
-			Pinned 		= <cfqueryparam CFSQLType="CF_SQL_bit" 		value="#rc.pinned#">,
-			cStatus		= <cfqueryparam CFSQLType="CF_SQL_bit" 		value="#rc.cStatus#">,
-			pStatus		= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#rc.pStatus#">,
+			CommentMode = @CommentMode,
+			Pinned 		= @pinned,
+			cStatus		= @cStatus,
+			pStatus		= @pStatus,
 			
-			startDate 	= <cfqueryparam CFSQLType="CF_SQL_date" 	value="#rc.startDate#" 		null="#yesnoformat(isDate(rc.startDate) AND startDate NEQ "")#">,
-			expirationDate 	= <cfqueryparam CFSQLType="CF_SQL_date" value="#rc.expirationDate#" null="#yesnoformat(not isDate(rc.expirationDate) OR rc.expirationDate EQ "")#">,
+			startDate 	= @startDate,
+			expirationDate 	= @expirationDate,
 			
 		
 			Modified 	= dbo.udf_4jInfo('Node was updated',
@@ -277,9 +289,32 @@
 	WHERE	NodeID = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.NodeID#">
 	AND		Kind = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.Kind#">
 	AND		Deleted = 0
+	AND		(
+			ParentNodeID <> @ParentNodeID
+			OR
+			CONVERT(varchar(max), xmlTitle) 	<> CONVERT(varchar(max), @xmlTitle)
+			OR
+			strData 	<> @strData
+			OR
+			CONVERT(varchar(max), xmlData) 		<> CONVERT(varchar(max), @xmlData)
+			OR
+			CommentMode <> @CommentMode
+			OR
+			Pinned <> @pinned
+			OR
+			cStatus <> @cStatus
+			OR
+			pStatus <> @pStatus
+			OR
+			startDate <> @startDate
+			OR
+			expirationDate <> @expirationDate
+			)
 	</cfquery>
 	
 		<cfcatch>
+		
+		<cfset this.stResults.key = "PLUMACMS/FAILURE">
 		
 		<cfset this.stResults.result = false>
 		<cfset this.stResults.message = cfcatch.detail>
@@ -623,6 +658,7 @@
 		SET 	xmlTaxonomy = <cfqueryparam CFSQLType="CF_SQL_varchar" 	value="#trim(strXML)#">
 		WHERE 	NodeID 		= <cfqueryparam CFSQLType="CF_SQL_INTEGER" 	value="#arguments.NodeK.NodeID#">
 		AND		Deleted = 0
+		AND		CONVERT(varchar(max), xmlTaxonomy) <>  <cfqueryparam CFSQLType="CF_SQL_varchar" 	value="#trim(strXML)#">
 	</cfquery>
 	
 
