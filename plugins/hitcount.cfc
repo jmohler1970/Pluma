@@ -19,11 +19,20 @@ function Init()	{
 
 
 	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=hitcount", "HITCOUNT/SIDEMENU", "hitcount"]);
+	
+	application.GSAPI.add_action('pre-header', 'hitcount_header', ["hitcount"]);
 	}	
 </cfscript>
 
 
-
+<cffunction name="hitcount_header" returnType="void">
+	<cfargument name="rc" required="true" type="struct">	
+	
+	
+	<cfset application.IOAPI.add_traffic(rc, rc._SubSystem, rc._Section, rc._item)>
+	
+</cffunction>	
+	
 
 
 <cffunction name="settings" returnType="struct">

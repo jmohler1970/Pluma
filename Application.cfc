@@ -122,6 +122,13 @@ void function setupRequest()	{
 	param rc.id 	= "";  // This is used for page requests
 	param rc.nodeid = "" ; // Admin use only, use id for normal requests --->
 	param rc.slug	= "index"; // There are slugs with blank no many objects that are not pages --->
+	
+	rc._SubSystem  	= getSubSystem();
+	rc._Section 	= getSection();
+	rc._Item 		= getItem();
+	
+
+	
 
 	application.IOAPI.Init();
 	application.USERAPI.Init();
@@ -158,7 +165,6 @@ void function setupRequest()	{
 	
 	 	
 
-	application.IOAPI.add_traffic(rc, getSubSystem(), getSection(), getItem());
 	
 
 	

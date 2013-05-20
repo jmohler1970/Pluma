@@ -1,3 +1,6 @@
+<!---@ Description: This is used for public pages and not admin tools --->
+
+
 <cfset request.layout = false><!--- Do not cascade --->
 
 
@@ -28,6 +31,9 @@
 
 <!--- Process plugin_content --->
 <cfscript>
+application.GSAPI.exec_action("pre-header", '', rc); // before the template even runs
+
+
 plugin_content 	= application.GSAPI.get_plugin_content();
 theme 			= application.GSAPI.get_theme();
 theme_template 	= application.GSAPI.get_theme_template();
