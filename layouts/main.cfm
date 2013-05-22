@@ -31,35 +31,29 @@
 
 <!--- Process plugin_content --->
 <cfscript>
-application.GSAPI.exec_action("pre-header", '', rc); // before the template even runs
+
 
 
 plugin_content 	= application.GSAPI.get_plugin_content();
 theme 			= application.GSAPI.get_theme();
-theme_template 	= application.GSAPI.get_theme_template();
-</cfscript>
+template_file	= application.GSAPI.get_theme_template();
 
 
-<!--- Process Theme --->
-<cfif fileExists(expandpath("theme/#theme#/functions.cfi"))>
-	
-	<cfinclude template="../theme/#theme#/functions.cfi">
-</cfif>
 
 
-<!--- Load ini --->
-<cfif fileExists(expandpath("theme/#theme#/title.ini"))>
-	<cfset request.stTitle = application.GSAPI.load_ini("theme/#theme#/title.ini")>
-</cfif>
 
-<cfif fileExists(expandpath("theme/#theme#/settings.ini"))>
-	<cfset request.stSettings = application.GSAPI.load_ini("theme/#theme#/settings.ini")>
-</cfif>
+// Load ini --->
+if (fileExists(expandpath("theme/#theme#/title.ini")))
+	request.stTitle = application.GSAPI.load_ini("theme/#theme#/title.ini");
 
 
-<!--- Determine template --->
+if (fileExists(expandpath("theme/#theme#/settings.ini")))
+	request.stSettings = application.GSAPI.load_ini("theme/#theme#/settings.ini");
 
-<cfscript>
+
+
+// Determine template --->
+
 
 
 
@@ -73,41 +67,25 @@ if (getItem() EQ "401" AND
 if (getItem() EQ "404" AND 
 	fileExists(expandpath("theme/#theme#/404.cfm")))
 	theme_template = "404.cfm";
-	
+
+
+// include the functions.cfi page if it exists within the theme
+if (fileExists(expandpath("theme/#theme#/functions.cfi")))
+	include "../theme/#theme#/functions.cfi";
+
+
+
+// call pretemplate Hook
+application.GSAPI.exec_action("index-pretemplate", '', rc); 
+
+
+// include the template and template file set within theme.home and each page
+if (!fileExists(expandpath("theme/#theme#/#template_file#")) || template_file == '') { template_file = "template.cfm"; }
+include "../theme/#theme#/#template_file#";
+
+// call posttemplate Hook
+application.GSAPI.exec_action("index-posttemplate", '', rc); 
 </cfscript>
-
-
-
-
-
-
-<cfif not fileExists(expandpath("theme/#theme#/#theme_template#"))>
-	<cfset theme_template = "template.cfm">
-</cfif>	
-
-
-<cfif fileExists(expandpath("theme/#theme#/#theme_template#"))>
-	<cfinclude template="../theme/#theme#/#theme_template#">
-	<cfexit>
-</cfif>
-
-
-
-<html>
-<head> 
-	<title>Error Loading Template</title>
-</head>
-
-<body>
-	<cfdump var="#application#"> 
-	
-	<cfdump var="#request#">
-</body>
-</html>
-
-
-
-
 
 
 

@@ -20,7 +20,7 @@ function Init()	{
 
 	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=hitcount", "HITCOUNT/SIDEMENU", "hitcount"]);
 	
-	application.GSAPI.add_action('pre-header', 'hitcount_header', ["hitcount"]);
+	application.GSAPI.add_action('index-pretemplate', 'hitcount_header', ["hitcount"]);
 	}	
 </cfscript>
 

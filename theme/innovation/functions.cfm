@@ -1,6 +1,6 @@
 
 
-<cffunction name="Innovation_Parent_Link">
+<cffunction name="Innovation_Parent_Link" returnType="void">
 
 
 </cffunction>

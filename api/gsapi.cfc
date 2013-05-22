@@ -629,8 +629,10 @@ string function get_site_version() {
 			
 				<cftry>
 					<cfinvoke component="plugins.#request.arPlugins[i].attr[1]#" 
-						method="#request.arPlugins[i].added_function#" 
-						argumentCollection="#arguments.rc#" />						
+						method="#request.arPlugins[i].added_function#">
+						<cfinvokeargument name="rc" value="#arguments.rc#">
+					</cfinvoke>	
+												
 				
 				
 				<cfcatch><cfoutput><p class="error">#cfcatch.message#</p></cfoutput></cfcatch>
