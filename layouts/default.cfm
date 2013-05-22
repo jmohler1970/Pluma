@@ -29,18 +29,13 @@ param rc.silent = 0;
 
 	
 	<!-- Le styles -->
-	<link rel="stylesheet" href="#application.GSAPI.get_site_root()#layouts/css/jquery-ui.css" />
-      
-     
-      
-    <link href="#application.GSAPI.get_site_root()#layouts/css/style.less"		rel="stylesheet/less" type="text/css" />
+	<link href="#application.GSAPI.get_site_root()#layouts/css/jquery-ui.css"	rel="stylesheet" type="text/css" />
+    <link href="#application.GSAPI.get_site_root()#layouts/css/style.cfm"		rel="stylesheet" type="text/css" />
+    <link href="#application.GSAPI.get_site_root()#layouts/css/calendar.css"	rel="stylesheet" type="text/css" />
+    <link href="#application.GSAPI.get_site_root()#layouts/css/more.css"		rel="stylesheet" type="text/css" />
+  
     
-    
-    
-    <link href="#application.GSAPI.get_site_root()#layouts/css/calendar.css"		rel="stylesheet/less" type="text/css" />
-    
-    
-    <script src="#application.GSAPI.get_site_root()#layouts/js/less.js" 		type="text/javascript"></script>
+
    
  
     <script src="#application.GSAPI.get_site_root()#layouts/js/sorttable.js"	type="text/javascript"></script>
@@ -158,7 +153,7 @@ param rc.silent = 0;
 	
 	<div class="gslogo">
 		<cfoutput>
-	   		<a href="http://webworldinc.com/plumaCMS" target="_blank"><img src="#application.GSAPI.get_site_root()#layouts/images/PlumaCMS_80x16.png" alt="PlumaCMS by James Mohler and Web World Inc."></a>
+	   		<a href="http://webworldinc.com/plumaCMS" target="_blank"><img src="#application.GSAPI.get_site_root()#layouts/css/images/PlumaCMS_80x16.png" alt="PlumaCMS by James Mohler and Web World Inc."></a>
 	    </cfoutput>
 	</div>
 	

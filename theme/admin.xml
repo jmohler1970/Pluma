@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+
+	This XML document is meant to change the colors within the GetSimple 3.0 Administrative Console
+	******************************************************************************************************
+	A few things to make note of:
+		1. There are a couple images within `/admin/template/images` that might need to change as a result
+		2. This is to be placed in the root of `/themes/` as `admin.xml`
+		3. Colors need the hash in front of the numbers. eg: #333333
+		4. Do not use shortcut hex values. eg. #333
+		5. Only works with GetSimple version 3.0
+		
+	Based on JavaBlue by lizmorgan in Adobe Kuler
+-->
+<item>
+	<title>GetSimple Default Admin</title>
+	<author>Christophe AUBRY</author>
+	<link>http://www.netplume.net/</link>
+	<primary>
+		<darkest>
+			<!-- tab hover background, link hover -->
+			#375D81
+		</darkest>
+		<darker>
+			<!-- non-active tab background, active main tab text hover -->
+			#6A8BAB
+		</darker>
+		<dark>
+			<!-- header bottom fade color -->
+			#375D81
+		</dark>
+		<middle>
+			<!-- separators, active main tab text -->
+			#375D81
+		</middle>
+		<light>
+			<!-- header top fade color -->
+			#6A8BAB
+		</light>
+		<lighter>
+			<!-- site name link color -->
+			#D7E8F7
+		</lighter>
+		<lightest>
+			<!-- non-active tab text, separators -->
+			#D7E8F7
+		</lightest>
+	</primary>
+	<secondary>
+		<darkest>
+			<!-- side tab active shadow -->
+			#375D81
+		</darkest>
+		<lightest>
+			<!-- side tab active background, page subtitles -->
+			#375D81
+		</lightest>
+	</secondary>
+</item>

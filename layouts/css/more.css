@@ -1,0 +1,38 @@
+/* alert styles */
+.updated, .success, .error, .warning {
+	border:1px solid #FCD344;
+	border-radius:2px;
+	background:#FFFBCC;
+
+	background-image: url(images/note.gif);
+	background-position: 10px 9px !important;  
+	background-repeat: no-repeat;
+	line-height:22px;
+	padding:8px 8px 8px 32px;
+	margin-bottom:20px;
+	}
+	
+.updated p, .success p, .error p, .warning p {	
+	padding:8px 8px 8px 32px;
+	line-height:22px;
+	}
+
+.success	{
+	background-color:#eff5ea;
+	border-color:#446423; 
+	background-image: url(images/success.gif);
+	background-position: 10px 9px !important;  
+	background-repeat: no-repeat;
+	}
+
+
+
+.error {
+	color:#990000;
+	border-color: #cc0000;
+	background:#F9DFDD;
+	background-image: url(images/error.gif);
+	background-position: 10px 9px !important;  
+	background-repeat: no-repeat;
+	
+	}
