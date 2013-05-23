@@ -109,7 +109,7 @@ void function edit(required struct rc) output="false" {
 				}
 			
 			application.GSAPI.exec_action('changedata-aftersave', "", rc);
-			
+			application.GSAPI.generate_sitemap();
 			
 			this.AddSuccess("ER_YOUR_CHANGES", [rc.slug]);				
 					

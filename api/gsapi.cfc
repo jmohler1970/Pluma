@@ -408,6 +408,78 @@ string function get_styles_frontend() {
 
 
 
+struct function generate_sitemap(required struct rc) output="false"	{
+
+	param rc.submit = "";
+	param rc.siteMapID = "";
+	param rc.entrycount = 0;
+
+	rc.siteroot = "http://#cgi.http_host##cgi.script_name#/";
+	var target = application.GSROOTPATH & "/sitemap.xml";
+			
+
+	if (rc.submit EQ "Delete")	{
+		application.IOAPI.delete({NodeID = rc.SiteMapID, Kind = "Sitemap"});
+		
+		if (fileexists(target))	{
+			filedelete(target);
+			this.AddInfo("ER_FILE_DEL_SUC");				
+			}
+		
+		
+		return;
+		}
+
+	rc.xmlData = "";
+
+	for (var i = 1; i <= this.entrycount; i++)	{
+		var loc = ""; 		if (isDefined("rc.loc_#i#")) 			{ loc = evaluate("rc.loc_#i#"); }
+		var changefreq = ""; if (isDefined("rc.changefreq_#i#")) 	{ changefreq = evaluate("rc.changefreq_#i#"); }
+		var priority = ""; 	if (isDefined("rc.priority_#i#")) 		{ priority = evaluate("rc.priority_#i#"); }
+	
+			
+		if (changefreq != "exclude")	{
+			rc.xmlData &= "<url>"  & variables.crlf;
+			rc.xmlData &= "<loc>#xmlformat(loc)#</loc>" & variables.crlf;
+			rc.xmlData &= "<changefreq>#changefreq#</changefreq>" & variables.crlf;
+			rc.xmlData &= "<priority>#LSNumberformat(priority, "9.9")#</priority>" & variables.crlf;
+			rc.xmlData &= "</url>" & variables.crlf;
+			}
+			
+		} /* end for */
+
+	
+	rc.Kind = "Sitemap";
+
+	var stResult  = application.IOAPI.set({NodeID = rc.SiteMapID, Kind = "Sitemap"});
+
+	rc.SiteMapID = stResult.NodeID;
+
+	var stResult = application.IOAPI.set_XMLData({NodeID = rc.SiteMapID, Kind = "Sitemap"}, rc.xmlData);
+	
+	/* Do write operation */
+	var strSiteMap = '<?xml version="1.0" encoding="utf-8"?>'
+		& variables.crlf
+		& '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' 
+		& variables.crlf
+		& rc.xmlData 
+		& variables.crlf
+		& '</urlset>';
+		
+	strSiteMap = replace(strSiteMap, "<loc>", "<loc>#rc.siteroot#", "all");	
+	
+	
+
+	
+	filewrite(target, strSiteMap);
+		
+
+
+	return stResult;		
+	}
+
+
+
 
 /* Everything above was in theme_functions.php */
 	
