@@ -118,8 +118,6 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 			
 			<cfset application.GSAPI.exec_action("plugin_content", rc.qryNode.plugin_content)>
 		</select>
-	    
-
 	</p>
 
 <cfoutput query="rc.qryNode">	
@@ -239,29 +237,20 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 	
 	<div class="clear"></div>
 	
+	<cfset application.GSAPI.exec_action("edit-extras", "", rc)>
 </div>
 
 
-<table class="table">
-<tr>
-	<td colspan="5" style="width : 740px; height : 500px; text-align : center;">
+
 	<cfif session.LOGINAPI.adhocSecurity("system")>
 		<cftextarea name="strData" richtext="true" height="500" width="740">#strData#</cftextarea>
 	<cfelse>
 		<cftextarea name="strData" richtext="true" toolbar="Enhanced"  height="500" width="740">#strData#</cftextarea>
 	</cfif>
 	
-	<cfif Len(strData) LT 10 and isnumeric(rc.nodeid)>
-		<div class="updated">
-			<strong>Warning!</strong> Page does not appear to have content
-		</div>
+	<cfset application.GSAPI.exec_action("edit-extras", "", rc)>
 	
 	
-	</cfif>
-	
-	</td>
-</tr>
-</table>
 
 
 
