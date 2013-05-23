@@ -470,9 +470,10 @@ struct function generate_sitemap(required struct rc) output="false"	{
 	
 	
 
+	application.GSAPI.exec_action("save-sitemap", "", rc);
 	
 	filewrite(target, strSiteMap);
-		
+	
 
 
 	return stResult;		

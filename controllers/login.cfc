@@ -16,12 +16,23 @@ void function home (required struct rc) output="false"	{
 	
 	if (cgi.request_method == "post")	{
 	
+		if (rc.login == "" or rc.password == "")	{
+			this.AddError("FILL_IN_REQ_FIELD");
+			return;				
+			}
+	
+	
+		application.GSAPI.exec_action("successful-login-start", "", rc);
+	
 		var stResult = session.LOGINAPI.dologin(rc.login, rc.password);
 	
 		if (stResult.result)	{
+			application.GSAPI.exec_action("successful-login-end", "", rc);
+		
 			// No special message shown 
 	
 			variables.fw.redirect(session.LOGINAPI.loginTarget, "all");
+						
 			return;
 			}
 		else	{
