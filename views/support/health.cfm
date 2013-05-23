@@ -274,7 +274,7 @@ for( i=1; i lte arrayLen(pools); i=i+1 ) 	{
 </form>
 
 
-<cfset application.GSAPI.exec_action("healthcheck-extras", "", rc)>
+<cfoutput>#application.GSAPI.exec_action("health-check-extras", "", rc)#</cfoutput>
 
 </div>
 

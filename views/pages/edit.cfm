@@ -237,7 +237,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 	
 	<div class="clear"></div>
 	
-	<cfset application.GSAPI.exec_action("edit-extras", "", rc)>
+	#application.GSAPI.exec_action("edit-extras", "", rc)#
 </div>
 
 
@@ -248,7 +248,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 		<cftextarea name="strData" richtext="true" toolbar="Enhanced"  height="500" width="740">#strData#</cftextarea>
 	</cfif>
 	
-	<cfset application.GSAPI.exec_action("edit-extras", "", rc)>
+	#application.GSAPI.exec_action("edit-content", "", rc)#
 	
 	
 
