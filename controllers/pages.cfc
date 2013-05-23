@@ -156,10 +156,11 @@ void function delete(required struct rc) output="false" {
 
 	var stResult = application.IOAPI.delete({NodeID = rc.NodeID});
 	
-		
+	application.GSAPI.generate_sitemap();
+	application.GSAPI.exec_action("page-delete", "", rc);
+			
 	this.AddInfo(stResult.key);
 	
-
 	variables.fw.redirect("pages.home", "all");
 	}
 		
