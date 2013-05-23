@@ -32,7 +32,6 @@ struct function before(required struct rc) output="false" {
 void function starthome(required struct rc) output="false" {
 	
 
-	
 	param rc.filter = "";
 	param rc.kind = "";
 	param rc.group = "";
@@ -40,6 +39,8 @@ void function starthome(required struct rc) output="false" {
 	param rc.commentmode = "";
 	param rc.recent = "";
 	param rc.withaction = "";
+	
+	application.GSAPI.exec_action("plugins-hook", "", rc);
 	}
 
 </cfscript>	
