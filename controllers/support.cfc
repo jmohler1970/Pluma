@@ -35,7 +35,9 @@ void function jour(required struct rc) output="false"	{
 
 	if (rc.clear == 1)	{
 		application.IOAPI.clear_log(rc.Kind);
-	
+
+		application.GSAPI.exec_action("logfile-delete", "", rc);
+		
 		this.addWarning("MSG_HAS_BEEN_CLR", [rc.Kind]);		
 		}
 
