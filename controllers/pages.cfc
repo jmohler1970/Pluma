@@ -87,6 +87,9 @@ void function edit(required struct rc) output="false" {
 			
 					
 			var NodeK = {NodeID = rc.NodeID, Kind = "Page"};	
+			
+			
+			application.GSAPI.exec_action('changedata-save', "", rc);
 				
 			var stResult = application.IOAPI.set(NodeK, rc);
 		
@@ -104,6 +107,9 @@ void function edit(required struct rc) output="false" {
 				
 				application.IOAPI.set_Conf(NodeK, rc);
 				}
+			
+			application.GSAPI.exec_action('changedata-aftersave', "", rc);
+			
 			
 			this.AddSuccess("ER_YOUR_CHANGES", [rc.slug]);				
 					
