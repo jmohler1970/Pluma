@@ -32,6 +32,8 @@
 	<li><a href="#buildURL('files.home')#">#application.GSAPI.i18n("UPLOADIFY_BUTTON")#</a></li>
 	<li><a href="#buildURL('settings.home')#">#application.GSAPI.i18n("GENERAL_SETTINGS")#</a></li>
 	<li><a href="#buildURL('theme.home')#">#application.GSAPI.i18n("CHOOSE_THEME")#</a></li>
+	#application.GSAPI.exec_action("welcome-link")#
+	#application.GSAPI.exec_action("support-doc-link")#
 </ul>
 
 
@@ -39,6 +41,8 @@
 
 <ul>
 	<li id="recent_login"><a href="#buildURL('.jour')#">#application.GSAPI.i18n("VIEW_FAILED_LOGIN")# </a></li>
+	
+	#application.GSAPI.exec_action("support-extras")#
 </ul>
 
 
