@@ -91,6 +91,7 @@ void function components(required struct rc) output="false"	{
 
 	
 
+		application.GSAPI.exec_action('component-save', "", rc);
 		
 		var result = application.IOAPI.set_pref("Components", rc);
 				
