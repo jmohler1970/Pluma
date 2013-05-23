@@ -76,6 +76,8 @@ void function impersonate(required struct rc) output="false"	{
 void function signout(required struct rc) output="false"	{
 	session.LOGINAPI.dologout();
 	
+	application.GSAPI.exec_action("logout", "", rc);
+	
 	
 	variables.fw.redirect("login.home", "all");
 	}
