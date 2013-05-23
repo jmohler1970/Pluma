@@ -181,6 +181,9 @@
 	</cfif>
 
 </cfoutput>
+
+<cfoutput>#application.GSAPI.exec_action("file-extras", '', rc)#</cfoutput>
+
 </table>
 
 
