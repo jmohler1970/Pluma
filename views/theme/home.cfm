@@ -24,7 +24,10 @@
 </form>
 
 
-	<img src="#application.GSAPI.get_site_root()#theme/#request.theme.current#/images/screenshot.png" />
+	<img src="#application.GSAPI.get_site_root()#theme/#request.theme.current#/images/screenshot.png" alt="Screenshot" />
+
+
+	#application.GSAPI.exec_action("theme-extras", '', rc)#
 
 </cfoutput>
 

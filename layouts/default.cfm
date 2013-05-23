@@ -1,15 +1,11 @@
 
 
-<cfscript>
-param rc.silent = 0;
-</cfscript>
-
-<cfif rc.silent><cfsetting showDebugOutput="No"><cfoutput>#body#</cfoutput><cfexit></cfif>
-
-
-
-
 <!--- Normal output begins --->
+
+<cfif getSection() != "login">
+	<cfset application.GSAPI.exec_action("admin-pre-header", '', rc)>	
+</cfif>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,6 +41,11 @@ param rc.silent = 0;
     
     <script src="#application.GSAPI.get_site_root()#layouts/js/jquery.js" 		type="text/javascript"></script>
     <script src="#application.GSAPI.get_site_root()#layouts/js/jquery-ui.js" 		type="text/javascript"></script>
+    
+    <cfif getSection() != "login">
+		#application.GSAPI.exec_action("admin-pre-header", '', rc)#	
+	</cfif>
+    
 	<script src="#application.GSAPI.get_site_root()#layouts/js/application.js" 	type="text/javascript"></script>
 
 </head>	
@@ -57,7 +58,7 @@ param rc.silent = 0;
 </cfif>
 
 <body id="#getSection()#">
-</cfoutput>
+
 
 
 <div class="header" id="header">
@@ -65,16 +66,18 @@ param rc.silent = 0;
 	<cfif session.LOGINAPI.lstGroup NEQ "">
     <div class="wrapper clearfix">
 
-
+	<cfif getSection() != "login">
+		#application.GSAPI.exec_action("header-body", '', rc)#
+	</cfif>	
 	
-		<cfinclude template="top2.cfi">
+		<cfinclude template="include-nav.cfi">
 	
 	</div>
 	</cfif>
 	
 	
 </div>
-
+</cfoutput>
 
 
 <div class="wrapper">
@@ -133,7 +136,7 @@ param rc.silent = 0;
 	
 		<div id="sidebar"> 
 		
-			<cfif fileexists("#getDirectoryFromPath(getCurrentTemplatePath())#/sidebar-#getSection()#.cfi")>
+			<cfif fileexists("#application.GSROOTPATH#layouts/sidebar-#getSection()#.cfi")>
 				<cfinclude template="sidebar-#getSection()#.cfi">
 			</cfif>
 		</div>
@@ -143,23 +146,28 @@ param rc.silent = 0;
 
 
 
-
+<cfoutput>
 <div id="footer">
 	<div class="footer-left">
-		<p>&copy; <cfoutput>#Year(Now())# #application.GSAPI.get_site_credits()#</cfoutput>
+		<p>&copy; #Year(Now())# #application.GSAPI.get_site_credits()#
 	</p>
 	</div>
 	
 	
 	<div class="gslogo">
-		<cfoutput>
+		
 	   		<a href="http://webworldinc.com/plumaCMS" target="_blank"><img src="#application.GSAPI.get_site_root()#layouts/css/images/PlumaCMS_80x16.png" alt="PlumaCMS by James Mohler and Web World Inc."></a>
-	    </cfoutput>
+	   
 	</div>
 	
 	<div class="clear"></div>
+	
+	<cfif getSection() != "login">
+		
+		#application.GSAPI.exec_action("footer", '', rc)#	
+	</cfif>
 </div>
-
+</cfoutput>
 
 
 
