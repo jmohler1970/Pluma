@@ -127,6 +127,7 @@ void function setupRequest()	{
 	rc._Section 	= getSection();
 	rc._Item 		= getItem();
 	
+	request.stIOR		= {};
 
 	
 
@@ -153,7 +154,9 @@ void function setupRequest()	{
 	
 	
 	
-	request.stIOR		= {};
+	// before all security
+	application.GSAPI.exec_action("common", "", rc);
+	
 	
 
 	/* Does at least one user exist, if not run install */
