@@ -36,3 +36,43 @@
 	background-repeat: no-repeat;
 	
 	}
+
+.updated, .success, .warning #temp_good_flash {color:#308000;}
+
+
+/* form submit button style */
+
+input.submit, button {
+  font: bold 13px Helvetica, Arial, sans-serif;
+  text-decoration: none;
+  padding: 7px 15px;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+  -webkit-transition: all .218s;
+  -moz-transition: all .218s;
+  -o-transition: all .218s;
+  transition: all .218s;
+  color: #333333;
+  background: #dddddd;
+  background: -webkit-gradient(linear,0% 40%,0% 70%,from(#eeeeee),to(#e1e1e1));
+  background: -moz-linear-gradient(linear,0% 40%,0% 70%,from(#eeeeee),to(#e1e1e1));
+  border: solid 1px #acacac;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  cursor:pointer;
+	-moz-box-shadow: rgba(0,0,0, 0.06) 0px 0px 3px;  
+	-webkit-box-shadow: rgba(0,0,0, 0.06) 0px 0px 3px;
+	box-shadow: rgba(0,0,0, 0.06) 0px 0px 3px;  
+}
+
+
+input.submit:focus, input.submit:hover, button:focus, button:hover {
+	color: #111111;
+  background: #eeeeee;
+  background: -webkit-gradient(linear,0% 40%,0% 70%,from(#eeeeee),to(#dddddd));
+  background: -moz-linear-gradient(linear,0% 40%,0% 70%,from(#eeeeee),to(#dddddd));
+  border: solid 1px #aaaaaa;
+  -moz-box-shadow: rgba(0,0,0, 0.15) 0px 0px 4px;  
+	-webkit-box-shadow: rgba(0,0,0, 0.15) 0px 0px 4px;
+	box-shadow: rgba(0,0,0, 0.15) 0px 0px 4px;  
+}

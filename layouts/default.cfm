@@ -2,7 +2,7 @@
 
 <!--- Normal output begins --->
 
-<cfif getSection() != "login">
+<cfif getSection() NEQ "login">
 	<cfset application.GSAPI.exec_action("admin-pre-header", '', rc)>	
 </cfif>
 
@@ -42,7 +42,7 @@
     <script src="#application.GSAPI.get_site_root()#layouts/js/jquery.js" 		type="text/javascript"></script>
     <script src="#application.GSAPI.get_site_root()#layouts/js/jquery-ui.js" 		type="text/javascript"></script>
     
-    <cfif getSection() != "login">
+    <cfif getSection() NEQ "login">
 		#application.GSAPI.exec_action("admin-pre-header", '', rc)#	
 	</cfif>
     
@@ -66,7 +66,7 @@
 	<cfif session.LOGINAPI.lstGroup NEQ "">
     <div class="wrapper clearfix">
 
-	<cfif getSection() != "login">
+	<cfif getSection() NEQ "login">
 		#application.GSAPI.exec_action("header-body", '', rc)#
 	</cfif>	
 	
@@ -162,7 +162,7 @@
 	
 	<div class="clear"></div>
 	
-	<cfif getSection() != "login">
+	<cfif getSection() NEQ "login">
 		
 		#application.GSAPI.exec_action("footer", '', rc)#	
 	</cfif>

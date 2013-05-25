@@ -64,16 +64,24 @@
  
  	<textarea name="components_#ii#" class="code" style="height : 120px;">#xmlformat(rc.stComponents[i])#</textarea>
 
-	<br />
 
-	<button type="submit" name="submit">#application.GSAPI.i18n("save_components")#</button> 
 
 	<p></p>
 
 
 </cfloop>
+
+	<br />
+
+<h3 id="submit_line">
+	<span>
+		<button type="submit" name="submit">#application.GSAPI.i18n("save_components")#</button> 
+	</span>	
+</h3>
+
 </form>
 
+<br />
 
 <p><b>Note:</b> The <code>application.GSAPI.get_component()</code> replaces <b>~</b> with site root.<br />
 	The current site root is: <code>#application.GSAPI.get_site_root()#</code></p>

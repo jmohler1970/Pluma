@@ -16,8 +16,8 @@ function Init()	{
 	'',
 	'icon-heart');
 	
-	application.GSAPI.add_action("plugins_sidebar", "createSideMenu", ["?plugin=plumacms", "Registration", "registration"]);
-	application.GSAPI.add_action("theme_sidebar", "createSideMenu", ["?plugin=plumacms", "Registration", "registration"]);
+	application.GSAPI.add_action("plugins_sidebar", "createSideMenu", ["?plugin=plumacms", "PLUMACMS/Registration", "registration"]);
+	application.GSAPI.add_action("theme_sidebar", "createSideMenu", ["?plugin=plumacms", "PLUMACMS/Registration", "registration"]);
 	application.GSAPI.add_action("support_sidebar", "createSideMenu", ["?plugin=plumacms&plx=contact", "PLUMACMS/SupportOptions", "support"]);
 	
 	}	

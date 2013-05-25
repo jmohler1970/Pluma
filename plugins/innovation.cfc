@@ -18,7 +18,7 @@ function Init()	{
 		'icon-cog');
 	
 	
-	application.GSAPI.add_action("theme_sidebar", "createSideMenu", ["?plugin=innovation", "Innovation Theme Settings", "innovation"]);
+	application.GSAPI.add_action("theme_sidebar", "createSideMenu", ["?plugin=innovation", "INNOVATION/SIDEBAR", "innovation"]);
 	
 	application.GSAPI.register_style( 'innovation', '//fonts.googleapis.com/css?family=Yanone+Kaffeesatz');
 	application.GSAPI.register_style( 'innovation', '~/theme/innovation/reset.css', 0.1);

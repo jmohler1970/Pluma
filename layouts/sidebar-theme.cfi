@@ -22,7 +22,9 @@
 </ul>
 
 
-
+<cfif getItem() EQ "components">
+	<p id="js_submit_line" ></p>
+</cfif>
 
 </cfoutput>
 
