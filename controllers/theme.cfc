@@ -41,8 +41,10 @@ void function home(required struct rc) output="false" {
 				
 
 		
-		if (result == "")
+		if (result == "")	{
+			StructAppend(request, application.IOAPI.load_pref());
 			this.addSuccess("THEME_CHANGED");
+			}
 					
 		else
 			this.addInfo("Error");
