@@ -1,3 +1,13 @@
+#maincontent {
+	width: 790px;
+	}
+
+.wrapper {
+	width: 1060px;
+	}
+
+
+
 /* alert styles */
 .updated, .success, .error, .warning {
 	border:1px solid #FCD344;
@@ -8,7 +18,7 @@
 	background-position: 10px 9px !important;  
 	background-repeat: no-repeat;
 	line-height:22px;
-	padding:8px 8px 8px 32px;
+	padding:8px 8px 8px 32px !important;
 	margin-bottom:20px;
 	}
 	
