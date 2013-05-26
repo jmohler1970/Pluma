@@ -19,11 +19,7 @@ function Init()	{
 	
 	
 	application.GSAPI.add_action("theme_sidebar", "createSideMenu", ["?plugin=innovation", "INNOVATION/SIDEBAR", "innovation"]);
-	
-	application.GSAPI.register_style( 'innovation', '//fonts.googleapis.com/css?family=Yanone+Kaffeesatz');
-	application.GSAPI.register_style( 'innovation', '~/theme/innovation/reset.css', 0.1);
-	application.GSAPI.register_style( 'innovation', '~/theme/innovation/style.css', 0.1);
-	application.GSAPI.register_script( 'innovation', '~/theme/innovation/jquery-2.0.0.min.js', 2.0, false, 1);
+
 	}
 		
 </cfscript>

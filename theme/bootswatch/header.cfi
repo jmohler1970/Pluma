@@ -33,13 +33,16 @@ param prebody = "";
 	<!-- Le styles -->
    	<link href="#application.GSAPI.get_theme_url()#/css/docs.css" 					rel="stylesheet" />
     <link href="#application.GSAPI.get_theme_url()#/css/prettify.css" 				rel="stylesheet" />
+
 	<cfif not isnull(request.Bootswatch.css) and request.Bootswatch.css NEQ "">
     	<link href="#application.GSAPI.get_theme_url()#/css/#request.Bootswatch.css#.css" 	rel="stylesheet" />
-    	<link href="#application.GSAPI.get_theme_url()#/css/#request.Bootswatch.css#-responsive.css" 	rel="stylesheet" />
-	<cfelse>
-		<link href="#application.GSAPI.get_theme_url()#/css/bootstrap.css" 				rel="stylesheet" />
-		<link href="#application.GSAPI.get_theme_url()#/css/bootstrap-responsive.css" 	rel="stylesheet" />
-	</cfif>
+    </cfif>
+    
+    <link href="#application.GSAPI.get_theme_url()#/css/bootstrap-responsive.css"	rel="stylesheet" />
+    <link href="#application.GSAPI.get_theme_url()#/css/bootswatch.css" 				rel="stylesheet" />
+    
+
+    
     <link href="#application.GSAPI.get_theme_url()#/css/calendar.css" 	rel="stylesheet" />
 
 
@@ -95,7 +98,7 @@ param prebody = "";
 
 
 
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-fixed-top">
 
 
 
@@ -110,7 +113,7 @@ param prebody = "";
 		<cfoutput>	
 		
 		<a class="brand" href="#application.GSAPI.get_site_root()#">888 266 6486 - Web World Inc.</a>
-			<div class="nav-collapse">
+			<div class="nav-collapse collapse">
 
 			<ul class="nav">
 				

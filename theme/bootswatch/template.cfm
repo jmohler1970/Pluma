@@ -88,7 +88,6 @@
 	</cfoutput>
 	</div>
 	
-	<cfdump var="#request.arplugins#">
 	
 </div>				
 	
