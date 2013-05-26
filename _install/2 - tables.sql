@@ -62,7 +62,7 @@ CREATE TABLE [dbo].[Node](
 	[strData] 		[nvarchar](max) NULL,
 	[xmlData] 		[xml] NULL,
 	[xmlConf] 		[xml] NULL,
-	[xmlLink] 		[xml] NULL,
+	[xmlLink] 		[xml] NOT NULL DEFAULT "",
 	[xmlTaxonomy] 	[xml] NULL,
 	[xmlSecurity] 	[xml] NULL,
 	[ExpirationDate] [smalldatetime] NULL,
