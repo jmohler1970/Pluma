@@ -158,7 +158,7 @@
 	
 	<div class="gslogo">
 		
-	   		<a href="http://webworldinc.com/plumaCMS" target="_blank"><img src="#application.GSAPI.get_site_root()#layouts/css/images/PlumaCMS_80x16.png" alt="PlumaCMS by James Mohler and Web World Inc."></a>
+	   		<a href="https://github.com/jmohler1970/Pluma" target="_blank"><img src="#application.GSAPI.get_site_root()#layouts/css/images/PlumaCMS_80x16.png" alt="PlumaCMS by James Mohler and Web World Inc."></a>
 	   
 	</div>
 	
