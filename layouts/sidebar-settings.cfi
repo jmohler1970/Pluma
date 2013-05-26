@@ -13,6 +13,8 @@
 
 
 <ul class="snav">	
+	<li id="sb_search"><a <cfif getItem() EQ "search">class="current"</cfif>  href="#buildURL(action = 'settings.search')#">#application.GSAPI.i18n("plumacms/search_settings")#</a></li>
+
 	<li id="sb_notification"><a <cfif getItem() EQ "notification">class="current"</cfif>  href="#buildURL(action = 'settings.notification')#">#application.GSAPI.i18n("plumacms/notification_settings")#</a></li>
 	
 	<li id="sb_feedback"><a <cfif getItem() EQ "feedback">class="current"</cfif>  href="#buildURL(action = 'settings.feedback')#">#application.GSAPI.i18n("plumacms/feedback_settings")#</a></li>

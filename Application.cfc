@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0636";
+	this.name 			= "PlumaCMS_0640";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -27,6 +27,7 @@
 		{ "/logout" 			= "/login/signout"},
 		
 		/* make admin pages work as expected */
+		{ "/settings/search" 	= "/settings/search"},
 		{ "/settings/feedback" 	= "/settings/feedback"},
 		
 

@@ -147,7 +147,6 @@ void function endsitemap(required struct rc) output="false"	{
 	
 
 
-
 void function error404(required struct rc) output="false"	{
 
 	param rc.err_uselog = 0;
@@ -280,6 +279,30 @@ void function clearAll(required struct rc) output="false"	{
 
 
 
+void function search(required struct rc) output="false"	{
+
+	param rc.search_profile 	= 0;
+	param rc.search_max 		= 10;
+	param rc.search_letters 	= 100;
+	param rc.search_parentpage 	= 0;
+	param rc.search_tags 		= 0;
+	param rc.search_publishDate = 0;
+	
+
+
+	if (cgi.request_method == "Post")	{
+		
+		application.IOAPI.set_pref("Search", rc);
+		
+		
+		this.AddInfo("SETTINGS_UPDATED");
+		
+		} // end if
+
+
+	StructAppend(rc, application.IOAPI.get_pref("Search"));	
+	}
+
 </cfscript>
 
 
@@ -293,7 +316,7 @@ void function clearAll(required struct rc) output="false"	{
 	<cfset this.AddSuccess("PLUMACMS/Index_Rebuilt")> 
 
 
-	<cfset variables.fw.redirect("support.health", "all")>
+	<cfset variables.fw.redirect("settings.search", "all")>
 </cffunction>
 
 

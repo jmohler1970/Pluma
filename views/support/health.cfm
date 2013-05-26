@@ -262,16 +262,7 @@ for( i=1; i lte arrayLen(pools); i=i+1 ) 	{
 
 </form>
 
-<p></p>
 
-<h3>Search Index</h3>
-<p>Rebuild Text search index. You may want do this after making lots of changes</p>
-
-<cfoutput>
-<form action="#buildURL(action = 'settings.reindex')#" method="post">
-</cfoutput>
-	<button type="submit" name="submit">Reindex</button>
-</form>
 
 
 <cfoutput>#application.GSAPI.exec_action("health-check-extras", "", rc)#</cfoutput>
