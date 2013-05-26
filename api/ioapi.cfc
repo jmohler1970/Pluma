@@ -300,7 +300,7 @@ struct function get_pref(required string Pref) output="false"	{
 <cffunction name="load_plugins" returntype="void">
 
 	<cfset var qryPlugins = QueryNew("Plugin, Name, Version, Author, Author_url, description, 
-		page_type, load_data, icon, filename, Enabled")>
+		page_type, load_data, filename, Enabled")>
 		
 	
 
@@ -335,12 +335,12 @@ struct function get_pref(required string Pref) output="false"	{
 			QuerySetCell(qryPlugins, "Description", objPlugin.stPlugin_info.description);
 			QuerySetCell(qryPlugins, "Page_type", 	objPlugin.stPlugin_info.page_type);
 			QuerySetCell(qryPlugins, "Load_data",	objPlugin.stPlugin_info.load_data);
-			QuerySetCell(qryPlugins, "icon",		objPlugin.stPlugin_info.icon);
-			QuerySetCell(qryPlugins, "filename", 	name);
-			QuerySetCell(qryPlugins, "enabled", 	1);			
 			
-			if (isDefined("request.stPlugin.#listfirst(name, '.')#"))	{
-				var enabled = evaluate("request.stPlugin.#listfirst(name, '.')#");
+			QuerySetCell(qryPlugins, "filename", 	name);
+			QuerySetCell(qryPlugins, "enabled", 	0); // It needs to prove it is active			
+			
+			if (isDefined("request.Plugin.#listfirst(name, '.')#"))	{
+				var enabled = evaluate("request.Plugin.#listfirst(name, '.')#");
 			
 				QuerySetCell(qryPlugins, "enabled", enabled);
 				}
@@ -360,7 +360,7 @@ struct function get_pref(required string Pref) output="false"	{
  	</cfloop>
 
 
-	<cfset application.qryPlugins = qryPlugins>
+	<cfset request.qryPlugins = qryPlugins>
 </cffunction>
 
 
@@ -382,8 +382,8 @@ struct function get_pref(required string Pref) output="false"	{
 
 <cfscript>
 
-// this is similar to load_ini()
-struct function load_pref(boolean force = 0) output="false"	{	
+// this is similar to load_ini(). This loads data into the request scope
+void function load_pref(boolean force = 0) output="false"	{	
 
 	
 
@@ -408,8 +408,7 @@ struct function load_pref(boolean force = 0) output="false"	{
 	
 		
 	
-	
-	return tempPref;
+	StructAppend(request, tempPref); //over writes
 	}
 
 

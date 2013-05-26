@@ -43,7 +43,10 @@ this.stPlugin_info =
 		
 		result = application.IOAPI.set_pref("Bootswatch", rc);
 		
+		application.IOAPI.load_pref();
+		
 		variables.stResult.message = "Settings for Bootswatch saved";
+		
 		}
 	
 	StructAppend(rc, application.IOAPI.get_pref("Bootswatch"));

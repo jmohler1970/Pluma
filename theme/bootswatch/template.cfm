@@ -1,4 +1,4 @@
-
+<cfsetting showDebugOutput="No">
 
 
 <cfinclude template="header.cfi">
@@ -16,6 +16,9 @@
 	
 <!-- Masthead
 ================================================== -->
+
+
+
 <header class="jumbotron subhead" id="overview">
  
   	<h1 id="title"><cfoutput>#application.GSAPI.get_page_title()#</cfoutput></h1>
@@ -61,6 +64,8 @@
 	</cfif>
 </div>
 
+
+
 <cfoutput>#prebody#</cfoutput>
 
 
@@ -70,7 +75,10 @@
 </cfoutput>
 
 <!--- .cfm page generates this --->
-<article>		
+
+
+<div class="row">
+	<div class="span12">				
 	<cfoutput>#application.GSAPI.get_page_content()#
 	
 
@@ -78,14 +86,18 @@
 	
 	<p><small>Published on &nbsp;#application.GSAPI.get_page_date()#</small></p>	
 	</cfoutput>
-</article>				
+	</div>
+	
+	<cfdump var="#request.arplugins#">
+	
+</div>				
 	
 
-<footer>
+
 	<div class="row">	
 
 		<div class="span3">
-			<div style="padding-left : 20px;">
+			<div>
 			
 			<cfoutput>#application.GSAPI.get_component("About_Us")#</cfoutput>
 
@@ -120,7 +132,7 @@
 		</cfoutput>
 	</div>	
 	
-</footer>
+
 
 
 <cfinclude template="footer.cfi"> 

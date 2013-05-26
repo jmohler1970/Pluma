@@ -5,12 +5,12 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0630";
+	this.name 			= "PlumaCMS_0633";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
 	this.sessionManagement = true;
-	this.googlemapkey 	= "ABQIAAAAM7WBPKVXehxfd19uHXWn2BR3hyaePP4Fq67BBIiFqEcv7oiJ1xQgrHCorqqETsRunESHOSr-dZ7UIg";
+	this.googlemapkey 	= "Replace me";
 		
 	// FW/1 - configuration:
 	variables.framework = {
@@ -138,7 +138,7 @@ void function setupRequest()	{
 
 	// reset then override
 	StructAppend(request, application.stSettings);
-	StructAppend(request, application.IOAPI.load_pref());
+	application.IOAPI.load_pref();
 	
 	
 	

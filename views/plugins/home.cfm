@@ -29,7 +29,7 @@
 </cfoutput>
 
 <tbody>
-<cfoutput query="application.qryPlugins">
+<cfoutput query="request.qryPlugins">
 
 <tr>
 	<td nowrap="nowrap">
@@ -62,8 +62,9 @@
 	
 
 <p>
-	<i><cfoutput><b>#application.qryPlugins.recordcount#</b> #application.GSAPI.i18n("plugins_installed")#.</cfoutput></i>
+	<i><cfoutput><b>#request.qryPlugins.recordcount#</b> #application.GSAPI.i18n("plugins_installed")#.</cfoutput></i>
 </p>
+
 
 
 

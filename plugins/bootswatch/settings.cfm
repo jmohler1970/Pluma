@@ -6,21 +6,25 @@
 
 
 <cfoutput>
-<form action="?plugin=bootswatch&plx=settings" method="post" class="form-horizontal">
+<form action="?plugin=bootswatch&amp;plx=settings" method="post" class="form-horizontal">
 
 
 
 <p>
     <label class="control-label" for="bootswatch_css">Primary CSS</label>
    
-    	<input type="radio" name="bootswatch_css" value="" <cfif rc.bootswatch_css EQ "">checked</cfif> /> None
-    	
-    	<cfloop query="rc.qryCSS">
-   			<br />
-    		<input type="radio" name="bootswatch_css" value="#name#" <cfif rc.bootswatch_css EQ name>checked</cfif> /> #listrest(name, "_")#
+	<select name="bootswatch_css" class="text autowidth">
+		<option value=""></option>
+		
+		<cfloop query="rc.qryCSS">
+			<cfif NOT name CONTAINS "responsive">
+				<cfset partname = listfirst(name,'.')>
+			 
+	   			<option value="#partname#" <cfif rc.bootswatch_css EQ partname>selected="selected"</cfif> >#listrest(partname, '_')#</option>
+			</cfif>	
  
     	</cfloop>
-   
+	</select>	
 </p>
 
 <p>

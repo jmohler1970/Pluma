@@ -31,13 +31,15 @@ param prebody = "";
 
 	<cfoutput>
 	<!-- Le styles -->
-   	<link href="#application.GSAPI.get_theme_url()#/css/bootstrap.css" rel="stylesheet" />
-    <link href="#application.GSAPI.get_theme_url()#/css/bootstrap-responsive.css" rel="stylesheet" />
-    <link href="#application.GSAPI.get_theme_url()#/css/docs.css" 		rel="stylesheet" />
-    <link href="#application.GSAPI.get_theme_url()#/css/prettify.css" 	rel="stylesheet" />
-    <cfif not isnull(request.stBootswatch.css) and request.stBootswatch.css NEQ "">
-    	<link href="#application.GSAPI.get_them_url()#/css/#request.stBootswatch.css#" 	rel="stylesheet" />
-   	</cfif>
+   	<link href="#application.GSAPI.get_theme_url()#/css/docs.css" 					rel="stylesheet" />
+    <link href="#application.GSAPI.get_theme_url()#/css/prettify.css" 				rel="stylesheet" />
+	<cfif not isnull(request.Bootswatch.css) and request.Bootswatch.css NEQ "">
+    	<link href="#application.GSAPI.get_theme_url()#/css/#request.Bootswatch.css#.css" 	rel="stylesheet" />
+    	<link href="#application.GSAPI.get_theme_url()#/css/#request.Bootswatch.css#-responsive.css" 	rel="stylesheet" />
+	<cfelse>
+		<link href="#application.GSAPI.get_theme_url()#/css/bootstrap.css" 				rel="stylesheet" />
+		<link href="#application.GSAPI.get_theme_url()#/css/bootstrap-responsive.css" 	rel="stylesheet" />
+	</cfif>
     <link href="#application.GSAPI.get_theme_url()#/css/calendar.css" 	rel="stylesheet" />
 
 
@@ -135,7 +137,14 @@ param prebody = "";
 
 				
 			</ul>
-
+			
+			<form class="navbar-search pull-left" action="/index.cfm/search" method="get">
+				<cfparam name="rc.search" default="">
+			
+				<input type="search" name="search" class="search-query span2"  placeholder="Search" value="#rc.search#" />
+				
+			
+			</form>
 
 			</cfoutput>
 
