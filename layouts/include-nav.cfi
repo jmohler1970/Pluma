@@ -30,7 +30,7 @@
 	<cfif session.LOGINAPI.adhocSecurity("contributor")>
 		<li id="nav_upload">
 			<a class="files" 
-				href="#buildURL(action = 'files.home')#">#application.GSAPI.i18n("tab_files")#</a>
+				href="#buildURL(action = 'upload.home')#">#application.GSAPI.i18n("tab_files")#</a>
 		</li>
 	</cfif>
 	
@@ -63,7 +63,7 @@
 
 	<cfif session.LOGINAPI.adhocSecurity("system")>
 		<li id="nav_users">
-			<a class="users" 
+			<a class="users <cfif getSection() EQ "Users">current</cfif>" 
 				href="#buildURL(action = 'users.home')#">#application.GSAPI.i18n("plumacms/users_nav")#</a>
 
 		</li>

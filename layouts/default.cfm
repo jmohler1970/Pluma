@@ -53,6 +53,8 @@
 
 <cfif getSection() EQ "login">
 	<body id="index">
+<cfelseif getSection() EQ "users">
+	<body id="load"><!--- This is so that the default CSS files does not have to be altered --->
 <cfelse>
 	<body id="#getSection()#">
 </cfif>

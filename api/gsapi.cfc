@@ -688,7 +688,7 @@ string function get_site_version() {
 				<cfoutput>
 					<li><a 
 						href="#this.loadtab##request.arPlugins[i].attr[1]#"
-						<cfif arguments.selected EQ request.arPlugins[i].attr[1]>class="tabSelected"</cfif>
+						<cfif arguments.selected EQ request.arPlugins[i].attr[1]>class="current"</cfif>
 						>#this.i18n(request.arPlugins[i].attr[2])#</a>
 					</li>	
 						
