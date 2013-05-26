@@ -11,6 +11,10 @@
 	}
 
 
+.wrapper .nav {
+	width: 1060px;
+	}
+
 
 /* alert styles */
 .updated, .success, .error, .warning {
