@@ -432,7 +432,7 @@ struct function generate_sitemap(required struct rc) output="false"	{
 
 	rc.xmlData = "";
 
-	for (var i = 1; i <= this.entrycount; i++)	{
+	for (var i = 1; i <= rc.entrycount; i++)	{
 		var loc = ""; 		if (isDefined("rc.loc_#i#")) 			{ loc = evaluate("rc.loc_#i#"); }
 		var changefreq = ""; if (isDefined("rc.changefreq_#i#")) 	{ changefreq = evaluate("rc.changefreq_#i#"); }
 		var priority = ""; 	if (isDefined("rc.priority_#i#")) 		{ priority = evaluate("rc.priority_#i#"); }
@@ -451,7 +451,7 @@ struct function generate_sitemap(required struct rc) output="false"	{
 	
 	rc.Kind = "Sitemap";
 
-	var stResult  = application.IOAPI.set({NodeID = rc.SiteMapID, Kind = "Sitemap"});
+	var stResult  = application.IOAPI.set({NodeID = rc.SiteMapID, Kind = "Sitemap"},{});
 
 	rc.SiteMapID = stResult.NodeID;
 

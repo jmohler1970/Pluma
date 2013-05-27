@@ -109,7 +109,7 @@ void function edit(required struct rc) output="false" {
 				}
 			
 			application.GSAPI.exec_action('changedata-aftersave', "", rc);
-			application.GSAPI.generate_sitemap();
+			//application.GSAPI.generate_sitemap({});
 			
 			this.AddSuccess("ER_YOUR_CHANGES", [rc.slug]);				
 					
@@ -156,7 +156,7 @@ void function delete(required struct rc) output="false" {
 
 	var stResult = application.IOAPI.delete({NodeID = rc.NodeID});
 	
-	application.GSAPI.generate_sitemap();
+	application.GSAPI.generate_sitemap({});
 	application.GSAPI.exec_action("page-delete", "", rc);
 			
 	this.AddInfo(stResult.key);
@@ -252,7 +252,7 @@ void function menu(required struct rc) output="false" {
 	
 void function endmenu(required struct rc) output="false" {
 
-	rc.qryMenu = application.IOAPI.get_all("Page", '', "Menu");
+	rc.qryMenu = application.IOAPI.get_all("Page", {}, "Menu");
 	
 	if (rc.qryMenu.recordcount == 0)	{
 		this.AddInfo("PLUMACMS/ISEMPTY", ["Menu"]);		

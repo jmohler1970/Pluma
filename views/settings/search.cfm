@@ -24,7 +24,7 @@
 	</td>	
 </tr>
 <tr>
-	<td>Letter to show</td>
+	<td>Letters to show</td>
 	<td>
 		<input type="text" name="search_letters" style="width:3em" class="text"  value="#rc.search_letters#" />
 	</td>

@@ -818,9 +818,11 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		
 
 	<cfquery name="local.qrySearch">
-		SELECT 	TOP 20	NodeID, Slug, ParentNodeID, Kind, Title, ParentTitle, tags, strData, CreateBy, CreateDate, src, Rank
+		SELECT 	TOP 20	NodeID, Slug, ParentNodeID, ParentSlug, Kind, Title, ParentTitle, tags, strData, 
+			CreateBy, CreateDate, src, Rank
 		FROM	(
-			SELECT 	NodeID, Slug, ParentNodeID, Kind, Title, ParentTitle, tags, strData, CreateBy, CreateDate, src, [Rank] / 10.0 AS Rank
+			SELECT 	NodeID, Slug, ParentNodeID, ParentSlug, Kind, Title, ParentTitle, tags, strData, 
+				CreateBy, CreateDate, src, [Rank] / 10.0 AS Rank
 			FROM 	dbo.vwNode WITH (NOLOCK)
 			INNER JOIN FREETEXTTABLE(dbo.Node, *, <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.search#">) AS SearchTable
 			ON 		dbo.vwNode.NodeID = searchTable.[key]
@@ -830,7 +832,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 			
 			UNION ALL
 			
-			SELECT 	NodeID, Slug, ParentNodeID, Kind, Title, ParentTitle, tags, strData, CreateBy, CreateDate, src, 100 AS Rank
+			SELECT 	NodeID, Slug, ParentNodeID, ParentNodeID, Kind, Title, ParentTitle, tags, strData, CreateBy, CreateDate, src, 100 AS Rank
 			FROM 	dbo.vwNode	 WITH (NOLOCK)
 			WHERE	CONVERT(varchar(80), NodeID) = <cfqueryparam CFSQLType="CF_SQL_varchar" value="#arguments.search#">
 			AND		Deleted = 0

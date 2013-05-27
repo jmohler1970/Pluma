@@ -76,7 +76,7 @@ void function restore(required struct rc) output="false"	{
 		this.addError("ER_REQ_PROC_FAIL");
 		}	
 	
-	application.GSAPI.generate_sitemap();
+	//application.GSAPI.generate_sitemap({});
 	
 	
 	variables.fw.redirect("backups.home", "all");

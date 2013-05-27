@@ -151,7 +151,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 </p>
 
 	<div id="menu-items" <cfif menustatus NEQ 1> style="display : none;" </cfif>>
-		<img src="#application.GSAPI.get_site_root()#admin/layouts/images/tick.png" id="tick">
+		<img src="#application.GSAPI.get_site_root()#layouts/css/images/tick.png" id="tick">
 		<span style="float:left;width:81%;"><label for="post-menu">Menu Text</label></span>
 		<span style="float:left;width:10%;"><label for="post-menu-order">Priority</label></span>
 		<div class="clear"></div>

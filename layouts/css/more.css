@@ -55,7 +55,7 @@
 	
 	}
 
-.updated, .success, .warning #temp_good_flash {color:#308000;}
+.updated, .success, .warning, #temp_good_flash {color:#308000;}
 
 
 /* form submit button style */

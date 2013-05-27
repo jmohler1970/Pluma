@@ -50,10 +50,6 @@ else if (rc.random == 1)	{
 else	{
 	qryPage 	= QueryNew("Empty");
 	}	
-
-
-
-
 </cfscript>
 
 
@@ -130,63 +126,31 @@ else	{
 	 #rc.ArchiveYear#</p></cfoutput>
 </cfif>
 
-<ul class="thumbnails">
+
 <cfoutput query="qryPage" startRow="#rc.startat#">
 	
-	
-	<cfif ListFindNoCase(tags, "cool") NEQ 0>
-		<li class="span6">
-	<cfelse>
-		<li class="span3">	
-	</cfif>
+
 	
 
+	
+		<h3><a href="/index.cfm/main/#urlencodedformat(slug)#">#htmleditformat(Title)#</a></h3>
+		
+		
 
-	<div class="thumbnail">
-	<cfif isnumeric(rank)>
-	<div class="date">
-		<div class="month">Rank</div>
-		<div class="rank">#LSNumberFormat(Rank, '99.0')#%</div>
-	</div>
-	</cfif>	
-	
-	
-		<h3>
-		<cfswitch expression="#kind#">
-		<cfcase value="Category">
-			<a href="/index.cfm/category/#urlencodedformat(Title)#">#Title#</a> 
-		</cfcase>
-		<cfcase value="Blog">
-			<a href="#buildURL(action = 'main.blog', querystring = 'BlogID=#NodeID#')#">#Title#</a> 
-		</cfcase>
-		<cfcase value="Photo">
-			<a href="#buildURL(action = 'main.photo', querystring = 'PhotoID=#NodeID#')#">#Title#</a> 
-		</cfcase>
-		<cfcase value="Page">
-			<a href="#buildURL(action = 'main.home', querystring = 'ID=#NodeID#')#">#Title#</a> 
-		</cfcase>
-		<cfdefaultcase>
-			#Title#
-		</cfdefaultcase> 
-		</cfswitch>
-		
-		<span style="font-weight : normal;">(#Kind#)</span></h3>
-		<h6>#application.IOAPI.std_date(CreateDate)# by #CreateBy#</h6>
-		
-		<cfif Src NEQ "">
-			<img src="#src#" title="#src#" /><br />
-		</cfif>
 		
 		<cfif rc.taxonomy>
 			<cfif strData CONTAINS "<p>">
-				#application.IOAPI.strip_tags(strData, 200)#
+				#application.IOAPI.strip_tags(strData, 200)#...
 			<cfelse>
 				#paragraphformat(strData)#
 			</cfif>
 			
 	
 			<p>
-			Parent Page: <a href="/index.cfm/category/#urlencodedformat(ParentTitle)#">#xmlformat(ParentTitle)#</a> Tags: 	
+			Parent Page: <a href="/index.cfm/main/#urlencodedformat(ParentSlug)#">#xmlformat(ParentTitle)#</a> 
+			
+			&nbsp;
+			Tags: 	
 			
 			
 			
@@ -194,12 +158,18 @@ else	{
 				<a href="/index.cfm/tag/#URLEncodedFormat(i)#" style="white-space:nowrap;" 
 					>#xmlformat(i)#</a><cfif i NEQ ListLast(tags)>,</cfif>
 			</cfloop>
+			
+			<cfif isnumeric(rank)>
+				&nbsp;
+				Rank: #LSNumberFormat(Rank, '99.0')#%
+			</cfif>
 			</p>
 		</cfif>
-	</div>	
-	</li>
+		<h6>#application.IOAPI.std_date(CreateDate)# by #CreateBy#</h6>
+		
+
 </cfoutput>
-</ul>
+
 
 
 
