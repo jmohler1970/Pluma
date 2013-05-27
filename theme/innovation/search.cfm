@@ -25,7 +25,9 @@ qrySearch = application.IOAPI.get_by_search(rc.search, "Page");
 <cfloop query="qrySearch">
 <tr>
 	<td>
+	<cfif isDefined("request.search.rank") AND request.search.rank EQ 1> 
 		<b> #LSNumberFormat(Rank, '99.0')#%</b>
+	</cfif>	
 	</td>
 	<td>&nbsp;</td>
 	<td>
@@ -33,25 +35,36 @@ qrySearch = application.IOAPI.get_by_search(rc.search, "Page");
 		<h3><a href="#application.GSAPI.find_url(slug)#">#xmlformat(Title)#</a></h3>
 
 		
-		<p>#application.IOAPI.strip_tags(strData, 1000)#</p>
+		<p>#application.IOAPI.strip_tags(strData, request.search.letters)#</p>
 		
-		<h6>
+		<p>
+			<small>
+			
+		<cfif request.search.publishdate EQ 1>
 			<b>Created:</b> #application.IOAPI.std_date(CreateDate)# by #CreateBy#		
+		</cfif>	
 	
+		<cfif request.search.parentpage EQ 1>
 			<b>Parent Page:</b> 
 			<cfif ParentTitle EQ ""><i>None</i></cfif>
-			<a href="#buildURL(action = 'pages.edit', querystring = 'NodeID=#ParentNodeID#')#">#xmlformat(ParentTitle)#</a> 
+			<a href="#application.GSAPI.find_url(parentslug)#">#xmlformat(ParentTitle)#</a> 
+		</cfif>
 			
-			
+
+		<cfif request.search.tags EQ 1>			
 			<b>Tags:</b> 
 			<cfif tags EQ ""><i>None</i></cfif>
+				
+				
 				
 			<cfloop index="i" list="#tags#">
 				<a href="/index.cfm/tag/#URLEncodedFormat(i)#" style="white-space:nowrap;" 
 					>#xmlformat(i)#</a><cfif i NEQ ListLast(tags)>,</cfif>
 			</cfloop>
-			
-		</h6>	
+		</cfif>
+		
+			</small>
+		</p>	
 	</td>
 </tr>
 </cfloop>

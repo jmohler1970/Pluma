@@ -44,6 +44,12 @@
 	<td>Show publish date</td>
 	<td><input type="checkbox" name="search_publishdate" value="1" <cfif rc.search_publishdate EQ 1>checked="checked"</cfif> /></td>	
 </tr>	
+
+<tr>
+	<td>Show rank</td>
+	<td><input type="checkbox" name="search_rank" value="1" <cfif rc.search_rank EQ 1>checked="checked"</cfif> /></td>	
+</tr>
+
 </table>
 
 	<button type="submit">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>

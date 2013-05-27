@@ -127,28 +127,34 @@ else	{
 </cfif>
 
 
-<cfoutput query="qryPage" startRow="#rc.startat#">
+
+
+
+<cfoutput query="qryPage" maxRows="#request.search.max#">
 	
 
 	
 
 	
-		<h3><a href="/index.cfm/main/#urlencodedformat(slug)#">#htmleditformat(Title)#</a></h3>
+		<h3><a href="#application.GSAPI.find_url(slug)#">#htmleditformat(Title)#</a></h3>
 		
 		
 
 		
-		<cfif rc.taxonomy>
+	
 			<cfif strData CONTAINS "<p>">
-				#application.IOAPI.strip_tags(strData, 200)#...
+				#application.IOAPI.strip_tags(strData, request.search.letters)#...
 			<cfelse>
 				#paragraphformat(strData)#
 			</cfif>
 			
 	
-			<p>
-			Parent Page: <a href="/index.cfm/main/#urlencodedformat(ParentSlug)#">#xmlformat(ParentTitle)#</a> 
+
+		<p>
+			Parent Page: <a href="#application.GSAPI.find_url(parentslug)#">#xmlformat(ParentTitle)#</a> 
 			
+	
+		<cfif request.search.tags EQ 1>
 			&nbsp;
 			Tags: 	
 			
@@ -158,15 +164,19 @@ else	{
 				<a href="/index.cfm/tag/#URLEncodedFormat(i)#" style="white-space:nowrap;" 
 					>#xmlformat(i)#</a><cfif i NEQ ListLast(tags)>,</cfif>
 			</cfloop>
-			
-			<cfif isnumeric(rank)>
-				&nbsp;
-				Rank: #LSNumberFormat(Rank, '99.0')#%
-			</cfif>
-			</p>
 		</cfif>
-		<h6>#application.IOAPI.std_date(CreateDate)# by #CreateBy#</h6>
+			
+			
+		<cfif isDefined("request.search.rank") AND request.search.rank EQ 1 AND isnumeric(rank)>
+			&nbsp;
+			Rank: #LSNumberFormat(Rank, '99.0')#%
+		</cfif>
 		
+		</p>
+		
+		<cfif request.search.publishdate EQ 1>
+			<h6>#application.IOAPI.std_date(CreateDate)# by #CreateBy#</h6>
+		</cfif>
 
 </cfoutput>
 

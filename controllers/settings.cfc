@@ -287,6 +287,8 @@ void function search(required struct rc) output="false"	{
 	param rc.search_parentpage 	= 0;
 	param rc.search_tags 		= 0;
 	param rc.search_publishDate = 0;
+	param rc.search_rank 		= 0;
+	
 	
 
 
