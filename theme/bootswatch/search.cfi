@@ -151,7 +151,9 @@ else	{
 	
 
 		<p>
+		<cfif request.search.parentpage EQ 1>
 			Parent Page: <a href="#application.GSAPI.find_url(parentslug)#">#xmlformat(ParentTitle)#</a> 
+		</cfif>	
 			
 	
 		<cfif request.search.tags EQ 1>

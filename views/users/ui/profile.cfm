@@ -1,17 +1,26 @@
 
 
+<cfswitch expression="#thisTag.ExecutionMode#">
+<cfcase value="start">
+
+<cfscript>
+
+param attributes.showpermissions = 0;
+param attributes.deletelink = '';
 
 
-	<cfoutput>
-	<h3>#application.GSAPI.i18n("side_user_profile")#</h3>
-	</cfoutput>
+
+</cfscript>
+
+
+</cfcase>
+<cfcase value="end">
+
 	
-
 	
-	
-<cfoutput query="rc.qryUser">
+<cfoutput query="attributes.qryUser">
 
-<cfform action="#BuildURL(action = '.home')#" method="post">
+<cfform action="#attributes.action#" method="post">
 
 
 <div class="leftsec">
@@ -32,6 +41,38 @@
 </div>
 
 
+<cfif attributes.showpermissions>
+
+	<div class="leftsec">
+		<p>
+	    	<b>#application.GSAPI.i18n("USER_MANAGEMENT/PERMISSION")#</b>
+			<br />
+			<select name="groups" class="text">
+			<cfloop index="ii" list="#Application.stSettings.Group.lstAccess#">
+	       		<option value="#ii#" <cfif ii EQ groups>selected="selected"</cfif>>#ii#</option>
+		   	</cfloop>
+		   	</select>
+	 	</p>
+	</div>  
+	  
+	 
+	<div class="rightsec"> 
+			
+		<p>
+			<b>#application.GSAPI.i18n("USER_MANAGEMENT/EXPIRATION")#</b>
+			<br />
+			  	<cfset application.IOAPI.showDatePicker("expirationDate", ExpirationDate, "text autowidth")>
+		</p>
+	</div>
+
+<cfelse>	
+	<input type="hidden" name="group" 			value="#groups#" />
+	<input type="hidden" name="expirationDate" 	value="#expirationdate#" />
+	
+
+</cfif>
+
+
 <div class="leftsec">
 
 	<p class="clearfix">
@@ -50,6 +91,9 @@
 --->	
 </div>	
 
+
+
+
 <div class="rightsec">	
 	<p>
 		<b>#application.GSAPI.i18n("plumacms/label_lastname")#</b>
@@ -59,6 +103,8 @@
 	
 	
 </div>
+
+
 
 
 	<div class="clear"></div>
@@ -89,11 +135,26 @@
 	
 	<div class="clear"></div>	
 
-	<button type="submit" name="submit" value="profile">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
+	<div class="edit-nav clearfix">	
+	
+
+		<button type="submit" name="submit" value="profile">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
+	
+	
+		<cfif attributes.deletelink NEQ "" AND isnumeric(UserID)>
+			
+				<a class="delconfirm" href="#attributes.deletelink#" accesskey="D"> <em>D</em>elete</a>
+		</cfif>
+	</div>
+
 
 </cfform>
 
 </cfoutput>
+
+
+</cfcase>
+</cfswitch>
 
 
 

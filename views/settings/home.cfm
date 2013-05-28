@@ -1,4 +1,7 @@
 
+<cfimport prefix="ui" taglib="../users/ui">
+
+
 
 <div class="main">
 
@@ -112,7 +115,18 @@
 
 
 <a id="profile"></a>
-<cfinclude template="profile.cfi">
+
+
+<cfoutput>
+	<h3>#application.GSAPI.i18n("side_user_profile")#</h3>
+</cfoutput>
+	
+
+	<ui:profile qryUser="#rc.qryUser#" 
+		action		= "#BuildURL(action = '.home')#"  
+		/>
+
+
 
 
 </div>
