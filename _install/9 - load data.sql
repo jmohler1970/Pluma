@@ -83,30 +83,18 @@ GO
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (78, NULL, 0, 1, N'', N'', N'Root', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, N'Active', 0, NULL, NULL, 0, NULL, 0, NULL, NULL, N'<message by="" date="2013-04-03T21:52:58.087" title="Created" ip="142.136.11.230" />')
 GO
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (79, 78, 1, 0, N'index', N'<title>Welcome to PlumaCMS</title>', N'Page', N'
-<p>	Thank you for using PlumaCMS. This is your homepage, so please change this text to be what you want.</p>
 
-<h2>Header 2</h2>
-<p>
-	Lorem ipsum <em>dolor sit amet</em>, <strong>consectetur adipiscing elit</strong>. Donec <code>this is code</code> venenatis augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer vulputate pretium augue.</p>
+<p><b>You have successfully installed PlumaCMS!</b></p>
+<p>This is the public facing site which is fully customizable.</p>
+<p><a href="./login" target="_blank">You can access the Control Panel here</a>. The default email address and password are &#39;admin@getpluma.com&#39; and &#39;password&#39;.</p>
+<p>If you need support you can:</p>
+<ul>
+	<li><a href="https://github.com/jmohler1970/pluma">View our Wiki and Issue Tracker</a></li>
+</ul>
 
-<h3>Header 3</h3>
-<pre>
-<code>#header h1 a { 
-	display: block; 
-	width: 300px; 
-	height: 80px; 
-}</code></pre>
+<p>I very much welcome contributions to Xindi. If you would like to contribute some code please <a href="http://github.com/jmohler1970">fork the project on GitHub, modify the code and send me a pull request</a>.</p>
 
-<h4>Header 4</h4>
-<ol>
-	<li>Lorem ipsum dolor sit amet</li>
-	<li>Consectetur adipiscing elit</li>
-	<li>Donec ut est risus, placerat venenatis augue</li>
-</ol>
-
-<blockquote>
-	A blockquote. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut est risus, placerat venenatis augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-</blockquote>
+<p>I hope you enjoy using PlumaCMS.</p>
 ', NULL, NULL, NULL, N'<menu status="1" sortorder="1">Home</menu>', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 1, NULL, N'<message by="" date="2013-04-03T21:52:58.100" title="Node was updated" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:58.100" title="Created" ip="142.136.11.230" />')
 GO
 
