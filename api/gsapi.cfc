@@ -664,9 +664,12 @@ string function get_site_version() {
 
 	<cfloop from="1" to="#ArrayLen(request.arPlugins)#" index="i">
 		<cfif request.arPlugins[i].hook_name EQ arguments.action>
+		
+			<cfoutput> 
+			<!-- Run: plugins.#request.arPlugins[i].attr[1]#.#request.arPlugins[i].added_function# -->
+			</cfoutput>
 			
 			<cfswitch expression="#request.arPlugins[i].added_function#">
-			
 			<cfcase value="CreateSideMenu">
 				<cfoutput>
 					<li id="sb_#request.arPlugins[i].attr[3]#"><a 
@@ -697,12 +700,12 @@ string function get_site_version() {
 			
 			<cfdefaultcase>
 				<cfoutput> 
-				<!-- Run: plugins.#request.arPlugins[i].attr[1]#.#request.arPlugins[i].added_function# -->
+				
 				</cfoutput>
 			
 				<cftry>
 					<cfinvoke component="plugins.#request.arPlugins[i].attr[1]#" 
-						method="#request.arPlugins[i].added_function#">
+						method="#replace(request.arPlugins[i].added_function, '-', '_', 'all')#">
 						<cfinvokeargument name="rc" value="#arguments.rc#">
 					</cfinvoke>	
 												
