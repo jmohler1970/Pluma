@@ -164,32 +164,25 @@ GO
 
 CREATE VIEW [dbo].[vwUser] 
 AS
-
+WITH XMLNAMESPACES (DEFAULT 'http://ns.hr-xml.org/2007-04-15')
 SELECT   dbo.Users.UserID, login, passhash, 
-		PersonName.value('(/PersonName/GivenName)[1]', 'nvarchar(max)') AS firstname,
-		PersonName.value('(/PersonName/MiddleName)[1]', 'nvarchar(max)') AS middlename,
-		PersonName.value('(/PersonName/FamilyName)[1]', 'nvarchar(max)') AS lastname,
-		PersonName.value('(/PersonName/Affix)[1]', 'nvarchar(max)') AS postfix,
+		PersonName.value('(/PersonName/GivenName)[1]', 'nvarchar(max)') 	AS firstname,
+		PersonName.value('(/PersonName/MiddleName)[1]', 'nvarchar(max)') 	AS middlename,
+		PersonName.value('(/PersonName/FamilyName)[1]', 'nvarchar(max)') 	AS lastname,
+		PersonName.value('(/PersonName/Affix)[1]', 'nvarchar(max)') 		AS postfix,
 
 		homepath, 
 	
 		
-		lastLogin, 
-		ExpirationDate, xmlAbout, xmlProfile, xmlContact, xmlLink,  
+		lastLogin, ExpirationDate, pStatus,
+		
+		xmlAbout, xmlProfile, xmlContact, xmlLink,  
         email,  comments, 
 		dbo.udf_xmlToStr(xmlGroup) AS Groups,
 		xmlGroup, Active,
 		PrefGroup, Deleted, DeleteDate, 
 		
-		M.Datetime AS ModifyDate, M.[By] AS ModifyBy, C.[By] AS CreateDate, M.[Datetime] AS CreateBy,
-
-		xmlPref.value('(/data/@type="php")[1]', 'nvarchar(max)') AS PHP,
-		xmlPref.value('(/data/@type="stars")[1]', 'nvarchar(max)') AS Stars,
-		xmlPref.value('(/data/@type="membershiptype")[1]', 'nvarchar(max)') AS Membershiptype,
-		xmlPref.value('(/data/@type="commentmode")[1]', 'nvarchar(max)') AS CommentMode,
-		xmlPref.value('(/data/@type="personalstatus")[1]', 'nvarchar(max)') AS PersonalStatus
-
-
+		M.Datetime AS ModifyDate, M.[By] AS ModifyBy, C.[By] AS CreateDate, M.[Datetime] AS CreateBy
 
 FROM         dbo.Users WITH (NOLOCK)
 

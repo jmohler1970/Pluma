@@ -6,6 +6,7 @@
 
 
 
+
 <cfsavecontent variable="strButtons">
 <cfoutput query="rc.qryUser">
 
@@ -62,8 +63,8 @@
 
 
 
-	<ui:profile qryUser="#rc.qryUser#" 
-		action		= "#BuildURL(action = '.home')#"  
+	<ui:profile rc="#rc#" 
+		action		= "#BuildURL(action = '.edit')#"  
 		deletelink 	= "#buildURL(action = '.delete', querystring = 'UserID=#rc.UserID#')#" 
 		showpermissions="1" />
 

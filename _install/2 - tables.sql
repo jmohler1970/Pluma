@@ -12,6 +12,8 @@ CREATE TABLE [dbo].[Users](
 	[homepath] 		[nvarchar](50) NULL,
 	[email] 		[nvarchar](100) NULL,
 	[comments] 		[nvarchar](max) SPARSE  NULL,
+	
+	[pStatus] 		[nvarchar](50) NOT NULL,
 	[lastLogin] 	[smalldatetime] NULL,
 	[ExpirationDate] [date] NULL,
 	[xmlAbout] 		[xml] NULL,
@@ -67,7 +69,7 @@ CREATE TABLE [dbo].[Node](
 	[xmlSecurity] 	[xml] NULL,
 	[ExpirationDate] [smalldatetime] NULL,
 	[pinned] 		[bit] NOT NULL,
-	[pStatus] 		[nvarchar](50) NOT NULL,
+	[pStatus] 		[nvarchar](50) NOT NULL DEFAULT "Public",
 	[cStatus] 		[bit] NOT NULL,
 	[StartDate] 	[smalldatetime] NULL,
 	[CommentMode] 	[nvarchar](30) NULL,
@@ -113,8 +115,7 @@ GO
 ALTER TABLE [dbo].[Node] ADD  CONSTRAINT [DF_Node_NoDelete]  DEFAULT ((0)) FOR [NoDelete]
 GO
 
-ALTER TABLE [dbo].[Node] ADD  CONSTRAINT [DF_Node_pStatus]  DEFAULT ('Complete') FOR [pStatus]
-GO
+
 
 
 ALTER TABLE [dbo].[Node]  WITH NOCHECK ADD  CONSTRAINT [FK_Node_Node] FOREIGN KEY([ParentNodeID])

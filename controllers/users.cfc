@@ -41,12 +41,24 @@ void function edit(required struct rc) output="false"	{
 	if (cgi.request_method == "post")	{
 		
 		rc.UserID = application.USERAPI.set(rc.UserID, rc).UserID;
+		
+		application.USERAPI.setProfile(rc.UserID, rc);
+		application.USERAPI.setContact(rc.UserID, rc);
+		application.USERAPI.setPersonal(rc.UserID, rc);
+		
 			 
 		
 		this.AddSuccess("PLUMACMS/USER_SAVED", [rc.login]);
 		}
+
+	}	
+
+
+void function endedit(required struct rc) output="false"	{
+
 	
-	// All
+	
+	
 	rc.qryUser =  application.USERAPI.get(rc.UserID);
 	
 	rc.qryNode = application.IOAPI.get_all_by_userID("Any", rc.UserID, "CreateDate DESC");
@@ -56,9 +68,25 @@ void function edit(required struct rc) output="false"	{
 		this.AddError("IS_MISSING", [rc.userid]);
 	
 		variables.fw.redirect("users.home", "all");
+		
+		return;
 		}
+		
+	rc.stUser = {
+		firstname 	= rc.qryUser.firstname,
+		middlename 	= rc.qryUser.middlename,
+		lastname 	= rc.qryUser.lastname,
+		postfix 	= rc.qryUser.postfix
+		
+		
+		};
 	
+	StructAppend(rc.stUser, application.USERAPI.getProfile(rc.UserID));
+	StructAppend(rc.stUser, application.USERAPI.getContact(rc.UserID));
+	StructAppend(rc.stUser, application.USERAPI.getPersonal(rc.UserID));
 	}	
+	
+	
 	
 
 

@@ -29,7 +29,7 @@
 	
 	variables.lstCol = "UserID,login,passhash
       	,firstname,middlename,lastname,postfix
-		,homepath,lastLogin
+		,homepath,lastLogin,pStatus
 		,ExpirationDate
 		,email,comments,Groups,Active
       	,Deleted,DeleteDate,ModifyDate,ModifyBy,CreateDate,CreateBy"; // rather than using select *
@@ -345,6 +345,8 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 
 <cffunction name="encodeXML" output="no"  returnType="string">
 	<cfargument name="rc" required="true" type="struct">
+	<cfargument name="filter" required="true" type="string">
+	
 
 
 
@@ -355,7 +357,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	for (var MyFormField in rc)	{
 			
 		if (ListFindNoCase("action,submit,fieldnames,href", MyFormField) == 0)	{
-			if (arguments.rc[MyFormField] != "")	{
+			if (MyFormField CONTAINS arguments.filter)	{
 				
 				var href = "";
 				
@@ -377,7 +379,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 
 	
 	
-<cffunction name="setProfile" output="no"  returnType="boolean">
+<cffunction name="setProfile" output="no"  returnType="boolean" hint="Internal information. Users CANNOT edit their own profile">
 	<cfargument name="UserID" required="true" type="numeric">
 	<cfargument name="rc" required="true" type="struct">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -385,14 +387,14 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	
 	<cfquery>
 	UPDATE	dbo.Users
-	SET		email 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.rc.email#">,
-		xmlProfile 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc)#">,
-		Modified 	= dbo.udf_4jInfo('User logged in',
+	SET	xmlProfile 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Profile')#">,
+		Modified 	= dbo.udf_4jInfo('Profile was set',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.userID#">)
 		 	
 	WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
 	AND		Deleted = 0
+	AND		xmlProfile <> <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Profile')#">
 	</cfquery>
 	
 
@@ -400,7 +402,8 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 </cffunction>	
 	
 	
-<cffunction name="setContact" output="no"  returnType="boolean">
+	
+<cffunction name="setContact" output="no"  returnType="boolean" hint="How to get in touch with this person. Users can edit">
 	<cfargument name="UserID" required="true" type="numeric">
 	<cfargument name="rc" required="true" type="struct">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -410,14 +413,14 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 		
 	<cfquery>
 	UPDATE	dbo.Users
-	SET		email 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.rc.email#">,
-		xmlContact	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc)#">,
-		Modified 	= dbo.udf_4jInfo('User logged in',
+	SET	xmlContact	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Contact')#">,
+		Modified 	= dbo.udf_4jInfo('Contact info Changed',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.userID#">)
 		 	
 	WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
 	AND		Deleted = 0
+	AND		xmlContact <> <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Contact')#">
 	</cfquery>	
 		
 
@@ -429,7 +432,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	
 
 
-<cffunction name="encodeXMLPersonal" output="no"  returnType="boolean">
+<cffunction name="setPersonal" output="no"  returnType="boolean" hint="Things that are not covered above. Users can edit">
 	<cfargument name="UserID" required="true" type="string">
 	<cfargument name="rc" required="true" type="struct">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -440,12 +443,13 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	
 	<cfquery>
 	UPDATE	dbo.Users
-	SET	xmlLink	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc)#">,
+	SET	xmlLink	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Personal')#">,
 		Modified 	= dbo.udf_4jInfo('User logged in',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.userID#">)
 		 	
-	WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
+	WHERE	UserID 		= <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
+	AND		xmlPersonal	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Personal')#">,
 	AND		Deleted = 0
 	</cfquery>	
 	
@@ -503,15 +507,10 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 		AND		type IS NOT NULL
 	</cfquery>
 
-	<cfset var stResult = {keyphoto = ""}>
-
+	<cfset var stResult = {}>
+	
 	<cfloop query="local.qryResult">
-		
-		<cfif not structKeyExists(stResult, "st#Pref#")>
-			<cfset setVariable ("stResult.st#pref#", {})>
-		</cfif>
-		
-		<cfset setVariable("stResult.st#Pref#.#Type#", message)>
+		<cfset stResult[type] = message>
 	</cfloop>
 
 
@@ -526,21 +525,16 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	<cfquery name="local.qryResult">
 		SELECT 	xmlContact, type, message
 		FROM	dbo.Users
-		CROSS JOIN dbo.udf_xmlRead(xmlContact)
+		CROSS APPLY dbo.udf_xmlRead(xmlContact)
 		WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
 		AND		Deleted = 0
 		AND		type IS NOT NULL
 	</cfquery>
 
-	<cfset var stResult = {organization = "", address = "", city = "", stateprovince = "", postalcode = ""}>
+	<cfset var stResult = {}>
 
 	<cfloop query="local.qryResult">
-		
-		<cfif not structKeyExists(stResult, "st#Pref#")>
-			<cfset setVariable ("stResult.st#pref#", {})>
-		</cfif>
-		
-		<cfset setVariable("stResult.st#Pref#.#Type#", message)>
+		<cfset stResult[type] = message>
 	</cfloop>
 
 
@@ -550,7 +544,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 
 
 
-<cffunction name="getPersonal" output="no"  returnType="query">
+<cffunction name="getPersonal" output="no"  returnType="struct">
 	<cfargument name="UserID" required="true" type="string">
 
 
@@ -566,16 +560,11 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	<cfset var stResult = {}>
 
 	<cfloop query="local.qryResult">
-		
-		<cfif not structKeyExists(stResult, "st#Pref#")>
-			<cfset setVariable ("stResult.st#pref#", {})>
-		</cfif>
-		
-		<cfset setVariable("stResult.st#Pref#.#Type#", message)>
+		<cfset stResult[type] = message>
 	</cfloop>
 
 
-	<cfreturn qryResult>
+	<cfreturn stResult>
 </cffunction>	
 	
 	
@@ -596,15 +585,12 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 
 	<cfloop query="local.qryResult">
 		
-		<cfif not structKeyExists(stResult, "st#Pref#")>
-			<cfset setVariable ("stResult.st#pref#", {})>
-		</cfif>
-		
-		<cfset setVariable("stResult.st#Pref#.#Type#", message)>
+	
+		<cfset stResult[type] = message>
 	</cfloop>
 
 
-	<cfreturn qryResult>
+	<cfreturn stResult>
 </cffunction>			
 	
 

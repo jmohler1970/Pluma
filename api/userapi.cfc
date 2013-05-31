@@ -39,6 +39,27 @@ query function get(string userid=session.LOGINAPI.UserID) output="false"	{
 
 	return this.wsUser.getOne(arguments.userid);
 	}
+
+
+struct function getProfile(string userid=session.LOGINAPI.UserID) output="false"	{
+
+	return this.wsUser.getProfile(arguments.userid);
+	}
+
+
+struct function getContact(string userid=session.LOGINAPI.UserID) output="false"	{
+
+	return this.wsUser.getContact(arguments.userid);
+	}
+
+
+struct function getPersonal(string userid=session.LOGINAPI.UserID) output="false"	{
+
+	return this.wsUser.getPersonal(arguments.userid);
+	}
+	
+	
+	
 	
 </cfscript>
 
@@ -54,12 +75,46 @@ query function get(string userid=session.LOGINAPI.UserID) output="false"	{
 <cfscript>
 struct function set(required string userid, required struct rc) output="false"	{
 
-	
 
 	result = this.wsUser.commit(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
+
 	
 	return result;
 	}
+	
+
+struct function setProfile(required string userid, required struct rc) output="false"	{
+
+	
+
+	result = this.wsUser.setProfile(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
+	
+	return result;
+	}
+
+
+struct function setContact(required string userid, required struct rc) output="false"	{
+
+	
+	result = this.wsUser.setContact(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
+	
+	
+	return result;
+	}
+
+
+struct function setPersonal(required string userid, required struct rc) output="false"	{
+
+	
+
+	result = this.wsUser.setPersonal(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
+	
+	
+	return result;
+	}
+
+	
+	
 
 struct function set_password(required string userid, required string password) output="false"	{
 

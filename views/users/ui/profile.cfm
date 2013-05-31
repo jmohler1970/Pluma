@@ -18,7 +18,7 @@ param attributes.deletelink = '';
 
 	
 	
-<cfoutput query="attributes.qryUser">
+<cfoutput query="attributes.rc.qryUser">
 
 <cfform action="#attributes.action#" method="post">
 
@@ -64,45 +64,28 @@ param attributes.deletelink = '';
 			  	<cfset application.IOAPI.showDatePicker("expirationDate", ExpirationDate, "text autowidth")>
 		</p>
 	</div>
+	
+	<div class="leftsec">
+
+	<p class="inline clearfix">
+		<label class="control-label" for="pstatus">#application.GSAPI.i18n("keep_private")#</label>
+	   
+	       	<select name="pstatus"  class="text autowidth">
+			<cfloop index="ii" list="#application.stSettings.Node.lstpstatus#">
+				<option value="#ii#" <cfif ii EQ pStatus>selected</cfif>>#ii#</option>
+			</cfloop>
+			</select>
+	</p>
+
+
+</div>
 
 <cfelse>	
 	<input type="hidden" name="group" 			value="#groups#" />
 	<input type="hidden" name="expirationDate" 	value="#expirationdate#" />
-	
+	<input type="hidden" name="pstatus" 		value="#pstatus#" />
 
 </cfif>
-
-
-<div class="leftsec">
-
-	<p class="clearfix">
-		<b>#application.GSAPI.i18n("plumacms/label_firstname")#</b>
-		<br />
-	    <cfinput type="text" name="firstname" class="text" required="yes" value="#firstname#" maxLength="50" message="First name is required" />
-
-	</p>
-
-<!---	
-	<p>
-		<b>Middle Name</b>
-		<br />
-		<cfinput type="text" name="middleName" maxLength="1" value="#middleName#" class="text" />
-	</p>
---->	
-</div>	
-
-
-
-
-<div class="rightsec">	
-	<p>
-		<b>#application.GSAPI.i18n("plumacms/label_lastname")#</b>
-		<br />
-       	<cfinput type="text" name="lastname" class="text" required="yes" value="#lastname#" maxLength="50" message="Last name is required" />
-	</p>
-	
-	
-</div>
 
 
 
@@ -110,15 +93,9 @@ param attributes.deletelink = '';
 	<div class="clear"></div>
 	
 	
-	<cfoutput>#application.GSAPI.exec_action("settings-user-extras")#</cfoutput>
+	<cfoutput>#application.GSAPI.exec_action("settings-user-extras", "", attributes.rc)#</cfoutput>
 	
 	
-	
-	<p>
-		<b>#application.GSAPI.i18n('plumacms/USER_BIO')#</b>
-		<br />
-		<cftextarea name="comments" richtext="true" height="400" width="740">#comments#</cftextarea>
-	</p>
 
 
 	<p style="margin:0px 0 5px 0;font-size:12px;color:##999;">#application.GSAPI.i18n('only_new_password')#</p>
