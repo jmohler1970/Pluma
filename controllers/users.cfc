@@ -44,7 +44,7 @@ void function edit(required struct rc) output="false"	{
 		
 		application.USERAPI.setProfile(rc.UserID, rc);
 		application.USERAPI.setContact(rc.UserID, rc);
-		application.USERAPI.setPersonal(rc.UserID, rc);
+		application.USERAPI.setLink(rc.UserID, rc);
 		
 			 
 		

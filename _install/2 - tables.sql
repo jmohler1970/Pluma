@@ -16,13 +16,13 @@ CREATE TABLE [dbo].[Users](
 	[pStatus] 		[nvarchar](50) NOT NULL,
 	[lastLogin] 	[smalldatetime] NULL,
 	[ExpirationDate] [date] NULL,
-	[xmlAbout] 		[xml] NULL,
-	[xmlProfile] 	[xml] NULL,
-	[xmlContact] 	[xml] NULL,
-	[xmlLink] 		[xml] NULL,
-	[xmlPref] 		[xml] NULL,
-	[xmlGroup] 		[xml] NULL,
-	[PrefGroup] 	[nvarchar](30) NULL,
+	
+	[xmlProfile] 	[xml] NULL,		/* Non searchable things about user */
+	[xmlContact] 	[xml] NULL,		/* Searchable public information like addresses */
+	[xmlLink] 		[xml] NULL,		/* Links to things that interest user */
+	[xmlPref] 		[xml] NULL,		/* User setable config for internal use */
+	[xmlGroup] 		[xml] NULL,		/* Security */
+	
 	[Active]  AS (case when [DeleteDate] IS NULL AND ([ExpirationDate] IS NULL OR datediff(day,[ExpirationDate],getdate())<(0)) then (1) else (0) end),
 	[Deleted]  AS (case when [DeleteDate] IS NULL then (0) else (1) end),
 	[DeleteDate] 	[smalldatetime] NULL,

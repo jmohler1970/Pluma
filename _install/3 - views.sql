@@ -180,7 +180,7 @@ SELECT   dbo.Users.UserID, login, passhash,
         email,  comments, 
 		dbo.udf_xmlToStr(xmlGroup) AS Groups,
 		xmlGroup, Active,
-		PrefGroup, Deleted, DeleteDate, 
+		Deleted, DeleteDate, 
 		
 		M.Datetime AS ModifyDate, M.[By] AS ModifyBy, C.[By] AS CreateDate, M.[Datetime] AS CreateBy
 

@@ -44,11 +44,11 @@ function Init()	{
 	param rc.stUser.contact_celltel 	= "";
 	param rc.stUser.contact_faxtel 		= "";
 	
-	param rc.stUser.personal_license 	= "";
-	param rc.stUser.personal_credential = "";
-	param rc.stUser.personal_association 	= "";
-	param rc.stUser.personal_achievement 	= "";
-	param rc.stUser.personal_otherinterest	= "";
+	param rc.stUser.contact_license 	= "";
+	param rc.stUser.contact_credential	= "";
+	param rc.stUser.contact_association = "";
+	param rc.stUser.contact_achievement = "";
+	param rc.stUser.contact_otherinterest	= "";
 	</cfscript>
 	
 
@@ -119,27 +119,27 @@ function Init()	{
 	</tr>
 	<tr>
 		<td style="text-align : right;">Licenses</td>
-		<td colspan="2"><textarea name="personal_license" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.personal_license)#</textarea></td>
+		<td colspan="2"><textarea name="contact_license" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.contact_license)#</textarea></td>
 	</tr>
 	
 	<tr>
 		<td style="text-align : right;">Credentials</td>
-		<td colspan="2"><textarea name="personal_credential" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.personal_credential)#</textarea></td>
+		<td colspan="2"><textarea name="contact_credential" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.contact_credential)#</textarea></td>
 	</tr>
 	
 	<tr>
 		<td style="text-align : right;">Associations</td>
-		<td colspan="2"><textarea name="personal_association" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.personal_association)#</textarea></td>
+		<td colspan="2"><textarea name="contact_association" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.contact_association)#</textarea></td>
 	</tr>
 	
 	<tr>
 		<td style="text-align : right;">Achievements</td>
-		<td colspan="2"><textarea name="personal_achievement" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.personal_achievement)#</textarea></td>
+		<td colspan="2"><textarea name="contact_achievement" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.contact_achievement)#</textarea></td>
 	</tr>
 	
 	<tr>
 		<td style="text-align : right;">Other Interests</td>
-		<td colspan="2"><textarea name="personal_otherinterest" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.personal_otherinterest)#</textarea></td>
+		<td colspan="2"><textarea name="contact_otherinterest" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.contact_otherinterest)#</textarea></td>
 	</tr>
 	
 	

@@ -432,7 +432,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	
 
 
-<cffunction name="setPersonal" output="no"  returnType="boolean" hint="Things that are not covered above. Users can edit">
+<cffunction name="setLink" output="no"  returnType="boolean" hint="Things that are not covered above. Users can edit">
 	<cfargument name="UserID" required="true" type="string">
 	<cfargument name="rc" required="true" type="struct">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -443,13 +443,13 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	
 	<cfquery>
 	UPDATE	dbo.Users
-	SET	xmlLink	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Personal')#">,
+	SET	xmlLink	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Link')#">,
 		Modified 	= dbo.udf_4jInfo('User logged in',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.userID#">)
 		 	
 	WHERE	UserID 		= <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
-	AND		xmlPersonal	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Personal')#">,
+	AND		xmlLink	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Link')#">,
 	AND		Deleted = 0
 	</cfquery>	
 	
@@ -544,7 +544,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 
 
 
-<cffunction name="getPersonal" output="no"  returnType="struct">
+<cffunction name="getLink" output="no"  returnType="struct">
 	<cfargument name="UserID" required="true" type="string">
 
 
