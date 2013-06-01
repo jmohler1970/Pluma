@@ -26,7 +26,7 @@
 	
 	<!-- Le styles -->
 	<link href="#application.GSAPI.get_site_root()#layouts/css/jquery-ui.css"	rel="stylesheet" type="text/css" />
-    <link href="#application.GSAPI.get_site_root()#layouts/css/style.cfm"		rel="stylesheet" type="text/css" />
+    <link href="#application.GSAPI.get_site_root()#layouts/css/style.cfm"		rel="stylesheet" type="text/css" media="screen"   />
     <link href="#application.GSAPI.get_site_root()#layouts/css/calendar.css"	rel="stylesheet" type="text/css" />
     <link href="#application.GSAPI.get_site_root()#layouts/css/more.css"		rel="stylesheet" type="text/css" />
   

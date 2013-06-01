@@ -7,15 +7,16 @@
 
 param attributes.showpermissions = 0;
 param attributes.deletelink = '';
-
-
-
 </cfscript>
 
 
 </cfcase>
 <cfcase value="end">
 
+	
+	<cfset inner = thisTag.GeneratedContent>
+	
+	<cfset thisTag.GeneratedContent = "">
 	
 	
 <cfoutput query="attributes.rc.qryUser">
@@ -89,12 +90,17 @@ param attributes.deletelink = '';
 
 
 
+	<div class="clear"></div>
+	
+<div id="link_window" style="display : none;">		
+	<cfoutput>#application.GSAPI.exec_action("settings-user-extras", "", attributes.rc)#</cfoutput>
+	
 
 	<div class="clear"></div>
 	
-	
-	<cfoutput>#application.GSAPI.exec_action("settings-user-extras", "", attributes.rc)#</cfoutput>
-	
+
+	#inner#
+</div>
 	
 
 
@@ -124,8 +130,6 @@ param attributes.deletelink = '';
 				<a class="delconfirm" href="#attributes.deletelink#" accesskey="D"> <em>D</em>elete</a>
 		</cfif>
 	</div>
-
-
 </cfform>
 
 </cfoutput>

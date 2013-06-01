@@ -83,7 +83,11 @@ void function endedit(required struct rc) output="false"	{
 	
 	StructAppend(rc.stUser, application.USERAPI.getProfile(rc.UserID));
 	StructAppend(rc.stUser, application.USERAPI.getContact(rc.UserID));
-	StructAppend(rc.stUser, application.USERAPI.getPersonal(rc.UserID));
+	
+	// Shared with pages
+	rc.qryLink = application.USERAPI.getLink(rc.UserID); 
+	
+	rc.qryLinkCategory = application.IOAPI.get_All_By_Extra("Facet", "Link_Category", "Title");
 	}	
 	
 	

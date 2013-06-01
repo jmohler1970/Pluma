@@ -122,8 +122,8 @@
 </cfoutput>
 	
 
-	<ui:profile qryUser="#rc.qryUser#" 
-		action		= "#BuildURL(action = '.home')#"  
+	<ui:profile rc		= "#rc#" 
+				action	= "#BuildURL(action = '.home')#"  
 		/>
 
 

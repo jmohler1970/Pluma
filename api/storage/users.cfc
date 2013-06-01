@@ -544,27 +544,19 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 
 
 
-<cffunction name="getLink" output="no"  returnType="struct">
+<cffunction name="getLink" output="no"  returnType="query">
 	<cfargument name="UserID" required="true" type="string">
 
 
 	<cfquery name="local.qryResult">
-		SELECT	xmlLink, type, message
+		SELECT	UserID, [type], href, title, message, Position
 		FROM	dbo.Users
 		CROSS APPLY dbo.udf_xmlRead(xmlLink)
 		WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
 		AND		Deleted = 0
 	</cfquery>
 
-
-	<cfset var stResult = {}>
-
-	<cfloop query="local.qryResult">
-		<cfset stResult[type] = message>
-	</cfloop>
-
-
-	<cfreturn stResult>
+	<cfreturn local.qryResult>
 </cffunction>	
 	
 	

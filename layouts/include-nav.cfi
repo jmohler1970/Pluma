@@ -22,7 +22,7 @@
 	
 	<cfif session.LOGINAPI.adhocSecurity("contributor")>
 		<li id="nav_pages">
-			<a class="pages" 
+			<a class="pages" accesskey="p" 
 				href="#buildURL(action = 'pages.home')#">#application.GSAPI.i18n("tab_pages")#</a>
 		</li>
 	</cfif>

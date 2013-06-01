@@ -53,9 +53,9 @@ struct function getContact(string userid=session.LOGINAPI.UserID) output="false"
 	}
 
 
-struct function getPersonal(string userid=session.LOGINAPI.UserID) output="false"	{
+query function getLink(string userid=session.LOGINAPI.UserID) output="false"	{
 
-	return this.wsUser.getPersonal(arguments.userid);
+	return this.wsUser.getLink(arguments.userid);
 	}
 	
 	
