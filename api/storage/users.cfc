@@ -429,33 +429,65 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 </cffunction>
 
 
-	
 
 
-<cffunction name="setLink" output="no"  returnType="boolean" hint="Things that are not covered above. Users can edit">
-	<cfargument name="UserID" required="true" type="string">
+<cffunction name="LinkSave" output="false" returntype="struct" hint="similar to User.linksave">
+	<cfargument name="NodeK" required="true" type="struct">
 	<cfargument name="rc" required="true" type="struct">
 	<cfargument name="remote_addr" required="true" type="string">
-	<cfargument name="ByUserID" required="true" type="string">	
+	<cfargument name="byUserID" required="true" type="string">
 	
-
-
 	
-	<cfquery>
+	<cfscript>
+	var xmlLink = "";
+	
+	for (var i = 1; isDefined("rc.type_#i#") or isDefined("rc.href_#i#"); i++)	{
+		
+		if (isDefined("rc.type_#i#") and evaluate("rc.type_#i#") != "" and not isDefined("rc.delete_#i#"))	{
+		
+				
+			var href 		= isDefined("rc.href_#i#") 		? evaluate("rc.href_#i#") 		: '';
+			var message 	= isDefined("rc.message_#i#") 	? evaluate("rc.message_#i#") 	: '';
+			var title 		= isDefined("rc.title_#i#") 	? evaluate("rc.title_#i#") 		: '';
+			var position	= isDefined("rc.position_#i#")	? evaluate("rc.position_#i#") 	: '';
+			
+			
+			xmlLink 					&= '<data type="#evaluate("rc.type_#i#")#"';
+			
+			if (href != "") 	xmlLink &= ' href = "#xmlFormat(href)#"';
+			if (title != "") 	xmlLink &= ' title = "#xmlFormat(title)#"';
+			if (position != "") xmlLink &= ' position = "#xmlFormat(position)#"';
+			xmlLink 					&= '>#xmlFormat(message)</data>';
+			}	// isDefined
+	
+		} // end loop
+	</cfscript>
+	
+		
+	
+	
+	<cfquery name="qryClearLink">
+	DECLARE @xmlLink xml = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#xmlLink#">
+	
+	
 	UPDATE	dbo.Users
-	SET	xmlLink	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Link')#">,
-		Modified 	= dbo.udf_4jInfo('User logged in',
-			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
-		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.userID#">)
-		 	
-	WHERE	UserID 		= <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
-	AND		xmlLink	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Link')#">,
-	AND		Deleted = 0
-	</cfquery>	
+	SET		xmlLink = @xmlLink,
+		Modified = dbo.udf_4jInfo('Link has been updated',
+			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">, 
+			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byUserID#">)
+			
+	WHERE	Deleted = 0
+	AND		UserID = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.nodeid#">
+	AND		CONVERT(varchar(max), xmlLink) <> @xmlLink
+	</cfquery>
 	
-
-	<cfreturn true>	
+	
+	
+	
+	<cfreturn this.stResults>
 </cffunction>
+
+
 
 
 

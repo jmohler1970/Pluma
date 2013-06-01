@@ -42,9 +42,9 @@ void function edit(required struct rc) output="false"	{
 		
 		rc.UserID = application.USERAPI.set(rc.UserID, rc).UserID;
 		
-		application.USERAPI.setProfile(rc.UserID, rc);
-		application.USERAPI.setContact(rc.UserID, rc);
-		application.USERAPI.setLink(rc.UserID, rc);
+		application.USERAPI.set_profile(rc.UserID, rc);
+		application.USERAPI.set_contact(rc.UserID, rc);
+		application.USERAPI.set_link(rc.UserID, rc);
 		
 			 
 		
@@ -81,11 +81,11 @@ void function endedit(required struct rc) output="false"	{
 		
 		};
 	
-	StructAppend(rc.stUser, application.USERAPI.getProfile(rc.UserID));
-	StructAppend(rc.stUser, application.USERAPI.getContact(rc.UserID));
+	StructAppend(rc.stUser, application.USERAPI.get_profile(rc.UserID));
+	StructAppend(rc.stUser, application.USERAPI.get_contact(rc.UserID));
 	
 	// Shared with pages
-	rc.qryLink = application.USERAPI.getLink(rc.UserID); 
+	rc.qryLink = application.USERAPI.get_link(rc.UserID); 
 	
 	rc.qryLinkCategory = application.IOAPI.get_All_By_Extra("Facet", "Link_Category", "Title");
 	}	

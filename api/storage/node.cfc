@@ -1,4 +1,4 @@
-
+0
  	
  			
 <cfcomponent extends="nodero">		
@@ -480,104 +480,58 @@
 </cffunction>
 
 
-<!--- Link actions --->
-<cffunction name="LinkAdd" output="false" returntype="struct">
-	<cfargument name="NodeK" 		required="true" type="struct">
-	<cfargument name="rc" 			required="true" type="struct">
-	<cfargument name="remote_addr" 	required="true" type="string">
-	<cfargument name="UserID" 		required="true" type="string">
-	
-	<cfscript>
-	param rc.type = '';
-	
-	if (rc.type == '')	{
-		this.stResults.key = "plumacms/blank";	
-		
-		return this.stResults;
-		}
-		
-	if (this.LinkExists(arguments.NodeK.NodeID, rc))	{
-		this.stResults.result = false;
-		this.stResults.key = "plumacms/already_exists";
-		return this.stResults;
-		}
-		
-	</cfscript>
-	
-	
-	
-	<cfquery>
-		UPDATE	dbo.Node
-		SET		xmlLink.modify('
-			insert <data 
-				type		= "#xmlformat(rc.type)#" 
-				href		= "#xmlformat(trim(rc.href))#"
-				<cfif isDefined("rc.title")>
-					title	= "#xmlformat(trim(rc.title))#"
-				</cfif> 
-				
-				<cfif isDefined("rc.position")>
-					position = "#xmlformat(trim(rc.position))#"
-				</cfif>
-				
-				>#xmlformat(trim(rc.message))#</data>
-			as last into (/)
-			')
-		WHERE	Deleted = 0
-		AND		NodeID = TRY_CONVERT(int, <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.nodeid#">)
-		AND		Kind = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.Kind#">
-	</cfquery>
-
-	<cfset this.stResults.key = "ER_YOUR_CHANGES">
-
-	
-	<cfreturn this.stResults>
-</cffunction>
 
 
-
-
-<cffunction name="LinkSave" output="false" returntype="struct" >
+<cffunction name="LinkSave" output="false" returntype="struct" hint="similar to User.linksave">
 	<cfargument name="NodeK" required="true" type="struct">
 	<cfargument name="rc" required="true" type="struct">
 	<cfargument name="remote_addr" required="true" type="string">
 	<cfargument name="byUserID" required="true" type="string">
 	
 	
+	<cfscript>
+	var xmlLink = "";
+	
+	for (var i = 1; isDefined("rc.type_#i#") or isDefined("rc.href_#i#"); i++)	{
+		
+		if (isDefined("rc.type_#i#") and evaluate("rc.type_#i#") != "" and not isDefined("rc.delete_#i#"))	{
+		
+				
+			var href 		= isDefined("rc.href_#i#") 		? evaluate("rc.href_#i#") 		: '';
+			var message 	= isDefined("rc.message_#i#") 	? evaluate("rc.message_#i#") 	: '';
+			var title 		= isDefined("rc.title_#i#") 	? evaluate("rc.title_#i#") 		: '';
+			var position	= isDefined("rc.position_#i#")	? evaluate("rc.position_#i#") 	: '';
+			
+			
+			xmlLink 					&= '<data type="#evaluate("rc.type_#i#")#"';
+			
+			if (href != "") 	xmlLink &= ' href = "#xmlFormat(href)#"';
+			if (title != "") 	xmlLink &= ' title = "#xmlFormat(title)#"';
+			if (position != "") xmlLink &= ' position = "#xmlFormat(position)#"';
+			xmlLink 					&= '>#xmlFormat(message)</data>';
+			}	// isDefined
+	
+		} // end loop
+	</cfscript>
+	
+	
+	
+	
 	
 	<cfquery name="qryClearLink">
+	DECLARE @xmlLink xml = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#xmlLink#">
+	
+	
 	UPDATE	dbo.Node
-	SET		xmlLink = '',
+	SET		xmlLink = @xmlLink,
 		Modified = dbo.udf_4jInfo('Link has been updated',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">, 
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byUserID#">)
 			
 	WHERE	Deleted = 0
 	AND		NodeID = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.nodeid#">
-	AND		CONVERT(varchar(max), xmlLink) <> ''
+	AND		CONVERT(varchar(max), xmlLink) <> @xmlLink
 	</cfquery>
-	
-	
-	<cfscript>
-	for (var i = 1; isDefined("rc.type_#i#") or isDefined("rc.href_#i#"); i++)	{
-		
-		if (isDefined("rc.type_#i#") and evaluate("rc.type_#i#") != "" and not isDefined("rc.delete_#i#"))	{
-			attr = {
-				type 		= evaluate("rc.type_#i#"), 
-				href 		= isDefined("rc.href_#i#") 		? evaluate("rc.href_#i#") 		: '', 
-				message 	= isDefined("rc.message_#i#") 	? evaluate("rc.message_#i#") 	: '',
-				title 		= isDefined("rc.title_#i#") 	? evaluate("rc.title_#i#") 		: '',
-				position	= isDefined("rc.position_#i#")	? evaluate("rc.position_#i#") 	: ''
-				};
-
-
-		
-			this.stResults = this.LinkAdd(arguments.NodeK, attr, arguments.remote_addr, arguments.byUserID);	
-					
-			}	// isDefined
-	
-		} // end loop
-	</cfscript>
 	
 	
 	

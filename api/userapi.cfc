@@ -41,19 +41,19 @@ query function get(string userid=session.LOGINAPI.UserID) output="false"	{
 	}
 
 
-struct function getProfile(string userid=session.LOGINAPI.UserID) output="false"	{
+struct function get_profile(string userid=session.LOGINAPI.UserID) output="false"	{
 
 	return this.wsUser.getProfile(arguments.userid);
 	}
 
 
-struct function getContact(string userid=session.LOGINAPI.UserID) output="false"	{
+struct function get_contact(string userid=session.LOGINAPI.UserID) output="false"	{
 
 	return this.wsUser.getContact(arguments.userid);
 	}
 
 
-query function getLink(string userid=session.LOGINAPI.UserID) output="false"	{
+query function get_link(string userid=session.LOGINAPI.UserID) output="false"	{
 
 	return this.wsUser.getLink(arguments.userid);
 	}
@@ -83,7 +83,7 @@ struct function set(required string userid, required struct rc) output="false"	{
 	}
 	
 
-struct function setProfile(required string userid, required struct rc) output="false"	{
+struct function set_profile(required string userid, required struct rc) output="false"	{
 
 	
 
@@ -93,7 +93,7 @@ struct function setProfile(required string userid, required struct rc) output="f
 	}
 
 
-struct function setContact(required string userid, required struct rc) output="false"	{
+struct function set_contact(required string userid, required struct rc) output="false"	{
 
 	
 	result = this.wsUser.setContact(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
@@ -103,11 +103,23 @@ struct function setContact(required string userid, required struct rc) output="f
 	}
 
 
-struct function setPersonal(required string userid, required struct rc) output="false"	{
+struct function set_personal(required string userid, required struct rc) output="false"	{
 
 	
 
 	result = this.wsUser.setPersonal(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
+	
+	
+	return result;
+	}
+
+
+
+struct function set_link(required string userid, required struct rc) output="false" hint="Stores an expected set of rc values. Fields are: linkcategory_[1-50], href_[1-50] (required), value_[1-50] (required), tooltip_[1-50], sortorder_[1-50]"	{
+
+	
+
+	result = this.wsUser.setLink(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
 	
 	
 	return result;
@@ -118,7 +130,7 @@ struct function setPersonal(required string userid, required struct rc) output="
 
 struct function set_password(required string userid, required string password) output="false"	{
 
-	result = this.wsUser.commitpassword(arguments.userid, arguments.password, cgi.remote_addr, session.LOGINAPI.userID);
+	result = this.wsUser.commitPassword(arguments.userid, arguments.password, cgi.remote_addr, session.LOGINAPI.userID);
 	
 	return {result = result};
 	}
