@@ -24,9 +24,9 @@ if (fileExists(expandpath("../../theme/admin.xml")))	{
 	xmlData = xmlParse(rawData).item;
 	
 	
-	afterCSS = 	"#xmlData.primary.darkest.xmlText#,#xmlData.primary.darker.xmlText#,#xmlData.primary.dark.xmlText#," &
-				"#xmlData.primary.middle.xmlText#,#xmlData.primary.light.xmlText#,#xmlData.primary.lighter.xmlText#," &
-				"#xmlData.primary.lightest.xmlText#,#xmlData.secondary.darkest.xmlText#, #xmlData.secondary.lightest.xmlText#";
+	afterCSS = 	"#trim(xmlData.primary.darkest.xmlText)#,#trim(xmlData.primary.darker.xmlText)#,#trim(xmlData.primary.dark.xmlText)#," &
+				"#trim(xmlData.primary.middle.xmlText)#,#trim(xmlData.primary.light.xmlText)#,#trim(xmlData.primary.lighter.xmlText)#," &
+				"#trim(xmlData.primary.lightest.xmlText)#,#trim(xmlData.secondary.darkest.xmlText)#,#trim(xmlData.secondary.lightest.xmlText)#";
 
 	
 
@@ -42,5 +42,6 @@ if (fileExists(expandpath("../../theme/admin.xml")))	{
 <cfset cssText = replacelist(cssText, beforeCSS, afterCSS)>
 
 <cfoutput>#cssText#</cfoutput>
+
 
 
