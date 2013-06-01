@@ -33,6 +33,7 @@ function Init()	{
 	param rc.stUser.lastname 			= "";
 	param rc.stUser.postfix 			= "";
 	
+	
 	param rc.stUser.contact_company 	= "";
 	param rc.stUser.contact_title 		= "";
 	param rc.stUser.contact_address 	= "";
@@ -49,6 +50,12 @@ function Init()	{
 	param rc.stUser.contact_association = "";
 	param rc.stUser.contact_achievement = "";
 	param rc.stUser.contact_otherinterest	= "";
+	
+	
+	param rc.stUser.contact_stars 		= "";
+	var maxstars = 2;
+	if (attributes.stars > maxstars OR not isnumeric(rc.stUser.contact_stars))
+		rc.stUser.stars = maxstars;
 	</cfscript>
 	
 
@@ -72,6 +79,18 @@ function Init()	{
 	<!--- above are pre wired --->
 	
 	<!--- below are not --->
+	<tr>
+		<td><b>Stars</b></td>
+		<td>
+		<cfloop from="0" to="#maxstars#" index="i">
+			<cfset ii = i == 0 ? "" : i>
+		
+
+			<input type="radio" name="stars" value="#i#" <cfif attributes.stars EQ ii>checked="checked"</cfif> /> #repeatstring("&##9733;", i)# <cfif i EQ 0><i>None</i></cfif>
+			<br />
+		</cfloop> 
+		</td>
+	</tr>
 	<tr>
 	  <td><b>Company</b></td>
 	  <td><input type="text" name="contact_company" class="text" style="width:250px;" value="#htmleditformat(rc.stUser.contact_company)#" /></td>
