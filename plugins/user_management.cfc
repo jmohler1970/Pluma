@@ -52,10 +52,10 @@ function Init()	{
 	param rc.stUser.contact_otherinterest	= "";
 	
 	
-	param rc.stUser.contact_stars 		= "";
+	param rc.stUser.contact_stars 		= 0;
 	var maxstars = 2;
-	if (attributes.stars > maxstars OR not isnumeric(rc.stUser.contact_stars))
-		rc.stUser.stars = maxstars;
+	if (rc.stUser.contact_stars > maxstars OR not isnumeric(rc.stUser.contact_stars))
+		rc.stUser.contact_stars = maxstars;
 	</cfscript>
 	
 
@@ -83,10 +83,9 @@ function Init()	{
 		<td><b>Stars</b></td>
 		<td>
 		<cfloop from="0" to="#maxstars#" index="i">
-			<cfset ii = i == 0 ? "" : i>
-		
+			
 
-			<input type="radio" name="stars" value="#i#" <cfif attributes.stars EQ ii>checked="checked"</cfif> /> #repeatstring("&##9733;", i)# <cfif i EQ 0><i>None</i></cfif>
+			<input type="radio" name="contact_stars" value="#i#" <cfif rc.StUser.contact_stars EQ i>checked="checked"</cfif> /> #repeatstring("&##9733;", i)# <cfif i EQ 0><i>None</i></cfif>
 			<br />
 		</cfloop> 
 		</td>

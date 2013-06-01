@@ -445,19 +445,20 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 		
 		if (isDefined("rc.type_#i#") and evaluate("rc.type_#i#") != "" and not isDefined("rc.delete_#i#"))	{
 		
-				
-			var href 		= isDefined("rc.href_#i#") 		? evaluate("rc.href_#i#") 		: '';
-			var message 	= isDefined("rc.message_#i#") 	? evaluate("rc.message_#i#") 	: '';
-			var title 		= isDefined("rc.title_#i#") 	? evaluate("rc.title_#i#") 		: '';
-			var position	= isDefined("rc.position_#i#")	? evaluate("rc.position_#i#") 	: '';
+			
+			var type		= 									evaluate("rc.type_#i#");	
+			var href 		= isDefined("rc.href_#i#") 		? 	evaluate("rc.href_#i#") 	: '';
+			var message 	= isDefined("rc.message_#i#") 	? 	evaluate("rc.message_#i#") 	: '';
+			var title 		= isDefined("rc.title_#i#") 	? 	evaluate("rc.title_#i#") 	: '';
+			var position	= isDefined("rc.position_#i#")	? 	evaluate("rc.position_#i#") : '';
 			
 			
-			xmlLink 					&= '<data type="#evaluate("rc.type_#i#")#"';
+			xmlLink 					&= '<data type="#xmlFormat(type)#"';
 			
 			if (href != "") 	xmlLink &= ' href = "#xmlFormat(href)#"';
 			if (title != "") 	xmlLink &= ' title = "#xmlFormat(title)#"';
 			if (position != "") xmlLink &= ' position = "#xmlFormat(position)#"';
-			xmlLink 					&= '>#xmlFormat(message)</data>';
+			xmlLink 					&= '>#xmlFormat(message)#</data>';
 			}	// isDefined
 	
 		} // end loop
