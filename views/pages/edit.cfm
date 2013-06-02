@@ -272,7 +272,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 		<cfelse>
 				
 			<span>	
-				<button name="submit" type="submit" value="Save">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
+				<button type="submit" name="submit" value="Save">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
 			</span>
 
 			<cfif isnumeric(rc.NodeID)>	

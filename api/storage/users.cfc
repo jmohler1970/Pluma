@@ -3,7 +3,6 @@
 
 <cfcomponent hint="Gets Users">
 
-
 <cffunction name="getStatus" output="false"  returnType="string" hint="Is this object ready to read and write data">
 
 	<cfreturn "OK">
@@ -22,7 +21,7 @@
 
 
 <cfscript>
-	variables.stResults = {result = true, resultCode = 0, Message = ''};
+	this.stResults = {result = true, resultCode = 0, Message = ''};
 
 	variables.QueryService = new query();
 	variables.QueryService.setName("qryResult");
@@ -246,11 +245,11 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	param rc.comments 		= "";
 	
 	// security
-	param rc.group 		= "";
+	param rc.groups 		= "";
 
 	param rc.expirationdate = "";
-	param rc.passhash 	= "skip";
-	param rc.submit 	= "";
+	param rc.passhash 		= "skip";
+	param rc.submit 		= "";
 	</cfscript>		
 			
 	
@@ -317,8 +316,8 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 				DeleteDate = NULL,
 			</cfif>
 		
-			<cfif rc.group NEQ "">
-				xmlGroup 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML({Group = rc.group})#">,
+			<cfif rc.groups NEQ "">
+				xmlGroup 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML({Group = rc.groups})#">,
 			</cfif>
 			
 			
@@ -345,7 +344,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 
 <cffunction name="encodeXML" output="no"  returnType="string">
 	<cfargument name="rc" required="true" type="struct">
-	<cfargument name="filter" required="true" type="string">
+	<cfargument name="filter" required="false" type="string" default="">
 	
 
 
@@ -357,7 +356,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	for (var MyFormField in rc)	{
 			
 		if (ListFindNoCase("action,submit,fieldnames,href", MyFormField) == 0)	{
-			if (MyFormField CONTAINS arguments.filter)	{
+			if (MyFormField CONTAINS arguments.filter OR arguments.filter EQ "")	{
 				
 				var href = "";
 				
@@ -379,7 +378,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 
 	
 	
-<cffunction name="setProfile" output="no"  returnType="boolean" hint="Internal information. Users CANNOT edit their own profile">
+<cffunction name="setProfile" output="no"  returnType="struct" hint="Internal information. Users CANNOT edit their own profile">
 	<cfargument name="UserID" required="true" type="numeric">
 	<cfargument name="rc" required="true" type="struct">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -394,16 +393,16 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 		 	
 	WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
 	AND		Deleted = 0
-	AND		xmlProfile <> <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Profile')#">
+	AND		CONVERT(varchar(max), xmlProfile) <> <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Profile')#">
 	</cfquery>
 	
 
-	<cfreturn true>	
+	<cfreturn this.stResults>
 </cffunction>	
 	
 	
 	
-<cffunction name="setContact" output="no"  returnType="boolean" hint="How to get in touch with this person. Users can edit">
+<cffunction name="setContact" output="no"  returnType="struct" hint="How to get in touch with this person. Users can edit">
 	<cfargument name="UserID" required="true" type="numeric">
 	<cfargument name="rc" required="true" type="struct">
 	<cfargument name="remote_addr" required="true" type="string">
@@ -420,19 +419,19 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 		 	
 	WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
 	AND		Deleted = 0
-	AND		xmlContact <> <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Contact')#">
+	AND		CONVERT(varchar(MAX), xmlContact) <> <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Contact')#">
 	</cfquery>	
 		
 
 	
-	<cfreturn true>	
+	<cfreturn this.stResults>
 </cffunction>
 
 
 
 
-<cffunction name="LinkSave" output="false" returntype="struct" hint="similar to User.linksave">
-	<cfargument name="NodeK" required="true" type="struct">
+<cffunction name="setLink" output="false" returntype="struct" hint="similar to User.linksave">
+	<cfargument name="UserID" required="true" type="numeric">
 	<cfargument name="rc" required="true" type="struct">
 	<cfargument name="remote_addr" required="true" type="string">
 	<cfargument name="byUserID" required="true" type="string">
@@ -468,7 +467,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	
 	
 	<cfquery name="qryClearLink">
-	DECLARE @xmlLink xml = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#xmlLink#">
+	DECLARE @xmlLink varchar(max) = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#xmlLink#">
 	
 	
 	UPDATE	dbo.Users
@@ -478,7 +477,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byUserID#">)
 			
 	WHERE	Deleted = 0
-	AND		UserID = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.nodeid#">
+	AND		UserID = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.userid#">
 	AND		CONVERT(varchar(max), xmlLink) <> @xmlLink
 	</cfquery>
 	

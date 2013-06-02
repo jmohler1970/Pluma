@@ -25,10 +25,12 @@
 
 <ul class="snav">
 	<cfoutput>#application.GSAPI.exec_action("users_sidebar")#</cfoutput>
-
 </ul>
 
 
+<cfif rc.UserID NEQ "">
+	<p id="js_submit_line" ></p>
+</cfif>
 
 
 	

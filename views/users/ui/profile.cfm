@@ -22,6 +22,7 @@ param attributes.deletelink = '';
 <cfoutput query="attributes.rc.qryUser">
 
 <cfform action="#attributes.action#" method="post">
+	<input type="hidden" name="userid" value="#userid#" />
 
 
 <div class="leftsec">
@@ -121,8 +122,12 @@ param attributes.deletelink = '';
 
 	<div class="edit-nav clearfix">	
 	
-
-		<button type="submit" name="submit" value="profile">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
+		
+		<h3 class="floated" id="submit_line">
+		<span>	
+			<button type="submit" name="submit" value="profile">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
+		</span>
+		</h3>	
 	
 	
 		<cfif attributes.deletelink NEQ "" AND isnumeric(UserID)>
