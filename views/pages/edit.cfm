@@ -25,8 +25,10 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
     <div class="edit-nav clearfix">	
     
-	<cfoutput query="rc.qryNode">   
+	<cfoutput query="rc.qryNode"> 
+		<cfif slug NEQ "">  
     	<a href="#application.GSAPI.find_url(slug)#" target="_blank" accesskey="v">#application.GSAPI.i18n("view")#</a>
+		</cfif>
     
     	<a href="##" id="metadata_toggle" accesskey="n">#application.GSAPI.i18n("page_options")#</a>
     </cfoutput>
@@ -151,7 +153,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 </p>
 
 	<div id="menu-items" <cfif menustatus NEQ 1> style="display : none;" </cfif>>
-		<img src="#application.GSAPI.get_site_root()#layouts/css/images/tick.png" id="tick">
+		<img src="#application.GSAPI.get_site_root()#layouts/css/images/tick.png" id="tick" alt="tick" />
 		<span style="float:left;width:81%;"><label for="post-menu">Menu Text</label></span>
 		<span style="float:left;width:10%;"><label for="post-menu-order">Priority</label></span>
 		<div class="clear"></div>

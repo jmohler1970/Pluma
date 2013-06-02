@@ -296,7 +296,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	</cfif>
 	
 		
-	<cfquery>
+	<cfquery name="qryCommit">
 		UPDATE	dbo.Users
 		SET	PersonName 		= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#local.personname#">,
 			Email 			= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.email#">,
@@ -389,11 +389,11 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	SET	xmlProfile 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Profile')#">,
 		Modified 	= dbo.udf_4jInfo('Profile was set',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
-		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.userID#">)
+		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.ByUserID#">)
 		 	
 	WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
 	AND		Deleted = 0
-	AND		CONVERT(varchar(max), xmlProfile) <> <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Profile')#">
+	AND		ISNULL(CONVERT(varchar(max), xmlProfile), '') <> <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Profile')#">
 	</cfquery>
 	
 
@@ -410,16 +410,16 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	
 	
 		
-	<cfquery>
+	<cfquery name="qrysetContact">
 	UPDATE	dbo.Users
 	SET	xmlContact	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Contact')#">,
 		Modified 	= dbo.udf_4jInfo('Contact info Changed',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
-		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.userID#">)
+		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.ByUserID#">)
 		 	
 	WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
 	AND		Deleted = 0
-	AND		CONVERT(varchar(MAX), xmlContact) <> <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Contact')#">
+	AND		ISNULL(CONVERT(varchar(MAX), xmlContact), '') <> <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Contact')#">
 	</cfquery>	
 		
 

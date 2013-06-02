@@ -7,28 +7,11 @@
 
 
 
-<!---
-<cfsavecontent variable="strButtons">
-<cfoutput query="rc.qryUser">
-
-	
-	<cfif isnumeric(UserID)><!--- This will be blank if userid is numeric, but there is no such user --->
-
-	<h3 class="floated" id="submit_line">
-		<span>
-			<button name="submit" type="submit">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
-		</span>
-	</h3>	  	
-			
-	<cfelse>
-		<button type="submit">#application.GSAPI.i18n('Add')#</button>
-	</cfif>  
-	
-</cfoutput>	
-</cfsavecontent> 
---->
 
 <div class="main">
+
+
+<cfdump var="#rc#" expand="no">
 
 	
 <cfif rc.qryUser.Groups EQ "" AND isnumeric(rc.userid)>

@@ -540,6 +540,25 @@ string function find_url(required string slug) {
 	if (arguments.slug == 'index')	{
 		return request.Meta.root;
 		}
+		
+	switch (arguments.slug)	{
+		case "search"	:
+			return "#request.Meta.root#index.cfm/search";
+			break;
+		
+		case "tag"		:
+			return "#request.Meta.root#index.cfm/tag";
+			break;
+		
+		case "archive"	:
+			return "#request.Meta.root#index.cfm/archive";
+			break;
+		
+		case "profile"	:
+			return "#request.Meta.root#index.cfm/profile";
+			break;
+		}	
+		
 	
 	return "#request.Meta.root#index.cfm/main/#arguments.slug#";
 	}

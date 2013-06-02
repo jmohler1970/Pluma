@@ -34,6 +34,7 @@ jQuery(document).ready(function() {
 	
   var edit_line = $('#submit_line span').html();
   
+ 
   $('#js_submit_line').html(edit_line);
   $("#js_submit_line button").live("click", function() {
    

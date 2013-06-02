@@ -59,7 +59,6 @@
 	<body id="#getSection()#">
 </cfif>
 
-<body id="#getSection()#">
 
 
 

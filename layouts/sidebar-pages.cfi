@@ -44,7 +44,7 @@
 </ul>
 
 
-<cfif getItem() EQ "edit" AND rc.NodeID NEQ "">
+<cfif getItem() EQ "edit">
 	<p id="js_submit_line" ></p>
 </cfif>
 
