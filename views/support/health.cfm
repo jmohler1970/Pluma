@@ -265,7 +265,7 @@ for( i=1; i lte arrayLen(pools); i=i+1 ) 	{
 
 
 
-<cfoutput>#application.GSAPI.exec_action("health-check-extras", "", rc)#</cfoutput>
+<cfoutput>#application.GSAPI.exec_action("health-check-extras")#</cfoutput>
 
 </div>
 

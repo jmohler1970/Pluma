@@ -3,7 +3,7 @@
 <!--- Normal output begins --->
 
 <cfif getSection() NEQ "login">
-	<cfset application.GSAPI.exec_action("admin-pre-header", '', rc)>	
+	<cfset application.GSAPI.exec_action("admin-pre-header")>	
 </cfif>
 
 <!DOCTYPE html>
@@ -18,10 +18,6 @@
 	
 
 		
-	<!--[if lt IE 9]>
-          <script src="/theme/thyroidologists/assets/js/html5shiv.js"></script>
-    <![endif]-->
-
 
 	
 	<!-- Le styles -->
@@ -43,7 +39,7 @@
     <script src="#application.GSAPI.get_site_root()#layouts/js/jquery-ui.js" 		type="text/javascript"></script>
     
     <cfif getSection() NEQ "login">
-		#application.GSAPI.exec_action("admin-pre-header", '', rc)#	
+		#application.GSAPI.exec_action("admin-pre-header")#	
 	</cfif>
     
 	<script src="#application.GSAPI.get_site_root()#layouts/js/application.js" 	type="text/javascript"></script>
@@ -68,7 +64,7 @@
     <div class="wrapper clearfix">
 
 	<cfif getSection() NEQ "login">
-		#application.GSAPI.exec_action("header-body", '', rc)#
+		#application.GSAPI.exec_action("header-body")#
 	</cfif>	
 	
 		<cfinclude template="include-nav.cfi">
@@ -165,7 +161,7 @@
 	
 	<cfif getSection() NEQ "login">
 		
-		#application.GSAPI.exec_action("footer", '', rc)#	
+		#application.GSAPI.exec_action("footer")#	
 	</cfif>
 </div>
 </cfoutput>

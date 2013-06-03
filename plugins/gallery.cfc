@@ -24,7 +24,7 @@ this.stPlugin_info =
 		application.GSAPI.add_action("gallery_sidebar", "createSideMenu", 	["?plugin=gallery&plx=edit", "GALLERY/ADD_TITLE", "gallery"]);
 	//	application.GSAPI.add_action("gallery_sidebar", "createSideMenu", ["?plugin=gallery&plx=options", "GALLERY/SETTINGS", "gallery"]);	
 	
-		application.GSAPI.add_filter(this.display_gallery());
+		application.GSAPI.add_filter("content", "gallery", "display_gallery");
 	
 		application.GSAPI.register_style('colorbox', 	'~/plugins/gallery/assets/colorbox.css', 	'2.0.4', "screen");
 		application.GSAPI.register_script('colorbox', 	'~/plugins/gallery/assets/jquery.colorbox.js', 	'2.0.4', false);
@@ -35,7 +35,9 @@ this.stPlugin_info =
 
 
 
-<cffunction name="display_gallery" returnType="struct" output="false" hint="uses colorbox">
+<cffunction name="display_gallery" returnType="string" output="false" hint="uses colorbox">
+	<cfargument name="strIn" type="string" required="true">
+	<cfargument name="rc" type="struct" required="true">
 
 		
 	<cfset rc.thumbspath 	= "data/thumbs/">	
@@ -61,11 +63,11 @@ this.stPlugin_info =
 		</cfsavecontent>
 		
 		
-		<cfset setVariable("stResults.gallery_#NodeID#", trim(gallery))>
+		<cfset strIn = replace(strIn, "{gallery_#NodeID#}", trim(gallery), "all")>
 	</cfoutput>
 
 
-	<cfreturn stResults>
+	<cfreturn strIn>
 </cffunction>
 
 

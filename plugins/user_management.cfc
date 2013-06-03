@@ -16,6 +16,8 @@ function Init()	{
 	'',
 	'icon-heart');
 	
+	application.GSAPI.add_filter("content", "user_management", "profile");
+	
 	application.GSAPI.add_action("settings-user-extras", "settings_user_extras",["user_management"]);
 	
 	}	
@@ -23,9 +25,21 @@ function Init()	{
 
 
 
+<cffunction name="profile" output="false">
+	<cfargument name="strIn" type="string" required="true">
+	<cfargument name="rc" type="struct" required="true">
+	
+
+
+
+	<cfreturn strIn>
+</cffunction>
+
+
+
 
 <cffunction name="settings_user_extras">
-	<cfargument name="rc" required="true" type="struct">
+	<cfargument name="rc" type="struct" required="true">
 	
 	<cfscript>
 	param rc.stUser = {};

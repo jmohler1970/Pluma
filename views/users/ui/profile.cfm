@@ -94,7 +94,7 @@ param attributes.deletelink = '';
 	<div class="clear"></div>
 	
 <div id="link_window" style="display : none;">		
-	<cfoutput>#application.GSAPI.exec_action("settings-user-extras", "", attributes.rc)#</cfoutput>
+	<cfoutput>#application.GSAPI.exec_action("settings-user-extras")#</cfoutput>
 	
 
 	<div class="clear"></div>

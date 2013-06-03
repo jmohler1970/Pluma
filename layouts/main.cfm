@@ -33,7 +33,7 @@
 <cfscript>
 
 
-
+application.GSAPI.rc = rc;// has all the rc from controllers
 plugin_content 	= application.GSAPI.get_plugin_content();
 theme 			= application.GSAPI.get_theme();
 template_file	= application.GSAPI.get_theme_template();
@@ -63,7 +63,7 @@ if (getItem() EQ "401" AND
 	fileExists(expandpath("theme/#theme#/401.cfm")))	{
 	template_file = "401.cfm";
 	
-	application.GSAPI.exec_action("error-401", '', rc);
+	application.GSAPI.exec_action("error-401");
 	}
 	
 	
@@ -73,7 +73,7 @@ if (getItem() EQ "404" AND
 	fileExists(expandpath("theme/#theme#/404.cfm")))	{
 	template_file = "404.cfm";
 	
-	application.GSAPI.exec_action("error-404", '', rc);
+	application.GSAPI.exec_action("error-404");
 	}
 
 
@@ -84,7 +84,7 @@ if (fileExists(expandpath("theme/#theme#/functions.cfi")))
 
 
 // call pretemplate Hook
-application.GSAPI.exec_action("index-pretemplate", '', rc); 
+application.GSAPI.exec_action("index-pretemplate"); 
 
 
 // include the template and template file set within theme.home and each page
@@ -92,7 +92,7 @@ if (!fileExists(expandpath("theme/#theme#/#template_file#")) || template_file ==
 include "../theme/#theme#/#template_file#";
 
 // call posttemplate Hook
-application.GSAPI.exec_action("index-posttemplate", '', rc); 
+application.GSAPI.exec_action("index-posttemplate"); 
 </cfscript>
 
 

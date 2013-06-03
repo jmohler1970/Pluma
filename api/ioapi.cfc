@@ -501,7 +501,7 @@ struct function set_conf(required struct NodeK, required struct rc) output="fals
 
 
 
-string function set_XMLData(required struct NodeK, required xml xmlData) output="false"  hint="Plugin must encode and decode xml. This function saves XML without additional processing."	{
+string function set_XMLData(required struct NodeK, required string xmlData) output="false"  hint="Plugin must encode and decode xml. This function saves XML without additional processing."	{
 
 	param arguments.NodeK.Kind = "Page";
 

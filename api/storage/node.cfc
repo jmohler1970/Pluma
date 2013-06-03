@@ -253,12 +253,13 @@
 	
 	
 	<cftry>
-	<cfquery>
-	DECLARE	@parentNodeID int 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR"	value="#rc.parentnodeid#">,
-		@xmlTitle xml 			= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#xmlTitle#">,
-		@strData varchar(max) 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#trim(rc.strData)#"  null="#yesnoformat(rc.strData EQ "")#">,
-		@xmlData xml			= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#rc.xmlData#">,
-		@CommentMode varchar(50) = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#rc.commentMode#">,
+	<cfquery name="qryUpdate"
+	>
+	DECLARE	@parentNodeID int 		= <cfqueryparam cfsqltype="CF_SQL_VARCHAR"	value="#rc.parentnodeid#">,
+		@xmlTitle	varchar(max)	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#xmlTitle#">,
+		@strData 	varchar(max) 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#trim(rc.strData)#"  null="#yesnoformat(rc.strData EQ "")#">,
+		@xmlData	varchar(max)	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#rc.xmlData#">,
+		@CommentMode varchar(50) 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#rc.commentMode#">,
 		@pinned bit				= <cfqueryparam CFSQLType="CF_SQL_bit" 		value="#rc.pinned#">,
 		@cStatus bit			= <cfqueryparam CFSQLType="CF_SQL_bit" 		value="#rc.cStatus#">,
 		@pStatus varchar(50)	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#rc.pStatus#">,
@@ -286,17 +287,18 @@
 			Modified 	= dbo.udf_4jInfo('Node was updated',
 				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 		 		<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byUserID#">)
+			 		
 	WHERE	NodeID = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.NodeID#">
 	AND		Kind = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.Kind#">
 	AND		Deleted = 0
 	AND		(
 			ParentNodeID <> @ParentNodeID
 			OR
-			CONVERT(varchar(max), xmlTitle) 	<> CONVERT(varchar(max), @xmlTitle)
+			CONVERT(varchar(max), xmlTitle) 	<> @xmlTitle
 			OR
 			strData 	<> @strData
 			OR
-			CONVERT(varchar(max), xmlData) 		<> CONVERT(varchar(max), @xmlData)
+			CONVERT(varchar(max), xmlData) 		<> @xmlData
 			OR
 			CommentMode <> @CommentMode
 			OR
@@ -503,7 +505,7 @@
 			var position	= isDefined("rc.position_#i#")	? 	evaluate("rc.position_#i#") : '';
 			
 			
-			xmlLink 					&= '<data type="#xmlFormat(type)#';
+			xmlLink 					&= '<data type="#xmlFormat(type)#"';
 			
 			if (href != "") 	xmlLink &= ' href = "#xmlFormat(href)#"';
 			if (title != "") 	xmlLink &= ' title = "#xmlFormat(title)#"';

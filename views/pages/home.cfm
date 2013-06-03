@@ -1,7 +1,7 @@
 
 
 <!--- Yes this goes before class="main" --->
-<cfoutput>#application.GSAPI.exec_action("pages-main", "", rc)#</cfoutput>
+<cfoutput>#application.GSAPI.exec_action("pages-main")#</cfoutput>
 <div class="main">
 
 

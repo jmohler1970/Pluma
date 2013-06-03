@@ -26,7 +26,7 @@ function formCheck()
 
 <cfoutput>
 	<h3>#application.GSAPI.get_site_name()#</h3>
-	#application.GSAPI.exec_action("index-login", "", rc)#
+	#application.GSAPI.exec_action("index-login")#
 
 	<form action="#buildURL(action = '.')#" method="post" class="login">
 
@@ -56,7 +56,7 @@ function formCheck()
 	<a id="forgot_pwd" href="#application.GSAPI.get_site_root()#index.cfm/forgot">#application.GSAPI.i18n("Forgot_pwd")#</a> &raquo;
 </p>
 
-	<div class="reqs" >#application.GSAPI.exec_action("login-reqs", "", rc)#</div>
+	<div class="reqs" >#application.GSAPI.exec_action("login-reqs")#</div>
 		
    	
 	</form>

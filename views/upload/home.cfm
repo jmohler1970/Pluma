@@ -182,7 +182,7 @@
 
 </cfoutput>
 
-<cfoutput>#application.GSAPI.exec_action("file-extras", '', rc)#</cfoutput>
+<cfoutput>#application.GSAPI.exec_action("file-extras")#</cfoutput>
 
 </table>
 

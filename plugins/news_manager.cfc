@@ -23,15 +23,19 @@ function Init()	{
 	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=news_manager", "NEWS_MANAGER/PLUGIN_NAME", "news_manager"]);
 	application.GSAPI.add_action("pages_sidebar", "createSideMenu", ["?plugin=news_manager&plx=edit", "NEWS_MANAGER/New_Post", "news_manager_add"]);
 
-	application.GSAPI.add_filter(this.display_events());
+	application.GSAPI.add_filter("content", "news_manager", "display_events");
+
 	}	
 </cfscript>
 
 
 
-<cffunction name="display_events" returnType="struct" output="false">
+<cffunction name="display_events" returnType="string" output="false">
+	<cfargument name="strIn" type="string" required="true">
+	<cfargument name="rc" type="struct" required="true">
 
-	<cfreturn {}>
+
+	<cfreturn strIn>
 </cffunction>
 
 

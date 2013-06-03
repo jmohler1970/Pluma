@@ -40,7 +40,7 @@ void function starthome(required struct rc) output="false" {
 	param rc.recent = "";
 	param rc.withaction = "";
 	
-	application.GSAPI.exec_action("plugins-hook", "", rc);
+	application.GSAPI.exec_action("plugins-hook");
 	}
 
 </cfscript>	

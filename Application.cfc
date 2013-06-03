@@ -5,7 +5,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0681";
+	this.name 			= "PlumaCMS_0700";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -135,6 +135,7 @@ void function setupRequest()	{
 	application.IOAPI.Init();
 	application.USERAPI.Init();
 	application.GSAPI.Init();
+	application.GSAPI.rc = rc; // does not have anything from controllers
 
 
 	// reset then override
@@ -156,7 +157,7 @@ void function setupRequest()	{
 	
 	
 	// before all security
-	application.GSAPI.exec_action("common", "", rc);
+	application.GSAPI.exec_action("common");
 	
 	
 

@@ -7,10 +7,10 @@
 <cfscript>
 void function init() output="false"{
 
+	this.rc = {};		 // Repeat of rc, ready only
 	this.i18n_data = {}; // For language strings
 	
-	this.stFilter = {};	// For data that will be subsituted
-	
+	this.GS_filter	= queryNew("filter_name, plugin_name, added_function");
 	this.GS_scripts = queryNew("handle,src,ver,in_footer,sortby"); // JavaScript, sortby low is first
 	this.GS_styles 	= queryNew("handle,src,ver,media,sortby");
 	}
@@ -101,7 +101,7 @@ public string function get_page_content(){
 		
 
 	if (not isnull(request.stIOR.qryNode.strData))	{
-		local.result &= this.exec_filter(request.stIOR.qryNode.strData); // no strip decode here
+		local.result &= this.exec_filter('content', request.stIOR.qryNode.strData, this.rc); // no strip decode here
 		}	
 	
 	local.result &= this.exec_action('content-bottom');	
@@ -470,7 +470,7 @@ struct function generate_sitemap(required struct rc) output="false"	{
 	
 	
 
-	application.GSAPI.exec_action("save-sitemap", "", rc);
+	application.GSAPI.exec_action("save-sitemap");
 	
 	filewrite(target, strSiteMap);
 	
@@ -562,21 +562,36 @@ string function find_url(required string slug) {
 	
 	return "#request.Meta.root#index.cfm/main/#arguments.slug#";
 	}
+</cfscript>	
 
 
-/* Does all string replacements */
-string function exec_filter(required string strIn) output="false"	{
+
+<cffunction name="exec_filter" returnType="string" output="false">
+	<cfargument  name="script" 	type="string" required="true">
+	<cfargument  name="strIn" 	type="string" required="true">
+	<cfargument  name="rc" 		type="struct" required="true">
 	
-	for (var i in this.stFilter)	{
-		strIn = replace(strIn, "{#i#}", this.stFilter[i], "all");		
-		}
-		
-	return strIn;	
-	}	
+	
+	<cfloop query="this.GS_Filter">
+		<cfif filter_name EQ arguments.script>
+			
+			<cfinvoke component="plugins.#plugin_name#" 
+				method="#replace(added_function, '-', '_', 'all')#" returnVariable="strIn">
+				
+				<cfinvokeargument name="strIn" value="#strIn#">
+				<cfinvokeargument name="rc" value="#arguments.rc#">
+			</cfinvoke>	
+			
+		</cfif>
+	</cfloop>
+	
+
+	<cfreturn strIn>
+</cffunction>
 
 
 
-
+<cfscript>	
 // Suggestion function for SITEURL variable
 string function suggest_site_path() {
 
@@ -673,8 +688,7 @@ string function get_site_version() {
 <cffunction name="exec_action" returnType="string">
 	<cfargument name="action" 	required="true" type="string" hint="what function to run in plugin">
 	<cfargument name="selected" required="false" type="string" default="">
-	<cfargument name="rc" 		required="false" type="struct" default="#structNew()#">
-	
+	<cfargument name="rc" 		required="false" type="struct" default="#this.rc#">	
 
 	
 	<cfsavecontent variable="local.result">
@@ -718,14 +732,11 @@ string function get_site_version() {
 			</cfcase>
 			
 			<cfdefaultcase>
-				<cfoutput> 
-				
-				</cfoutput>
-			
+		
 				<cftry>
 					<cfinvoke component="plugins.#request.arPlugins[i].attr[1]#" 
 						method="#replace(request.arPlugins[i].added_function, '-', '_', 'all')#">
-						<cfinvokeargument name="rc" value="#arguments.rc#">
+						<cfinvokeargument name="rc" value="#this.rc#">
 					</cfinvoke>	
 												
 				
@@ -772,11 +783,14 @@ function add_action(required string hook_name, required string added_function, r
 	ArrayAppend(request.arPlugins, {hook_name = arguments.hook_name, added_function = arguments.added_function, attr = arguments.attr});
 	}
 
-/* This is very different from GetSimple */
-void function add_filter(required struct filter_data) output="false"	{
+
+void function add_filter(required string filter_name, required string plugin_name, required string added_function) output="false"	{
 	
-		
-	StructAppend(this.stFilter, arguments.filter_data);	
+	QueryAddRow(this.GS_filter);
+	QuerySetCell(this.GS_filter, "filter_name", 	arguments.filter_name);
+	QuerySetCell(this.GS_filter, "plugin_name", 	arguments.plugin_name);
+	QuerySetCell(this.GS_filter, "added_function", 	arguments.added_function);	
+
 	}
 
 
