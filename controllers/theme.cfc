@@ -113,7 +113,7 @@ void function components(required struct rc) output="false"	{
 
 void function endcomponents(required struct rc) output="false"	{
 
-	StructAppend(request, application.IOAPI.load_pref(1)); //resets all preferences
+	application.IOAPI.load_pref(1); //resets all preferences
 	
 
 	rc.stComponents = application.IOAPI.get_pref("Components");
