@@ -11,10 +11,8 @@
 <div class="main">
 
 
-<cfdump var="#rc#" expand="no">
-
 	
-<cfif rc.qryUser.Groups EQ "" AND isnumeric(rc.userid)>
+<cfif rc.stUser.Groups EQ "" AND isnumeric(rc.userid)>
 	<div class="error">
   	
   		<b>Warning!</b> User does not have any access to any groups. This person cannot login.
@@ -61,7 +59,7 @@
 
 
 
-	<ui:profile rc="#rc#" 
+	<ui:profile stUser		= "#rc.stUser#" 
 		action		= "#BuildURL(action = '.edit')#"  
 		deletelink 	= "#buildURL(action = '.delete', querystring = 'UserID=#rc.UserID#')#" 
 		showpermissions="1">
@@ -77,15 +75,14 @@
 		
 
 
-<cfoutput query="rc.qryUser">
 <cfif isnumeric(rc.UserID)>
+<cfoutput>
+
 	<p class="backuplink" >
-		#application.GSAPI.i18n("LAST_SAVED", [modifyby])# #application.IOAPI.std_date(modifyDate)#
+		#application.GSAPI.i18n("LAST_SAVED", [rc.stUser.modifyby])# #application.IOAPI.std_date(rc.stUser.modifyDate)#
 	</p>
-</cfif>
-
 </cfoutput>
-
+</cfif>
 
 
 

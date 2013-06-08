@@ -122,7 +122,7 @@
 </cfoutput>
 	
 
-	<ui:profile rc		= "#rc#" 
+	<ui:profile stUser		= "#rc.stUser#" 
 				action	= "#BuildURL(action = '.home')#"  
 		/>
 

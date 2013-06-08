@@ -27,10 +27,13 @@
 	variables.QueryService.setName("qryResult");
 	
 	variables.lstCol = "UserID,login,passhash
-      	,firstname,middlename,lastname,postfix
+      	,prefix,given,additional,family,suffix
+      	,org, photo, url, email, title
+      	,officetel, celltel, faxtel
+      	,street, locality, region, code, country
+      	,tz, note
 		,homepath,lastLogin,pStatus
-		,ExpirationDate
-		,email,comments,Groups,Active
+		,ExpirationDate,Groups,Active
       	,Deleted,DeleteDate,ModifyDate,ModifyBy,CreateDate,CreateBy"; // rather than using select *
 </cfscript>
 
@@ -44,7 +47,7 @@
 		SELECT	TOP 500 #variables.lstCol#
 		FROM	dbo.vwUser WITH (NOLOCK)
 		WHERE	Deleted = 0
-		ORDER BY firstname, lastname
+		ORDER BY given, family
 	</cfquery>
 	
 	<cfreturn local.qryUsers>
@@ -223,7 +226,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 
 <!--- read write functions here --->
 
-
+<!--- For defintion details see: http://microformats.org/wiki/hcard ---> 
 
 <cffunction name="commit" returnType="struct"  hint="Does both insert and update">
 	<cfargument name="UserID" required="true" type="string" hint="blank is valid and will create a new user">
@@ -236,13 +239,30 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	<cfscript>
 	var homepath = "";
 	
+	param rc.prefix			= "";
+	param rc.given			= "";
+	param rc.additional		= "";
+	param rc.family			= "";
+	param rc.suffix			= "";
 	
-	param rc.firstName		= "";
-	param rc.middleName		= "";
-	param rc.lastName		= "";
+	param rc.org 			= "";
+	param rc.photo 			= "";
+	param rc.url 			= "";
+	param rc.email 			= "";
 	
-	param rc.postfix 		= "";
-	param rc.comments 		= "";
+	param rc.officetel		= "";
+	param rc.celltel		= "";
+	param rc.faxtel			= "";
+	
+	param rc.street			= "";
+	param rc.locality 		= "";
+	param rc.region			= "";
+	param rc.code			= "";
+	param rc.country		= "";
+	param rc.tz				= "";	
+	param rc.note			= "";
+
+		
 	
 	// security
 	param rc.groups 		= "";
@@ -257,16 +277,111 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	
 <cfsavecontent variable="local.personname">
 <cfoutput>
-<PersonName xmlns="http://ns.hr-xml.org/2007-04-15">
-	<GivenName>#trim(rc.firstname)#</GivenName>
-	<cfif rc.middleName NEQ "">
-		<MiddleName>#rc.middleName#</MiddleName>
+<vcard>
+
+	
+<fn><text>#rc.given# #rc.family#</text></fn>
+
+<n>
+	<cfif rc.prefix NEQ "">
+		<prefix>#rc.prefix#</prefix>
 	</cfif>
-	<FamilyName>#trim(rc.lastname)#</FamilyName>
-	<cfif rc.postfix NEQ "">
-		<Affix type="qualification">#trim(rc.postfix)#</Affix>
+	<given>#rc.given#</given>
+	
+	<cfif rc.additional NEQ "">
+		<additional>#rc.additional#</additional>
 	</cfif>
-</PersonName>
+	
+	<family>#rc.family#</family>
+	
+	<cfif rc.suffix NEQ "">
+		<suffix>#rc.suffix#</suffix>
+	</cfif>	
+</n>
+
+
+<cfif rc.org NEQ "">
+	<org><text>#rc.org#</text></org>
+</cfif>
+
+<cfif rc.photo NEQ "">
+	<photo><uri>#rc.photo#</url></photo>
+</cfif>
+
+<cfif rc.url NEQ "">
+	<url><uri>#rc.url#</uri></url>
+</cfif>
+
+<cfif rc.email NEQ "">
+	<email><text>#rc.email#</text></email>
+</cfif>
+
+<cfif rc.officetel NEQ "">
+	<tel>
+		<parameters>
+			<type><text>Office Phone</text></type>
+		</parameters>
+	
+		<uri>#rc.officetel#</uri>
+	</tel>
+</cfif>
+
+<cfif rc.celltel NEQ "">
+	<tel>
+		<parameters>
+			<type><text>Mobile Phone</text></type>
+		<parameters>
+		<uri>#rc.celltel#</uri>
+	</tel>	
+</cfif>
+
+
+<cfif rc.celltel NEQ "">
+	<tel>
+		<parameters>
+			<type><text>FAX</text></type>
+		<parameters>
+		<uri>#rc.faxtel#</uri>
+	</tel>	
+</cfif>
+
+
+
+
+<adr>
+	<cfif rc.street NEQ "">
+	<street>#rc.street#</street>
+	</cfif>
+	
+	<cfif rc.locality NEQ "">
+	<locality>#rc.locality#</locality>
+	</cfif>
+	
+	<cfif rc.region NEQ "">
+	<region>#rc.region#</region>
+	</cfif>
+	
+	<cfif rc.code NEQ "">
+	<code>#rc.code#</code>
+	</cfif>
+	
+	<cfif rc.country NEQ "">
+	<country>#rc.country#</country>
+	</cfif>
+</adr>
+
+
+<cfif rc.tz NEQ "">
+	<tz><text>#rc.tz#</text></tz>
+</cfif>
+
+
+<cfif rc.note NEQ "">
+	<note>#rc.note#</note>
+</cfif>
+
+</vcard>
+
 </cfoutput>	
 </cfsavecontent>
 
@@ -274,14 +389,12 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	<cfif NOT isnumeric(arguments.userID)>
 		<cfquery name="qryAdd">
 		INSERT 
-		INTO	dbo.Users (PersonName, login, Email, Comments, Modified, Created)
+		INTO	dbo.Users (PersonName, login, Modified, Created)
 		OUTPUT inserted.userid
 		VALUES (
 			'',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.login#">,
-			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.email#">,
-						
-			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.comments#" null="#IIF(rc.Comments EQ "", 1, 0)#">,
+									
 			dbo.udf_4jSuccess('Basic data was committed',
 				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 			 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byuserID#">),
@@ -299,8 +412,7 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	<cfquery name="qryCommit">
 		UPDATE	dbo.Users
 		SET	PersonName 		= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#local.personname#">,
-			Email 			= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.email#">,
-			Comments 		= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.comments#" null="#IIF(rc.Comments EQ "", 1, 0)#">,
+			
 			
 			expirationDate 	= <cfqueryparam CFSQLType="CF_SQL_DATE" value="#rc.expirationDate#">,
 		
@@ -401,33 +513,6 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 </cffunction>	
 	
 	
-	
-<cffunction name="setContact" output="no"  returnType="struct" hint="How to get in touch with this person. Users can edit">
-	<cfargument name="UserID" required="true" type="numeric">
-	<cfargument name="rc" required="true" type="struct">
-	<cfargument name="remote_addr" required="true" type="string">
-	<cfargument name="ByUserID" required="true" type="string">		
-	
-	
-		
-	<cfquery name="qrysetContact">
-	UPDATE	dbo.Users
-	SET	xmlContact	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Contact')#">,
-		Modified 	= dbo.udf_4jInfo('Contact info Changed',
-			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
-		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.ByUserID#">)
-		 	
-	WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
-	AND		Deleted = 0
-	AND		ISNULL(CONVERT(varchar(MAX), xmlContact), '') <> <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Contact')#">
-	</cfquery>	
-		
-
-	
-	<cfreturn this.stResults>
-</cffunction>
-
-
 
 
 <cffunction name="setLink" output="false" returntype="struct" hint="similar to User.linksave">
@@ -550,30 +635,6 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 </cffunction>
 
 
-<cffunction name="getContact" output="no"  returnType="struct">
-	<cfargument name="UserID" required="true" type="string">
-	
-	
-	<cfquery name="local.qryResult">
-		SELECT 	xmlContact, type, message
-		FROM	dbo.Users
-		CROSS APPLY dbo.udf_xmlRead(xmlContact)
-		WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
-		AND		Deleted = 0
-		AND		type IS NOT NULL
-	</cfquery>
-
-	<cfset var stResult = {}>
-
-	<cfloop query="local.qryResult">
-		<cfset stResult[type] = message>
-	</cfloop>
-
-
-	<cfreturn stResult>	
-</cffunction>
-
-
 
 
 <cffunction name="getLink" output="no"  returnType="query">
@@ -628,11 +689,11 @@ string function getFullName(required numeric UserID) output="no" 	{
 
 	variables.QueryService.addParam(value = arguments.userID, cfsqltype="cf_sql_integer");
 	
-	var oresult = variables.QueryService.execute(sql="SELECT firstname, lastname FROM dbo.vwUser WHERE Deleted = 0 AND userid = ?");
+	var oresult = variables.QueryService.execute(sql="SELECT given, family FROM dbo.vwUser WHERE Deleted = 0 AND userid = ?");
 	
 	var result = oresult.getResult();
 	
-	return result.firstname & " " & result.lastname;
+	return result.given & " " & result.family;
 	}
 </cfscript>
 

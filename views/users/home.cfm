@@ -68,16 +68,16 @@
 		<a href="#buildURL(action = 'users.edit', querystring = 'UserID=#UserID#')#">
 		<cfif groups CONTAINS "system">
 		<b>
-			#firstname# #lastname#
-			<cfif firstname EQ "" AND lastname EQ ""><i>None</i></cfif>
+			#given# #family#
+			<cfif given EQ "" AND family EQ ""><i>#login#</i></cfif>
 		</b>
 		<cfelse>
-			#firstname# #lastname#
-			<cfif firstname EQ "" AND lastname EQ ""><i>None</i></cfif>
+			#given# #family#
+			<cfif given EQ "" AND family EQ ""><i>#login#</i></cfif>
 		</cfif>
 		
 			
-		#postfix#
+		#suffix#
 		</a>
 	
 		<cfif groups NEQ "">

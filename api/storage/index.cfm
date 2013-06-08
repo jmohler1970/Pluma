@@ -1704,7 +1704,7 @@ rc.BounceVisitors = rc.wsTraffic.getHits(now(), rc.DateType, 'bounce');
 <cfexit>
 
 <!---
-<cfset myTest.addContact({firstname='first', lastname='last'}, 1111)>
+<cfset myTest.addContact({given='first', family='last'}, 1111)>
 --->
 
 

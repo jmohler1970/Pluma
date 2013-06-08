@@ -55,6 +55,10 @@ begin
 		when @Agent like '%MSIE 7%' 	then 'Internet Explorer 7' 
 		when @Agent like '%MSIE 6%'		then 'Internet Explorer 6' 
 		when @Agent like '%MSIE%' 		then 'Internet Explorer (Unknown Version)' 
+		when @Agent like '%Firefox/20%' then 'Firefox 20' 
+		when @Agent like '%Firefox/19%' then 'Firefox 19' 
+		when @Agent like '%Firefox/18%' then 'Firefox 18' 
+		when @Agent like '%Firefox/17%' then 'Firefox 17' 
 		when @Agent like '%Firefox/16%' then 'Firefox 16' 
 		when @Agent like '%Firefox/15%' then 'Firefox 15' 
 		when @Agent like '%Firefox/14%' then 'Firefox 14' 
@@ -152,7 +156,7 @@ begin
 	
 	IF ISNUMERIC(@userid) = 1
 	BEGIN	
-		SELECT 	@by = Firstname + ' ' + LastName
+		SELECT 	@by = given + ' ' + family
 		FROM 	dbo.vwUser WITH (NOLOCK)
 		WHERE	UserID = @userid
 	END	
@@ -183,7 +187,7 @@ begin
 	
 	IF ISNUMERIC(@userid) = 1
 	BEGIN	
-		SELECT 	@by = Firstname + ' ' + LastName
+		SELECT 	@by = given + ' ' + family
 		FROM 	dbo.vwUser WITH (NOLOCK)
 		WHERE	UserID = @userid
 	END
@@ -215,7 +219,7 @@ begin
 	
 	IF ISNUMERIC(@userid) = 1
 	BEGIN	
-		SELECT 	@by = Firstname + ' ' + LastName
+		SELECT 	@by = given + ' ' + family
 		FROM 	dbo.vwUser WITH (NOLOCK)
 		WHERE	UserID = @userid
 	END
@@ -247,7 +251,7 @@ begin
 		
 	IF ISNUMERIC(@userid) = 1
 	BEGIN	
-		SELECT 	@by = Firstname + ' ' + LastName
+		SELECT 	@by = given + ' ' + family
 		FROM 	dbo.vwUser WITH (NOLOCK)
 		WHERE	UserID = @userid
 	END
@@ -284,7 +288,7 @@ begin
 		
 	IF ISNUMERIC(@userid) = 1
 	BEGIN	
-		SELECT 	@by = Firstname + ' ' + LastName
+		SELECT 	@by = given + ' ' + family
 		FROM 	dbo.vwUser WITH (NOLOCK)
 		WHERE	UserID = @userid
 		
@@ -315,7 +319,7 @@ begin
 		
 	IF ISNUMERIC(@userid) = 1
 	BEGIN	
-		SELECT 	@by = Firstname + ' ' + LastName
+		SELECT 	@by = given + ' ' + family
 		FROM 	dbo.vwUser WITH (NOLOCK)
 		WHERE	UserID = @userid
 		
@@ -347,7 +351,7 @@ begin
 		
 	IF ISNUMERIC(@userid) = 1
 	BEGIN	
-		SELECT 	@by = Firstname + ' ' + LastName
+		SELECT 	@by = given + ' ' + family
 		FROM 	dbo.vwUser WITH (NOLOCK)
 		WHERE	UserID = @userid
 	END
@@ -668,13 +672,6 @@ begin
 	RETURN
 end
 
-GO
-
-
-
-/****** Object:  XmlSchemaCollection [dbo].[PersonName]    Script Date: 5/29/2013 8:42:28 PM ******/
-CREATE XML SCHEMA COLLECTION [dbo].[PersonName] AS N'
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:t="http://ns.hr-xml.org/2007-04-15" targetNamespace="http://ns.hr-xml.org/2007-04-15" elementFormDefault="qualified"><xsd:element name="PersonName" type="t:PersonNameType" /><xsd:complexType name="PersonNameType"><xsd:complexContent><xsd:restriction base="xsd:anyType"><xsd:sequence><xsd:element name="FormattedName" type="xsd:string" minOccurs="0" /><xsd:element name="LegalName" type="xsd:string" minOccurs="0" /><xsd:element name="GivenName" type="xsd:string" minOccurs="0" maxOccurs="unbounded" /><xsd:element name="PreferredGivenName" type="xsd:string" minOccurs="0" /><xsd:element name="MiddleName" type="xsd:string" minOccurs="0" /><xsd:element name="FamilyName" minOccurs="0" maxOccurs="unbounded"><xsd:complexType><xsd:simpleContent><xsd:extension base="xsd:string"><xsd:attribute name="primary"><xsd:simpleType><xsd:restriction base="xsd:string"><xsd:enumeration value="true" /><xsd:enumeration value="false" /><xsd:enumeration value="undefined" /></xsd:restriction></xsd:simpleType></xsd:attribute><xsd:attribute name="prefix" type="xsd:string" /></xsd:extension></xsd:simpleContent></xsd:complexType></xsd:element><xsd:element name="Affix" minOccurs="0" maxOccurs="unbounded"><xsd:complexType><xsd:simpleContent><xsd:extension base="xsd:string"><xsd:attribute name="type" use="required"><xsd:simpleType><xsd:restriction base="xsd:string"><xsd:enumeration value="aristocraticTitle" /><xsd:enumeration value="formOfAddress" /><xsd:enumeration value="generation" /><xsd:enumeration value="qualification" /></xsd:restriction></xsd:simpleType></xsd:attribute></xsd:extension></xsd:simpleContent></xsd:complexType></xsd:element><xsd:element name="AlternateScript" minOccurs="0" maxOccurs="unbounded"><xsd:complexType><xsd:complexContent><xsd:restriction base="xsd:anyType"><xsd:sequence><xsd:element name="FormattedName" type="xsd:string" minOccurs="0" /><xsd:element name="LegalName" type="xsd:string" minOccurs="0" /><xsd:element name="GivenName" type="xsd:string" minOccurs="0" maxOccurs="unbounded" /><xsd:element name="PreferredGivenName" type="xsd:string" minOccurs="0" /><xsd:element name="MiddleName" type="xsd:string" minOccurs="0" /><xsd:element name="FamilyName" minOccurs="0" maxOccurs="unbounded"><xsd:complexType><xsd:simpleContent><xsd:extension base="xsd:string"><xsd:attribute name="primary"><xsd:simpleType><xsd:restriction base="xsd:string"><xsd:enumeration value="true" /><xsd:enumeration value="false" /><xsd:enumeration value="undefined" /></xsd:restriction></xsd:simpleType></xsd:attribute><xsd:attribute name="prefix" type="xsd:string" /></xsd:extension></xsd:simpleContent></xsd:complexType></xsd:element><xsd:element name="Affix" minOccurs="0" maxOccurs="unbounded"><xsd:complexType><xsd:simpleContent><xsd:extension base="xsd:string"><xsd:attribute name="type" use="required"><xsd:simpleType><xsd:restriction base="xsd:string"><xsd:enumeration value="aristocraticTitle" /><xsd:enumeration value="formOfAddress" /><xsd:enumeration value="generation" /><xsd:enumeration value="qualification" /></xsd:restriction></xsd:simpleType></xsd:attribute></xsd:extension></xsd:simpleContent></xsd:complexType></xsd:element></xsd:sequence><xsd:attribute name="script" type="xsd:string" /></xsd:restriction></xsd:complexContent></xsd:complexType></xsd:element></xsd:sequence><xsd:attribute name="script" type="xsd:string" /></xsd:restriction></xsd:complexContent></xsd:complexType></xsd:schema>'
 GO
 
 

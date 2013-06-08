@@ -35,12 +35,8 @@
 					<cfif listFind(rc.feedback_SysAdminEmail, email) NEQ 0>checked="checked"</cfif>
 					/>
 				</td>
-				<td>
-					#firstname# #lastname#
-				</td>
-				<td>
-				#email#
-				</td>
+				<td>#given# #family#</td>
+				<td>#email#</td>
 			</tr>
 		</cfoutput>
 		</table>

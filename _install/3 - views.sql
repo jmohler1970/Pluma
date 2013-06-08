@@ -164,20 +164,44 @@ GO
 
 CREATE VIEW [dbo].[vwUser] 
 AS
-WITH XMLNAMESPACES (DEFAULT 'http://ns.hr-xml.org/2007-04-15')
+
 SELECT   dbo.Users.UserID, login, passhash, 
-		PersonName.value('(/PersonName/GivenName)[1]', 'nvarchar(max)') 	AS firstname,
-		PersonName.value('(/PersonName/MiddleName)[1]', 'nvarchar(max)') 	AS middlename,
-		PersonName.value('(/PersonName/FamilyName)[1]', 'nvarchar(max)') 	AS lastname,
-		PersonName.value('(/PersonName/Affix)[1]', 'nvarchar(max)') 		AS postfix,
+	
+		PersonName.value('(/vcard/n/prefix)[1]', 	'nvarchar(max)') AS prefix,
+		PersonName.value('(/vcard/n/given)[1]', 	'nvarchar(max)') AS given,
+		PersonName.value('(/vcard/n/additional)[1]','nvarchar(max)') AS additional,
+		PersonName.value('(/vcard/n/family)[1]', 	'nvarchar(max)') AS family,
+		PersonName.value('(/vcard/n/suffix)[1]', 	'nvarchar(max)') AS suffix,
+
+		PersonName.value('(/vcard/org)[1]', 		'nvarchar(max)') AS org,
+		PersonName.value('(/vcard/photo)[1]', 		'nvarchar(max)') AS photo,
+		PersonName.value('(/vcard/url)[1]', 		'nvarchar(max)') AS url,
+		PersonName.value('(/vcard/email)[1]', 		'nvarchar(max)') AS email,
+		PersonName.value('(/vcard/title)[1]', 		'nvarchar(max)') AS title,
+		
+		
+		PersonName.value('(/vcard/tel/uri[../parameters/text = "office"])[1]', 	'nvarchar(max)') AS officetel,
+		PersonName.value('(/vcard/tel/uri[../parameters/text = "cell"])[1]', 	'nvarchar(max)') AS celltel,
+		PersonName.value('(/vcard/tel/uri[../parameters/text = "fax"])[1]', 	'nvarchar(max)') AS faxtel,
+		
+		
+		PersonName.value('(/vcard/adr/street)[1]', 	'nvarchar(max)') AS street,
+		PersonName.value('(/vcard/adr/locality)[1]','nvarchar(max)') AS locality,
+		PersonName.value('(/vcard/adr/region)[1]', 	'nvarchar(max)') AS region,
+		PersonName.value('(/vcard/adr/code)[1]', 	'nvarchar(max)') AS code,
+		PersonName.value('(/vcard/adr/country)[1]', 'nvarchar(max)') AS country,
+
+		PersonName.value('(/vcard/tz/text)[1]', 	'nvarchar(max)') AS tz,
+		PersonName.value('(/vcard/note)[1]', 		'nvarchar(max)') AS note,
+
 
 		homepath, 
 	
 		
 		lastLogin, ExpirationDate, pStatus,
 		
-		xmlAbout, xmlProfile, xmlContact, xmlLink,  
-        email,  comments, 
+		xmlProfile,  xmlLink,  
+         
 		dbo.udf_xmlToStr(xmlGroup) AS Groups,
 		xmlGroup, Active,
 		Deleted, DeleteDate, 

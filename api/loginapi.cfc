@@ -11,8 +11,8 @@ variables.stResults = {result = true, key = 0, Message = ''};
 void function Init() output="false" {
 
 	this.UserID 	= -1; 
-	this.firstname 	= 'Welcome';
-	this.lastname 	= 'Guest';
+	this.given	 	= 'Welcome';
+	this.family	 	= 'Guest';
 	this.homepath 	= "";
 	this.lstGroup	= "";
 	this.qryUser = QueryNew("Email");
@@ -49,7 +49,7 @@ string function getEmail() output="false" {
 
 string function getLoginName() output="false" {
 
-	return trim(this.firstname & " " & this.lastname);
+	return trim(this.given & " " & this.family);
 	}
 
 
@@ -201,8 +201,8 @@ query function get_by_email(required string email) output="false" {
 
 	
 	this.UserID 	= this.qryUser.UserID;
-	this.firstname 	= this.qryUser.firstName;
-	this.lastname 	= this.qryUser.lastName;
+	this.given	 	= this.qryUser.given;
+	this.family 	= this.qryUser.family;
 	this.homepath	= this.qryUser.HomePath;
 	this.login		= this.qryUser.Login;
 	

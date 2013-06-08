@@ -10,15 +10,13 @@ CREATE TABLE [dbo].[Users](
 	[passhash] 		[char](10) NULL,
 	[PersonName]	[xml] NULL,
 	[homepath] 		[nvarchar](50) NULL,
-	[email] 		[nvarchar](100) NULL,
-	[comments] 		[nvarchar](max) SPARSE  NULL,
+	
 	
 	[pStatus] 		[nvarchar](50) NOT NULL,
 	[lastLogin] 	[smalldatetime] NULL,
 	[ExpirationDate] [date] NULL,
 	
 	[xmlProfile] 	[xml] NULL,		/* Non searchable things about user */
-	[xmlContact] 	[xml] NULL,		/* Searchable public information like addresses */
 	[xmlLink] 		[xml] NULL,		/* Links to things that interest user */
 	[xmlPref] 		[xml] NULL,		/* User setable config for internal use */
 	[xmlGroup] 		[xml] NULL,		/* Security */

@@ -67,7 +67,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 	
 
 	<p class="inline clearfix">
-		<label class="control-label" for="firstname">#application.GSAPI.i18n("plumacms/Page_subtitle")#</label>
+		<label class="control-label" for="subtitle">#application.GSAPI.i18n("plumacms/Page_subtitle")#</label>
 	   
 	    <input type="text" name="subtitle" value="#xmlformat(subtitle)#" maxlength="75"  class="text autowidth" />
 	    
@@ -87,7 +87,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 
 	<p class="inline clearfix">
-		<label class="control-label" for="firstname">#application.GSAPI.i18n("parent_page")#</label>
+		<label class="control-label" for="ParentNodeID">#application.GSAPI.i18n("parent_page")#</label>
 
 </cfoutput>
 
@@ -112,7 +112,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 	
 	<!--- Plugin --->
 	<p class="inline clearfix">
-		<label class="control-label" for="firstname">Plugin Content:</label>
+		<label class="control-label" for="plugin_content">Plugin Content:</label>
 
 		<select name="plugin_content"  class="text autowidth">
 		
@@ -207,7 +207,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 	
 	
 <p class="inline clearfix">
-	<label class="control-label" for="firstname">Redirect Page</label>
+	<label class="control-label" for="redirect">Redirect Page</label>
 	
 		<select name="redirect" class="text autowidth">
 			<option></option>
@@ -229,7 +229,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 
 <p class="inline clearfix">
-	<label class="control-label" for="firstname">Thumbnail</label>
+	<label class="control-label" for="src">Thumbnail</label>
 	
 		<input type="text" name="src" value="#src#" maxlength="45" class="text" />
 </p>	

@@ -43,7 +43,6 @@ void function edit(required struct rc) output="false"	{
 		rc.UserID = application.USERAPI.set(rc.UserID, rc).UserID;
 		
 		application.USERAPI.set_profile(rc.UserID, rc);
-		application.USERAPI.set_contact(rc.UserID, rc);
 		application.USERAPI.set_link(rc.UserID, rc);
 		
 			 
@@ -59,11 +58,11 @@ void function endedit(required struct rc) output="false"	{
 	
 	
 	
-	rc.qryUser =  application.USERAPI.get(rc.UserID);
+	rc.stUser =  application.USERAPI.get(rc.UserID);
 	
 	rc.qryNode = application.IOAPI.get_all_by_userID("Any", rc.UserID, "CreateDate DESC");
 	
-	if (rc.qryUser.UserID == "" AND isnumeric(rc.UserID))	{
+	if (rc.stUser.UserID == "" AND isnumeric(rc.UserID))	{
 	
 		this.AddError("IS_MISSING", [rc.userid]);
 	
@@ -72,18 +71,10 @@ void function endedit(required struct rc) output="false"	{
 		return;
 		}
 		
-	rc.stUser = {
-		firstname 	= rc.qryUser.firstname,
-		middlename 	= rc.qryUser.middlename,
-		lastname 	= rc.qryUser.lastname,
-		postfix 	= rc.qryUser.postfix
-		
-		
-		};
+
 	
 	StructAppend(rc.stUser, application.USERAPI.get_profile(rc.UserID));
-	StructAppend(rc.stUser, application.USERAPI.get_contact(rc.UserID));
-	
+		
 	// Shared with pages
 	rc.qryLink = application.USERAPI.get_link(rc.UserID); 
 	

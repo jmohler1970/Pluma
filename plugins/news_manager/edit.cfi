@@ -49,7 +49,7 @@
 <cfif isnumeric(rc.nodeid)>
 
 <p class="inline clearfix">
-		<label class="control-label" for="firstname">#application.GSAPI.i18n("SLUG_URL")#</label>
+		<label class="control-label">#application.GSAPI.i18n("SLUG_URL")#</label>
 	
 		<!--- This does not submit anything --->	
 		<input class="text short" type="text" value="#slug#" readonly="readonly" disabled="disabled" />

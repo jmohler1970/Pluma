@@ -77,14 +77,12 @@ void function home(required struct rc) output="false"	{
 	
 		
 		 
-		this.AddInfo("ER_YOUR_CHANGES", ['#arguments.rc.firstname# #arguments.rc.lastname#']);
+		this.AddInfo("ER_YOUR_CHANGES", ['#arguments.rc.given# #arguments.rc.family#']);
 		
 		}
 	
-	// All
-	rc.qryUser = application.USERAPI.get();
-	
-	
+	// Get myself
+	rc.stUser = application.USERAPI.get();
 		
 
 	}

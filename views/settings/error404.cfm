@@ -50,12 +50,8 @@
 					<cfif email EQ "">disabled="disabled"</cfif>
 					/>
 				</td>
-				<td>
-					#firstname# #lastname#
-				</td>
-				<td>
-				#email#
-				</td>
+				<td>#given# #family#</td>
+				<td>#email#</td>
 			</tr>
 		</cfoutput>
 		</table>

@@ -145,10 +145,10 @@ void function email(rc) output="false"	{
 	</cfscript>	
 		
 	
-	<cfmail subject="Password Reset for #qryUser.FirstName# #qryUser.Lastname#" 
+	<cfmail subject="Password Reset for #qryUser.given# #qryUser.family#" 
 			from = "#application.stAdminSetting.Email.From#"
 			to	 = "#rc.Email#">
-Hello #qryUser.FirstName# #qryUser.Lastname#, 
+Hello #qryUser.given# #qryUser.family#, 
 			
 A password reset was requested for your user account on the #application.stAdminSetting.Email.sitename# system.
 
