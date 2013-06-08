@@ -49,7 +49,7 @@
 		<!-- breadcrumbs: only show when NOT on homepage -->
 		<p class="breadcrumbs">
 			<span class="wrapper">
-				<a href="#application.GSAPI.get_site_url()#">Home</a> &nbsp;&nbsp;&##149;&nbsp;&nbsp; 
+				<a href="#application.GSAPI.get_site_url()#" rel="home">Home</a> &nbsp;&nbsp;&##149;&nbsp;&nbsp; 
 					#Innovation_Parent_Link(application.GSAPI.get_parent(FALSE))#
 				<b>#application.GSAPI.get_page_clean_title()#</b>
 			</span>

@@ -120,7 +120,7 @@ param prebody = "";
 				<cfset baseclass = (getSection() EQ "main" AND getItem() EQ "page") ? "active" : "">
 				
 				
-				<li class="#baseclass#"><a href="#application.GSAPI.get_site_root()#" target="_top"><i class="icon-home icon-white"></i> Home</a></li>
+				<li class="#baseclass#"><a href="#application.GSAPI.get_site_root()#" target="_top" rel="home"><i class="icon-home icon-white"></i> Home</a></li>
 				
 
 
