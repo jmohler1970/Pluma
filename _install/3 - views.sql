@@ -11,7 +11,7 @@ SELECT     A.NodeID, A.ParentNodeID, A.PrimaryRecord, A.[Root], A.Kind, A.Slug,
  
 				TT.extra, TT.title, TT.subtitle, TT.[description], TT.isbn,
 
-				Tax.menu, Tax.menustatus, Tax.menusort, Tax.tags,
+				Tax.menu, Tax.menustatus, Tax.menusort, Tax.tags, Tax.tagSlugs,
 				
 				P.parenttitle,
 				

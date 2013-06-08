@@ -41,25 +41,29 @@ qrySearch = application.IOAPI.get_by_search(rc.search, "Page");
 			<small>
 			
 		<cfif request.search.publishdate EQ 1>
-			<b>Created:</b> #application.IOAPI.std_date(CreateDate)# by #CreateBy#		
+			<strong>Created:</strong> #application.IOAPI.std_date(CreateDate)# by #CreateBy#		
 		</cfif>	
 	
 		<cfif request.search.parentpage EQ 1>
-			<b>Parent Page:</b> 
-			<cfif ParentTitle EQ ""><i>None</i></cfif>
+			&nbsp;
+			
+			<strong>Parent Page:</strong> 
+			<cfif ParentTitle EQ ""><i style="font-style : italic;">None</i></cfif>
 			<a href="#application.GSAPI.find_url(parentslug)#">#xmlformat(ParentTitle)#</a> 
 		</cfif>
 			
 
-		<cfif request.search.tags EQ 1>			
-			<b>Tags:</b> 
-			<cfif tags EQ ""><i>None</i></cfif>
+		<cfif request.search.tags EQ 1>
+			&nbsp;
+					
+			<strong>Tags:</strong> 
+			<cfif tags EQ ""><i style="font-style : italic;">None</i></cfif>
 				
 				
 				
-			<cfloop index="i" list="#tags#">
+			<cfloop index="i" list="#tagSlugs#">
 				<a href="/index.cfm/tag/#URLEncodedFormat(i)#" style="white-space:nowrap;" 
-					>#xmlformat(i)#</a><cfif i NEQ ListLast(tags)>,</cfif>
+					rel="tag">#xmlformat(i)#</a><cfif i NEQ ListLast(tagSlugs)>,</cfif>
 			</cfloop>
 		</cfif>
 		
@@ -88,10 +92,7 @@ qrySearch = application.IOAPI.get_by_search(rc.search, "Page");
 
 				
 				
-				<!-- page footer -->
-				<div class="footer">
-					<p>Published on <time>#application.GSAPI.get_page_date()#</time></p>
-				</div>
+
 			</section>
 			
 		</article>

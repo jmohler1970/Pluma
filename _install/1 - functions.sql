@@ -573,6 +573,7 @@ create function [dbo].[udf_taxonomyRead](@xmlData xml)
 	(
     -- Columns returned by the function
     [tags] 			nvarchar(max) NULL,
+    [tagSlugs] 		nvarchar(max) NULL,
     [menu] 			nvarchar(max) NULL,
     [menustatus]	nvarchar(max) NULL,
     [menusort]		nvarchar(max) NULL
@@ -583,16 +584,20 @@ begin
 	
 
 	DECLARE @strTags varchar(max)
+	DECLARE @strTagSlugs varchar(max)
+	
 
 	
-	SELECT @strTags = ISNULL( @strTags + ',', '' ) + x.y.value('.', 'varchar(max)' )  
+	SELECT 	@strTags 		= ISNULL( @strTags + ',', '' ) + 				 x.y.value('.', 'varchar(max)' ),
+			@strTagSlugs 	= ISNULL( @strTagSlugs + ',', '' ) + dbo.udf_Slugify(x.y.value('.', 'varchar(max)' ))
 	FROM @xmlData.nodes('/tags') x(y) 
 	
 
 	INSERT 
-	INTO @tblTaxonomy(tags, menu, menustatus, menusort)
+	INTO @tblTaxonomy(tags, tagSlugs, menu, menustatus, menusort)
 	VALUES (
-		@strTags, 
+		@strTags,
+		@strTagSlugs, 
 		@xmlData.value('/menu[1]', 				'nvarchar(max)'),
 		@xmlData.value('/menu[1]/@status', 		'nvarchar(max)'),
 		@xmlData.value('/menu[1]/@sortorder', 	'nvarchar(max)')
