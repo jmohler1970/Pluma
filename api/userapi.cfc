@@ -7,12 +7,13 @@
 variables.stResults = {result = true, key = 0, Message = ''};
 
 
+
 void function Init() output="false" {
 
 	this.UserID 	= ''; 
 	this.given	 	= 'Welcome';
 	this.family 	= 'Guest';
-	this.homepath 	= "";
+	this.slug 	= "";
 	this.lstGroup	= "";
 	this.qryUser = QueryNew("Email");
 	this.login = 'Unknown';
@@ -32,16 +33,15 @@ query function get_system_admin() output="false"	{
 
 	return this.wsUser.getAll();
 	}
-		
+	
 
 
-struct function get(string userid=session.LOGINAPI.UserID) output="false" hint="Data for one user"	{
-
-	var qryUser = this.wsUser.getOne(arguments.userid);
-
+struct function qryToStruct(required query qryUser) output="false" access="package"	{
+	
 	var stUser = {
 		userid		= qryUser.userid, // we want blank if arguments.userid is not valid
 		login		= qryUser.login,
+		slug		= qryUser.slug,
 		groups		= qryUser.groups,
 		expirationdate = qryUser.expirationdate,
 		pstatus		= qryUser.pStatus,
@@ -77,13 +77,38 @@ struct function get(string userid=session.LOGINAPI.UserID) output="false" hint="
 		};
 
 
-	return stUser;
+	return stUser;	
 	}
 
 
-struct function get_profile(string userid=session.LOGINAPI.UserID) output="false"	{
+
+struct function get_by_slug(required string slug) output="false"	{
+	
+	var stResult = this.qryToStruct(this.wsUser.getBySlug(arguments.slug));
+	stResult.qryProfile = this.get_profile(stResult.UserID);
+	
+	
+	return stResult;
+	}	
+		
+
+
+struct function get(string userid=session.LOGINAPI.UserID) output="false" hint="Data for one user"	{
+
+	return this.qryToStruct(this.wsUser.getOne(arguments.userid));
+
+	}
+
+
+query function get_profile(string userid=session.LOGINAPI.UserID) output="false"	{
 
 	return this.wsUser.getProfile(arguments.userid);
+	}
+
+
+struct function get_stprofile(string userid=session.LOGINAPI.UserID) output="false" hint="struct version"	{
+
+	return this.wsUser.getstProfile(arguments.userid);
 	}
 
 
@@ -126,6 +151,7 @@ struct function set_profile(required string userid, required struct rc) output="
 	
 	return result;
 	}
+
 
 
 

@@ -13,7 +13,7 @@ void function Init() output="false" {
 	this.UserID 	= -1; 
 	this.given	 	= 'Welcome';
 	this.family	 	= 'Guest';
-	this.homepath 	= "";
+	this.slug 	= "";
 	this.lstGroup	= "";
 	this.qryUser = QueryNew("Email");
 	this.login = 'Unknown';
@@ -203,7 +203,7 @@ query function get_by_email(required string email) output="false" {
 	this.UserID 	= this.qryUser.UserID;
 	this.given	 	= this.qryUser.given;
 	this.family 	= this.qryUser.family;
-	this.homepath	= this.qryUser.HomePath;
+	this.slug		= this.qryUser.slug;
 	this.login		= this.qryUser.Login;
 	
 	this.logintarget = structkeyExists(application.stSettings.Landing, this.qryUser.groups) ? 
@@ -213,8 +213,7 @@ query function get_by_email(required string email) output="false" {
 	
 		
 	// Now do profile
-	this.stProfile = this.wsUser.getProfile(this.UserID);
-	this.stProfile.createDate = this.qryUser.createDate;
+	this.qryProfile = this.wsUser.getProfile(this.UserID);
 	
 	
 	this.wsUser.setLastLogin(this.UserID, cgi.remote_addr);

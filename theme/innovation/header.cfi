@@ -18,6 +18,8 @@
 	<link href='//fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
 	<link href="#application.GSAPI.get_site_root()#theme/innovation/reset.css" rel="stylesheet">
 	<link href="#application.GSAPI.get_site_root()#theme/innovation/style.css?v=3.1.2" rel="stylesheet">
+	<link href="#application.GSAPI.get_site_root()#theme/innovation/vcard.css" rel="stylesheet">
+	
 	
 	<script src="#application.GSAPI.get_site_root()#theme/innovation/jquery-2.0.0.min.js"></script>
 

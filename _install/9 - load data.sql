@@ -15,54 +15,34 @@ GO
 
 
 INSERT [dbo].[Users] ([UserID], [login], [passhash], [PersonName], 
-[homepath], [email], [comments], [lastLogin], [ExpirationDate], 
+[slug], [email], [comments], [lastLogin], [ExpirationDate], 
 [xmlAbout], [xmlProfile], [xmlContact], [xmlLink], [xmlPref], [xmlGroup], [PrefGroup], DeleteDate, 
 [Modified],
 [Created]) 
 
-VALUES (1, N'Admin', N'190A4568B2', N'<PersonName xmlns="http://ns.hr-xml.org/2007-04-15"><GivenName>Sally</GivenName><FamilyName>Sys Admin</FamilyName></PersonName>',
+VALUES 
+(1, N'Admin', N'190A4568B2', N'<PersonName xmlns="http://ns.hr-xml.org/2007-04-15"><GivenName>Sally</GivenName><FamilyName>Sys Admin</FamilyName></PersonName>',
 NULL, N'', NULL, NULL, NULL, 
 NULL, NULL, NULL, NULL, NULL, N'<data type="group">System</data>', NULL, NULL, 
 N'<message by="James Mohler" date="2013-04-10T20:56:29.177" title="User logged in" ip="" />',
-N'<message by="James Mohler" date="2013-04-03T21:52:58.053" title="" ip="127.0.0.1" />')
-GO
+N'<message by="James Mohler" date="2013-04-03T21:52:58.053" title="" ip="127.0.0.1" />'),
 
 
-INSERT [dbo].[Users] ([UserID], [login], [passhash], [PersonName], 
-[homepath], [email], [comments], [lastLogin], [ExpirationDate], 
-[xmlAbout], [xmlProfile], [xmlContact], [xmlLink], [xmlPref], [xmlGroup], [PrefGroup], DeleteDate, 
-[Modified],
-[Created]) 
-
-VALUES (2, N'Kate', N'190A4568B2', N'<PersonName xmlns="http://ns.hr-xml.org/2007-04-15"><GivenName>Kate</GivenName><FamilyName>Contributor</FamilyName></PersonName>',
+(2, N'Kate', N'190A4568B2', N'<PersonName xmlns="http://ns.hr-xml.org/2007-04-15"><GivenName>Kate</GivenName><FamilyName>Contributor</FamilyName></PersonName>',
 NULL, N'', NULL, NULL, NULL, 
 NULL, NULL, NULL, NULL, NULL, N'<data type="group">Contributor</data>', NULL, NULL, 
 N'<message by="James Mohler" date="2013-04-10T20:56:29.177" title="User logged in" ip="" />',
 N'<message by="James Mohler" date="2013-04-03T21:52:58.053" title="" ip="127.0.0.1" />')
-GO
 
 
-INSERT [dbo].[Users] ([UserID], [login], [passhash], [PersonName], 
-[homepath], [email], [comments], [lastLogin], [ExpirationDate], 
-[xmlAbout], [xmlProfile], [xmlContact], [xmlLink], [xmlPref], [xmlGroup], [PrefGroup], DeleteDate, 
-[Modified],
-[Created]) 
-
-VALUES (3, N'Mindy', N'190A4568B2', N'<PersonName xmlns="http://ns.hr-xml.org/2007-04-15"><GivenName>Mindy</GivenName><FamilyName>Member</FamilyName></PersonName>',
+(3, N'Mindy', N'190A4568B2', N'<PersonName xmlns="http://ns.hr-xml.org/2007-04-15"><GivenName>Mindy</GivenName><FamilyName>Member</FamilyName></PersonName>',
 NULL, N'', NULL, NULL, NULL, 
 NULL, NULL, NULL, NULL, NULL, N'<data type="group">Member</data>', NULL, NULL, 
 N'<message by="James Mohler" date="2013-04-10T20:56:29.177" title="User logged in" ip="" />',
 N'<message by="" date="2013-04-03T21:52:58.053" title="" ip="127.0.0.1" />')
-GO
 
 
-INSERT [dbo].[Users] ([UserID], [login], [passhash], [PersonName], 
-[homepath], [email], [comments], [lastLogin], [ExpirationDate], 
-[xmlAbout], [xmlProfile], [xmlContact], [xmlLink], [xmlPref], [xmlGroup], [PrefGroup], DeleteDate, 
-[Modified],
-[Created]) 
-
-VALUES (4, N'Elizabeth', N'190A4568B2', N'<PersonName xmlns="http://ns.hr-xml.org/2007-04-15"><GivenName>Elizabeth</GivenName><FamilyName>Expired</FamilyName></PersonName>',
+(4, N'Elizabeth', N'190A4568B2', N'<PersonName xmlns="http://ns.hr-xml.org/2007-04-15"><GivenName>Elizabeth</GivenName><FamilyName>Expired</FamilyName></PersonName>',
 NULL, N'', NULL, NULL, NULL, 
 NULL, NULL, NULL, NULL, NULL, N'<data type="group">Member</data>', NULL, NULL, 
 N'<message by="James Mohler" date="2013-04-10T20:56:29.177" title="User logged in" ip="142.136.11.230" />',

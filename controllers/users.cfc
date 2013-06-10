@@ -73,7 +73,7 @@ void function endedit(required struct rc) output="false"	{
 		
 
 	
-	StructAppend(rc.stUser, application.USERAPI.get_profile(rc.UserID));
+	StructAppend(rc.stUser, application.USERAPI.get_stProfile(rc.UserID));
 		
 	// Shared with pages
 	rc.qryLink = application.USERAPI.get_link(rc.UserID); 

@@ -9,14 +9,14 @@ CREATE TABLE [dbo].[Users](
 	[login] 		[nvarchar](80) NULL,
 	[passhash] 		[char](10) NULL,
 	[PersonName]	[xml] NULL,
-	[homepath] 		[nvarchar](50) NULL,
+	[slug] 			[nvarchar](50) NOT NULL,
 	
 	
 	[pStatus] 		[nvarchar](50) NOT NULL,
 	[lastLogin] 	[smalldatetime] NULL,
 	[ExpirationDate] [date] NULL,
 	
-	[xmlProfile] 	[xml] NULL,		/* Non searchable things about user */
+	[xmlProfile] 	[xml] NULL,		/* Non searchable things about user, order matters */
 	[xmlLink] 		[xml] NULL,		/* Links to things that interest user */
 	[xmlPref] 		[xml] NULL,		/* User setable config for internal use */
 	[xmlGroup] 		[xml] NULL,		/* Security */

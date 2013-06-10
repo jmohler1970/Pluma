@@ -644,7 +644,7 @@ GO
 
 
 
-/* User Data */
+/* User Data: this was designed around a stack of links, but can be made to do much more */
 create function [dbo].[udf_xmlRead](@xmlData xml) 
 	
 	returns @tblmessage TABLE

@@ -33,7 +33,7 @@
     	
     	<a href="##" id="metadata_toggle" accesskey="n">#application.GSAPI.i18n("PLUMACMS/USER_options")#</a>
 
-		<a href="#application.GSAPI.find_url('profile')#/#rc.userid#" target="_blank" accesskey="v">#application.GSAPI.i18n("view")#</a>
+		<a href="#application.GSAPI.find_url('profile')#/#rc.stUser.slug#" target="_blank" accesskey="v">#application.GSAPI.i18n("view")#</a>
     
 		&nbsp;
 		

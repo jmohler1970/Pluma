@@ -26,13 +26,13 @@
 	variables.QueryService = new query();
 	variables.QueryService.setName("qryResult");
 	
-	variables.lstCol = "UserID,login,passhash
+	variables.lstCol = "UserID,login,passhash,slug
       	,prefix,given,additional,family,suffix
       	,org, photo, url, email, title
       	,officetel, celltel, faxtel
       	,street, locality, region, code, country
       	,tz, note
-		,homepath,lastLogin,pStatus
+		,lastLogin,pStatus
 		,ExpirationDate,Groups,Active
       	,Deleted,DeleteDate,ModifyDate,ModifyBy,CreateDate,CreateBy"; // rather than using select *
 </cfscript>
@@ -186,11 +186,11 @@ query function getByGroup(required string group) output="no" 	{
 <cfscript>
 
 
-query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
+query function getBySlug(required string slug) output="no" 	{
 
 
-	variables.QueryService.addParam(value = arguments.userhome, cfsqltype="cf_sql_varchar");
-	var result = variables.QueryService.execute(sql="SELECT  #variables.lstCol#  FROM dbo.vwUser WHERE Deleted = 0 AND homepath = ?");
+	variables.QueryService.addParam(value = arguments.slug, cfsqltype="cf_sql_varchar");
+	var result = variables.QueryService.execute(sql="SELECT  #variables.lstCol#  FROM dbo.vwUser WHERE Deleted = 0 AND slug = ?");
 	
 	return result.getResult();
 	}
@@ -388,12 +388,16 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 
 	<cfif NOT isnumeric(arguments.userID)>
 		<cfquery name="qryAdd">
+		DECLARE @login nvarchar(50) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.login#">
+		
 		INSERT 
-		INTO	dbo.Users (PersonName, login, Modified, Created)
+		INTO	dbo.Users (PersonName, login, slug, Modified, Created)
 		OUTPUT inserted.userid
 		VALUES (
 			'',
-			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.login#">,
+			@login,
+			
+			dbo.udf_sluggify(@login),
 									
 			dbo.udf_4jSuccess('Basic data was committed',
 				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
@@ -459,27 +463,46 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	<cfargument name="filter" required="false" type="string" default="">
 	
 
-
-
 	<cfscript>
 	var xmlData = "";
 	
 	
+	param rc.fieldnames = structkeyList(rc); // If this did not come from a form submit, then make a default list
+	
+	param rc.fieldsort = rc.fieldnames; // If an explicit sort was passed over, use it
+	
+	
+	
 	for (var MyFormField in rc)	{
 			
-		if (ListFindNoCase("action,submit,fieldnames,href", MyFormField) == 0)	{
+		if (ListFindNoCase("action,submit,fieldnames,fieldsort", MyFormField) == 0
+			AND NOT MyFormField CONTAINS "href"
+			AND NOT MyFormField CONTAINS "title"
+			)	{
 			if (MyFormField CONTAINS arguments.filter OR arguments.filter EQ "")	{
 				
-				var href = "";
+				position = ListFindNoCase(rc.fieldsort, MyFormField); 
 				
+				var href = "";
 				if (isDefined("rc.#myFormField#_href"))	{							
-					var href_field = xmlFormat(arguments.rc[MyFormField]);
+					var href_field = xmlFormat(arguments.rc["#MyFormField#_href"]);
 					
 					href = 'href="#href_field#"';							
 					}								
+				
+				
+				var title = "";
+				if (isDefined("rc.#myFormField#_title"))	{							
+					var title_field = xmlFormat(arguments.rc["#MyFormField#_title"]);
+					
+					href = 'title="#title_field#"';							
+					}								
+				
+				
 													
 													
-				xmlData &= '<data type="#lcase(MyFormField)#" #href#>' & xmlFormat(arguments.rc[MyFormField]) & '</data>';
+				xmlData &= '<data type="#lcase(MyFormField)#" position="#position#" #href# #title#>' 
+					& xmlFormat(arguments.rc[MyFormField]) & '</data>';
 				}
 			}
 		}
@@ -497,15 +520,17 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	<cfargument name="ByUserID" required="true" type="string">	
 	
 	<cfquery>
+	DECLARE @xmlProfile varchar(max) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Profile')#">
+	
 	UPDATE	dbo.Users
-	SET	xmlProfile 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Profile')#">,
+	SET	xmlProfile 	= @xmlProfile,
 		Modified 	= dbo.udf_4jInfo('Profile was set',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.ByUserID#">)
 		 	
 	WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
 	AND		Deleted = 0
-	AND		ISNULL(CONVERT(varchar(max), xmlProfile), '') <> <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Profile')#">
+	AND		ISNULL(CONVERT(varchar(max), xmlProfile), '') <> @xmlProfile
 	</cfquery>
 	
 
@@ -611,29 +636,38 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 
 
 
-<cffunction name="getProfile" output="no"  returnType="struct">
+<cffunction name="getProfile" output="no"  returnType="query">
 	<cfargument name="UserID" required="true" type="string">
 	
 	
 	<cfquery name="local.qryResult">
-		SELECT 	xmlProfile, type, message
+		SELECT  title, type, message
 		FROM	dbo.Users
 		CROSS APPLY dbo.udf_xmlRead(xmlProfile)
 		WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
 		AND		Deleted = 0
 		AND		type IS NOT NULL
+		ORDER BY Position
 	</cfquery>
 
+
+	<cfreturn local.qryResult>	
+</cffunction>
+
+
+<cffunction name="getstProfile" output="no"  returnType="struct">
+	<cfargument name="UserID" required="true" type="string">
+
+	<cfset local.qryResult = this.getProfile(arguments.UserID)>
+
 	<cfset var stResult = {}>
-	
+
 	<cfloop query="local.qryResult">
 		<cfset stResult[type] = message>
 	</cfloop>
-
-
-	<cfreturn stResult>	
+	
+	<cfreturn stResult>
 </cffunction>
-
 
 
 
@@ -669,8 +703,6 @@ query function getUserByUserHomeAsQuery(required string userhome) output="no" 	{
 	<cfset var stResult = {}>
 
 	<cfloop query="local.qryResult">
-		
-	
 		<cfset stResult[type] = message>
 	</cfloop>
 

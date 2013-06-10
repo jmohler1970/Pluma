@@ -165,7 +165,7 @@ GO
 CREATE VIEW [dbo].[vwUser] 
 AS
 
-SELECT   dbo.Users.UserID, login, passhash, 
+SELECT   dbo.Users.UserID, login, passhash, slug,
 	
 		PersonName.value('(/vcard/n/prefix)[1]', 	'nvarchar(max)') AS prefix,
 		PersonName.value('(/vcard/n/given)[1]', 	'nvarchar(max)') AS given,
@@ -194,9 +194,6 @@ SELECT   dbo.Users.UserID, login, passhash,
 		PersonName.value('(/vcard/tz/text)[1]', 	'nvarchar(max)') AS tz,
 		PersonName.value('(/vcard/note)[1]', 		'nvarchar(max)') AS note,
 
-
-		homepath, 
-	
 		
 		lastLogin, ExpirationDate, pStatus,
 		

@@ -103,11 +103,11 @@
 	
 	<td class="secondarylink">
 		
-			<cfif NOT active OR homepath NEQ "">
+		<cfif active AND slug NEQ "">
 			<a
-				href="/index.cfm/profile/#homepath#" 
+				href="#application.GSAPI.find_url('profile')#/#slug#" 
 				rel="tooltip" title="View profile page. This leaves the tools area">##</a>
-			</cfif>
+		</cfif>
 	</td>
 		
 	<td>	

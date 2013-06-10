@@ -44,17 +44,17 @@ function Init()	{
 	<cfscript>
 	param rc.stUser = {};
 	
-	param rc.stUser.contact_license 	= "";
-	param rc.stUser.contact_credential	= "";
-	param rc.stUser.contact_association = "";
-	param rc.stUser.contact_achievement = "";
-	param rc.stUser.contact_otherinterest	= "";
+	param rc.stUser.profile_license 	= "";
+	param rc.stUser.profile_credential	= "";
+	param rc.stUser.profile_association = "";
+	param rc.stUser.profile_achievement = "";
+	param rc.stUser.profile_otherinterest	= "";
 	
 	
-	param rc.stUser.contact_stars 		= 0;
+	param rc.stUser.profile_stars 		= 0;
 	var maxstars = 2;
-	if (rc.stUser.contact_stars > maxstars OR not isnumeric(rc.stUser.contact_stars))
-		rc.stUser.contact_stars = maxstars;
+	if (rc.stUser.profile_stars > maxstars OR not isnumeric(rc.stUser.profile_stars))
+		rc.stUser.profile_stars = maxstars;
 	</cfscript>
 	
 
@@ -71,7 +71,7 @@ function Init()	{
 		<cfloop from="0" to="#maxstars#" index="i">
 			
 
-			<input type="radio" name="contact_stars" value="#i#" <cfif rc.StUser.contact_stars EQ i>checked="checked"</cfif> /> #repeatstring("&##9733;", i)# <cfif i EQ 0><i>None</i></cfif>
+			<input type="radio" name="profile_stars" value="#i#" <cfif rc.StUser.profile_stars EQ i>checked="checked"</cfif> /> #repeatstring("&##9733;", i)# <cfif i EQ 0><i>None</i></cfif>
 			<br />
 		</cfloop> 
 		</td>
@@ -80,27 +80,47 @@ function Init()	{
 	
 	<tr>
 		<td style="text-align : right;">Licenses</td>
-		<td colspan="2"><textarea name="contact_license" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.contact_license)#</textarea></td>
+		<td colspan="2">
+			<input name="profile_license_title" type="hidden" value="Licenses" />
+		
+			<textarea name="profile_license" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.profile_license)#</textarea>
+		</td>
 	</tr>
 	
 	<tr>
 		<td style="text-align : right;">Credentials</td>
-		<td colspan="2"><textarea name="contact_credential" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.contact_credential)#</textarea></td>
+		<td colspan="2">
+			<input name="profile_credential_title" type="hidden" value="Credentials" />
+		
+			<textarea name="profile_credential" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.profile_credential)#</textarea>
+		</td>
 	</tr>
 	
 	<tr>
 		<td style="text-align : right;">Associations</td>
-		<td colspan="2"><textarea name="contact_association" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.contact_association)#</textarea></td>
+		<td colspan="2">
+			<input name="profile_association_title" type="hidden" value="Associations" />
+				
+			<textarea name="profile_association" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.profile_association)#</textarea>
+		</td>
 	</tr>
 	
 	<tr>
 		<td style="text-align : right;">Achievements</td>
-		<td colspan="2"><textarea name="contact_achievement" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.contact_achievement)#</textarea></td>
+		<td colspan="2">
+			<input name="profile_achievement_title" type="hidden" value="Achievements" />
+				
+			<textarea name="profile_achievement" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.profile_achievement)#</textarea>
+		</td>
 	</tr>
 	
 	<tr>
 		<td style="text-align : right;">Other Interests</td>
-		<td colspan="2"><textarea name="contact_otherinterest" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.contact_otherinterest)#</textarea></td>
+		<td colspan="2">
+			<input name="profile_otherinterest_title" type="hidden" value="Other Interests" />
+				
+			<textarea name="profile_otherinterest" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.profile_otherinterest)#</textarea>
+		</td>
 	</tr>
 	
 

@@ -1,0 +1,14 @@
+.vcardmain {
+   width: 350px;
+   padding: 45px 35px 65px 35px;
+   background: #eee  url('img/hcard06.jpg') no-repeat bottom; 
+   }
+  
+  
+ .fn {
+   width: 140px;
+   padding: 5px 5px 5px 15px;
+   background-color: #fc0;
+   font-weight: bold;
+   color: #000;
+} 
