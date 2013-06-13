@@ -21,9 +21,8 @@
 
 	
 	<!-- Le styles -->
-	<link href="#application.GSAPI.get_site_root()#layouts/css/jquery-ui.css"	rel="stylesheet" type="text/css" />
+	<link href="#application.GSAPI.get_site_root()#layouts/jquery/jquery-ui.css" rel="stylesheet" type="text/css" />
     <link href="#application.GSAPI.get_site_root()#layouts/css/style.cfm"		rel="stylesheet" type="text/css" media="screen"   />
-    <link href="#application.GSAPI.get_site_root()#layouts/css/calendar.css"	rel="stylesheet" type="text/css" />
     <link href="#application.GSAPI.get_site_root()#layouts/css/more.css"		rel="stylesheet" type="text/css" />
   
     
@@ -32,17 +31,16 @@
  
     <script src="#application.GSAPI.get_site_root()#layouts/js/sorttable.js"	type="text/javascript"></script>
     
-    <script src="#application.GSAPI.get_site_root()#layouts/js/calendar_us.js" 	type="text/javascript"></script>
     
     
-    <script src="#application.GSAPI.get_site_root()#layouts/js/jquery.js" 		type="text/javascript"></script>
-    <script src="#application.GSAPI.get_site_root()#layouts/js/jquery-ui.js" 		type="text/javascript"></script>
+    <script src="#application.GSAPI.get_site_root()#layouts/jquery/jquery.js" 		type="text/javascript"></script>
+    <script src="#application.GSAPI.get_site_root()#layouts/jquery/jquery-ui.js" 	type="text/javascript"></script>
     
     <cfif getSection() NEQ "login">
 		#application.GSAPI.exec_action("admin-pre-header")#	
 	</cfif>
     
-	<script src="#application.GSAPI.get_site_root()#layouts/js/application.js" 	type="text/javascript"></script>
+	<script src="#application.GSAPI.get_site_root()#layouts/jquery/application.js" 	type="text/javascript"></script>
 
 </head>	
 

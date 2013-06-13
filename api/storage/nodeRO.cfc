@@ -821,8 +821,9 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		SELECT 	TOP 20	NodeID, Slug, ParentNodeID, ParentSlug, Kind, Title, ParentTitle, tags, tagSlugs,
 			strData, CreateBy, CreateDate, src, Rank
 		FROM	(
-			SELECT 	NodeID, Slug, ParentNodeID, ParentSlug, Kind, Title, ParentTitle, tags,
-				tagSlugs, strData, CreateBy, CreateDate, src, [Rank] / 10.0 AS Rank
+			SELECT 	NodeID, Slug, ParentNodeID, ParentSlug, Kind, 
+				Title, ParentTitle, tags, tagSlugs, 
+				strData, CreateBy, CreateDate, src, [Rank] / 10.0 AS Rank
 			FROM 	dbo.vwNode WITH (NOLOCK)
 			INNER JOIN FREETEXTTABLE(dbo.Node, *, <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.search#">) AS SearchTable
 			ON 		dbo.vwNode.NodeID = searchTable.[key]
@@ -832,11 +833,28 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 			
 			UNION ALL
 			
-			SELECT 	NodeID, Slug, ParentNodeID, ParentNodeID, Kind, Title, ParentTitle, tags, tagSlugs, strData, CreateBy, CreateDate, src, 100 AS Rank
+			SELECT 	NodeID, Slug, ParentNodeID, ParentSlug, Kind, 
+				Title, ParentTitle, tags, tagSlugs, strData, CreateBy, CreateDate, src, 100 AS Rank
 			FROM 	dbo.vwNode	 WITH (NOLOCK)
 			WHERE	CONVERT(varchar(80), NodeID) = <cfqueryparam CFSQLType="CF_SQL_varchar" value="#arguments.search#">
 			AND		Deleted = 0
 			-- AND		PublicAccess = 1
+			
+			UNION
+			
+			SELECT 	E.UserID, Slug, '' AS ParentNodeID, '' AS ParentSlug, 'User' AS Kind, 
+				given + ' ' + family + ' ' + ISNULL(suffix, '') AS Title, '' AS ParentTitle, '' AS tags, '' AS tagSlugs,
+				note as strData, '' AS CreateBy, '' AS CreateDate, '' AS src, [Rank] / 10 AS Rank
+			FROM 	dbo.vwUser, (
+				SELECT 	UserID, Rank
+				FROM 	dbo.Users
+				INNER JOIN FREETEXTTABLE(dbo.Users, *, <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.search#">) AS SearchTable5
+				ON 		dbo.Users.UserID = searchTable5.[key]
+				) E
+			WHERE dbo.vwUser.UserID = E.UserID
+			AND		Deleted = 0
+			AND		(ExpirationDate > getDate() OR ExpirationDate IS NULL)
+						
 			) A
 
 		WHERE 1 = 1

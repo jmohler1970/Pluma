@@ -3,7 +3,7 @@
 <cfscript>
 param rc.search = "";
 
-qrySearch = application.IOAPI.get_by_search(rc.search, "Page");
+qrySearch = application.IOAPI.get_by_search(rc.search, "All");
 </cfscript>
 
 
@@ -32,7 +32,13 @@ qrySearch = application.IOAPI.get_by_search(rc.search, "Page");
 	<td>&nbsp;</td>
 	<td>
 		
-		<h3><a href="#application.GSAPI.find_url(slug)#">#xmlformat(Title)#</a></h3>
+		<h3>
+		<cfif Kind EQ "User">
+			<a href="#application.GSAPI.find_url('profile')#/#slug#">#xmlformat(Title)#</a>
+		<cfelse>
+			<a href="#application.GSAPI.find_url(slug)#">#xmlformat(Title)#</a>
+		</cfif>
+		</h3>
 
 		
 		<p>#application.IOAPI.strip_tags(strData, request.search.letters)#</p>
