@@ -60,10 +60,13 @@
 
 /* form submit button style */
 
+
 input.submit, button {
   font: bold 13px Helvetica, Arial, sans-serif;
   text-decoration: none;
   padding: 7px 15px;
+  line-height: 18px;
+  
   text-shadow: 0 1px 0 rgba(255,255,255,.5);
   -webkit-transition: all .218s;
   -moz-transition: all .218s;
@@ -82,6 +85,7 @@ input.submit, button {
 	-webkit-box-shadow: rgba(0,0,0, 0.06) 0px 0px 3px;
 	box-shadow: rgba(0,0,0, 0.06) 0px 0px 3px;  
 }
+
 
 
 input.submit:focus, input.submit:hover, button:focus, button:hover {

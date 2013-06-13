@@ -267,14 +267,14 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 
 
-<h3 class="floated" id="submit_line">
+<h3 class="floated" style="margin-top :0;" id="submit_line">
 	
 		<cfif deleted EQ 1>
 			<button type="submit" name="submit">#application.GSAPI.i18n("ask_restore")#</button>
 		<cfelse>
 				
 			<span>	
-				<button type="submit" name="submit" value="Save">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
+				<button type="submit" name="submit" class="save" value="Save">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
 			</span>
 
 			<cfif isnumeric(rc.NodeID)>	

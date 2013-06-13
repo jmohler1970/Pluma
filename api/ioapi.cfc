@@ -574,7 +574,7 @@ struct function delete(required struct NodeK) output="false"	{
 
 	<cfoutput>
 		
-		<input type="text" name="#arguments.fieldname#" class="#arguments.class#" maxlength="12" onclick="displayDatePicker('#arguments.fieldname#');" 
+		<input type="text" name="#arguments.fieldname#" class="#arguments.class#" maxlength="12" 
 			<cfif isDate(arguments.myvalue)>
 				value="#LSDateFormat(arguments.myvalue, "mm/dd/yyyy")#"
 			</cfif>

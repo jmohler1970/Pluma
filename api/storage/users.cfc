@@ -397,7 +397,7 @@ query function getBySlug(required string slug) output="no" 	{
 			'',
 			@login,
 			
-			dbo.udf_sluggify(@login),
+			dbo.udf_slugify(@login),
 									
 			dbo.udf_4jSuccess('Basic data was committed',
 				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,

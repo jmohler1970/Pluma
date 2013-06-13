@@ -102,7 +102,7 @@
 		<p>
 			<b>#application.GSAPI.i18n("USER_MANAGEMENT/EXPIRATION")#</b>
 			<br />
-			  	<cfset application.IOAPI.showDatePicker("expirationDate", stUser.ExpirationDate, "text autowidth")>
+			  	<cfset application.IOAPI.showDatePicker("expirationDate", stUser.ExpirationDate, "text autowidth datepicker")>
 		</p>
 	</div>
 	
@@ -278,9 +278,9 @@
 	<div class="edit-nav clearfix">	
 	
 		
-		<h3 class="floated" id="submit_line">
+		<h3 class="floated" style="margin-top :0;" id="submit_line">
 		<span>	
-			<button type="submit" name="submit" value="profile">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
+			<button type="submit" name="submit" class="save" value="profile">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
 		</span>
 		</h3>	
 	
