@@ -8,6 +8,8 @@ jQuery(document).ready(function() {
     $("input.datepicker").datepicker();
 	
 	$(".save").prepend('<span style="float:left;" class="ui-icon ui-icon-disk"></span>&nbsp;');
+	$(".save img").css("display", 'none');
+	
 
 
 	// pages
