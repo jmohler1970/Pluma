@@ -650,30 +650,29 @@ create function [dbo].[udf_xmlRead](@xmlData xml)
 	returns @tblmessage TABLE
 (
     -- Columns returned by the function
+    [id] 			nvarchar(max) NULL,
     [href] 			nvarchar(max) NULL,
-    [rel] 			nvarchar(40) NULL,
+    [rel] 			nvarchar(max) NULL,
     [title]			nvarchar(max) NULL,
-    [category]		nvarchar(40),
     [message]		nvarchar(max) NULL    
 )
 as
 begin
 	INSERT INTO @tblMessage
 	
-	SELECT  
-       Tbl.Col.value('@href', 	'nvarchar(max)') 	AS href,  
-       Tbl.Col.value('@rel', 	'nvarchar(40)')		AS rel,  
-       Tbl.Col.value('@title', 	'nvarchar(max)')	AS title,
-       Tbl.Col.value('(../../../text())[1]', 	'nvarchar(40)')	AS category,
-       Tbl.Col.value('.', 		'nvarchar(max)')	AS message
+	SELECT 
+	 	Tbl.Col.value('@id', 	'nvarchar(max)') 	AS id,  
+       	Tbl.Col.value('@href', 	'nvarchar(max)') 	AS href,  
+	 	Tbl.Col.value('@rel', 	'nvarchar(max)')	AS rel,  
+	 	Tbl.Col.value('@title', 'nvarchar(max)')	AS title,
+	 	Tbl.Col.value('.', 		'nvarchar(max)')	AS message
 
-	FROM   @xmlData.nodes('/ul/li/ul/li/a') Tbl(Col)
+	FROM   @xmlData.nodes('/ul/li/a') Tbl(Col)
 	
 
 
 	RETURN
 end
-
 GO
 
 
@@ -683,16 +682,9 @@ Link Sample:
 
 DECLARE @xml xml = '
 <ul class="xoxo">
-	<li>Cats
-	<ul>
-		<li><a href="black.htm" title="This is about black cats">Black</a></li>
-	</ul>
-	</li>
-	<li>Dogs
-	<ul>
-		<li><a href="chihuahua.htm" title="This is about chihuahuas">Chihuahua</a></li>
-	</ul>
-	</li>
+	<li><a href="black.htm" title="cat">This is about black cats</a></li>
+
+	<li><a href="chihuahua.htm" title="dog">We prefer Chihuahuas</a></li>
 </ul>'
 
 SELECT * 
@@ -703,16 +695,8 @@ FROM dbo.udf_xmlRead(@xml)
 
 Config sample
 <ul class="xoxo">
-	<li>Cats
-	<ul>
-		<li><a>Black</a></li>
-	</ul>
-	</li>
-	<li>Dogs
-	<ul>
-		<li><a>Chihuahua</a></li>
-	</ul>
-	</li>
+	<li><a>Black Cat</a></li>
+	<li><a>Chihuahua</a></li>
 </ul>
 
 

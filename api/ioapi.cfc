@@ -385,28 +385,27 @@ struct function get_pref(required string Pref) output="false"	{
 // this is similar to load_ini(). This loads data into the request scope
 void function load_pref(boolean force = 0) output="false"	{	
 
-	
-
-	if (this.InitStatus != "")	{
-		
-		return; // Can't connect to webservice
-		}
+	request.tempPref = "fast exit";
 
 
-	
 	
 	if (arguments.force == 1)	{
 		cacheRemove("stPref");
 		}
+	
+	request.tempPref = "force";
+	
 	
 	var tempPref = cacheGet("stPref");
 	if (isNull(tempPref) or arguments.force == 1)	{
 		tempPref = this.wsPref.get();
 				
 		cachePut("stPref", tempPref, CreateTimeSpan(0, 6, 0, 0));
+		
+		request.tempPref = tempPref;	
 		}
 	
-		
+	request.tempPref = tempPref;
 	
 	StructAppend(request, tempPref); //over writes
 	}
@@ -414,9 +413,9 @@ void function load_pref(boolean force = 0) output="false"	{
 
 
 
-string function set_pref(required string prefGroup, required struct rc) output="false"	{
+string function set_pref(required string pref, required struct rc) output="false"	{
 	
-	var result = this.wsPref.commit(arguments.prefGroup, arguments.rc, cgi.remote_addr, session.LOGINAPI.UserID);
+	var result = this.wsPref.commit(arguments.pref, arguments.rc, cgi.remote_addr, session.LOGINAPI.UserID);
 	
 		
 	this.load_pref(1); //resets all preferences

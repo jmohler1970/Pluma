@@ -28,11 +28,11 @@
 
 		
 	<cfquery name="local.qryPref">
-		SELECT 	Pref, type, message
+		SELECT 	Pref, CASE WHEN id = '' THEN 'default' ELSE id END AS id, title, href, rel, message
 		FROM	dbo.Pref WITH (NOLOCK)
 		CROSS APPLY dbo.udf_xmlRead(xmlPref)
 		WHERE	Deleted = 0
-		AND		type IS NOT NULL
+		AND		id IS NOT NULL
 		ORDER BY Pref
 	</cfquery>
 
@@ -43,17 +43,8 @@
 		if (not structKeyExists(stResult, Pref))
 			stResult[pref] =  {};		
 		
-		
-		mytype = type == "" ? "default" : type;
-		
-		
-		try	{
 			
-		setVariable("stResult.#Pref#[myType]", message);
-		}
-		catch(any e) {}		
-				
-		
+		stResult[pref][id] = message;
 		</cfscript>
 
 	</cfloop>
@@ -124,10 +115,11 @@
 	<cfargument name="remote_addr" 	required="true" type="string">
 	<cfargument name="ByUserID" 	required="true" type="string">	
 
+	
 
 	<cfquery>
 		DECLARE @myPref  varchar(40) 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.Pref#">
-		DECLARE @xmlPref varchar(max)	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.xmlEncode(rc)#">
+		DECLARE @xmlPref varchar(max)	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.encodeXML(rc, arguments.Pref)#">
 		
 	
 		IF NOT EXISTS(SELECT 1 FROM dbo.Pref WHERE Pref = @myPref)

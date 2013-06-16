@@ -1,6 +1,6 @@
 
  			
-<cfcomponent extends="nodero">		
+<cfcomponent>		
 
 
 
@@ -10,14 +10,13 @@
 	
 
 	<cfscript>
-	var qryData = QueryNew("category, position, href, title, message", "varchar,integer,varchar,varchar,varchar");
+	var qryData = QueryNew("position, id, href, rel, title, message", "integer, varchar, varchar, varchar, varchar, varchar");
 
 	
 	
 	param rc.fieldnames = structkeyList(rc); // If this did not come from a form submit, then make a default list
 	
 	param rc.fieldsort = rc.fieldnames; // If an explicit sort was passed over, use it
-	
 	
 	
 	for (var MyFormField in rc)	{
@@ -27,51 +26,76 @@
 			AND NOT MyFormField CONTAINS "title"
 			)	{
 			if (MyFormField CONTAINS arguments.filter OR arguments.filter EQ "")	{
+			
+				var shortField = listrest(MyFormField , "_");
 				
-				position = ListFindNoCase(rc.fieldsort, MyFormField); 
+				if (shortField == "new")	{
+					param arguments.rc.new_title = "";
+
+					shortField = reReplace(arguments.rc.new_title, "[^a-z0-9]_", "", "all");
+
+
+					if (shortField == "" AND arguments.rc.new_title != "")	{
+						return "A valid key could not be created from &quot;#xmlformat(arguments.rc.new_title)#&quot;";
+						}
+
+
+					if (this.typeExists(Pref, shortfield))	{
+						return "A key could not be added because it already exists";
+						}
+
+					}
+				// end of coming up with name	
+			
 				
-				var href = "";
+				mposition = ListFindNoCase(rc.fieldsort, MyFormField); 
+				
+				var mhref = "";
 				if (isDefined("rc.#myFormField#_href"))	{							
-					var href_field = xmlFormat(arguments.rc["#MyFormField#_href"]);
+					mhref = xmlFormat(arguments.rc["#MyFormField#_href"]);
 					
-					href = 'href="#href_field#"';							
+					mhref = 'href="#href_field#"';							
 					}								
 				
-				
-				var title = "";
-				if (isDefined("rc.#myFormField#_title"))	{							
-					var title_field = xmlFormat(arguments.rc["#MyFormField#_title"]);
+				var mrel = "";
+				if (isDefined("rc.#myFormField#_rel"))	{							
+					mrel = xmlFormat(arguments.rc["#MyFormField#_rel"]);
 					
-					href = 'title="#title_field#"';							
+					mrel = 'rel="#rel_field#"';							
+					}
+				
+				
+				var mtitle = ""; // overridable
+				
+				if (isDefined("rc.#myFormField#_title"))	{							
+					mtitle = xmlFormat(arguments.rc["#MyFormField#_title"]);
+					
+					mtitle = 'title="#title_field#"';							
 					}								
 				
 				QueryAddRow(qryData);
-				QuerySetCell(qryData, "category", 	lcase(MyFormField));
-				QuerySetCell(qryData, "position", 	position);
-				QuerySetCell(qryData, "href", 		href);
-				QuerySetCell(qryData, "title", 		title);
-				QuerySetCell(qryData, "message", 	message);
+				QuerySetCell(qryData, "position", 	mposition);
+				QuerySetCell(qryData, "id", 		lcase(shortfield));
+				QuerySetCell(qryData, "href", 		mhref);
+				QuerySetCell(qryData, "rel", 		mrel);
+				QuerySetCell(qryData, "title",	 	mtitle);
+				QuerySetCell(qryData, "message", 	xmlformat(evaluate("rc.#MyFormField#")));
+	
 				} // end if
 			} //end if
 		} // end for
 	</cfscript>
 	
 	<cfquery name="qryData" dbtype="query">
-		SELECT 	category, position, href, title, message
+		SELECT 	[position], id, href, rel, title, message
 		FROM 	qryData
-		ORDER BY position
+		ORDER BY [position]
 	</cfquery>
 	
 	<cfsavecontent variable="xmlData">
 	<ul class="xoxo">
-	<cfoutput query="qryData" group="category">
-		<li>#xmlFormat(category)#
-		<ul>
-		<cfoutput>
-			<li><a #href# #title#>#message#</a></li>	
-		</cfoutput>
-		</ul>
-		</li>
+	<cfoutput query="qryData">
+		<li><a id="#id#" #href# #rel# #title#>#message#</a></li>	
 	</cfoutput> 
 	</ul>
 	</cfsavecontent>

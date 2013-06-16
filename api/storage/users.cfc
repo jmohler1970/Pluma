@@ -563,13 +563,11 @@ query function getBySlug(required string slug) output="no" 	{
 	
 	
 	<cfquery name="local.qryResult">
-		SELECT  title, type, message
+		SELECT  title, rel, href, message
 		FROM	dbo.Users
 		CROSS APPLY dbo.udf_xmlRead(xmlProfile)
 		WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
 		AND		Deleted = 0
-		AND		type IS NOT NULL
-		ORDER BY Position
 	</cfquery>
 
 
