@@ -2,7 +2,7 @@
 
 
 
-<cfcomponent>
+<cfcomponent extends="base">
 <cfscript>
 
 

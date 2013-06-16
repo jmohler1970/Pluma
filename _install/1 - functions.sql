@@ -644,7 +644,7 @@ GO
 
 
 
-/* User Data: this was designed around a stack of links, but can be made to do much more */
+/* User Data: this was designed around xoxo, but can be made to do much more */
 create function [dbo].[udf_xmlRead](@xmlData xml) 
 	
 	returns @tblmessage TABLE
@@ -653,8 +653,7 @@ create function [dbo].[udf_xmlRead](@xmlData xml)
     [href] 			nvarchar(max) NULL,
     [rel] 			nvarchar(40) NULL,
     [title]			nvarchar(max) NULL,
-    [type]			nvarchar(40),
-    [position]		int NULL,
+    [category]		nvarchar(40),
     [message]		nvarchar(max) NULL    
 )
 as
@@ -665,12 +664,10 @@ begin
        Tbl.Col.value('@href', 	'nvarchar(max)') 	AS href,  
        Tbl.Col.value('@rel', 	'nvarchar(40)')		AS rel,  
        Tbl.Col.value('@title', 	'nvarchar(max)')	AS title,
-       Tbl.Col.value('@type', 	'nvarchar(40)')		AS [type],
-       Tbl.Col.value('@position', 'int')			AS position,
+       Tbl.Col.value('(../../../text())[1]', 	'nvarchar(40)')	AS category,
        Tbl.Col.value('.', 		'nvarchar(max)')	AS message
 
-	FROM   @xmlData.nodes('/data') Tbl(Col)
-	ORDER BY position, type, message
+	FROM   @xmlData.nodes('/ul/li/ul/li/a') Tbl(Col)
 	
 
 
@@ -680,6 +677,45 @@ end
 GO
 
 
+/*
+
+Link Sample:
+
+DECLARE @xml xml = '
+<ul class="xoxo">
+	<li>Cats
+	<ul>
+		<li><a href="black.htm" title="This is about black cats">Black</a></li>
+	</ul>
+	</li>
+	<li>Dogs
+	<ul>
+		<li><a href="chihuahua.htm" title="This is about chihuahuas">Chihuahua</a></li>
+	</ul>
+	</li>
+</ul>'
+
+SELECT * 
+FROM dbo.udf_xmlRead(@xml)
 
 
 
+
+Config sample
+<ul class="xoxo">
+	<li>Cats
+	<ul>
+		<li><a>Black</a></li>
+	</ul>
+	</li>
+	<li>Dogs
+	<ul>
+		<li><a>Chihuahua</a></li>
+	</ul>
+	</li>
+</ul>
+
+
+
+
+*/

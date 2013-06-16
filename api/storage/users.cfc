@@ -458,58 +458,6 @@ query function getBySlug(required string slug) output="no" 	{
 
 
 
-<cffunction name="encodeXML" output="no"  returnType="string">
-	<cfargument name="rc" required="true" type="struct">
-	<cfargument name="filter" required="false" type="string" default="">
-	
-
-	<cfscript>
-	var xmlData = "";
-	
-	
-	param rc.fieldnames = structkeyList(rc); // If this did not come from a form submit, then make a default list
-	
-	param rc.fieldsort = rc.fieldnames; // If an explicit sort was passed over, use it
-	
-	
-	
-	for (var MyFormField in rc)	{
-			
-		if (ListFindNoCase("action,submit,fieldnames,fieldsort", MyFormField) == 0
-			AND NOT MyFormField CONTAINS "href"
-			AND NOT MyFormField CONTAINS "title"
-			)	{
-			if (MyFormField CONTAINS arguments.filter OR arguments.filter EQ "")	{
-				
-				position = ListFindNoCase(rc.fieldsort, MyFormField); 
-				
-				var href = "";
-				if (isDefined("rc.#myFormField#_href"))	{							
-					var href_field = xmlFormat(arguments.rc["#MyFormField#_href"]);
-					
-					href = 'href="#href_field#"';							
-					}								
-				
-				
-				var title = "";
-				if (isDefined("rc.#myFormField#_title"))	{							
-					var title_field = xmlFormat(arguments.rc["#MyFormField#_title"]);
-					
-					href = 'title="#title_field#"';							
-					}								
-				
-				
-													
-													
-				xmlData &= '<data type="#lcase(MyFormField)#" position="#position#" #href# #title#>' 
-					& xmlFormat(arguments.rc[MyFormField]) & '</data>';
-				}
-			}
-		}
-	</cfscript>
-	
-	<cfreturn xmlData>
-</cffunction>
 
 	
 	
@@ -547,37 +495,11 @@ query function getBySlug(required string slug) output="no" 	{
 	<cfargument name="byUserID" required="true" type="string">
 	
 	
-	<cfscript>
-	var xmlLink = "";
 	
-	for (var i = 1; isDefined("rc.type_#i#") or isDefined("rc.href_#i#"); i++)	{
-		
-		if (isDefined("rc.type_#i#") and evaluate("rc.type_#i#") != "" and not isDefined("rc.delete_#i#"))	{
-		
-			
-			var type		= 									evaluate("rc.type_#i#");	
-			var href 		= isDefined("rc.href_#i#") 		? 	evaluate("rc.href_#i#") 	: '';
-			var message 	= isDefined("rc.message_#i#") 	? 	evaluate("rc.message_#i#") 	: '';
-			var title 		= isDefined("rc.title_#i#") 	? 	evaluate("rc.title_#i#") 	: '';
-			var position	= isDefined("rc.position_#i#")	? 	evaluate("rc.position_#i#") : '';
-			
-			
-			xmlLink 					&= '<data type="#xmlFormat(type)#"';
-			
-			if (href != "") 	xmlLink &= ' href = "#xmlFormat(href)#"';
-			if (title != "") 	xmlLink &= ' title = "#xmlFormat(title)#"';
-			if (position != "") xmlLink &= ' position = "#xmlFormat(position)#"';
-			xmlLink 					&= '>#xmlFormat(message)#</data>';
-			}	// isDefined
-	
-		} // end loop
-	</cfscript>
-	
-		
 	
 	
 	<cfquery name="qryClearLink">
-	DECLARE @xmlLink varchar(max) = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#xmlLink#">
+	DECLARE @xmlLink varchar(max) = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.encodeXML(rc)#">
 	
 	
 	UPDATE	dbo.Users
