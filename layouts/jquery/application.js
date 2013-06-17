@@ -4,22 +4,19 @@
 
 jQuery(document).ready(function() { 
 
-	
-    $("input.datepicker").datepicker();
-	
-	$(".save").prepend('<span style="float:left;" class="ui-icon ui-icon-disk"></span>&nbsp;');
-	$(".save img").css("display", 'none');
+
 	
 
 
-	// pages
-  $("#show-characters").live("click", function() {
-  	 $(".showstatus").toggle();
-  	 $(this).toggleClass('current');
-  });
-
+	// pages	
+	$(document).on("click", "#show-characters", function() {
+  		$(".showstatus").toggle();
+  		$(this).toggleClass('current');
+  		});
+  
 	
-	$("#post-menu-enable").live("click", function() {
+	$(document).on("click", "#post-menu-enable", function() {
+	
     	$("#menu-items").slideToggle("fast");
 		});
   	if ($("#post-menu-enable").is(":checked")) { 
@@ -44,8 +41,8 @@ jQuery(document).ready(function() {
   
  
   $('#js_submit_line').html(edit_line);
-  $("#js_submit_line button").live("click", function() {
-   
+  $(document).on("click", "#js_submit_line button", function() {
+  
    
     $("#submit_line button").trigger('click');
 	});
@@ -53,7 +50,7 @@ jQuery(document).ready(function() {
 
 	//title filtering on pages, backups, & users
 	var filterSearchInput = $("#filter-search");
-	$('#filtertable').live("click", function($e) {
+	$(document).on("click", "#filtertable", function($e) {
 		$e.preventDefault();
 		filterSearchInput.slideToggle();
 		$(this).toggleClass('current');
@@ -75,7 +72,8 @@ jQuery(document).ready(function() {
     	$("#editpages tr:visible .indexColumn:not(:contains('" + this + "'))").parent().hide();
  		});
 	});
-	$("#filter-search .cancel").live("click", function($e) {
+	
+	$(document).on("click", "#filter-search .cancel", function($e) {
 		$e.preventDefault();
 		$("#editpages tr").show();
 		$('#filtertable').toggleClass('current');
@@ -86,21 +84,22 @@ jQuery(document).ready(function() {
 
 	//create new folder in pages
 	var newFolderDiv = $("#new-folder");
-	$('#createfolder').live("click", function($e) {
+	
+	$(document).on("click", "#createfolder", function($e) {
 		$e.preventDefault();
 		newFolderDiv.find("form").show();
 		$(this).hide();
 		newFolderDiv.find('#foldername').focus();
 	});
-	$("#new-folder .cancel").live("click", function($e) {
+	
+	$(document).on("click", "#new-folder .cancel", function($e) {	
 		$e.preventDefault();
 		newFolderDiv.find("#foldername").val('');
 		newFolderDiv.find("form").hide();
 		$('#createfolder').show();
 	});
 	
-	
-	$("#metadata_toggle").live("click", function($e) {
+	$(document).on("click", "#metadata_toggle", function($e) {	
 		$e.preventDefault();
 		$("#metadata_window").slideToggle('fast');
 		$("#link_window").slideToggle('fast');
@@ -108,7 +107,9 @@ jQuery(document).ready(function() {
 	});
 	
 	
-	$("#components_toggle").live("click", function($e) {
+	//$("#addcomponent").live("click", function($e) {
+	$(document).on("click", "#addcomponent", function($e) {
+	
 		$e.preventDefault();
 		$("#components_window").slideToggle('fast');
 		$(this).toggleClass('current');
@@ -134,8 +135,8 @@ jQuery(document).ready(function() {
     });
     
     
-    $(".delconfirm").live("click", function() {
-		var message = $(this).attr("title");
+    $(document).on("click", ".delconfirm", function() {
+   		var message = $(this).attr("title");
 		var dlink = $(this).attr("href");
 		var mytr=$(this).parents("tr");
 		mytr.css("font-style", "italic");
@@ -150,6 +151,12 @@ jQuery(document).ready(function() {
 	    	}
 	});
     
+       	
+    $("input.datepicker").datepicker();
+	
+	$(".save").prepend('<span style="float:left;" class="ui-icon ui-icon-disk"></span>&nbsp;');
+	
+	$(".save img").css("display", 'none'); 
     
 	
 //end of javascript for getsimple
