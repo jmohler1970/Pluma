@@ -596,7 +596,7 @@ query function getBySlug(required string slug) output="no" 	{
 
 
 	<cfquery name="local.qryResult">
-		SELECT	UserID, [type], href, title, message, Position
+		SELECT	UserID, id, href, title, message
 		FROM	dbo.Users
 		CROSS APPLY dbo.udf_xmlRead(xmlLink)
 		WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">

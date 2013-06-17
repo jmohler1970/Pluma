@@ -4,14 +4,12 @@
 <cfoutput>
 <div class="main">
 
-<!---
-<cfdump var="#cacheGet("stPref")#">	
---->	
+
 
 <h3 class="floated">#application.GSAPI.i18n("side_components")#</h3>
 
 <div class="edit-nav">
-	<a href="##" id="components_toggle" accesskey="a">#application.GSAPI.i18n("add_component")#</a>
+	<a href="##" id="addcomponent" accesskey="a">#application.GSAPI.i18n("add_component")#</a>
 
 </div>
 

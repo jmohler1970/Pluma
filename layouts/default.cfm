@@ -29,9 +29,9 @@
     
 
    
- 
+	
     <script src="#application.GSAPI.get_site_root()#layouts/js/sorttable.js"	type="text/javascript"></script>
-    
+   
     
     
     <script src="#application.GSAPI.get_site_root()#layouts/jquery/jquery.js" 		type="text/javascript"></script>

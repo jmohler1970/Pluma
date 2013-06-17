@@ -40,7 +40,7 @@
 						}
 
 
-					if (this.typeExists(Pref, shortfield))	{
+					if (ListFindNoCase(shortfield, structKeyList(rc)))	{
 						return "A key could not be added because it already exists";
 						}
 
@@ -89,6 +89,7 @@
 	<cfquery name="qryData" dbtype="query">
 		SELECT 	[position], id, href, rel, title, message
 		FROM 	qryData
+		WHERE	id <> ''
 		ORDER BY [position]
 	</cfquery>
 	
