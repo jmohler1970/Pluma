@@ -75,7 +75,7 @@
 		DECLARE @category varchar(40) =  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.type#">
 	
 		UPDATE	dbo.Pref
-		SET 	xmlPref.modify('delete /ul/li/a[@id=sql:variable("@category")]')
+		SET 	xmlPref.modify('delete /ul/li[a/@id=sql:variable("@category")]')
 		WHERE	pref 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.pref#">
 		AND		Deleted = 0
 	</cfquery> 

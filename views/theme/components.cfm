@@ -32,7 +32,7 @@
 
 	<br />
 
-	<button type="submit" name="submit">#application.GSAPI.i18n("save_components")#</button> 
+	<button type="submit" class="save" name="submit">#application.GSAPI.i18n("save_components")#</button> 
 
 </div>
 	<p></p>
@@ -73,7 +73,7 @@
 
 <h3 id="submit_line">
 	<span>
-		<button type="submit" name="submit">#application.GSAPI.i18n("save_components")#</button> 
+		<button type="submit" class="save" name="submit">#application.GSAPI.i18n("save_components")#</button> 
 	</span>	
 </h3>
 
