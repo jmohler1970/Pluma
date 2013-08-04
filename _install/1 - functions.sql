@@ -141,231 +141,6 @@ END
 GO
 
 
-
-/* Debug */
-create function [dbo].[udf_4jDebug](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
-	
-	returns xml
-as
-begin
-	DECLARE @xmlResult xml = CONVERT(xml, ('<message type=''debug''>' + @message + '</message>'))
-	
-	DECLARE @datetime datetime = getDate()
-
-	DECLARE @by varchar(max) = @userid
-	
-	IF ISNUMERIC(@userid) = 1
-	BEGIN	
-		SELECT 	@by = given + ' ' + family
-		FROM 	dbo.vwUser WITH (NOLOCK)
-		WHERE	UserID = @userid
-	END	
-
-	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
-	
-
-	RETURN @xmlResult
-end
-
-GO
-
-
-
-/* Error */
-create function [dbo].[udf_4jError](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
-	
-	returns xml
-as
-begin
-	DECLARE @xmlResult xml = CONVERT(xml, ('<message type=''error''>' + @message + '</message>'))
-	
-	DECLARE @datetime datetime = getDate()
-
-	DECLARE @by varchar(max) = @userid
-	
-	IF ISNUMERIC(@userid) = 1
-	BEGIN	
-		SELECT 	@by = given + ' ' + family
-		FROM 	dbo.vwUser WITH (NOLOCK)
-		WHERE	UserID = @userid
-	END
-	
-	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
-	
-
-	RETURN @xmlResult
-end
-GO
-
-
-
-
-
-create function [dbo].[udf_4jFatal](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
-	
-	returns xml
-as
-begin
-	DECLARE @xmlResult xml = CONVERT(xml, ('<message type=''fatal''>' + @message + '</message>'))
-	
-	DECLARE @datetime datetime = getDate()
-
-	DECLARE @by varchar(max) = @userid
-	
-	
-	IF ISNUMERIC(@userid) = 1
-	BEGIN	
-		SELECT 	@by = given + ' ' + family
-		FROM 	dbo.vwUser WITH (NOLOCK)
-		WHERE	UserID = @userid
-	END
-	
-	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
-	
-
-	RETURN @xmlResult
-end
-
-GO
-
-
-
-
-
-create function [dbo].[udf_4jInfo](@message nvarchar(max)='', @ip varchar(max)=NULL, @userid varchar(max)=NULL) 
-	
-	returns xml
-as
-begin
-	DECLARE @xmlResult xml = CONVERT(xml, ('<message type=''info''>' + @message + '</message>'))
-	
-	DECLARE @datetime datetime = getDate()
-
-	DECLARE @by varchar(max) = @userid
-		
-	IF ISNUMERIC(@userid) = 1
-	BEGIN	
-		SELECT 	@by = given + ' ' + family
-		FROM 	dbo.vwUser WITH (NOLOCK)
-		WHERE	UserID = @userid
-	END
-	
-	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
-	IF @ip IS NOT NULL
-	BEGIN
-		SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
-	END
-	
-	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
-	
-
-	RETURN @xmlResult
-end
-GO
-
-
-
-
-
-
-/* Success */
-create function [dbo].[udf_4jSuccess](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
-	
-	returns xml
-as
-begin
-	DECLARE @xmlResult xml = CONVERT(xml, ('<message>' + @message + '</message>'))
-	
-	DECLARE @datetime datetime = getDate()
-
-	DECLARE @by varchar(max) = @userid
-		
-	IF ISNUMERIC(@userid) = 1
-	BEGIN	
-		SELECT 	@by = given + ' ' + family
-		FROM 	dbo.vwUser WITH (NOLOCK)
-		WHERE	UserID = @userid
-		
-	END
-
-	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
-	
-
-	RETURN @xmlResult
-end
-GO
-
-
-
-/* Debug */
-create function [dbo].[udf_4jTicket](@message nvarchar(max), @ip varchar(max), @ticket nvarchar(max), @userid varchar(max)=NULL) 
-	
-	returns xml
-as
-begin
-	DECLARE @xmlResult xml = CONVERT(xml, ('<message type=''ticket''>' + @message + '</message>'))
-	
-	DECLARE @datetime datetime = getDate()
-
-	DECLARE @by varchar(max) = @userid
-		
-	IF ISNUMERIC(@userid) = 1
-	BEGIN	
-		SELECT 	@by = given + ' ' + family
-		FROM 	dbo.vwUser WITH (NOLOCK)
-		WHERE	UserID = @userid
-		
-	END
-	
-	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute ticket 	{sql:variable("@ticket")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
-	
-
-	RETURN @xmlResult
-end
-GO
-
-
-
-/* Warn */
-create function [dbo].[udf_4jWarn](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
-	
-	returns xml
-as
-begin
-	DECLARE @xmlResult xml = CONVERT(xml, ('<message type=''warning''>' + @message + '</message>'))
-	
-	DECLARE @datetime datetime = getDate()
-
-	DECLARE @by varchar(max) = @userid
-		
-	IF ISNUMERIC(@userid) = 1
-	BEGIN	
-		SELECT 	@by = given + ' ' + family
-		FROM 	dbo.vwUser WITH (NOLOCK)
-		WHERE	UserID = @userid
-	END
-	
-	SET @xmlResult.modify('insert attribute by 		{sql:variable("@by")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute ip 		{sql:variable("@ip")} into (/message)[1]')
-	SET @xmlResult.modify('insert attribute date 	{sql:variable("@datetime")} into (/message)[1]')
-	
-
-	RETURN @xmlResult
-end
-GO
-
-
 /* Misc functions */
 
 
@@ -455,83 +230,252 @@ begin
 end
 GO
 
-/* Table valued functions */
+
+/* XOXO functions */
+
+/* the stuff between the tags disappears on tvf */
+
+/*
+<ul class="xoxo">
+	<li><b>Debug</b>: <var>My wonderful message goes here</var> by <address>Mi Nahme <tt>@ 127.0.0.1</tt></address> on <time>1/1/2014</time> <cite>IM-326589</cite></li>
+</ul>
+*/
 
 
+/* Debug */
+create function [dbo].[udf_4jDebug](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
+	
+	returns xml
+as
+begin
+	DECLARE @xmlResult nvarchar(max) = ''
+	
+	DECLARE @by varchar(max) = @userid
+	
+	IF ISNUMERIC(@userid) = 1
+	BEGIN	
+		SELECT 	@by = given + ' ' + family
+		FROM 	dbo.vwUser WITH (NOLOCK)
+		WHERE	UserID = @userid
+	END	
+	
+	SET @xmlResult = '<ul class="xoxo"><li><b>Debug</b>:' 
+		+ '<var>' + @message + '</var>'
+		+ ' by <address>' + @by + ' <tt>' + @ip + '</tt></address>'
+		+ ' on <time>' + CONVERT(varchar(40), getDate(), 100) + '</time>'
+		+ '</li></ul>'
+	
 
-create function [dbo].[udf_4jRead](@Message xml) 
-	
-	returns @tblmessage TABLE
-(
-    -- Columns returned by the function
-    [by] 			nvarchar(40) NULL,
-    [datetime]		datetime NULL, 
-    [message]		nvarchar(max) NULL,
-    [type]			nvarchar(10),
-    [ticket]		nvarchar(10) NULL,
-    [ip]			nvarchar(40) NULL,
-    
-    
-    [htmlby] 		nvarchar(70) NULL,
-    [htmlmessage]	nvarchar(max) NULL,
-    [sort4j]			tinyint NULL
-    
-    
-)
-AS 
-BEGIN
-	INSERT INTO @tblmessage
-	
-	SELECT [by], [datetime], [message], 
-		
-		CASE
-			WHEN [type] IS NULL AND [DateTime] IS NOT NULL THEN 'success'
-			ELSE [type]
-		END AS [type],
-		
-		[ticket], [ip],
-	
-		[by] + ' on ' + CONVERT(varchar(20), [datetime], 100) AS htmlBy,
-	
-		
-		'<b>' + 
-	
-		CASE 
-			WHEN [type] IS NULL AND [DateTime] IS NOT NULL THEN 'Success'
-			ELSE LEFT(UPPER([type]), 1) + Right(LOWER([type]), LEN([type]) - 1) 
-		END 
-						
-		+
-		CASE 
-			WHEN message is NULL THEN '</b>'
-			ELSE ':</b> ' + message
-		
-		END
-		AS htmlMessage,
-		
-		CASE 
-			WHEN [type] = 'fatal'	THEN 90
-			WHEN [type] = 'error'	THEN 80
-			WHEN [type] = 'warn' 	THEN 70
-			WHEN [type] = 'info' 	THEN 60
-			WHEN [type] IS NULL	AND [DateTime] IS NOT NULL THEN 60		/* Success, and is the same as info */
-			WHEN [type] = 'debug' 	THEN 50
-			ELSE	NULL
-		END
-		AS sort4j 
-	FROM (
-		SELECT 	@Message.value('(/message/@by)[1]', 'nvarchar(40)') AS [by],
-			@Message.value('(/message/@date)[1]', 	'datetime') 	AS [datetime],
-			@Message.value('(/message)[1]', 		'nvarchar(max)') AS [message], 
-			@Message.value('(/message/@type)[1]', 	'nvarchar(10)') AS [type],
-			@Message.value('(/message/@ip)[1]', 	'nvarchar(40)') AS [ip],
-			@Message.value('(/message/@ticket)[1]', 'nvarchar(10)')	AS [ticket]
-		) A
-	
-			
-	RETURN
-END
+	RETURN CONVERT(xml, @xmlResult)
+end
+
 GO
+
+
+
+/* Error */
+create function [dbo].[udf_4jError](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
+	
+	returns xml
+as
+begin
+	DECLARE @xmlResult nvarchar(max) = ''
+	
+	DECLARE @datetime datetime = getDate()
+
+	DECLARE @by varchar(max) = @userid
+	
+	IF ISNUMERIC(@userid) = 1
+	BEGIN	
+		SELECT 	@by = given + ' ' + family
+		FROM 	dbo.vwUser WITH (NOLOCK)
+		WHERE	UserID = @userid
+	END
+	
+	SET @xmlResult = '<ul class="xoxo"><li><b>Error</b>:' 
+		+ '<var>' + @message + '</var>'
+		+ ' by <address>' + @by + ' <tt>' + @ip + '</tt></address>'
+		+ ' on <time>' + CONVERT(varchar(40), getDate(), 100) + '</time>'
+		+ '</li></ul>'
+		
+
+	RETURN CONVERT(xml, @xmlResult)
+end
+GO
+
+
+
+
+
+create function [dbo].[udf_4jFatal](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
+	
+	returns xml
+as
+begin
+	DECLARE @xmlResult nvarchar(max) = ''
+	
+	DECLARE @by varchar(max) = @userid
+	
+	
+	IF ISNUMERIC(@userid) = 1
+	BEGIN	
+		SELECT 	@by = given + ' ' + family
+		FROM 	dbo.vwUser WITH (NOLOCK)
+		WHERE	UserID = @userid
+	END
+	
+	SET @xmlResult = '<ul class="xoxo"><li><b>Fatal</b>:' 
+		+ '<var>' + @message + '</var>'
+		+ ' by <address>' + @by + ' <tt>' + @ip + '</tt></address>'
+		+ ' on <time>' + CONVERT(varchar(40), getDate(), 100) + '</time>'
+		+ '</li></ul>'
+	
+
+	RETURN CONVERT(xml, @xmlResult)
+end
+
+GO
+
+
+
+
+
+create function [dbo].[udf_4jInfo](@message nvarchar(max)='', @ip varchar(max)=NULL, @userid varchar(max)=NULL) 
+	
+	returns xml
+as
+begin
+	DECLARE @xmlResult nvarchar(max) = ''
+	
+
+	DECLARE @by varchar(max) = @userid
+		
+	IF ISNUMERIC(@userid) = 1
+	BEGIN	
+		SELECT 	@by = given + ' ' + family
+		FROM 	dbo.vwUser WITH (NOLOCK)
+		WHERE	UserID = @userid
+	END
+	
+	SET @xmlResult = '<ul class="xoxo"><li><b>Info</b>:' 
+		+ '<var>' + @message + '</var>'
+		+ ' by <address>' + @by + ' <tt>' + @ip + '</tt></address>'
+		+ ' on <time>' + CONVERT(varchar(40), getDate(), 100) + '</time>'
+		+ '</li></ul>'
+	
+	
+
+	RETURN CONVERT(xml, @xmlResult)
+end
+GO
+
+
+
+
+
+
+/* Success */
+create function [dbo].[udf_4jSuccess](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
+	
+	returns xml
+as
+begin
+	DECLARE @xmlResult nvarchar(max) = ''
+	
+
+	DECLARE @by varchar(max) = @userid
+		
+	IF ISNUMERIC(@userid) = 1
+	BEGIN	
+		SELECT 	@by = given + ' ' + family
+		FROM 	dbo.vwUser WITH (NOLOCK)
+		WHERE	UserID = @userid
+		
+	END
+
+
+	
+	SET @xmlResult = '<ul class="xoxo"><li><b>Success</b>:' 
+		+ '<var>' + @message + '</var>'
+		+ ' by <address>' + @by + ' <tt>' + @ip + '</tt></address>'
+		+ ' on <time>' + CONVERT(varchar(40), getDate(), 100) + '</time>'
+		+ '</li></ul>'
+	
+
+	RETURN CONVERT(xml, @xmlResult)
+end
+GO
+
+
+
+/* Debug */
+create function [dbo].[udf_4jTicket](@message nvarchar(max), @ip varchar(max), @ticket nvarchar(max), @userid varchar(max)=NULL) 
+	
+	returns xml
+as
+begin
+	DECLARE @xmlResult nvarchar(max) = ''
+	
+
+
+	DECLARE @by varchar(max) = @userid
+		
+	IF ISNUMERIC(@userid) = 1
+	BEGIN	
+		SELECT 	@by = given + ' ' + family
+		FROM 	dbo.vwUser WITH (NOLOCK)
+		WHERE	UserID = @userid
+		
+	END
+	
+	SET @xmlResult = '<ul class="xoxo"><li><b>Ticket</b> (<code>' + @ticket + '</code>)' 
+		+ '<var>' + @message + '</var>'
+		+ ' by <address>' + @by + ' <tt>' + @ip + '</tt></address>'
+		+ ' on <time>' + CONVERT(varchar(40), getDate(), 100) + '</time>'
+		+ '</li></ul>'
+	
+
+	RETURN CONVERT(xml, @xmlResult)
+end
+GO
+
+
+
+/* Warn */
+create function [dbo].[udf_4jWarn](@message nvarchar(max), @ip varchar(max), @userid varchar(max)=NULL) 
+	
+	returns xml
+as
+begin
+	DECLARE @xmlResult nvarchar(max) = ''
+	
+
+	DECLARE @by varchar(max) = @userid
+		
+	IF ISNUMERIC(@userid) = 1
+	BEGIN	
+		SELECT 	@by = given + ' ' + family
+		FROM 	dbo.vwUser WITH (NOLOCK)
+		WHERE	UserID = @userid
+	END
+	
+	
+	SET @xmlResult = '<ul class="xoxo"><li><b>Warning</b>:' 
+		+ '<var>' + @message + '</var>'
+		+ ' by <address>' + @by + ' <tt>' + @ip + '</tt></address>'
+		+ ' on <time>' + CONVERT(varchar(40), getDate(), 100) + '</time>'
+		+ '</li></ul>'
+	
+	
+
+	RETURN CONVERT(xml, @xmlResult)
+end
+GO
+
+
+
+
+/* Table valued functions */
 
 
 
@@ -564,11 +508,27 @@ END
 GO
 
 
+/*
+DECLARE @someData xml = '
+<ul class="xoxo">
+	<!-- Menu control -->
+	<li><b>Tag</b> <var>Cats</var></li>
+	<li><b>Tag</b> <var>Dogs</var></li>
+	<li data-position="4" data-status="whatever"><b>Menu</b> <var>Animals</var></li>
+</ul>
+'
+
+SELECT *
+FROM dbo.udf_taxonomyRead(@someData)
+
+*/
+
+
 
 
 /* Taxonomy Read */
 create function [dbo].[udf_taxonomyRead](@xmlData xml) 
-	
+
 	returns @tblTaxonomy TABLE
 	(
     -- Columns returned by the function
@@ -581,34 +541,56 @@ create function [dbo].[udf_taxonomyRead](@xmlData xml)
 
 as
 begin
-	
+
 
 	DECLARE @strTags varchar(max)
 	DECLARE @strTagSlugs varchar(max)
-	
 
+
+
+	SELECT 	@strTags 		= ISNULL( @strTags + ',', '' ) 		+ 				  Tbl.Col.value('var[1]', 'nvarchar(max)' ),
+			@strTagSlugs 	= ISNULL( @strTagSlugs + ',', '' ) 	+ dbo.udf_Slugify(Tbl.Col.value('var[1]', 'nvarchar(max)' ))
 	
-	SELECT 	@strTags 		= ISNULL( @strTags + ',', '' ) + 				 x.y.value('.', 'varchar(max)' ),
-			@strTagSlugs 	= ISNULL( @strTagSlugs + ',', '' ) + dbo.udf_Slugify(x.y.value('.', 'varchar(max)' ))
-	FROM @xmlData.nodes('/tags') x(y) 
-	
+	FROM   	@xmlData.nodes('/ul/li') Tbl(Col)
+	WHERE	Tbl.Col.value('b[1]', 				'nvarchar(max)') = 'Tag'
+
+
 
 	INSERT 
 	INTO @tblTaxonomy(tags, tagSlugs, menu, menustatus, menusort)
-	VALUES (
+	SELECT
 		@strTags,
 		@strTagSlugs, 
-		@xmlData.value('/menu[1]', 				'nvarchar(max)'),
-		@xmlData.value('/menu[1]/@status', 		'nvarchar(max)'),
-		@xmlData.value('/menu[1]/@sortorder', 	'nvarchar(max)')
-		)
-
+		Tbl.Col.value('var[1]', 				'nvarchar(max)'),
+		Tbl.Col.value('@data-status[1]', 		'nvarchar(max)'),
+		Tbl.Col.value('@data-position[1]', 		'nvarchar(max)')
+		
 	
+	FROM	@xmlData.nodes('/ul/li') Tbl(Col)
+	WHERE	Tbl.Col.value('b[1]', 				'nvarchar(max)') = 'Menu'
+
+
 	RETURN 
 end
 GO
 
 
+/*
+
+DECLARE xmlTitle xml = '
+
+<ul class="xoxo">
+	<li><b>Extra</b> <var>Cats</var></li>
+	<li><b>Title</b> <var>Dogs</var></li>
+	<li><b>Subtitle</b> <var>Animals</var></li>
+	<li><b>Description</b> <var>Fun with animals</var></li>
+	<li><b>ISBN</b> <var>1659-326-3265874</var></li>
+</ul>
+'
+
+SELECT *
+FROM udf_titleRead(xmltitle)
+*/
 
 
 
@@ -629,11 +611,11 @@ BEGIN
 	
 
 
-	SELECT 	@xmlTitle.value('(/extra)[1]',		'nvarchar(max)') AS [Extra],
-			@xmlTitle.value('(/title)[1]',		'nvarchar(max)') AS [title],
-			@xmlTitle.value('(/subtitle)[1]', 	'nvarchar(max)') AS [subtitle], 
-			@xmlTitle.value('(/description)[1]','nvarchar(max)') AS [description],
-			@xmlTitle.value('(/isbn)[1]',		'nvarchar(max)') AS [isbn]
+	SELECT 	@xmlTitle.value('(/ul/li[b="Extra"]/var)[1]',		'nvarchar(max)') AS [Extra],
+			@xmlTitle.value('(/ul/li[b="Title"]/var)[1]',		'nvarchar(max)') AS [title],
+			@xmlTitle.value('(/ul/li[b="Subtitle"]/var)[1]', 	'nvarchar(max)') AS [subtitle], 
+			@xmlTitle.value('(/ul/li[b="Description"]/var)[1]',	'nvarchar(max)') AS [description],
+			@xmlTitle.value('(/ul/li[b="ISBN"]/var)[1]',		'nvarchar(max)') AS [isbn]
 	
 			
 	RETURN
@@ -641,43 +623,14 @@ END
 GO
 
 
+/* rotate */
 
 
 
-/* User Data: this was designed around xoxo, but can be made to do much more */
-create function [dbo].[udf_xmlRead](@xmlData xml) 
-	
-	returns @tblmessage TABLE
-(
-    -- Columns returned by the function
-    [id] 			nvarchar(max) NULL,
-    [href] 			nvarchar(max) NULL,
-    [rel] 			nvarchar(max) NULL,
-    [title]			nvarchar(max) NULL,
-    [message]		nvarchar(max) NULL    
-)
-as
-begin
-	INSERT INTO @tblMessage
-	
-	SELECT 
-	 	Tbl.Col.value('@id', 	'nvarchar(max)') 	AS id,  
-       	Tbl.Col.value('@href', 	'nvarchar(max)') 	AS href,  
-	 	Tbl.Col.value('@rel', 	'nvarchar(max)')	AS rel,  
-	 	Tbl.Col.value('@title', 'nvarchar(max)')	AS title,
-	 	Tbl.Col.value('.', 		'nvarchar(max)')	AS message
 
-	FROM   @xmlData.nodes('/ul/li/a') Tbl(Col)
-	
-
-
-	RETURN
-end
-GO
 
 
 /*
-
 Link Sample:
 
 DECLARE @xml xml = '
@@ -688,18 +641,7 @@ DECLARE @xml xml = '
 </ul>'
 
 SELECT * 
-FROM dbo.udf_xmlRead(@xml)
-
-
-
-
-Config sample
-<ul class="xoxo">
-	<li><a>Black Cat</a></li>
-	<li><a>Chihuahua</a></li>
-</ul>
-
-
+FROM dbo.udf_xoxoRead(@xml)
 
 
 */

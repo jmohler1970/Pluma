@@ -7,7 +7,7 @@
 </cfif>
 
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app lang="en">
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
@@ -36,6 +36,8 @@
     
     <script src="#application.GSAPI.get_site_root()#layouts/jquery/jquery.js" 		type="text/javascript"></script>
     <script src="#application.GSAPI.get_site_root()#layouts/jquery/jquery-ui.js" 	type="text/javascript"></script>
+    <script src="#application.GSAPI.get_site_root()#layouts/jquery/angular.js" 	type="text/javascript"></script>
+    
     
     <cfif getSection() NEQ "login">
 		#application.GSAPI.exec_action("admin-pre-header")#	

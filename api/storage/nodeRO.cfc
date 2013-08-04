@@ -267,7 +267,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	
 	
 	<cfquery name="local.qryPageParent">
-		SELECT	#variables.lstNode#, dbo.vwNodeSort.[Level] 
+		SELECT	#variables.lstNode#, dbo.vwNodeSort.[Level], CONVERT(varchar(30), modifyDate, 126) AS Date2 
 		FROM	dbo.vwNode WITH (NOLOCK) INNER JOIN 
 				dbo.vwNodeSort WITH (NOLOCK)
 		ON dbo.vwNode.NodeID = dbo.vwNodeSort.SortNodeID
@@ -1203,11 +1203,13 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		
 	
 		SELECT 	TOP 200 NodeArchiveID, NodeID, slug, CONVERT(date, VersionDate) AS ShortDate,
-			VersionDate, m.[by] AS ModifyBy, Kind, Root, NoDelete, 
-			xmlTitle.value('/title[1]', 'nvarchar(max)') AS title, DataSize
+			VersionDate, M.Address AS ModifyBy, Kind, Root, NoDelete, 
+			T.title, DataSize
 		
 		FROM 	dbo.NodeArchive
-		CROSS APPLY dbo.udf_4jRead(Modified)	M
+		CROSS APPLY dbo.udf_titleRead(xmlTitle)	T
+		CROSS APPLY dbo.udf_xoxoRead(Modified)	M
+				
 		WHERE	Deleted = 0
 		AND		(NodeID 	= @NodeID 	OR @NodeID = '')
 				

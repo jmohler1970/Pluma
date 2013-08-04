@@ -1,3 +1,117 @@
+<!doctype html>
+ 
+<html ng-app lang="en">
+  <head>
+    <meta charset="utf-8">
+ 
+    <title>AngularJS Sorting &amp; Filtering Example</title>
+ 
+    <style type="text/css">
+      body{ font:12px arial, sans-serif; line-height:1.6em; margin:0 auto; max-width:960px; }
+      form{ text-align:right; }
+      h1, h2, hr, p, table{ margin-bottom:20px; }
+      table{ width:100%; }
+      th, td{ padding:5px; text-align:left; vertical-align:top; }
+      th{ background:#ccc; }
+      .even{ background-color:#efefef; }
+    </style>
+ 
+    <!-- include the core AngularJS library -->
+    <script src="./angular.js"></script>
+
+  </head>
+ 
+  <body>
+    <h1>AngularJS Sorting &amp; Filtering Example</h1>
+    
+    <div ng-init='contacts = [
+    	  { "pfirstname":"Simon", "plastname":"Bingham", "ptelephone":"00000 000000" }
+        , { "pfirstname":"Andy", "plastname":"Beer", "ptelephone":"00000 000000" }
+        , { "pfirstname":"John", "plastname":"Whish", "ptelephone":"00000 000000" }
+        , { "pfirstname":"Ben", "plastname":"Nadel", "ptelephone":"00000 000000" }
+        , { "pfirstname":"Sean", "plastname":"Corfield", "ptelephone":"00000 000000" }
+        , { "pfirstname":"Jaclyn", "plastname":"Barrel", "ptelephone":"00000 000000" }
+        , { "pfirstname":"Pete", "plastname":"Thompson", "ptelephone":"00000 000000" }
+        , { "pfirstname":"George W.", "plastname":"Bush", "ptelephone":"00000 000000" }
+		, { "pfirstname":"Bill", "plastname":"Clinton", "ptelephone":"00000 000000" }
+        , { "pfirstname":"George", "plastname":"Bush", "ptelephone":"00000 000000" }
+        , { "pfirstname":"Ronald", "plastname":"Reagan", "ptelephone":"00000 000000" }
+        , { "pfirstname":"Jimmy", "plastname":"Carter", "ptelephone":"00000 000000" }
+        , { "pfirstname":"Gerry", "plastname":"Ford", "ptelephone":"00000 000000" }
+        , { "pfirstname":"Richard", "plastname":"Nixon", "ptelephone":"00000 000000" }
+        , { "pfirstname":"Lyndon", "plastname":"Johnson", "ptelephone":"00000 000000" }        
+        
+      ]'></div>
+    
+    
+    <form>
+      Search: <input ng-model="query">
+ 
+      <select ng-model="sortorder">
+        <option value="">-- sort order --</option>
+        <option value="plastname">Ascending</option>
+        <option value="-plastname">Descending</option>
+      </select>
+    </form>
+    
+    <p>There are <strong>{{(contacts|filter:query).length}}</strong> contacts<span ng-show="query.length"> matching &quot;{{query}}&quot;</span>.</p>
+    
+
+    <table class="contacts" ng-show="(contacts|filter:query).length">
+      <tr>
+        <th>Name</th>
+        <th>Telephone</th>
+      </tr>
+ 
+      <tr ng-repeat="contact in contacts|filter:query|orderBy:sortorder">
+        <td ng-class-even="'even'">{{contact.plastname}}, {{contact.pfirstname}}</td>
+        <td ng-class-even="'even'">{{contact.ptelephone}}</td>
+      </tr>
+    </table>
+  </body>
+</html>
+
+
+
+<cfexit>
+
+
+
+<!doctype html>
+<html ng-app>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+  </head>
+  <body>
+
+<div ng-init="friends = [{name:'John', phone:'555-1276'},
+                         {name:'Mary', phone:'800-BIG-MARY'},
+                         {name:'Mike', phone:'555-4321'},
+                         {name:'Adam', phone:'555-5678'},
+                         {name:'Julie', phone:'555-8765'}]"></div>
+<div ng-init='columnNames = ["name", "phone"]'></div>
+<div ng-init="search.name = ''; search.phone = ''"></div>
+
+Any: <input ng-model="search.$"> <br>
+<table id="searchObjResults">
+  <tr>
+    <th ng-repeat="columnName in columnNames">{{columnName}}</th>
+  <tr>
+  <tr ng-repeat="friend in friends | filter:search">
+    <td>{{friend.name}}</td>
+    <td>{{friend.phone}}</td>
+  <tr>
+</table>
+
+
+  </body>
+</html>
+
+
+
+<cfexit>
+
+
 
 <cfscript>
 wsUser 	= createobject("component", "Users");

@@ -21,8 +21,8 @@ SELECT     A.NodeID, A.ParentNodeID, A.PrimaryRecord, A.[Root], A.Kind, A.Slug,
 				A.strData, A.xmlData, A.pinned, A.pStatus, A.cStatus, 
 				A.StartDate, A.ExpirationDate, A.CommentMode, 
 				A.NoDelete, A.Deleted, A.DeleteDate, 
-				A.Modified, M.[By] AS ModifyBy, M.[datetime] AS ModifyDate, 
-				A.Created, C.[By] AS CreateBy, C.[datetime] AS CreateDate,
+				A.Modified, M.Address AS ModifyBy, M.[datetime] AS ModifyDate, 
+				A.Created,  C.Address AS CreateBy, C.[datetime] AS CreateDate,
 				
 				B.NodeCount,
 				ISNULL(NodeArc.ArchiveCount, 0) AS ArchiveCount, 
@@ -52,8 +52,8 @@ SELECT     A.NodeID, A.ParentNodeID, A.PrimaryRecord, A.[Root], A.Kind, A.Slug,
 FROM         dbo.Node AS A 
 CROSS APPLY dbo.udf_titleRead(xmlTitle)	TT
 CROSS APPLY dbo.udf_taxonomyRead(xmlTaxonomy)	Tax
-CROSS APPLY dbo.udf_4jRead(Modified)	M
-CROSS APPLY dbo.udf_4jRead(Created)		C
+CROSS APPLY dbo.udf_xoxoRead(Modified)	M
+CROSS APPLY dbo.udf_xoxoRead(Created)	C
 
 
 LEFT OUTER JOIN
@@ -161,58 +161,6 @@ from DataPlusRN
 GO
 
 
-
-CREATE VIEW [dbo].[vwUser] 
-AS
-
-SELECT   dbo.Users.UserID, login, passhash, slug,
-	
-		PersonName.value('(/vcard/n/prefix)[1]', 	'nvarchar(max)') AS prefix,
-		PersonName.value('(/vcard/n/given)[1]', 	'nvarchar(max)') AS given,
-		PersonName.value('(/vcard/n/additional)[1]','nvarchar(max)') AS additional,
-		PersonName.value('(/vcard/n/family)[1]', 	'nvarchar(max)') AS family,
-		PersonName.value('(/vcard/n/suffix)[1]', 	'nvarchar(max)') AS suffix,
-
-		PersonName.value('(/vcard/org)[1]', 		'nvarchar(max)') AS org,
-		PersonName.value('(/vcard/photo)[1]', 		'nvarchar(max)') AS photo,
-		PersonName.value('(/vcard/url)[1]', 		'nvarchar(max)') AS url,
-		PersonName.value('(/vcard/email)[1]', 		'nvarchar(max)') AS email,
-		PersonName.value('(/vcard/title)[1]', 		'nvarchar(max)') AS title,
-		
-		
-		PersonName.value('(/vcard/tel/uri[../parameters/text = "office"])[1]', 	'nvarchar(max)') AS officetel,
-		PersonName.value('(/vcard/tel/uri[../parameters/text = "cell"])[1]', 	'nvarchar(max)') AS celltel,
-		PersonName.value('(/vcard/tel/uri[../parameters/text = "fax"])[1]', 	'nvarchar(max)') AS faxtel,
-		
-		
-		PersonName.value('(/vcard/adr/street)[1]', 	'nvarchar(max)') AS street,
-		PersonName.value('(/vcard/adr/locality)[1]','nvarchar(max)') AS locality,
-		PersonName.value('(/vcard/adr/region)[1]', 	'nvarchar(max)') AS region,
-		PersonName.value('(/vcard/adr/code)[1]', 	'nvarchar(max)') AS code,
-		PersonName.value('(/vcard/adr/country)[1]', 'nvarchar(max)') AS country,
-
-		PersonName.value('(/vcard/tz/text)[1]', 	'nvarchar(max)') AS tz,
-		PersonName.value('(/vcard/note)[1]', 		'nvarchar(max)') AS note,
-
-		
-		lastLogin, ExpirationDate, pStatus,
-		
-		xmlProfile,  xmlLink,  
-         
-		dbo.udf_xmlToStr(xmlGroup) AS Groups,
-		xmlGroup, Active,
-		Deleted, DeleteDate, 
-		
-		M.Datetime AS ModifyDate, M.[By] AS ModifyBy, C.[By] AS CreateDate, M.[Datetime] AS CreateBy
-
-FROM         dbo.Users WITH (NOLOCK)
-
-CROSS APPLY dbo.udf_4jRead(Modified)	M
-CROSS APPLY dbo.udf_4jRead(Created)		C
-
-
-
-GO
 
 
 

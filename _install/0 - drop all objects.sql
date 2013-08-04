@@ -32,7 +32,7 @@ GO
 DROP PROCEDURE [dbo].[usp_TrafficDetails]
 GO
 
-/* Views */
+/* Views except xoxo */
 DROP VIEW [dbo].[vwNode]
 GO
 
@@ -40,8 +40,7 @@ GO
 DROP VIEW [dbo].[vwNodeSort]
 GO
 
-DROP VIEW [dbo].[vwUser]
-GO
+
 
 
 /* Tables */
@@ -191,10 +190,6 @@ GO
 
 
 /* Table Value Functions */ 
-DROP FUNCTION [dbo].[udf_4jRead]
-GO
-
-
 DROP FUNCTION [dbo].[udf_calendar]
 GO
 
@@ -207,7 +202,13 @@ DROP FUNCTION [dbo].[udf_titleRead]
 GO
 
 
-DROP FUNCTION [dbo].[udf_xmlRead]
+
+
+/* XOXO views and functions */
+DROP VIEW [dbo].[vwUser]
 GO
 
+
+DROP FUNCTION [dbo].[udf_xoxoRead]
+GO
 
