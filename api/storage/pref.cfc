@@ -28,11 +28,11 @@
 
 		
 	<cfquery name="local.qryPref">
-		SELECT 	Pref, CASE WHEN id = '' THEN 'default' ELSE id END AS id, title, href, rel, message
+		SELECT 	Pref, CASE WHEN [type] = '' THEN 'default' ELSE [type] END AS [type], title, href, rel, message
 		FROM	dbo.Pref WITH (NOLOCK)
-		CROSS APPLY dbo.udf_xmlRead(xmlPref)
+		CROSS APPLY dbo.udf_xoxoRead(xmlPref)
 		WHERE	Deleted = 0
-		AND		id IS NOT NULL
+		AND		[type] IS NOT NULL
 		ORDER BY Pref
 	</cfquery>
 
@@ -44,7 +44,7 @@
 			stResult[pref] =  {};		
 		
 			
-		stResult[pref][id] = message;
+		stResult[pref][type] = message;
 		</cfscript>
 
 	</cfloop>
@@ -75,7 +75,7 @@
 		DECLARE @category varchar(40) =  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.type#">
 	
 		UPDATE	dbo.Pref
-		SET 	xmlPref.modify('delete /ul/li[a/@id=sql:variable("@category")]')
+		SET 	xmlPref.modify('delete /ul/li/b[.=sql:variable("@category")]')
 		WHERE	pref 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.pref#">
 		AND		Deleted = 0
 	</cfquery> 
@@ -96,7 +96,7 @@
 		FROM	dbo.Pref WITH (NOLOCK)
 		WHERE	pref 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.pref#">
 		AND		Deleted = 0
-		AND		xmlPref.exist('/ul/li[.=sql:variable("@category")]') = 1
+		AND		xmlPref.exist('/ul/li/b[.=sql:variable("@category")]') = 1
 	</cfquery> 
 
 	<cfif qryType.Pref EQ "">

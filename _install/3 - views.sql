@@ -50,10 +50,10 @@ SELECT     A.NodeID, A.ParentNodeID, A.PrimaryRecord, A.[Root], A.Kind, A.Slug,
 
 				A.DataSize
 FROM         dbo.Node AS A 
-CROSS APPLY dbo.udf_titleRead(xmlTitle)	TT
-CROSS APPLY dbo.udf_taxonomyRead(xmlTaxonomy)	Tax
-CROSS APPLY dbo.udf_xoxoRead(Modified)	M
-CROSS APPLY dbo.udf_xoxoRead(Created)	C
+OUTER APPLY dbo.udf_titleRead(xmlTitle)	TT
+OUTER APPLY dbo.udf_taxonomyRead(xmlTaxonomy)	Tax
+OUTER APPLY dbo.udf_xoxoRead(Modified)	M
+OUTER APPLY dbo.udf_xoxoRead(Created)	C
 
 
 LEFT OUTER JOIN
@@ -61,7 +61,7 @@ LEFT OUTER JOIN
                           (SELECT     NodeID, Slug, PT.Title AS ParentTitle,  PC.[datetime] AS CreateDate
                             FROM          dbo.Node WITH (NOLOCK)
 							CROSS APPLY dbo.udf_titleRead(xmlTitle)	PT
-							CROSS APPLY dbo.udf_4jRead(Created)	PC
+							CROSS APPLY dbo.udf_xoxoRead(Created)	PC
 							WHERE      (Deleted = 0)) AS P ON A.ParentNodeID = P.NodeID 
 							
 							

@@ -197,22 +197,20 @@ void function process(required struct rc) output="false" {
 	param rc.name = "";
 	
 	
-	param rc.title = "";
-	param rc.slug = "";
-	param rc.tags = "";
-	param rc.pstatus = "";
+	param rc.title		= "";
+	param rc.slug		= "";
+	param rc.tags		= "";
+	param rc.pstatus	= "";
 	param rc.menuStatus = 0;
-	param rc.menu = "";
-	param rc.menuorder = "";
+	param rc.menu		= "";
+	param rc.menuorder 	= "";
 	param rc.theme_template = "";
 	param rc.parentslug = "";
-	param rc.modifyby = "";
+	param rc.parentNodeID = "";
+	param rc.modifyby 	= "";
 	
-	param rc.strData = "";
-	param rc.xmlData = "";
-
-
-
+	param rc.strData 	= "";
+	param rc.xmlData 	= "";
 	</cfscript>
 	
 	
@@ -235,15 +233,31 @@ void function process(required struct rc) output="false" {
 	</cfswitch>	
 	
 
-	<cfif cgi.request_method EQ "POST">
+	<cfscript>
+	if (cgi.request_method == "POST")	{
+	
+		var NodeK = {NodeID = rc.NodeID, Kind = "Page"};	
+			
+			
+		application.GSAPI.exec_action('changedata-save', "", rc);
 	
 	
-		<cfset result = application.IOAPI.set_XMLData({NodeID = rc.NodeID}, {xmlData = rc.xmlData})>
+		var stResult = application.IOAPI.set(NodeK, rc);
+		
+		if (not stResult.result)	{
+			this.AddError(stResult.key, [stResult.message]);
+				
+			return;
+			}
+	
+	
+		var result = application.IOAPI.set_XMLData({NodeID = rc.NodeID}, rc.xmlData);
 
-		<cfset this.AddInfo(result.key)>
+		this.AddInfo(result.key);
 
-		<cfset variables.fw.redirect("backup.import", "all")>
-	</cfif>
+		variables.fw.redirect("backups.importdata", "all");
+		}
+	</cfscript>
 
 </cffunction>
 

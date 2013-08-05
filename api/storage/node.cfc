@@ -69,6 +69,13 @@
 	<cfargument name="remote_addr" required="true" type="string">
 	<cfargument name="byUserID" required="true" type="string">
 	
+	<cfif not isnumeric(arguments.NodeK.NodeID)>
+		<cfset this.stResults.result = false>
+		<cfset this.stResults.key = "NOT_FOUND">
+	
+		<cfreturn this.stResults>
+	</cfif>
+	
 	
 	<cfquery>
 	UPDATE	dbo.Node
@@ -79,7 +86,7 @@
 	WHERE	NodeID = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.NodeID#">
 	AND		Kind = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.NodeK.Kind#">
 	AND		Deleted = 0
-	AND		xmlData <> <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#rc.xmlData#">
+	AND		CONVERT(nvarchar(max), xmlData) <> <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#rc.xmlData#">
 	</cfquery>
 
 	<cfscript>
@@ -145,18 +152,19 @@
 	param rc.allowupdate 		= 1;	
 	
 	rc.cstatus = (rc.submit CONTAINS "draft") ? 0 : 1;
-	
-
-
-		
-	var xmlTitle = '';
-	if (isDefined("rc.Extra"))		{ xmlTitle &= "<extra>#xmlFormat(rc.Extra)#</extra>"; 	}
-	if (isDefined("rc.Title"))		{ xmlTitle &= "<title>#xmlFormat(rc.Title)#</title>"; 	}
-	if (isDefined("rc.SubTitle"))	{ xmlTitle &= "<subtitle>#xmlFormat(rc.subTitle)#</subtitle>"; 	}
-	if (isDefined("rc.Description")){ xmlTitle &= "<description>#xmlFormat(rc.Description)#</description>"; 	}
-	if (isDefined("rc.ISBN"))		{ xmlTitle &= "<isbn>#xmlFormat(rc.ISBN)#</isbn>"; 	}
 	</cfscript>
-	
+
+	<cfsavecontent variable="xmlTitle">
+	<ul class="xoxo">
+	<cfoutput>	
+		<cfif isDefined("rc.Extra")		 ><li><b>Extra</b>			<var>#xmlFormat(rc.Extra)#</var></li>		</cfif>
+		<cfif isDefined("rc.Title")		 ><li><b>Title</b>	 		<var>#xmlFormat(rc.Title)#</var></li>		</cfif>
+		<cfif isDefined("rc.SubTitle")	 ><li><b>Subtitle></b> 		<var>#xmlFormat(rc.subTitle)#</var></li>	</cfif>
+		<cfif isDefined("rc.Description")><li><b>Description></b> 	<var>#xmlFormat(rc.Description)#</var></li>	</cfif>
+		<cfif isDefined("rc.ISBN")		 ><li><b>ISBN</b> 			<var>#xmlFormat(rc.ISBN)#</var></li>		</cfif>
+	</cfoutput>
+	</ul>
+	</cfsavecontent>
 	
 	
 		
@@ -352,13 +360,18 @@
 	<cfargument name="byUserID" required="true" type="string">
 	
 	
-	<cfscript>
-	var xmlTitle = "";
-	if (arguments.Title != "")		{ xmlTitle &= "<title>#xmlFormat(arguments.Title)#</title>"; 	}
-	if (arguments.Extra != "")		{ xmlTitle &= "<extra>#xmlFormat(arguments.Extra)#</extra>"; 	}
+	<cfsavecontent variable="xmlTitle">
+	<ul class="xoxo">
+	<cfoutput>	
+		<cfif isDefined("rc.Extra")><li><b>Extra</b>	<var>#xmlFormat(rc.Extra)#</var></li>	</cfif>
+		<cfif isDefined("rc.Title")><li><b>Title</b> 	<var>#xmlFormat(rc.Title)#</var></li>	</cfif>
+	</cfoutput>
+	</ul>
+	</cfsavecontent>
 	
-	slug = this.doSlug(arguments.extra & '-' & arguments.Title); // this is to create unique ids for deleting
-	</cfscript>
+		
+	<cfset slug = this.doSlug(arguments.extra & '-' & arguments.Title)> // this is to create unique ids for deleting
+	
 	
 	<cfquery>
 	INSERT
@@ -493,7 +506,7 @@
 	
 	
 	<cfquery name="qryClearLink">
-	DECLARE @xmlLink varchar(max) = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.encodeXML(rc)#">
+	DECLARE @xmlLink varchar(max) = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'href')#">
 	
 	
 	UPDATE	dbo.Node
@@ -561,22 +574,28 @@
 	
 	
 	
-	
+	<li><b>Tag</b> <var>Dogs</var></li>
+	<li data-position="4" data-status="whatever"><b>Menu</b> <var>Animals</var></li>
 	
 	<cfsavecontent variable="strXML">
+		<ul class="xoxo">
 		<cfoutput>
-		
-		<menu status 	= "#xmlFormat(arguments.rc.menustatus)#" 
-			sortorder 	= "#xmlFormat(arguments.rc.menuorder)#">#xmlFormat(arguments.rc.menu)#</menu>
+			<li data-position	="#xmlFormat(arguments.rc.menuorder)#" 
+				data-status		="#xmlFormat(arguments.rc.menustatus)#">
+				
+				<b>Menu</b> <var>#xmlFormat(arguments.rc.menu)#</var>
+			</li>
+			
 		
 	
 		<cfloop index="i" list="#rc.facet#">
-			<facet type="#listfirst(i, ':')#">#listlast(i, ':')#</facet>
+			<li><b>Facet</b> <cite>#listfirst(i, ':')#</cite> <var>#listlast(i, ':')#</var></li>
 		</cfloop>
 		<cfloop index="i" list="#rc.tags#">
-			<tags>#xmlformat(i)#</tags>
+			<li><b>Tag</b> <var>#xmlformat(i)#</var></li>
 		</cfloop>
 		</cfoutput>
+		</ul>
 	</cfsavecontent>
 	
 

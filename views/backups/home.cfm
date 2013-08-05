@@ -87,7 +87,9 @@
 
 
 <cfif rc.qryArchive.recordcount EQ 0>
-	<p class="alert">#application.GSAPI.i18n("plumacms/no_history")# </p>
+	<cfoutput>
+		<p class="alert">#application.GSAPI.i18n("plumacms/no_history")# </p>
+	</cfoutput>
 </cfif>
 
 </div>

@@ -500,11 +500,11 @@ struct function set_conf(required struct NodeK, required struct rc) output="fals
 
 
 
-string function set_XMLData(required struct NodeK, required string xmlData) output="false"  hint="Plugin must encode and decode xml. This function saves XML without additional processing."	{
+struct function set_XMLData(required struct NodeK, required string xmlData) output="false"  hint="Plugin must encode and decode xml. This function saves XML without additional processing."	{
 
 	param arguments.NodeK.Kind = "Page";
 
-	return this.wsNode.SetXMLData(arguments.NodeK, {xmlData = arguments.xmlData}, cgi.remote_addr, session.LOGINAPI.UserID);
+	return this.wsNode.XMLSave(arguments.NodeK, {xmlData = arguments.xmlData}, cgi.remote_addr, session.LOGINAPI.UserID);
 	}
 	
 

@@ -247,7 +247,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	
 		qryData 		= this.getData(qryNode.NodeID),
 		qryConfig 		= this.getConf(qryNode.NodeID),
-		qryLink 		= this.getLink(arguments.NodeK),
+		qryLink 		= this.getLink({NodeID = qryNode.NodeID, Kind = qryNode.Kind}),
 	
 		qryFacet		= this.FacetGet(qryNode.NodeID)
 		
@@ -1044,7 +1044,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	<cfquery name="local.qryExists">
 		SELECT	NodeID
 		FROM	dbo.Node WITH (NOLOCK)
-		CROSS APPLY dbo.udf_xmlRead(xmlLink)
+		CROSS APPLY dbo.udf_xoxoRead(xmlLink)
 		WHERE	NodeID = <cfqueryparam CFSQLType="CF_SQL_integer" value="#arguments.nodeid#">
 		AND		Deleted = 0
 		AND		type = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.type#">
@@ -1137,7 +1137,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	<cfquery name="local.qryData">
 		SELECT 	href, rel, title, message
 		FROM   	dbo.Node WITH (NOLOCK)
-		CROSS 	APPLY dbo.udf_xmlRead(xmlData)
+		CROSS 	APPLY dbo.udf_xoxoRead(xmlData)
 		WHERE	Deleted = 0
 		AND		NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">)
 	</cfquery>
@@ -1151,15 +1151,15 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	<cfargument name="NodeID" required="true" type="string">
 
 
-	<cfquery name="local.qryLink">
+	<cfquery name="local.qryConf">
 		SELECT 	href, rel, title, message
 		FROM   	dbo.Node WITH (NOLOCK)
-		CROSS 	APPLY dbo.udf_xmlRead(xmlConf)
+		CROSS 	APPLY dbo.udf_xoxoRead(xmlConf)
 		WHERE	Deleted = 0
 		AND		NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">)
 	</cfquery>
 
-	<cfreturn local.qryLink>
+	<cfreturn local.qryConf>
 </cffunction>
 
 
@@ -1173,9 +1173,9 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 	<cfquery name="local.qryLink">
-		SELECT 	NodeID, href, rel, title, message
+		SELECT 	NodeID, [type], href, rel, title, message
 		FROM   	dbo.Node WITH (NOLOCK)
-		CROSS 	APPLY dbo.udf_xmlRead(xmlLink)
+		CROSS 	APPLY dbo.udf_xoxoRead(xmlLink)
 		WHERE	Deleted = 0
 
 		<cfif arguments.NodeK.Kind NEQ "">

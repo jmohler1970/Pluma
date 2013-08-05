@@ -123,8 +123,8 @@ SELECT   dbo.Users.UserID, login, passhash, slug,
 
 FROM    dbo.Users WITH (NOLOCK)
 
-CROSS APPLY dbo.udf_xoxoRead(Modified)	M
-CROSS APPLY dbo.udf_xoxoRead(Created)	C
+OUTER APPLY dbo.udf_xoxoRead(Modified)	M
+OUTER APPLY dbo.udf_xoxoRead(Created)	C
 
 
 

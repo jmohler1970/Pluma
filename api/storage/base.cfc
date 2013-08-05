@@ -96,7 +96,11 @@
 	<cfsavecontent variable="xmlData">
 	<ul class="xoxo">
 	<cfoutput query="qryData">
-		<li><a id="#id#" #href# #rel# #title#>#message#</a></li>	
+		<cfif href EQ '' AND rel EQ ''>
+			<li #title#><b>#id#</b> <var>#xmlformat(message)#</var></li>
+		<cfelse> 
+			<li #title#><b>#id#</b> <a #href# #rel#>#xmlformat(message)#</a></li>
+		</cfif>		
 	</cfoutput> 
 	</ul>
 	</cfsavecontent>

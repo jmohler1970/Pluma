@@ -4,7 +4,7 @@
 	<h3 class="float">Preview Data Import</h3>
 
 
-
+<cfoutput>
 <form action="#buildURL(action = '.preview')#" method="post" class="anondata">
 
 
@@ -26,7 +26,6 @@
 
 
 	
-	<cfoutput>
 	<p><b>Title:</b> #xmlformat(rc.title)# <cfif rc.title EQ ""><i>None</i></cfif></p>
 	<p><b>pStatus:</b> #xmlformat(rc.pStatus)# <cfif rc.pstatus EQ ""><i>None</i></cfif></p>
 
@@ -38,6 +37,8 @@
 	</cfoutput>
 
 
+<br />
+
 <h3>Merge To</h3>
 	
 
@@ -47,8 +48,8 @@
 
 
 		<select name="NodeID"  class="text autowidth">
-			<option> -- Pick One</option>
-			<option>Create new page</option>
+			<option value=""> -- Pick One</option>
+			<option value="">Create new page</option>
 						
 			<cfoutput query="rc.qryAllPages">
 				<option value="#NodeID#" <cfif slug EQ rc.slug>selected="selected"</cfif>>

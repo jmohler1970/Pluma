@@ -203,7 +203,7 @@ return( LOCAL.QueryArray );
     </cfoutput>
 	</table>
 
- <p>There are <strong>{{(xpages|filter:query).length}}</strong> contacts<span ng-show="query.length"> matching &quot;{{query}}&quot;</span>.</p>
+ <p>There are <strong>{{(xpages|filter:query).length}}</strong> page(s)<span ng-show="query.length"> matching &quot;{{query}}&quot;</span>.</p>
    
 </div>
 

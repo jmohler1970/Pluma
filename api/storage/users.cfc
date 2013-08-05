@@ -565,7 +565,7 @@ query function getBySlug(required string slug) output="no" 	{
 	<cfquery name="local.qryResult">
 		SELECT  title, rel, href, message
 		FROM	dbo.Users
-		CROSS APPLY dbo.udf_xmlRead(xmlProfile)
+		CROSS APPLY dbo.udf_xoxoRead(xmlProfile)
 		WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
 		AND		Deleted = 0
 	</cfquery>
@@ -598,7 +598,7 @@ query function getBySlug(required string slug) output="no" 	{
 	<cfquery name="local.qryResult">
 		SELECT	UserID, id, href, title, message
 		FROM	dbo.Users
-		CROSS APPLY dbo.udf_xmlRead(xmlLink)
+		CROSS APPLY dbo.udf_xoxoRead(xmlLink)
 		WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
 		AND		Deleted = 0
 	</cfquery>
@@ -614,7 +614,7 @@ query function getBySlug(required string slug) output="no" 	{
 	<cfquery name="local.qryResult">
 		SELECT	xmlPref, type, message
 		FROM	dbo.Users
-		CROSS APPLY dbo.udf_xmlRead(xmlPref)
+		CROSS APPLY dbo.udf_xoxoRead(xmlPref)
 		WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
 		AND		Deleted = 0
 	</cfquery>
