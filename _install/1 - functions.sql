@@ -210,6 +210,33 @@ END
 GO
 
 
+CREATE FUNCTION dbo.udf_dateformat (@dtDate date)
+returns varchar(max()) AS
+BEGIN
+	DECLARE @result varchar(Max) = 
+		CASE DATEPART(weekday,@dtDate)
+			WHEN 1 THEN 'Sunday, '
+			WHEN 2 THEN 'Monday, '
+			WHEN 3 THEN 'Tuesday, '
+			WHEN 4 THEN 'Wednesday, '
+			WHEN 5 THEN 'Thursday, '
+			WHEN 6 THEN 'Friday, '
+			WHEN 7 THEN 'Saturday, '
+		END
+	
+		+ CONVERT(varchar(max), @dtDate, 7)
+
+	SET @result = 
+		CASE 
+			WHEN @dtDate = CONVERT(date, getDate()) THEN 'Today'
+			WHEN @dtDate = DATEADD(dd, -1, CONVERT(date, getDate())) THEN 'Yesterday'
+			ELSE @result
+		END	
+		
+	RETURN @result		
+END
+GO
+
 
 
 
