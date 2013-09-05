@@ -211,7 +211,7 @@ GO
 
 
 CREATE FUNCTION dbo.udf_dateformat (@dtDate date)
-returns varchar(max()) AS
+returns varchar(max) AS
 BEGIN
 	DECLARE @result varchar(Max) = 
 		CASE DATEPART(weekday,@dtDate)
