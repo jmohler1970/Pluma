@@ -118,30 +118,38 @@
 	
 
 	<cfquery>
-		DECLARE @myPref  varchar(40) 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.Pref#">
-		DECLARE @xmlPref varchar(max)	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.encodeXML(rc, arguments.Pref)#">
+		DECLARE @Source TABLE (
+			Pref varchar(40) NOT NULL PRIMARY KEY CLUSTERED,
+			xmlPref 	xml,
+			Modified 	xml,
+			Created 	xml 
+			)
 		
-	
-		IF NOT EXISTS(SELECT 1 FROM dbo.Pref WHERE Pref = @myPref)
-    		INSERT 
-    		INTO dbo.Pref (Pref, Created)
-        	VALUES (@MyPref,
-        		dbo.udf_4jInfo('Created',
+		INSERT 
+		INTO	@Source
+		SELECT  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.Pref#">,
+				<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.encodeXML(rc, arguments.Pref)#">,
+				dbo.udf_4jSuccess('Preferences Saved',
 					<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 					<cfqueryparam CFSQLType="CF_SQL_integer" value="#arguments.byUserID#">
-        			)
-        		)
-        		
-		
-		UPDATE	dbo.Pref
-		SET 	xmlPref 	= @xmlPref,
-				DeleteDate 	= NULL,
-				Modified 	= dbo.udf_4jSuccess('Preferences Saved',
+					),
+				dbo.udf_4jInfo('Created',
 					<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 					<cfqueryparam CFSQLType="CF_SQL_integer" value="#arguments.byUserID#">
-					)
-		WHERE	Pref 	= @myPref
-		AND		CONVERT(varchar(max), xmlPref) <> @xmlPref
+        			)	
+		
+		/* Now merge */		
+		MERGE	dbo.Pref
+		USING	@Source AS Source
+		ON		dbo.Pref.Pref = Source.Pref
+		AND		CONVERT(nvarchar(max), dbo.Pref.xmlPref) <> CONVERT(nvarchar(max), Source.xmlPref)
+		WHEN MATCHED 		THEN 
+			UPDATE 
+			SET xmlPref = Source.xmlPref, Modified = Source.Modified
+		WHEN NOT MATCHED 	THEN 
+			INSERT (Pref, 		 Created) 
+			VALUES (Source.Pref, Source.Created)
+		;	
 	</cfquery>
 	
 	
