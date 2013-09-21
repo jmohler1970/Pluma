@@ -142,10 +142,10 @@
 		MERGE	dbo.Pref
 		USING	@Source AS Source
 		ON		dbo.Pref.Pref = Source.Pref
-		AND		CONVERT(nvarchar(max), dbo.Pref.xmlPref) <> CONVERT(nvarchar(max), Source.xmlPref)
-		WHEN MATCHED 		THEN 
+		
+		WHEN MATCHED AND CONVERT(nvarchar(max), dbo.Pref.xmlPref) <> CONVERT(nvarchar(max), Source.xmlPref)	THEN 
 			UPDATE 
-			SET xmlPref = Source.xmlPref, Modified = Source.Modified
+			SET xmlPref = Source.xmlPref, Modified = Source.Modified, DeleteDate = NULL
 		WHEN NOT MATCHED 	THEN 
 			INSERT (Pref, 		 Created) 
 			VALUES (Source.Pref, Source.Created)
