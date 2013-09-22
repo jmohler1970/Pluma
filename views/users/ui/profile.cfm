@@ -132,46 +132,50 @@
 
 	<div class="clear"></div>
 	
-<div id="link_window" style="display : none;">
+
 
 
 	<h3>hCard</h3>
 	
 	
 	<table class="cleantable">
-	<tbody>
 	<tr>
 	  <td style="width:33%"><b>Prefix</b></td>
 	  <td><input type="text" name="prefix" class="text" style="width:250px;" 	value="#htmleditformat(stUser.prefix)#" /></td>
 	</tr>
+
 	<tr>
 	  <td><b>First Name</b></td>
 	  <td><input type="text" name="given" class="text" style="width:250px;" value="#htmleditformat(stUser.given)#" /></td>
 	</tr>
+
 	<tr>
 	  <td><b>Middle Name</b></td>
 	  <td><input type="text" name="additional" class="text" style="width:25px;" value="#htmleditformat(stUser.additional)#" /></td>
 	</tr>
+
 	<tr>
 	  <td><b>Last Name</b></td>
 	  <td><input type="text" name="family" class="text" style="width:250px;" value="#htmleditformat(stUser.family)#" /></td>
 	</tr>
+
 	<tr>
 	  <td><b>Postfix</b></td>
 	  <td><input type="text" name="suffix" class="text" style="width:250px;" 	value="#htmleditformat(stUser.suffix)#" /></td>
 	</tr>
+
+	<!--- hideable section --->
+	<tbody id="link_window" style="display : none;">
 	<tr>
 	  <td><b>Title</b></td>
 	  <td><input type="text" name="title" class="text" style="width:250px;" value="#htmleditformat(stUser.title)#"></td>
 	</tr>
+
 	<tr>
 	  <td><b>Company</b></td>
 	  <td><input type="text" name="org" class="text" style="width:250px;" value="#htmleditformat(stUser.org)#" /></td>
 	</tr>
 	
-	
-
-
 	<tr>
 	  <td><b>Office Phone</b></td>
 	  <td><input type="text" name="officetel" class="text" style="width:150px;" value="#htmleditformat(stUser.officetel)#"></td>
@@ -210,6 +214,7 @@
 	  <td><input type="text" name="street" class="text" style="width:250px;" value="#htmleditformat(stUser.street)#"><br />
 	  <small>Street Name</small></td>
 	</tr>
+	
 	<tr>
 	  <td></td>
 	  <td>
@@ -235,15 +240,10 @@
 	
 	<tr>
 		<td><b>Notes</b></td>
-		<td colspan="2"><textarea name="note" rows="3" cols="80" style="height : 40px;">#htmleditformat(stUser.note)#</textarea></td>
+		<td><textarea name="note" rows="3" cols="80" style="height : 40px;">#htmleditformat(stUser.note)#</textarea></td>
 	</tr>
 	
 	<!--- above are pre wired --->
-	
-
-	
-
-
 
 
 		
@@ -254,9 +254,9 @@
 
 	<div class="clear"></div>
 	
-
+	<!--- This is for stuff in between the custom tag --->
 	#inner#
-</div>
+
 	
 
 
@@ -278,17 +278,16 @@
 	<div class="edit-nav clearfix">	
 	
 		
-		<h3 class="floated" style="margin-top :0;" id="submit_line">
-		<span>	
-			<button type="submit" name="submit" class="save" value="profile">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
-		</span>
-		</h3>	
+	<h3 class="floated" style="margin-top :0;" id="submit_line">
+	<span>	
+		<button type="submit" name="submit" class="save" value="profile">#application.GSAPI.i18n("BTN_SAVECHANGES")#</button>
+	</span>
+	</h3>	
 	
 	
-		<cfif attributes.deletelink NEQ "" AND isnumeric(stUser.UserID)>
-			
-				<a class="delconfirm" href="#attributes.deletelink#" accesskey="D"> <em>D</em>elete</a>
-		</cfif>
+	<cfif attributes.deletelink NEQ "" AND isnumeric(stUser.UserID)>
+		<a class="delconfirm" href="#attributes.deletelink#" accesskey="D"> <em>D</em>elete</a>
+	</cfif>
 	</div>
 </cfform>
 

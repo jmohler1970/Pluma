@@ -125,7 +125,7 @@
 	<ui:profile stUser		= "#rc.stUser#" 
 				action	= "#BuildURL(action = '.home')#"  
 		/>
-
+			
 
 
 

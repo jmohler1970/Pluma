@@ -62,9 +62,7 @@ function Init()	{
 	<cfoutput>
 
 
-
-	<table>
-	<tbody>
+	<!--- This fits inside of an outer table --->	
 	<tr>
 		<td><b>Stars</b></td>
 		<td>
@@ -80,7 +78,7 @@ function Init()	{
 	
 	<tr>
 		<td style="text-align : right;">Licenses</td>
-		<td colspan="2">
+		<td>
 			<input name="profile_license_title" type="hidden" value="Licenses" />
 		
 			<textarea name="profile_license" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.profile_license)#</textarea>
@@ -89,7 +87,7 @@ function Init()	{
 	
 	<tr>
 		<td style="text-align : right;">Credentials</td>
-		<td colspan="2">
+		<td>
 			<input name="profile_credential_title" type="hidden" value="Credentials" />
 		
 			<textarea name="profile_credential" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.profile_credential)#</textarea>
@@ -98,7 +96,7 @@ function Init()	{
 	
 	<tr>
 		<td style="text-align : right;">Associations</td>
-		<td colspan="2">
+		<td>
 			<input name="profile_association_title" type="hidden" value="Associations" />
 				
 			<textarea name="profile_association" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.profile_association)#</textarea>
@@ -107,7 +105,7 @@ function Init()	{
 	
 	<tr>
 		<td style="text-align : right;">Achievements</td>
-		<td colspan="2">
+		<td>
 			<input name="profile_achievement_title" type="hidden" value="Achievements" />
 				
 			<textarea name="profile_achievement" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.profile_achievement)#</textarea>
@@ -116,7 +114,7 @@ function Init()	{
 	
 	<tr>
 		<td style="text-align : right;">Other Interests</td>
-		<td colspan="2">
+		<td>
 			<input name="profile_otherinterest_title" type="hidden" value="Other Interests" />
 				
 			<textarea name="profile_otherinterest" rows="3" cols="80" style="height : 40px;">#htmleditformat(rc.stUser.profile_otherinterest)#</textarea>

@@ -138,7 +138,7 @@
 					<cfqueryparam CFSQLType="CF_SQL_integer" value="#arguments.byUserID#">
         			)	
 		
-		/* Now merge */		
+		
 		MERGE	dbo.Pref
 		USING	@Source AS Source
 		ON		dbo.Pref.Pref = Source.Pref

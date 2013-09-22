@@ -1225,13 +1225,13 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction  name="getLog" output="no" returnType="query">
-	<cfargument  name="kind" required="true">
+<cffunction name="getLog" output="no" returnType="query">
+	<cfargument name="kind" required="true" type="string">
 
 	<cfquery name="local.qryRecentLogin">
 		SELECT  TOP 100 Kind, [by], [datetime], message, [type], ip
-		FROM	dbo.DataLog
-		CROSS APPLY dbo.udf_4jRead(Created)		C
+		FROM	dbo.DataLog WITH (NOLOCK)
+		CROSS APPLY dbo.udf_xoxoRead(Created)
 		
 		WHERE	1 = 1
 		<cfif arguments.kind NEQ "">

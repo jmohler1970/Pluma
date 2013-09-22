@@ -377,7 +377,7 @@ query function getBySlug(required string slug) output="no" 	{
 
 
 <cfif rc.note NEQ "">
-	<note>#rc.note#</note>
+	<note>#xmlformat(rc.note)#</note>
 </cfif>
 
 </vcard>
@@ -385,67 +385,62 @@ query function getBySlug(required string slug) output="no" 	{
 </cfoutput>	
 </cfsavecontent>
 
-
-	<cfif NOT isnumeric(arguments.userID)>
-		<cfquery name="qryAdd">
-		DECLARE @login nvarchar(50) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.login#">
-		
-		INSERT 
-		INTO	dbo.Users (PersonName, login, slug, Modified, Created)
-		OUTPUT inserted.userid
-		VALUES (
-			'',
-			@login,
-			
-			dbo.udf_slugify(@login),
-									
-			dbo.udf_4jSuccess('Basic data was committed',
-				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
-			 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byuserID#">),
-			
-			dbo.udf_4jInfo(DEFAULT,DEFAULT,
-			 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byuserID#">)
-			)
-		</cfquery>
-	
-	
-		<cfset arguments.UserID = qryAdd.UserID>
-	</cfif>
 	
 		
 	<cfquery name="qryCommit">
-		UPDATE	dbo.Users
-		SET	PersonName 		= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#local.personname#">,
-			
-			
-			expirationDate 	= <cfqueryparam CFSQLType="CF_SQL_DATE" value="#rc.expirationDate#">,
+		DECLARE @login nvarchar(50) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.login#">
+		DECLARE @submit varchar(10) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#left(rc.submit, 10)#">
+	
+		DECLARE @Source TABLE (
+			UserID			int NULL,
+			PersonName 		xml,
+			ExpirationDate 	date NULL,
+			PassHash		char(10) NULL,
+			xmlGroup		xml,
+			Created			xml,
+			Modified		xml
+			)
+	
+		INSERT 
+		INTO	@Source
+		SELECT 	<cfqueryparam cfsqltype="CF_SQL_integer" 	value="#arguments.userid#" 	null="#IIF(arguments.UserID EQ "", 1, 0)#">,
+				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#local.personname#">,
+				<cfqueryparam CFSQLType="CF_SQL_DATE" 		value="#rc.expirationDate#">,
+				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#rc.passhash#" 		null="#IIF(arguments.PassHash EQ "", 1, 0)#">,
+				
+				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#this.encodeXML({Group = rc.groups})#">,
+				dbo.udf_4jInfo(DEFAULT,DEFAULT,
+			 		<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byuserID#">),
+			 	dbo.udf_4jSuccess('Basic data was committed',
+					<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
+					<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byuserID#">)
+			 	
+			 	
 		
-			
-			<cfif rc.passhash EQ "">
-				PassHash = NULL,
-			<cfelseif NOT rc.passhash CONTAINS "skip">
-				PassHash = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.passhash#">,
-			</cfif>
+		MERGE	dbo.Users
+		USING	@Source AS Source
+		ON		dbo.Users.UserID = Source.UserID
 		
-		
-			<cfif rc.submit CONTAINS "reactivate">
-				DeleteDate = NULL,
-			</cfif>
-		
-			<cfif rc.groups NEQ "">
-				xmlGroup 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML({Group = rc.groups})#">,
-			</cfif>
-			
-			
-			
-			
-			Modified = dbo.udf_4jSuccess('Basic data was committed',
-				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
-			 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byuserID#">)
-				 	
-				 	
-		WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_integer" value="#arguments.userid#">
-		AND		Deleted = 0
+		WHEN MATCHED AND Deleted = 0 THEN 
+			UPDATE 
+			SET PersonName 		= Source.PersonName, 
+				ExpirationDate 	= Source.ExpirationDate,
+				PassHash 		= CASE WHEN Source.PassHash = 'Skip' THEN dbo.Users.PassHash ELSE Source.PassHash END,
+				xmlGroup		= Source.xmlGroup,
+				DeleteDate 		= CASE WHEN @Submit = 'reactivate' THEN NULL ELSE dbo.User.DeleteDate END,
+				Modified 		= Source.Modified
+			OUTPUT inserted.UserID	
+				
+				
+		WHEN NOT MATCHED 	THEN 
+			INSERT (PersonName, login, slug, ExpirationDate, PassHash, xmlGroup, Modified, Created)
+			OUTPUT	inserted.UserID
+			VALUES (Source.PersonName, @login, dbo.udf_slugify(@login), 
+				Source.ExpirationDate,
+				CASE WHEN Source.PassHash = 'Skip' THEN dbo.Users.PassHash ELSE Source.PassHash END,
+				Source.xmlGroup,
+				Source.Modified, Source.Created)
+		;	
 	</cfquery>
 	
 	
