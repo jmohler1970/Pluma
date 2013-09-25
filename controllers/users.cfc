@@ -40,9 +40,8 @@ void function edit(required struct rc) output="false"	{
 	// Post
 	if (cgi.request_method == "post")	{
 	
-		rc.passhash = "skip";
-		if (rc.sitepw == rc.sitepw_confirm)	{
-			if (rc.sitepw != "") rc.passhash = left(10, hash(rc.sitepw)); 
+		if (rc.sitepw == rc.sitepwd_confirm)	{
+			if (rc.sitepwd != "") rc.passhash = left(10, hash(rc.sitepwd)); 
 			}
 	
 		else	{

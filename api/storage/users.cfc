@@ -1,7 +1,7 @@
 
 
 
-<cfcomponent hint="Gets Users">
+<cfcomponent hint="Gets Users" extends="base">
 
 <cffunction name="getStatus" output="false"  returnType="string" hint="Is this object ready to read and write data">
 
@@ -405,8 +405,8 @@ query function getBySlug(required string slug) output="no" 	{
 		INTO	@Source
 		SELECT 	<cfqueryparam cfsqltype="CF_SQL_integer" 	value="#arguments.userid#" 	null="#IIF(arguments.UserID EQ "", 1, 0)#">,
 				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#local.personname#">,
-				<cfqueryparam CFSQLType="CF_SQL_DATE" 		value="#rc.expirationDate#">,
-				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#rc.passhash#" 		null="#IIF(arguments.PassHash EQ "", 1, 0)#">,
+				<cfqueryparam CFSQLType="CF_SQL_DATE" 		value="#rc.expirationDate#"	null="#IIF(rc.ExpirationDate EQ "", 1, 0)#">,
+				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#rc.passhash#" 		null="#IIF(rc.PassHash EQ "", 1, 0)#">,
 				
 				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#this.encodeXML({Group = rc.groups})#">,
 				dbo.udf_4jInfo(DEFAULT,DEFAULT,
@@ -427,20 +427,22 @@ query function getBySlug(required string slug) output="no" 	{
 				ExpirationDate 	= Source.ExpirationDate,
 				PassHash 		= CASE WHEN Source.PassHash = 'Skip' THEN dbo.Users.PassHash ELSE Source.PassHash END,
 				xmlGroup		= Source.xmlGroup,
-				DeleteDate 		= CASE WHEN @Submit = 'reactivate' THEN NULL ELSE dbo.User.DeleteDate END,
+				DeleteDate 		= CASE WHEN @Submit = 'reactivate' THEN NULL ELSE dbo.Users.DeleteDate END,
 				Modified 		= Source.Modified
-			OUTPUT inserted.UserID	
+				
 				
 				
 		WHEN NOT MATCHED 	THEN 
 			INSERT (PersonName, login, slug, ExpirationDate, PassHash, xmlGroup, Modified, Created)
-			OUTPUT	inserted.UserID
+			
 			VALUES (Source.PersonName, @login, dbo.udf_slugify(@login), 
 				Source.ExpirationDate,
-				CASE WHEN Source.PassHash = 'Skip' THEN dbo.Users.PassHash ELSE Source.PassHash END,
+				Source.PassHash,
 				Source.xmlGroup,
-				Source.Modified, Source.Created)
-		;	
+				Source.Modified,
+				Source.Created)
+		
+		OUTPUT inserted.UserID;	
 	</cfquery>
 	
 	

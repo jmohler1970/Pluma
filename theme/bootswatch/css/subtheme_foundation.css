@@ -12,6 +12,10 @@ h2,h3 { font-family : 'Titillium', san-serif; font-weight: normal;}
 .poster { display : none; }	
 
 
+.container	{
+	background : snow;
+		
+	}
 
 
 small	{ font size : 8.0pt; color : gray; }

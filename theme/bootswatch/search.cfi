@@ -21,6 +21,16 @@ param rc.random = 0;
 param rc.href = "?";
 
 
+param request.search.max = 30;
+param request.search.letters = 300;
+param request.search.parentpage = 0;
+param request.search.tags = 1;
+param request.search.publishdate = 1;
+
+
+
+
+
 param rc.StartAt = "1";
 if (rc.startAt <= 0 OR NOT isnumeric(rc.startAt))	{
 	rc.StartAt = 1;

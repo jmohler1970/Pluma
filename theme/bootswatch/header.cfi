@@ -52,17 +52,17 @@ param prebody = "";
 	
 		<style type="text/css">
 		body	{
-			<cfif not isnull(request.stBootswatch.Backgroundcolor)>
-				<cfif request.stBootswatch.backgroundcolor NEQ "">background-color : #request.stBootswatch.backgroundcolor#;</cfif>
+			<cfif not isnull(request.Bootswatch.Backgroundcolor)>
+				<cfif request.Bootswatch.backgroundcolor NEQ "">background-color : #request.Bootswatch.backgroundcolor#;</cfif>
 			</cfif>
-			<cfif not isnull(request.stBootswatch.Backgroundimage)>
-				<cfset background = "#application.GSAPI.get_site_root()#theme/bootswatch/assets/background/#request.stBootswatch.backgroundimage#">
+			<cfif not isnull(request.Bootswatch.Backgroundimage)>
+				<cfset background = "#application.GSAPI.get_site_root()#theme/bootswatch/assets/background/#request.Bootswatch.backgroundimage#">
 			
-				<cfif request.stBootswatch.backgroundimage NEQ "">background-image : url('#background#');</cfif>
+				<cfif request.Bootswatch.backgroundimage NEQ "">background-image : url('#background#');</cfif>
 			</cfif>
-			<cfif not isnull(request.stBootswatch.Backgroundrepeat)>background-repeat : #request.stBootswatch.backgroundrepeat#;</cfif>
-			<cfif not isnull(request.stBootswatch.Backgroundattachment)>
-				<cfif request.stBootswatch.backgroundattachment EQ 1>background-attachment : fixed;</cfif>
+			<cfif not isnull(request.Bootswatch.Backgroundrepeat)>background-repeat : #request.Bootswatch.backgroundrepeat#;</cfif>
+			<cfif not isnull(request.Bootswatch.Backgroundattachment)>
+				<cfif request.Bootswatch.backgroundattachment EQ 1>background-attachment : fixed;</cfif>
 			</cfif>
 			} 
 		</style>  
@@ -103,6 +103,7 @@ param prebody = "";
 
 
 <body data-spy="scroll" data-target=".subnav" data-offset="50">
+
 
 
 
