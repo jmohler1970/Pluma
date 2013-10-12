@@ -161,3 +161,8 @@ jQuery(document).ready(function() {
 	
 //end of javascript for getsimple
 }); 
+
+
+
+var Home = angular.module('myApp', []);
+

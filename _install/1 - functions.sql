@@ -250,8 +250,8 @@ begin
 	DECLARE @strGroup varchar(max)
 
 	
-	SELECT @strGroup = ISNULL( @strGroup + ',', '' ) + x.y.value('.', 'varchar(max)' )  
-	FROM @xmlData.nodes('/data') x(y) 
+	SELECT @strGroup = ISNULL( @strGroup + ',', '' ) + tbl.Col.value('var[1]', 'varchar(max)' )  
+	FROM @xmlData.nodes('/ul/li') tbl(Col) 
 	
 	RETURN @strGroup
 end

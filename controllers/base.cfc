@@ -3,10 +3,50 @@
 <cfcomponent hint="Provides common functionality">
 
 
+
+
+
+
+<cffunction name="QueryToArray" access="public" returntype="array" output="false" hint="This turns a query into an JSON.">
+    <cfargument name="Data" type="query" required="yes" />
+
+    <cfscript>
+
+		var Columns = ListToArray( ARGUMENTS.Data.ColumnList );
+
+		var QueryArray = [];
+
+		// Loop over the query.
+		for (var RowIndex = 1; RowIndex <= ARGUMENTS.Data.RecordCount; RowIndex++){
+
+			// Create a row structure.
+			Row = {};
+
+			// Loop over the columns in this row.
+			for (var ColumnIndex = 1; ColumnIndex <= ArrayLen(Columns); ColumnIndex++) {
+
+				// Get a reference to the query column.
+				ColumnName = Columns[ColumnIndex];
+
+				// Store the query cell value into the struct by key.
+				Row[ColumnName ] = ARGUMENTS.Data[ColumnName][RowIndex];
+
+				} // end columnIndex
+
+			// Add the structure to the query array.
+			ArrayAppend(QueryArray, Row);
+
+			}
+
+    // Return the array equivalent.
+    return QueryArray;
+
+    </cfscript>
+
+</cffunction>
+
+
 <cfscript>
-
-
-
 
 
 variables.CRLF = Chr(13) & Chr(10);

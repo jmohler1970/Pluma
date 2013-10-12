@@ -102,15 +102,83 @@ void function endhome(required struct rc) output="false"	{
 	param rc.meta_timezone	= "";
 	param rc.meta_language	= "";
 
-	
-	if (not DirectoryExists(application.GSLANGPATH))	{
-		this.addMessage("Language Folder does not exist");
+	param rc.err_uselog = 0;
+	param rc.err_subject = "";
+	param rc.err_SysAdminEmail = "";
+	param rc.err_Email = "";
+	param rc.err_type = "";
 		
-		return;
-		}	
+	param rc.feedback_subject = "";
+	param rc.feedback_SysAdminEmail = "";
+	param rc.feedback_Email = "";
+
+	param rc.notif_level = 0;
+	param rc.notif_subject = "";
+	param rc.notif_SysAdminEmail = "";
+	param rc.notif_Email = "";
 	
-	rc.qryLang = DirectoryList(application.GSLANGPATH, 
-		false, "query", "", "name");
+	param rc.search_profile 	= 0;
+	param rc.search_max 		= 10;
+	param rc.search_letters 	= 100;
+	param rc.search_parentpage 	= 0;
+	param rc.search_tags 		= 0;
+	param rc.search_publishDate = 0;
+	param rc.search_rank 		= 0;
+	
+
+	
+	rc.xa =	{
+		jour404	 			= variables.fw.buildURL(action='support.jour', querystring='kind=404'),
+		missing	 			= variables.fw.buildURL(action='home.missing'),
+		error404 			= variables.fw.buildURL(action = '.error404'),
+		
+		feedback_test 		= variables.fw.buildURL(action='home.feedback'),
+		feedback			= variables.fw.buildURL(action = '.feedback'),
+		
+		notification_test 	= variables.fw.buildURL(action='settings.notificationtest'),
+		notification 		= variables.fw.buildURL(action = '.notification'),
+		
+		password			= variables.fw.buildURL(action = '.home'),
+		profile				= variables.fw.buildURL(action = '.home'),
+		
+		search				= variables.fw.buildURL(action = 'settings.search'),
+		reindex				= variables.fw.buildURL(action = 'settings.reindex'),
+		settings			= variables.fw.buildURL(action = '.home')
+		};
+
+	
+	
+	StructAppend(rc, application.IOAPI.get_pref("Err"));
+
+	StructAppend(rc, application.IOAPI.get_pref("Feedback"));
+
+	StructAppend(rc, application.IOAPI.get_pref("Notif"));
+	
+	StructAppend(rc, application.IOAPI.get_pref("Search"));	
+
+
+	/*
+	if (rc.err_email != "" and not rc.err_email contains "@")	{
+		this.AddWarning("PLUMACMS/Email_NO_AT");
+		}
+
+	
+	if (rc.feedback_SysAdminEmail == "" AND rc.feedback_Email == "")
+		this.AddWarning("PLUMACMS/EMAIL_NOT_SETUP");
+
+
+	if (rc.feedback_email != "" and not rc.feedback_email contains "@")	{
+		this.AddWarning("PLUMACMS/Email_NO_AT", [rc.feedback_email]);
+		}
+		
+
+	if (rc.notif_email != "" and not rc.notif_email contains "@")	{
+		this.AddWarning("PLUMACMS/EMAIL_NO_AT");
+		}
+	
+	*/	
+
+
 	
 	}
 
@@ -125,33 +193,14 @@ void function sitemap(required struct rc) output="false"	{
 	}
 	
 
-void function endsitemap(required struct rc) output="false"	{
-	
 
-	var NodeK = {NodeID = "max", Kind = "Sitemap"};
-	
-	rc.qryNode = application.IOAPI.get(NodeK);
-	
-		
-	rc.qrySiteMap = application.IOAPI.get_site_map(NodeK, this.entryCount); 
-	
-	
-	
-	if (rc.qryNode.Kind == "Sitemap") 
-		rc.sitemapid = rc.qryNode.NodeID; 
-	}
-	
 	
 	
 
 
 void function error404(required struct rc) output="false"	{
 
-	param rc.err_uselog = 0;
-	param rc.err_subject = "";
-	param rc.err_SysAdminEmail = "";
-	param rc.err_Email = "";
-	param rc.err_type = "";
+
 
 
 	if (cgi.request_method == "Post")	{
@@ -166,17 +215,6 @@ void function error404(required struct rc) output="false"	{
 	
 	}
 
-
-void function enderror404(required struct rc) output="false"	{
-
-	StructAppend(rc, application.IOAPI.get_pref("Err"));
-
-	
-	if (rc.err_email != "" and not rc.err_email contains "@")	{
-		this.AddWarning("PLUMACMS/Email_NO_AT");
-		}
-
-	}
 
 
 void function feedback(required struct rc) output="false"	{
@@ -198,28 +236,6 @@ void function feedback(required struct rc) output="false"	{
 	}
 	
 
-void function endfeedback(required struct rc) output="false"	{
-
-	StructAppend(rc, application.IOAPI.get_pref("Feedback"));
-
-	
-
-	param rc.feedback_subject = "";
-	param rc.feedback_SysAdminEmail = "";
-	param rc.feedback_Email = "";
-	
-	if (rc.feedback_SysAdminEmail == "" AND rc.feedback_Email == "")
-		this.AddWarning("PLUMACMS/EMAIL_NOT_SETUP");
-
-	if (rc.feedback_email != "" and not rc.feedback_email contains "@")	{
-		this.AddWarning("PLUMACMS/Email_NO_AT", [rc.feedback_email]);
-		}
-
-		
-
-	}	
-	
-	
 
 
 void function notification(required struct rc) output="false"	{
@@ -240,22 +256,7 @@ void function notification(required struct rc) output="false"	{
 	
 	}
 	
-void function endnotification(required struct rc) output="false"	{
-
-	StructAppend(rc, application.IOAPI.get_pref("Notif"));
-
-	param rc.notif_level = 0;
-	param rc.notif_subject = "";
-	param rc.notif_SysAdminEmail = "";
-	param rc.notif_Email = "";
-
-	if (rc.notif_email != "" and not rc.notif_email contains "@")	{
-		this.AddWarning("PLUMACMS/EMAIL_NO_AT");
-		}
-
-	}	
 	
-		
 
 
 void function clearAll(required struct rc) output="false"	{
@@ -279,14 +280,7 @@ void function clearAll(required struct rc) output="false"	{
 
 void function search(required struct rc) output="false"	{
 
-	param rc.search_profile 	= 0;
-	param rc.search_max 		= 10;
-	param rc.search_letters 	= 100;
-	param rc.search_parentpage 	= 0;
-	param rc.search_tags 		= 0;
-	param rc.search_publishDate = 0;
-	param rc.search_rank 		= 0;
-	
+
 	
 
 
@@ -300,7 +294,6 @@ void function search(required struct rc) output="false"	{
 		} // end if
 
 
-	StructAppend(rc, application.IOAPI.get_pref("Search"));	
 	}
 
 </cfscript>

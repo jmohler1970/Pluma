@@ -6,8 +6,11 @@
 <cfscript>
 
 
-void function init() output="false" {
+boolean function storage() output="false" {
 	
+	if (not structkeyexists(application.stSettings, "storage"))	{
+		return false;			
+		}
 	
 	
 	// web services
@@ -38,7 +41,58 @@ void function init() output="false" {
 		
 		}	
 		
+	return true;	
 	}
+
+
+// for AngularJS
+</cfscript>
+
+
+<cffunction name="loadPartials" returnType="string" output="false">
+	<cfargument name="path" type="string" required="true">
+	<cfargument name="rc" type="struct" required="true">
+		
+
+
+	<cfset var dirPath = application.GSROOTPATH & arguments.Path>
+	
+	<cfif NOT DirectoryExists(dirPath)>
+		<cfreturn "">
+	</cfif>
+
+	<cfset filePaths = directoryList(dirPath, false, "paths", "*.htm")>
+
+	<cfoutput>
+	<cfsavecontent variable="local.scriptBuffer">
+		
+		<!--- Include each view as an inline Angular script --->
+		<cfloop index="filePath" array="#filePaths#">
+		
+			<cfset partialName = listLast(filePath, "\")>
+		
+			<!--- If we create an ng-template element with an ID that matches the 
+				relative file path, Angular JS will compile it and add it to the 
+				template cache, without making an HTTP request --->
+		
+			<script type="text/ng-template" id="#partialName#">
+				<!-- From: ../#arguments.path#/partials/#partialname# -->	
+				<cfinclude template="../#arguments.path#/#partialname#">	
+			</script>	
+				
+		</cfloop>
+	
+	</cfsavecontent>
+	</cfoutput>
+
+
+	<cfreturn reReplace(local.scriptBuffer, "(?m)^\s+|[ \t]+$", "","all")>
+</cffunction>
+
+
+
+<cfscript>
+
 
 
 void function add_log(required string Kind, required string message)	output="false"	{

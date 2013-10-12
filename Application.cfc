@@ -1,11 +1,10 @@
 
 <cfcomponent extends="org.corfield.framework">
 
-
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_0727";
+	this.name 			= "PlumaCMS_114";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -26,6 +25,9 @@
 		{ "/forgot" 			= "/login/email"},
 		{ "/logout" 			= "/login/signout"},
 		
+		/* JSON routes */
+		{ "/json/pref/:id"		= "/json/pref/pref/:id"},
+				
 		/* make admin pages work as expected */
 		{ "/settings/search" 	= "/settings/search"},
 		{ "/settings/feedback" 	= "/settings/feedback"},
@@ -97,22 +99,18 @@ fileclose(objAppFile);
  	
  	// API
  	
-	application.IOAPI 	= createobject("component", "api.ioapi");
-	application.USERAPI = createobject("component", "api.userapi");
-	application.GSAPI 	= createobject("component", "api.gsapi"); 	
-		
+	application.IOAPI 	= new api.ioapi();
 	application.stSettings 	= application.IOAPI.load_ini("api/config.ini");
-		
 
 	
-	
-	
+	application.USERAPI = new api.userapi();
+	application.GSAPI 	= new api.gsapi(); 	
 	}
 
 
 void function setupSession()	{
 	
-	session.LOGINAPI = createobject("component", "api.loginapi"); 
+	session.LOGINAPI = new api.loginapi(); 
 	session.LOGINAPI.Init();
 	}
 
@@ -132,7 +130,7 @@ void function setupRequest()	{
 
 	
 
-	application.IOAPI.Init();
+	application.IOAPI.Storage();
 	application.USERAPI.Init();
 	application.GSAPI.Init();
 	application.GSAPI.rc = rc; // does not have anything from controllers
@@ -151,6 +149,7 @@ void function setupRequest()	{
 	application.GSAPI.loadTab = buildURL('load.settings');
 	application.GSAPI.i18n_merge();	
 	
+	// plugins
 	request.arPlugins 	= [];
 	application.IOAPI.load_plugins();
 	
@@ -170,15 +169,12 @@ void function setupRequest()	{
 	
 	 	
 
-	
-
-	
 
 	if (session.LOGINAPI.checkSecurity(getSubSystem(), getSection(), getItem()) == 0)	{
 		// Note: if you are on a public page, you pass security and there is no redirect --->
-		location("#application.GSAPI.get_site_root()#index.cfm/login?key=Login_Expired", "no");
+		//location("#application.GSAPI.get_site_root()#index.cfm/login?key=Login_Expired", "no");
 		
-		return;
+		//return;
 		} 
 	
 		
@@ -198,8 +194,10 @@ void function setupRequest()	{
 		return;
 		}
 
+
 	
-		
+	
+	// default content	
 	StructAppend(request.stIOR, application.IOAPI.get_bundle({Slug = rc.slug}));
 	}
 
@@ -209,20 +207,28 @@ void function setupRequest()	{
 
 
 
-<cfscript>
 
-void function onMissingView()	{
+<cffunction name="onMissingView" returntype="string" output="false">
+
+	<cfif structKeyExists(rc, "response")>
+		<cfsetting showDebugOutput="false">
+		
+		<cfset var response = getPageContext().getResponse()>
+		<cfset response.setContentType("application.json")>
+		
+		<cfreturn serializeJSON(rc.response)>
+	</cfif>
+
 	
-	if (isDefined("request.err.uselog") AND request.err.uselog)	{
-		application.IOAPI.add_log("404", "Invalid requested page: <tt>#getSection()#.#getItem()#</tt>");			
-		}
+	<cfif isDefined("request.err.uselog") AND request.err.uselog>
+		<cfset application.IOAPI.add_log("404", "Invalid requested page: <tt>#getSection()#.#getItem()#</tt>")>
+	</cfif>
 
 
-	location("#application.GSAPI.find_url('404')#", "no");	
-	}
+	<cfset location("#application.GSAPI.find_url('404')#", "no")>	
+	
 
-
-</cfscript>
+</cffunction>
 
 
 </cfcomponent>

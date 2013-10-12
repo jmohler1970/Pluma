@@ -16,9 +16,6 @@
 	<cfoutput>
 	<title>#application.GSAPI.get_site_name()#</title>
 	
-
-		
-
 	
 	<!-- Le styles -->
 	<link href="#application.GSAPI.get_site_root()#layouts/jquery/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
@@ -26,24 +23,27 @@
 	<link href="#application.GSAPI.get_site_root()#layouts/css/style.cfm"		rel="stylesheet" type="text/css" media="screen"   />
     <link href="#application.GSAPI.get_site_root()#layouts/css/more.css"		rel="stylesheet" type="text/css" />
 	
-    
-
-   
+  
 	
     <script src="#application.GSAPI.get_site_root()#layouts/js/sorttable.js"	type="text/javascript"></script>
-   
-    
-    
     <script src="#application.GSAPI.get_site_root()#layouts/jquery/jquery.js" 		type="text/javascript"></script>
     <script src="#application.GSAPI.get_site_root()#layouts/jquery/jquery-ui.js" 	type="text/javascript"></script>
     <script src="#application.GSAPI.get_site_root()#layouts/jquery/angular.js" 	type="text/javascript"></script>
+
+	<script src="#application.GSAPI.get_site_root()#layouts/jquery/application.js" 	type="text/javascript"></script>
+
+	
+	<!--- AngularJS needs these --->
+	<cfif FileExists("#application.GSROOTPATH#views/#getSection()#/#getItem()#.js")>
+		<script type="text/javascript" src="#application.GSAPI.get_site_root()#views/#getSection()#/#getItem()#.js"></script>
+	</cfif>	
+
     
     
     <cfif getSection() NEQ "login">
 		#application.GSAPI.exec_action("admin-pre-header")#	
 	</cfif>
     
-	<script src="#application.GSAPI.get_site_root()#layouts/jquery/application.js" 	type="text/javascript"></script>
 
 </head>	
 
@@ -128,8 +128,17 @@
 		<!--- FW/1 generates this --->	
 		<cfoutput>#body#</cfoutput>
 		
-	</div><!--- main content --->
+		<!--- Angularjs support --->
+		<cfif getSection() NEQ "main">	
+			<cfset variables.partials = application.IOAPI.loadPartials("views/" & getSection() & "/" & getItem(), rc)>
+			
+			<cfoutput>#variables.partials#</cfoutput>		
+		</cfif>		
 	
+	
+		<div class="ng-view"></div>
+	
+	</div>
 
 	
 		<div id="sidebar"> 

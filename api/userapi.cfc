@@ -117,10 +117,6 @@ query function get_link(string userid=session.LOGINAPI.UserID) output="false"	{
 
 	return this.wsUser.getLink(arguments.userid);
 	}
-	
-	
-	
-	
 </cfscript>
 
 

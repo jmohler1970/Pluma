@@ -388,8 +388,9 @@ query function getBySlug(required string slug) output="no" 	{
 	
 		
 	<cfquery name="qryCommit">
-		DECLARE @login nvarchar(50) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.login#">
-		DECLARE @submit varchar(10) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#left(rc.submit, 10)#">
+		DECLARE @groups nvarchar(50) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.groups#">
+ 		DECLARE @login  nvarchar(50) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.login#">
+		DECLARE @submit varchar(10)  = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#left(rc.submit, 10)#">
 	
 		DECLARE @Source TABLE (
 			UserID			int NULL,
@@ -425,9 +426,9 @@ query function getBySlug(required string slug) output="no" 	{
 			UPDATE 
 			SET PersonName 		= Source.PersonName, 
 				ExpirationDate 	= Source.ExpirationDate,
-				PassHash 		= CASE WHEN Source.PassHash = 'Skip' THEN dbo.Users.PassHash ELSE Source.PassHash END,
-				xmlGroup		= Source.xmlGroup,
-				DeleteDate 		= CASE WHEN @Submit = 'reactivate' THEN NULL ELSE dbo.Users.DeleteDate END,
+				PassHash 		= CASE WHEN Source.PassHash = 'Skip' 	THEN dbo.Users.PassHash ELSE Source.PassHash 		END,
+				xmlGroup		= CASE WHEN @groups = 'Skip' 			THEN dbo.Users.xmlGroup ELSE Source.xmlGroup 		END,
+				DeleteDate 		= CASE WHEN @Submit = 'reactivate' 		THEN NULL 				ELSE dbo.Users.DeleteDate 	END,
 				Modified 		= Source.Modified
 				
 				

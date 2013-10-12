@@ -5,12 +5,12 @@
 
 	<div class="edit-nav clearfix">
 		<cfoutput>							
-		<a href="#buildURL(action='settings.notificationtest')#">#application.GSAPI.i18n("PLUMACMS/TEST")#</a>
+		<a href="#rc.xa.notification_test#">#application.GSAPI.i18n("PLUMACMS/TEST")#</a>
 		</cfoutput>
 	</div>
 
 <cfoutput>
-<form action="#buildURL(action = '.notification')#" method="post" class="anondata">
+<form action="#rc.xa.notification#" method="post" class="anondata">
 </cfoutput>
 
 
