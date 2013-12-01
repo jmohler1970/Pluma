@@ -90,93 +90,31 @@ void function home(required struct rc) output="false"	{
 
 void function endhome(required struct rc) output="false"	{
 
-	StructAppend(rc, application.IOAPI.get_pref("meta"));
+	rc.meta = {
+		title  		= "",
+		root 		= "",
+		description = "",
+		keywords 	= "",
+		robots 		= "",
+		author 		= "",
+		email 		= "",
+		timezone	= "",
+		language	= ""		
+		};
 
-	param rc.meta_title  	= "";
-	param rc.meta_root 		= "";
-	param rc.meta_description  = "";
-	param rc.meta_keywords 	= "";
-	param rc.meta_robots 	= "";
-	param rc.meta_author 	= "";
-	param rc.meta_email 	= "";
-	param rc.meta_timezone	= "";
-	param rc.meta_language	= "";
+	StructAppend(rc.meta, application.IOAPI.get_pref("meta"));
 
-	param rc.err_uselog = 0;
-	param rc.err_subject = "";
-	param rc.err_SysAdminEmail = "";
-	param rc.err_Email = "";
-	param rc.err_type = "";
-		
-	param rc.feedback_subject = "";
-	param rc.feedback_SysAdminEmail = "";
-	param rc.feedback_Email = "";
 
-	param rc.notif_level = 0;
-	param rc.notif_subject = "";
-	param rc.notif_SysAdminEmail = "";
-	param rc.notif_Email = "";
-	
-	param rc.search_profile 	= 0;
-	param rc.search_max 		= 10;
-	param rc.search_letters 	= 100;
-	param rc.search_parentpage 	= 0;
-	param rc.search_tags 		= 0;
-	param rc.search_publishDate = 0;
-	param rc.search_rank 		= 0;
-	
+	rc.qryLang = DirectoryList(application.GSLANGPATH, false, "query", "", "name");
+
 
 	
 	rc.xa =	{
 		jour404	 			= variables.fw.buildURL(action='support.jour', querystring='kind=404'),
-		missing	 			= variables.fw.buildURL(action='home.missing'),
-		error404 			= variables.fw.buildURL(action = '.error404'),
-		
-		feedback_test 		= variables.fw.buildURL(action='home.feedback'),
-		feedback			= variables.fw.buildURL(action = '.feedback'),
-		
-		notification_test 	= variables.fw.buildURL(action='settings.notificationtest'),
-		notification 		= variables.fw.buildURL(action = '.notification'),
-		
-		password			= variables.fw.buildURL(action = '.home'),
-		profile				= variables.fw.buildURL(action = '.home'),
-		
-		search				= variables.fw.buildURL(action = 'settings.search'),
-		reindex				= variables.fw.buildURL(action = 'settings.reindex'),
 		settings			= variables.fw.buildURL(action = '.home')
 		};
 
 	
-	
-	StructAppend(rc, application.IOAPI.get_pref("Err"));
-
-	StructAppend(rc, application.IOAPI.get_pref("Feedback"));
-
-	StructAppend(rc, application.IOAPI.get_pref("Notif"));
-	
-	StructAppend(rc, application.IOAPI.get_pref("Search"));	
-
-
-	/*
-	if (rc.err_email != "" and not rc.err_email contains "@")	{
-		this.AddWarning("PLUMACMS/Email_NO_AT");
-		}
-
-	
-	if (rc.feedback_SysAdminEmail == "" AND rc.feedback_Email == "")
-		this.AddWarning("PLUMACMS/EMAIL_NOT_SETUP");
-
-
-	if (rc.feedback_email != "" and not rc.feedback_email contains "@")	{
-		this.AddWarning("PLUMACMS/Email_NO_AT", [rc.feedback_email]);
-		}
-		
-
-	if (rc.notif_email != "" and not rc.notif_email contains "@")	{
-		this.AddWarning("PLUMACMS/EMAIL_NO_AT");
-		}
-	
-	*/	
 
 
 	
@@ -211,16 +149,44 @@ void function error404(required struct rc) output="false"	{
 		this.AddInfo("SETTINGS_UPDATED");
 		
 		} // end if
+		
+		
 
 	
 	}
 
+	
+void function enderror404(required struct rc) output="false"	{	
+	
+	rc.xa =	{
+		missing	 			= variables.fw.buildURL(action='home.missing'),
+		error404 			= variables.fw.buildURL(action = '.error404')
+		};
+
+	rc.err = {
+		uselog 			= 0,
+		subject 		= "",
+		sysAdminEmail 	= "",
+		email 			= "",
+		type 			= ""
+		};
+	
+		
+		
+	StructAppend(rc.err, application.IOAPI.get_pref("Err"));
+
+
+	if (rc.err.email != "" and not rc.err.email contains "@")	{
+		this.AddWarning("PLUMACMS/Email_NO_AT");
+		}
+
+
+	}
 
 
 void function feedback(required struct rc) output="false"	{
 
-	
-
+		
 
 	if (cgi.request_method == "Post")	{
 		
@@ -232,13 +198,45 @@ void function feedback(required struct rc) output="false"	{
 
 		} // end if
 
+
+
 		
 	}
 	
+	
+void function endfeedback(required struct rc) output="false"	{	
+
+	rc.xa =	{
+		feedback_test 		= variables.fw.buildURL(action='home.feedback'),
+		feedback			= variables.fw.buildURL(action = '.feedback')
+		};
+		
+	
+		
+		
+	rc.feedback	=	{
+		subject = "",
+		sysAdminEmail = "",
+		email = ""
+		};
+
+	
+
+	StructAppend(rc.feedback, application.IOAPI.get_pref("Feedback"));
+	
+			
+	
+	if (rc.feedback.email != "" and not rc.feedback.email contains "@")	{
+		this.AddWarning("PLUMACMS/Email_NO_AT", [rc.feedback.email]);
+		}
+	
+	}	
 
 
 
 void function notification(required struct rc) output="false"	{
+
+
 
 
 
@@ -252,11 +250,36 @@ void function notification(required struct rc) output="false"	{
 		
 
 		} // end if
+		
+
+	}
 
 	
-	}
+void function endnotification(required struct rc) output="false"	{	
 	
+		
+	rc.xa =	{
+		notification_test 	= variables.fw.buildURL(action='settings.notificationtest'),
+		notification 		= variables.fw.buildURL(action = '.notification')
+		};
 	
+			
+
+	rc.notif = {	
+		level 			= 0,
+		subject 		= "",
+		sysAdminEmail 	= "",
+		email 			= ""
+		};
+
+	
+	StructAppend(rc.notif, application.IOAPI.get_pref("Notif"));
+
+	if (rc.notif.email != "" and not rc.notif.email contains "@")	{
+		this.AddWarning("PLUMACMS/EMAIL_NO_AT");
+		}
+	
+	}	
 
 
 void function clearAll(required struct rc) output="false"	{
@@ -281,9 +304,6 @@ void function clearAll(required struct rc) output="false"	{
 void function search(required struct rc) output="false"	{
 
 
-	
-
-
 	if (cgi.request_method == "Post")	{
 		
 		application.IOAPI.set_pref("Search", rc);
@@ -292,7 +312,32 @@ void function search(required struct rc) output="false"	{
 		this.AddInfo("SETTINGS_UPDATED");
 		
 		} // end if
+	}
+	
+	
 
+void function endsearch(required struct rc) output="false"	{	
+	
+	rc.xa =	{
+		search				= variables.fw.buildURL(action = 'settings.search'),
+		reindex				= variables.fw.buildURL(action = 'settings.reindex')
+		};
+	
+	
+
+	
+	
+	rc.search =	{
+		profile 	= 0,
+		max 		= 10,
+		letters 	= 100,
+		parentpage 	= 0,
+		tags 		= 0,
+		publishDate = 0,
+		rank 		= 0
+		};	
+	
+	StructAppend(rc.search, application.IOAPI.get_pref("Search"));	
 
 	}
 

@@ -11,17 +11,7 @@
 		}
 
 
-	void function languages(rc)	{
-		
-		rc.response = [];
-				
-		var qryDir = DirectoryList(application.GSLANGPATH, false, "query", "", "name");
-		
-		for (var i = 1; i <= qryDir.recordcount; i++)	{
-			ArrayAppend(rc.response, listfirst(qryDir.name[i], '.'));				
-			}
-		
-		}	
+
 	
 
 	void function pref(rc)	{

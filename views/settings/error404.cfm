@@ -8,7 +8,7 @@
 
 
 	<div class="edit-nav clearfix">
-		<a href="#rc.xa.jour404#" target="_blank" accesskey="v">#application.GSAPI.i18n("SIDE_VIEW_LOG")#</a>
+		<a href="#rc.xa.error404#" target="_blank" accesskey="v">#application.GSAPI.i18n("SIDE_VIEW_LOG")#</a>
 	
 		<a href="#rc.xa.missing#">#application.GSAPI.i18n("PLUMACMS/TEST")#</a>
 	</div>
@@ -24,7 +24,7 @@
 	
 	
 	<p>
-		<input type="checkbox" name="err_uselog" value="1" <cfif rc.err_uselog>checked="checked"</cfif> />
+		<input type="checkbox" name="err.uselog" value="1" <cfif rc.err.uselog>checked="checked"</cfif> />
 		
 		<b>#application.GSAPI.i18n("PLUMACMS/USELOG")#</b>
 	</p>
@@ -35,7 +35,7 @@
 	<p>
 		<b>#application.GSAPI.i18n("PLUMACMS/SUBJECT")#</b>
 		<br />
-		<input type="text" name="err_subject" class="text" placeholder="Who wrote this" value="#xmlformat(rc.err_subject)#" />
+		<input type="text" name="err.subject" class="text" placeholder="Who wrote this" value="#xmlformat(rc.err.subject)#" />
 	</p>
 
 
@@ -45,8 +45,8 @@
 		<table>
 		<cfoutput query="request.qrySystemAdmin">
 			<tr>
-				<td><input type="checkbox" name="err_sysAdminEmail" value="#email#" 
-					<cfif listFind(rc.err_SysAdminEmail, email) NEQ 0>checked = "checked"</cfif>
+				<td><input type="checkbox" name="err.sysAdminEmail" value="#email#" 
+					<cfif listFind(rc.err.SysAdminEmail, email) NEQ 0>checked = "checked"</cfif>
 					<cfif email EQ "">disabled="disabled"</cfif>
 					/>
 				</td>
@@ -60,7 +60,7 @@
 		<p>
 			<b>#application.GSAPI.i18n("PLUMACMS/ADDITIONAL_EMAIL")#</b>
 			<br />
-				<input type="text" class="text" name="err_Email" placeholder="john.smith@example.org" value="#xmlformat(rc.err_Email)#" />
+				<input type="text" class="text" name="err.Email" placeholder="john.smith@example.org" value="#xmlformat(rc.err.Email)#" />
 			
 		</p>
 		

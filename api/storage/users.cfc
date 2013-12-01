@@ -280,22 +280,22 @@ query function getBySlug(required string slug) output="no" 	{
 <vcard>
 
 	
-<fn><text>#rc.given# #rc.family#</text></fn>
+<fn><text>#rc.n.given# #rc.n.family#</text></fn>
 
 <n>
-	<cfif rc.prefix NEQ "">
-		<prefix>#rc.prefix#</prefix>
+	<cfif rc.n.prefix NEQ "">
+		<prefix>#rc.n.prefix#</prefix>
 	</cfif>
-	<given>#rc.given#</given>
+	<given>#rc.n.given#</given>
 	
-	<cfif rc.additional NEQ "">
-		<additional>#rc.additional#</additional>
+	<cfif rc.n.additional NEQ "">
+		<additional>#rc.n.additional#</additional>
 	</cfif>
 	
-	<family>#rc.family#</family>
+	<family>#rc.n.family#</family>
 	
 	<cfif rc.suffix NEQ "">
-		<suffix>#rc.suffix#</suffix>
+		<suffix>#rc.n.suffix#</suffix>
 	</cfif>	
 </n>
 

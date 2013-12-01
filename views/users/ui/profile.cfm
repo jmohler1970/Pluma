@@ -141,27 +141,27 @@
 	<table class="cleantable">
 	<tr>
 	  <td style="width:33%"><b>Prefix</b></td>
-	  <td><input type="text" name="prefix" class="text" style="width:250px;" 	value="#htmleditformat(stUser.prefix)#" /></td>
+	  <td><input type="text" name="n.prefix" class="text" style="width:250px;" 	value="#htmleditformat(stUser.prefix)#" /></td>
 	</tr>
 
 	<tr>
 	  <td><b>First Name</b></td>
-	  <td><input type="text" name="given" class="text" style="width:250px;" value="#htmleditformat(stUser.given)#" /></td>
+	  <td><input type="text" name="n.given" class="text" style="width:250px;" value="#htmleditformat(stUser.given)#" /></td>
 	</tr>
 
 	<tr>
 	  <td><b>Middle Name</b></td>
-	  <td><input type="text" name="additional" class="text" style="width:25px;" value="#htmleditformat(stUser.additional)#" /></td>
+	  <td><input type="text" name="n.additional" class="text" style="width:25px;" value="#htmleditformat(stUser.additional)#" /></td>
 	</tr>
 
 	<tr>
 	  <td><b>Last Name</b></td>
-	  <td><input type="text" name="family" class="text" style="width:250px;" value="#htmleditformat(stUser.family)#" /></td>
+	  <td><input type="text" name="n.family" class="text" style="width:250px;" value="#htmleditformat(stUser.family)#" /></td>
 	</tr>
 
 	<tr>
 	  <td><b>Postfix</b></td>
-	  <td><input type="text" name="suffix" class="text" style="width:250px;" 	value="#htmleditformat(stUser.suffix)#" /></td>
+	  <td><input type="text" name="n.suffix" class="text" style="width:250px;" 	value="#htmleditformat(stUser.suffix)#" /></td>
 	</tr>
 
 	<!--- hideable section --->

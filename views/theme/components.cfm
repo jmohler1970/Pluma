@@ -28,7 +28,7 @@
 </tbody>
 </table>
 
-<textarea name="components_new" class="code" style="height : 120px;"></textarea>
+<textarea name="components.new" class="code" style="height : 120px;"></textarea>
 
 	<br />
 
@@ -44,7 +44,6 @@
 <cfset ii = listrest(i, "_")>
 
 
-	<input type="hidden" name="title" value="#ii#" />
 
 <table class="comptable">
 <tbody>
@@ -60,7 +59,7 @@
 </table>
 
  
- 	<textarea name="components_#ii#" class="code" style="height : 120px;">#xmlformat(rc.stComponents[i])#</textarea>
+ 	<textarea name="components.#ii#" class="code" style="height : 120px;">#xmlformat(rc.components[i])#</textarea>
 
 
 

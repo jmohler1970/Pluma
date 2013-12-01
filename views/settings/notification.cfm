@@ -18,12 +18,12 @@
 		<p class="clearfix">
 			<label>Message Level</label>
 			<cfoutput>
-				<select name="notif_level">
-					<option value="3" <cfif rc.notif_level EQ "3">selected="selected"</cfif> >Fatal</option>
-					<option value="2" <cfif rc.notif_level EQ "2">selected="selected"</cfif> >Error</option>
-					<option value="1" <cfif rc.notif_level EQ "1">selected="selected"</cfif> >Warning</option>
-					<option value="0" <cfif rc.notif_level EQ "0">selected="selected"</cfif> >Info</option>
-					<option value="-1" <cfif rc.notif_level EQ "-1">selected="selected"</cfif> >Debug</option>
+				<select name="notif.level">
+					<option value="3" <cfif rc.notif.level EQ "3">selected="selected"</cfif> >Fatal</option>
+					<option value="2" <cfif rc.notif.level EQ "2">selected="selected"</cfif> >Error</option>
+					<option value="1" <cfif rc.notif.level EQ "1">selected="selected"</cfif> >Warning</option>
+					<option value="0" <cfif rc.notif.level EQ "0">selected="selected"</cfif> >Info</option>
+					<option value="-1" <cfif rc.notif.level EQ "-1">selected="selected"</cfif> >Debug</option>
 				</select>
 			</cfoutput>
 		</p>
@@ -33,7 +33,7 @@
 			<label>Subject</label>
 		
 			<cfoutput>
-				<input type="text" name="notif_subject" class="text" placeholder="Subject of email" value="#xmlformat(rc.notif_subject)#" />
+				<input type="text" name="notif.subject" class="text" placeholder="Subject of email" value="#xmlformat(rc.notif.subject)#" />
 			</cfoutput>
 		</p>
 		
@@ -41,8 +41,8 @@
 		<table>
 		<cfoutput query="request.qrySystemAdmin">
 			<tr>
-				<td><input type="checkbox" name="notif_sysAdminEmail" value="#email#" 
-					<cfif listFind(rc.notif_SysAdminEmail, email) NEQ 0>checked="checked"</cfif>
+				<td><input type="checkbox" name="notif.sysAdminEmail" value="#email#" 
+					<cfif listFind(rc.notif.SysAdminEmail, email) NEQ 0>checked="checked"</cfif>
 					<cfif email EQ "">disabled="disabled"</cfif>
 					/></td>
 				<td>#given# #family#</td>
@@ -59,7 +59,7 @@
 		<p class="clearfix">
 			<label>CC:</label>
 			<br />
-				<input type="text" class="text" name="notif_email" placeholder="john.smith@example.org" value="#xmlformat(rc.notif_email)#" />
+				<input type="text" class="text" name="notif.email" placeholder="john.smith@example.org" value="#xmlformat(rc.notif.email)#" />
 		
 		</p>
 

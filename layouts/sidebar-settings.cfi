@@ -4,32 +4,31 @@
 
 
 <ul class="snav">
-	<li id="sb_settings"><a <cfif getItem() EQ "home">class="current"</cfif>  href="##home">#application.GSAPI.i18n("general_settings")#</a></li>
+	<li id="sb_settings"><a <cfif getItem() EQ "home">class="current"</cfif> href="#buildURL(action = 'settings.home')#">#application.GSAPI.i18n("general_settings")#</a></li>
 
-	<li id="sb_settingsprofile"><a href="##profile">#application.GSAPI.i18n("SIDE_USER_PROFILE")#</a></li>
+	<li id="sb_settingsprofile"><a href="#buildURL(action = 'settings.profile')#">#application.GSAPI.i18n("SIDE_USER_PROFILE")#</a></li>
 </ul>
 
 
 <ul class="snav">	
-	<li id="sb_search"><a <cfif getItem() EQ "search">class="current"</cfif> href="##search">#application.GSAPI.i18n("plumacms/search_settings")#</a></li>
+	<li id="sb_search"><a <cfif getItem() EQ "search">class="current"</cfif> href="#buildURL(action = 'settings.search')#">#application.GSAPI.i18n("plumacms/search_settings")#</a></li>
 
-	<li id="sb_notification"><a <cfif getItem() EQ "notification">class="current"</cfif> href="##notification">#application.GSAPI.i18n("plumacms/notification_settings")#</a></li>
+	<li id="sb_notification"><a <cfif getItem() EQ "notification">class="current"</cfif> href="#buildURL(action = 'settings.notification')#">#application.GSAPI.i18n("plumacms/notification_settings")#</a></li>
 	
-	<li id="sb_feedback"><a <cfif getItem() EQ "feedback">class="current"</cfif> href="##feedback">#application.GSAPI.i18n("plumacms/feedback_settings")#</a></li>
+	<li id="sb_feedback"><a <cfif getItem() EQ "feedback">class="current"</cfif> href="#buildURL(action = 'settings.feedback')#">#application.GSAPI.i18n("plumacms/feedback_settings")#</a></li>
 	
-	<li id="sb_404"><a <cfif getItem() EQ "error404">class="current"</cfif>  href="##error404">#application.GSAPI.i18n("plumacms/error404_settings")#</a></li>
+	<li id="sb_404"><a <cfif getItem() EQ "error404">class="current"</cfif>  href="#buildURL(action = 'settings.error404')#">#application.GSAPI.i18n("plumacms/error404_settings")#</a></li>
 </ul>
-</cfoutput>
+
 
 
 <ul class="snav">
 
-	<cfoutput>#application.GSAPI.exec_action("settings_sidebar")#</cfoutput>
-
+	#application.GSAPI.exec_action("settings_sidebar")#
 
 </ul>
 
 
 
-	
+</cfoutput>	
 	

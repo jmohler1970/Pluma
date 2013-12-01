@@ -18,23 +18,23 @@
 <tr>
 	<td>#type# <cfif type EQ ""><i>None</i></cfif>
 	
-		<input type="hidden" name="key_#currentrow#" 		value="#xmlformat(type)#|#xmlformat(href)#" />
-		<input type="hidden" name="type_#currentrow#" 	value="#type#" />
+		<input type="hidden" name="link[#currentrow#].key" 	value="#xmlformat(type)#|#xmlformat(href)#" />
+		<input type="hidden" name="link[#currentrow#].type" value="#type#" />
 	</td>
 	
 	<td>
-    	<input type="text" name="message_#currentrow#" value="#xmlformat(message)#" />  
+    	<input type="text" name="link[#currentrow#].message" value="#xmlformat(message)#" />  
 	</td>
 		
 
 	<td>
-		<input type="text" name="href_#currentrow#" value="#xmlformat(href)#" size="30" />
+		<input type="text" name="link[#currentrow#].href" value="#xmlformat(href)#" size="30" />
 	
 		<a href="#href#" target="_blank"  class="edit-nav">Go</a>
 	</td>
 	
 	<td>
-		<select name="position_#currentrow#" class="input-mini">
+		<select name="link[#currentrow#].position" class="input-mini">
 			<cfloop from="1" to="#rc.qryLink.recordcount#" index="j">
 				<option value="#j#" <cfif j EQ currentrow>selected="selected"</cfif>>#j#</option>
 			</cfloop>
@@ -42,8 +42,7 @@
 	</td>
 	
 	<td style="text-align : center;">
-		<input type="checkbox" name="delete_#currentrow#" value="1" />
-	
+		<input type="checkbox" name="link[#currentrow#].delete" value="1" />
 	</td>
 </tr>
 </cfoutput>
@@ -66,16 +65,16 @@
 		<a class="edit-nav" href="#buildURL(action = 'pages.linkcategory')#"> Edit Link Category</a>
 </div>
 
-<input type="hidden" name="key_#linkitem#" value="" />
+<input type="hidden" name="link[#linkitem#].key" value="" />
 
 
 <p class="floated">
 	<b>Link Category</b>
 	<br />
-  	<select name="type_#linkitem#" class="text">
+  	<select name="link[#linkitem#].type" class="text">
     	<option></option>
 		<cfloop query="rc.qryLinkCategory">
-			<option value="#Title#">#Title#</option>		
+			<option value="#xmlformat(Title)#">#xmlformat(Title)#</option>		
 		</cfloop>
 	</select>
 </p>
@@ -84,7 +83,7 @@
 <p>
    	<b>Label</b>
    	<br />
-	<input type="text" name="message_#linkitem#" class="text" />
+	<input type="text" name="link[#linkitem#].message" class="text" />
     
 </p>
 	
@@ -92,6 +91,6 @@
 <p>
 	<b>Target URL</b>
     <br />   
-   	<input type="text" name="href_#linkitem#" placeholder="http://" class="text" />
+   	<input type="text" name="link[#linkitem#].href" placeholder="http://" class="text" />
 </p>
 </cfoutput>

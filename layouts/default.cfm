@@ -123,31 +123,17 @@
 <div class="bodycontent clearfix">
 	<div id="maincontent">
 	
-
-			
 		<!--- FW/1 generates this --->	
 		<cfoutput>#body#</cfoutput>
-		
-		<!--- Angularjs support --->
-		<cfif getSection() NEQ "main">	
-			<cfset variables.partials = application.IOAPI.loadPartials("views/" & getSection() & "/" & getItem(), rc)>
-			
-			<cfoutput>#variables.partials#</cfoutput>		
-		</cfif>		
-	
-	
-		<div class="ng-view"></div>
-	
 	</div>
 
 	
-		<div id="sidebar"> 
-		
-			<cfif fileexists("#application.GSROOTPATH#layouts/sidebar-#getSection()#.cfi")>
-				<cfinclude template="sidebar-#getSection()#.cfi">
-			</cfif>
-		</div>
-
+	<div id="sidebar"> 
+	
+		<cfif fileexists("#application.GSROOTPATH#layouts/sidebar-#getSection()#.cfi")>
+			<cfinclude template="sidebar-#getSection()#.cfi">
+		</cfif>
+	</div>
 </div>
 
 

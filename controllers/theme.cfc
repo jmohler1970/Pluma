@@ -77,17 +77,13 @@ void function edit(required struct rc) output="false" {
 
 
 
-	
-
 void function components(required struct rc) output="false"	{
 
-	param rc.components_new = "";
-	param rc.title = "";
 	
 	
 	if (cgi.request_method == "POST")	{
 	
-		if (rc.components_new == "" and rc.new_title != "")	{
+		if (rc.components.new == "" and rc.new_title != "")	{
 			this.addWarning("PLUMACMS/ISBLANK", ["Component Title"]);
 			}
 
@@ -95,7 +91,7 @@ void function components(required struct rc) output="false"	{
 
 		application.GSAPI.exec_action('component-save', "", rc);
 		
-		var result = application.IOAPI.set_pref("Components", rc);
+		var result = application.IOAPI.set_pref("Components", rc.Components);
 				
 	
 		

@@ -1,12 +1,19 @@
 
 
+<!---
+Preferences are stResult[pref][type].*
+
+They are selected via stResult[pref]
+
+--->
+
+
 
 <cfcomponent hint="Manages Preferences" output="false" extends="base">
 
 
 <cffunction name="getStatus" output="false"  returnType="string" hint="Is this object ready to read and write data">
 
-	
 
 	<cftry>
 		<cfset this.get()>
@@ -28,7 +35,7 @@
 
 		
 	<cfquery name="local.qryPref">
-		SELECT 	Pref, CASE WHEN [type] = '' THEN 'default' ELSE [type] END AS [type], title, href, rel, message
+		SELECT 	Pref, CASE WHEN [type] = '' THEN 'default' ELSE [type] END AS [type], /*title, href, rel,*/  message
 		FROM	dbo.Pref WITH (NOLOCK)
 		CROSS APPLY dbo.udf_xoxoRead(xmlPref)
 		WHERE	Deleted = 0
@@ -72,10 +79,10 @@
 	
 	
 	<cfquery>
-		DECLARE @category varchar(40) =  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.type#">
+		DECLARE @type varchar(40) =  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.type#">
 	
 		UPDATE	dbo.Pref
-		SET 	xmlPref.modify('delete /ul/li/b[.=sql:variable("@category")]')
+		SET 	xmlPref.modify('delete /ul/li/b[.=sql:variable("@type")]')
 		WHERE	pref 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.pref#">
 		AND		Deleted = 0
 	</cfquery> 
@@ -85,18 +92,19 @@
 </cffunction>
 
 
-<cffunction name="catgoryexists" returnType="boolean" output="false">
+
+<cffunction name="typeexists" returnType="boolean" output="false">
 	<cfargument name="Pref" 	required="true" type="string">
-	<cfargument name="category" required="true" type="string">
+	<cfargument name="type" required="true" type="string">
 
 	<cfquery name="qryType">
-		DECLARE @category varchar(40) =  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.type#">
+		DECLARE @typey varchar(40) =  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.type#">
 	
 		SELECT	Pref
 		FROM	dbo.Pref WITH (NOLOCK)
 		WHERE	pref 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.pref#">
 		AND		Deleted = 0
-		AND		xmlPref.exist('/ul/li/b[.=sql:variable("@category")]') = 1
+		AND		xmlPref.exist('/ul/li/b[.=sql:variable("@type")]') = 1
 	</cfquery> 
 
 	<cfif qryType.Pref EQ "">
@@ -111,7 +119,7 @@
 
 <cffunction name="commit" output="false"  returnType="string" hint="">
 	<cfargument name="Pref" 		required="true" type="string">
-	<cfargument name="rc" 			required="true" type="struct">
+	<cfargument name="Data" 		required="true" type="struct">
 	<cfargument name="remote_addr" 	required="true" type="string">
 	<cfargument name="ByUserID" 	required="true" type="string">	
 
@@ -128,7 +136,7 @@
 		INSERT 
 		INTO	@Source
 		SELECT  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.Pref#">,
-				<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.encodeXML(rc, arguments.Pref)#">,
+				<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.encodeXML(Data)#">,
 				dbo.udf_4jSuccess('Preferences Saved',
 					<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 					<cfqueryparam CFSQLType="CF_SQL_integer" value="#arguments.byUserID#">

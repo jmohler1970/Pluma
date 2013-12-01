@@ -22,7 +22,7 @@
 		<b>Subject</b>
 		<br />
 		<cfoutput>
-			<input type="text" name="feedback_subject" class="text" placeholder="Who wrote this" value="#xmlformat(rc.feedback_subject)#" />
+			<input type="text" name="feedback.subject" class="text" placeholder="Who wrote this" value="#xmlformat(rc.feedback.subject)#" />
 		</cfoutput>
 	</p>
 	
@@ -30,8 +30,8 @@
 		<table>
 		<cfoutput query="request.qrySystemAdmin">
 			<tr>
-				<td><input type="checkbox" name="feedback_sysAdminEmail" value="#email#" 
-					<cfif listFind(rc.feedback_SysAdminEmail, email) NEQ 0>checked="checked"</cfif>
+				<td><input type="checkbox" name="feedback.sysAdminEmail" value="#email#" 
+					<cfif listFind(rc.feedback.SysAdminEmail, email) NEQ 0>checked="checked"</cfif>
 					/>
 				</td>
 				<td>#given# #family#</td>
@@ -45,7 +45,7 @@
 		<p>
 			<b>Additional Email</b>
 			<br />
-				<input type="text" class="text" name="feedback_Email" placeholder="john.smith@example.org" value="#xmlformat(rc.feedback_Email)#" />
+				<input type="text" class="text" name="feedback.Email" placeholder="john.smith@example.org" value="#xmlformat(rc.feedback.Email)#" />
 			
 		</p>
 		

@@ -13,41 +13,41 @@
 <tr>
 	<td>Search User Profiles</td>
 	<td>
-		<input type="checkbox" name="search_profile" value="1" ng-model="data.search_profile" />
+		<input type="checkbox" name="search.profile" value="1" <cfif rc.search.profile>checked="checked"</cfif> />
 	</td>	
 </tr>
 
 <tr>
 	<td>Max results</td>
 	<td>
-		<input type="text" name="search_max" style="width:3em" class="text" ng-model="data.search_max" />
+		<input type="text" name="search.max" style="width:3em" class="text" value="#rc.search.max#" />
 	</td>	
 </tr>
 <tr>
 	<td>Letters to show</td>
 	<td>
-		<input type="text" name="search_letters" style="width:3em" class="text" ng-model="data.search_letters" />
+		<input type="text" name="search.letters" style="width:3em" class="text" value="#rc.search.letters#" />
 	</td>
 </tr>	
 
 <tr>
 	<td>Show parent page</td>
-	<td><input type="checkbox" name="search_parentpage" value="1" ng-model="data.search_parent" /></td>	
+	<td><input type="checkbox" name="search.parentpage" value="1" <cfif rc.search.parentpage>checked="checked"</cfif> /></td>	
 </tr>	
 
 <tr>
 	<td>Show tags</td>
-	<td><input type="checkbox" name="search_tags" 		value="1" ng-model="data.search_tags" /></td>	
+	<td><input type="checkbox" name="search.tags" 		value="1" <cfif rc.search.tags>checked="checked"</cfif> /></td>	
 </tr>	
 
 <tr>
 	<td>Show publish date</td>
-	<td><input type="checkbox" name="search_publishdate" value="1" ng-model="data.search_publishdate" /></td>	
+	<td><input type="checkbox" name="search.publishdate" value="1" <cfif rc.search.publishdate>checked="checked"</cfif> /></td>	
 </tr>	
 
 <tr>
 	<td>Show rank</td>
-	<td><input type="checkbox" name="search_rank" 		value="1" ng-model="data.search_rank" /></td>	
+	<td><input type="checkbox" name="search.rank" 		value="1" <cfif rc.search.rank>checked="checked"</cfif> /></td>	
 </tr>
 
 </table>

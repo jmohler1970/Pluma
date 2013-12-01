@@ -5,84 +5,45 @@
 
 
 <cffunction name="encodeXML" output="no"  returnType="string">
-	<cfargument name="rc" required="true" type="struct">
-	<cfargument name="filter" required="false" type="string" default="">
-	
+	<cfargument name="data" required="true" type="array">
+		
 
 	<cfscript>
 	var qryData = QueryNew("position, id, href, rel, title, message", "integer, varchar, varchar, varchar, varchar, varchar");
 
 	
 	
-	param rc.fieldnames = structkeyList(rc); // If this did not come from a form submit, then make a default list
-	
-	param rc.fieldsort = rc.fieldnames; // If an explicit sort was passed over, use it
-	
-	
-	for (var MyFormField in rc)	{
+	for (var MyData in arguments.data)	{
 			
-		if (ListFindNoCase("action,submit,fieldnames,fieldsort", MyFormField) == 0
-			AND NOT MyFormField CONTAINS "href"
-			AND NOT MyFormField CONTAINS "title"
-			)	{
-			if (MyFormField CONTAINS arguments.filter OR arguments.filter EQ "")	{
-			
-				var shortField = listrest(MyFormField , "_");
+		var shortField = listlast(MyData.title, "_");
 				
-				if (shortField == "new")	{
-					param arguments.rc.new_title = "";
+		if (shortField == "new")	{
+			param MyData.new_title = "";
 
-					shortField = reReplace(arguments.rc.new_title, "[^a-z0-9]_", "", "all");
-
-
-					if (shortField == "" AND arguments.rc.new_title != "")	{
-						return "A valid key could not be created from &quot;#xmlformat(arguments.rc.new_title)#&quot;";
-						}
+			shortField = reReplace(MyData.new_title, "[^a-z0-9]_", "", "all");
 
 
-					if (ListFindNoCase(shortfield, structKeyList(rc)))	{
-						return "A key could not be added because it already exists";
-						}
-
-					}
-				// end of coming up with name	
+			if (shortField == "" AND MyData.new_title != "")	{
+				return "A valid key could not be created from &quot;#xmlformat(arguments.rc.new_title)#&quot;";
+				}
+			}
+			// end of coming up with name	
 			
 				
-				mposition = ListFindNoCase(rc.fieldsort, MyFormField); 
-				
-				var mhref = "";
-				if (isDefined("rc.#myFormField#_href"))	{							
-					mhref = xmlFormat(arguments.rc["#MyFormField#_href"]);
-					
-					mhref = 'href="#href_field#"';							
-					}								
-				
-				var mrel = "";
-				if (isDefined("rc.#myFormField#_rel"))	{							
-					mrel = xmlFormat(arguments.rc["#MyFormField#_rel"]);
-					
-					mrel = 'rel="#rel_field#"';							
-					}
-				
-				
-				var mtitle = ""; // overridable
-				
-				if (isDefined("rc.#myFormField#_title"))	{							
-					mtitle = xmlFormat(arguments.rc["#MyFormField#_title"]);
-					
-					mtitle = 'title="#title_field#"';							
-					}								
-				
-				QueryAddRow(qryData);
-				QuerySetCell(qryData, "position", 	mposition);
-				QuerySetCell(qryData, "id", 		lcase(shortfield));
-				QuerySetCell(qryData, "href", 		mhref);
-				QuerySetCell(qryData, "rel", 		mrel);
-				QuerySetCell(qryData, "title",	 	mtitle);
-				QuerySetCell(qryData, "message", 	xmlformat(evaluate("rc.#MyFormField#")));
+		mposition	= structKeyExists(MyData, "position") 	? 'href="#xmlFormat(MyData.position)#"'	: "";	
+		mhref		= structKeyExists(MyData, "href") 		? 'href="#xmlFormat(MyData.href)#"'		: "";	
+		mhrel		= structKeyExists(MyData, "rel")  		? 'href="#xmlFormat(MyData.rel)#"'		: "";	
+		mhtitle		= structKeyExists(MyData, "title")		? 'href="#xmlFormat(MyData.title)#"'	: "";	
+			
 	
-				} // end if
-			} //end if
+				
+		QueryAddRow(qryData);
+		QuerySetCell(qryData, "position", 	mposition);
+		QuerySetCell(qryData, "id", 		lcase(shortfield));
+		QuerySetCell(qryData, "href", 		mhref);
+		QuerySetCell(qryData, "rel", 		mrel);
+		QuerySetCell(qryData, "title",	 	mtitle);
+		QuerySetCell(qryData, "message", 	xmlformat(MyData.Message) );
 		} // end for
 	</cfscript>
 	
