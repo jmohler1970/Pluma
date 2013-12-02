@@ -22,7 +22,7 @@
 <table class="comptable">
 <tbody>
 <tr>
-	<td><b>#application.GSAPI.i18n("title")#</b> <input type="text" class="text newtitle" name="new_title" value="" style="width : 100px" /></td>
+	<td><b>#application.GSAPI.i18n("title")#</b> <input type="text" class="text newtitle" name="components.new_title" value="" style="width : 100px" /></td>
 	<td></td>
 </tr>
 </tbody>
@@ -39,27 +39,27 @@
 
 
 
-<cfloop index="i" list="#ArrayToList(rc.arComponents)#">
 
-<cfset ii = listrest(i, "_")>
+
+<cfloop index="i" list="#StructKeyList(rc.Components)#">
 
 
 
 <table class="comptable">
 <tbody>
 <tr>
-	<td><b>#lcase(ii)#</b></td>
-	<td style="text-align:right;"><code>##application.GSAPI.get_component(<span class="compslugcode">'#lcase(ii)#'</span>)##</code></td>
+	<td><b>#lcase(i)#</b></td>
+	<td style="text-align:right;"><code>##application.GSAPI.get_component(<span class="compslugcode">'#lcase(i)#'</span>)##</code></td>
 	<td class="delete">
-		<a class="delconfirm" href="#buildURL(action = '.delcomponents', querystring = 'pref=#lcase(ii)#')#"
-			title="#application.GSAPI.i18n('delete_component')#: #lcase(ii)#?" class="delcomponent" rel="1" id="del_#ii#">&times;</a>
+		<a class="delconfirm" href="#buildURL(action = '.delcomponents', querystring = 'pref=#lcase(i)#')#"
+			title="#application.GSAPI.i18n('delete_component')#: #lcase(i)#?" class="delcomponent" rel="1" id="del_#i#">&times;</a>
 	</td>
 </tr>
 </tbody>
 </table>
 
  
- 	<textarea name="components.#ii#" class="code" style="height : 120px;">#xmlformat(rc.components[i])#</textarea>
+ 	<textarea name="components.#i#" class="code" style="height : 120px;">#xmlformat(rc.components[i])#</textarea>
 
 
 

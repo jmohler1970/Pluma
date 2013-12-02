@@ -1229,7 +1229,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	<cfargument name="kind" required="true" type="string">
 
 	<cfquery name="local.qryRecentLogin">
-		SELECT  TOP 100 Kind, [by], [datetime], message, [type], ip
+		SELECT  TOP 100 Kind, address AS [by], [datetime], message, [type], tt AS ip
 		FROM	dbo.DataLog WITH (NOLOCK)
 		CROSS APPLY dbo.udf_xoxoRead(Created)
 		

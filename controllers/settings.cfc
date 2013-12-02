@@ -160,7 +160,8 @@ void function enderror404(required struct rc) output="false"	{
 	
 	rc.xa =	{
 		missing	 			= variables.fw.buildURL(action='home.missing'),
-		error404 			= variables.fw.buildURL(action = '.error404')
+		error404	 		= variables.fw.buildURL(action='support.error404'),
+		jour404	 			= variables.fw.buildURL(action='support.jour', querystring='kind=404')
 		};
 
 	rc.err = {

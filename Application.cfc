@@ -4,7 +4,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_133";
+	this.name 			= "PlumaCMS_144";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -172,9 +172,9 @@ void function setupRequest()	{
 
 	if (session.LOGINAPI.checkSecurity(getSubSystem(), getSection(), getItem()) == 0)	{
 		// Note: if you are on a public page, you pass security and there is no redirect --->
-		//location("#application.GSAPI.get_site_root()#index.cfm/login?key=Login_Expired", "no");
+		location("#application.GSAPI.get_site_root()#index.cfm/login?key=Login_Expired", "no");
 		
-		//return;
+		return;
 		} 
 	
 		

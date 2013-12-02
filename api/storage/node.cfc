@@ -397,7 +397,7 @@
 
 <cffunction name="xmlConfSave" returnType="struct" output="no" >
 	<cfargument name="NodeK" type="struct" required="true">
-	<cfargument name="rc" type="struct" required="true">
+	<cfargument name="Conf" type="struct" required="true">
 	<cfargument name="remote_addr" required="true" type="string">
 	<cfargument name="byUserID" required="true" type="string">
 	
@@ -410,44 +410,44 @@
 	
 		
 	// Data
-	if (structkeyExists(rc, "showHeader") OR structkeyExists(rc, "startRow") OR structkeyExists(rc, "startCol"))	{
+	if (structkeyExists(Conf, "showHeader") OR structkeyExists(Conf, "startRow") OR structkeyExists(Conf, "startCol"))	{
 		xmlConf &= "<data";
-		if (structkeyExists(rc, "showHeader")) 	{ xmlConf &= " showHeader=#xmlFormat(rc.showHeader)#"; }
-		if (structkeyExists(rc, "startRow")) 	{ xmlConf &= " showHeader=#xmlFormat(rc.startRow)#"; }
-		if (structkeyExists(rc, "startCol")) 	{ xmlConf &= " showHeader=#xmlFormat(rc.startCol)#"; }
+		if (structkeyExists(Conf, "showHeader")) 	{ xmlConf &= " showHeader=#xmlFormat(Conf.showHeader)#"; }
+		if (structkeyExists(Conf, "startRow")) 		{ xmlConf &= " showHeader=#xmlFormat(Conf.startRow)#"; }
+		if (structkeyExists(Conf, "startCol")) 		{ xmlConf &= " showHeader=#xmlFormat(Conf.startCol)#"; }
 				
 		xmlData &= " />";
 		}
 
 	
-	param rc.youtube 		= "";
-	param rc.notes 			= "";
-	param rc.src 			= "";
-	param rc.map 			= "";
-	param rc.location		= "";
-	param rc.plugin_content = "";
-	param rc.theme_template	= "";
-	param rc.href 			= "";
+	param Conf.youtube 		= "";
+	param Conf.notes 			= "";
+	param Conf.src 			= "";
+	param Conf.map 			= "";
+	param Conf.location		= "";
+	param Conf.plugin_content = "";
+	param Conf.theme_template	= "";
+	param Conf.href 			= "";
 	
 		
 
-	if (rc.youtube 	!= "")		{ xmlConf &= "<youtube>#xmlformat(rc.youtube)#</youtube>"; }
-	if (rc.notes 	!= "")		{ xmlConf &= "<notes>#xmlformat(rc.notes)#</notes>"; }
-	if (rc.src 		!= "")		{ xmlConf &= "<src>#xmlformat(rc.src)#</src>";	}
-	if (rc.map 		!= "")		{ xmlConf &= "<map>#xmlformat(rc.map)#</map>";	}
-	if (rc.location 		!= "")		{ xmlConf &= "<location>#xmlformat(rc.location)#</location>";	}
-	if (rc.theme_template	!= "")		{ xmlConf &= "<theme_template>#xmlformat(rc.theme_template)#</theme_template>";	}
-	if (rc.href 	!= "")		{ xmlConf &= "<href>#xmlformat(rc.href)#</href>"; }
+	if (Conf.youtube 		!= "")		{ xmlConf &= "<youtube>#xmlformat(Conf.youtube)#</youtube>"; }
+	if (Conf.notes 			!= "")		{ xmlConf &= "<notes>#xmlformat(Conf.notes)#</notes>"; }
+	if (Conf.src 			!= "")		{ xmlConf &= "<src>#xmlformat(Conf.src)#</src>";	}
+	if (Conf.map 			!= "")		{ xmlConf &= "<map>#xmlformat(Conf.map)#</map>";	}
+	if (Conf.location 		!= "")		{ xmlConf &= "<location>#xmlformat(Conf.location)#</location>";	}
+	if (Conf.theme_template	!= "")		{ xmlConf &= "<theme_template>#xmlformat(Conf.theme_template)#</theme_template>";	}
+	if (Conf.href 			!= "")		{ xmlConf &= "<href>#xmlformat(Conf.href)#</href>"; }
 	
 	
 		
 			
-	if (rc.plugin_content != "")	{
-		xmlConf &= "<plugin_content>#xmlformat(rc.plugin_content)#";
+	if (Conf.plugin_content != "")	{
+		xmlConf &= "<plugin_content>#xmlformat(Conf.plugin_content)#";
 		
 		for (var i = 1; i <= 10; i++)	{
-			if (isDefined("rc.config#i#"))	{
-				xmlConf &= '<config position="#i#">#xmlformat(evaluate('rc.config#i#'))#</config>';
+			if (isDefined("Conf.config#i#"))	{
+				xmlConf &= '<config position="#i#">#xmlformat(evaluate('Conf.config#i#'))#</config>';
 				}
 			}
 		xmlConf &= "</plugin_content>";
@@ -457,7 +457,7 @@
 	// Anything simple
 	var i = 0;
 		
-	for (var MyFormField in rc)	{
+	for (var MyFormField in Conf)	{
 		
 		
 		
@@ -465,11 +465,11 @@
 			i++;
 			
 			
-			if (rc[MyFormField] != "" and i < 100)	{
+			if (Conf[MyFormField] != "" and i < 100)	{
 			
 				type = listlast(MyFormField, '_');
 						
-				xmlConf &= '<simple type="#lcase(type)#">' & xmlFormat(rc[MyFormField]) & '</simple>';
+				xmlConf &= '<simple type="#lcase(type)#">' & xmlFormat(Conf[MyFormField]) & '</simple>';
 				}
 			}
 		}	

@@ -1,14 +1,10 @@
 
 
-<cfdump var="#request#">
-<cfexit>
-
 
 
 
 <cfscript>
 param request.exception = {type = "unknown"};
-
 </cfscript>
 
 

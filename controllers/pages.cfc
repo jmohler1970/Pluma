@@ -103,9 +103,9 @@ void function edit(required struct rc) output="false" {
 			NodeK.NodeID = rc.NodeID;
 			
 			if (NodeK.NodeID > 0)	{	
-				application.IOAPI.set_Link(NodeK, rc);
+				application.IOAPI.set_Link(NodeK, rc.Link);
 				
-				application.IOAPI.set_Conf(NodeK, rc);
+				application.IOAPI.set_Conf(NodeK, rc.Conf);
 				}
 			
 			application.GSAPI.exec_action('changedata-aftersave', "", rc);

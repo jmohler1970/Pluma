@@ -653,7 +653,79 @@ GO
 /* rotate */
 
 
+/* User Data: this was designed around xoxo, but can be made to do much more 
+	
+Design Goals:
 
+1.) Create a format that is valid XML so that it can be processed by SQL XML functions
+2.) Create a format that is valid HTML so that it can be simply dumped as is
+3.) Create a format that uses HTML in their natural symantic version. This way the tags will be self describing
+4.) Create a format that covers all of the purposes that Pluma would require.
+5.) Recognize that no particular instance of this will ever ever use all fields. This can generate a table, but it will be very sparse. It is meaningful as little as a single data point
+6.) Nothing is required
+7.) We would like to apologize for address, tt, time tags
+8.) We recognize that not everything needs to be a link, so we use var as alternative
+9.) We believe that his format will NOT suit everyone needs. Because this is XML, it can be converted to a completely different HTML if necessary
+
+*/
+
+
+
+create function [dbo].[udf_xoxoRead](@xmlData xml) 
+	
+	returns @tblmessage TABLE
+(
+    -- Columns returned by the function
+    [type] 			nvarchar(max) NULL,		/* type is shown (Plain)		*/
+    
+    /* data-* portion of html */
+    [id] 			nvarchar(max) NULL,		/* id is not 					*/
+    [position] 		int 		  NULL,		/* sort order over ride. This also allows for sparse arrays */
+    [status] 		nvarchar(max) NULL,		/* publish or security mode 	*/
+
+	/* show as regular html */
+    [title]			nvarchar(max) NULL,		/* overall tool tip 			*/
+    [message]		nvarchar(max) NULL    	/* inside of a or var  			*/
+    
+    [href] 			nvarchar(max) NULL,		/* a tag link location			*/
+    [rel] 			nvarchar(max) NULL,		/* a tag relationship			*/
+    [address]		nvarchar(max) NULL,		/* who person's name  			*/
+    [tt]			nvarchar(max) NULL,		/* who as in ip 				*/
+    [datetime]		datetime	  NULL,		/* when did this happen 		*/
+    [cite]			nvarchar(max) NULL		/* citation like a ticket # 	*/
+
+)
+as
+begin
+	INSERT INTO @tblMessage
+	
+	SELECT 
+		Tbl.Col.value('b[1]', 				'nvarchar(max)') 	AS [type],  
+       	Tbl.Col.value('@data-id', 			'nvarchar(max)') 	AS [id],
+       	Tbl.Col.value('@data-position','int') 					AS [position],
+       	Tbl.Col.value('@data-status',		'nvarchar(max)') 	AS [status],
+       	Tbl.Col.value('@title', 			'nvarchar(max)')	AS [title],
+	 	
+	 	ISNULL(Tbl.Col.value('var[1]', 		'nvarchar(max)'),
+	 		Tbl.Col.value('a[1]', 			'nvarchar(max)'))	AS [message],
+	 	
+	 	Tbl.Col.value('(a[@href])[1]',	 	'nvarchar(max)') 	AS [href],  
+	 	Tbl.Col.value('(a[@rel])[1]', 		'nvarchar(max)')	AS [rel],
+	 	
+	 	Tbl.Col.value('address[1]', 		'nvarchar(max)') 	AS [address],
+	 	Tbl.Col.value('(address/tt)[1]', 	'nvarchar(max)') 	AS [tt],
+	 	Tbl.Col.value('time[1]', 			'datetime') 		AS [datetime],  
+       	Tbl.Col.value('cite[1]', 			'nvarchar(max)') 	AS [cite]  
+       		
+
+	FROM   @xmlData.nodes('/ul/li') Tbl(Col)
+	
+
+
+	RETURN
+end
+
+GO
 
 
 
@@ -662,6 +734,18 @@ Link Sample:
 
 DECLARE @xml xml = '
 <ul class="xoxo">
+	<li data-position="3" data-status="approved" data-id="catinfo" title="This is about domestic cats">
+		<b>Pets</b>: 
+		<a href="black.htm" title="cat" rel="external">This is about black cats</a> 
+		By <address>James Mohler <tt>1.1.1.1</tt></address>
+		At <time>1/2/2015</time>
+		Also see <cite>http://en.wikipedia.org/wiki/Felis</cite>
+	</li>
+	
+	<li><b>Farm Animals</b></li>
+	
+	<li><b>Pets</b>: <var>Dog</var></li>	
+	
 	<li><a href="black.htm" title="cat">This is about black cats</a></li>
 
 	<li><a href="chihuahua.htm" title="dog">We prefer Chihuahuas</a></li>

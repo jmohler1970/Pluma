@@ -83,7 +83,7 @@ void function components(required struct rc) output="false"	{
 	
 	if (cgi.request_method == "POST")	{
 	
-		if (rc.components.new == "" and rc.new_title != "")	{
+		if (rc.components.new == "" and rc.components.new_title != "")	{
 			this.addWarning("PLUMACMS/ISBLANK", ["Component Title"]);
 			}
 
@@ -112,8 +112,7 @@ void function endcomponents(required struct rc) output="false"	{
 	application.IOAPI.load_pref(1); //resets all preferences
 	
 
-	rc.stComponents = application.IOAPI.get_pref("Components");
-	rc.arComponents = StructSort(application.IOAPI.get_pref("Components"),"textnocase");
+	rc.Components = application.IOAPI.get_pref("Components");
 	}
 
 

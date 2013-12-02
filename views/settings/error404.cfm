@@ -8,7 +8,7 @@
 
 
 	<div class="edit-nav clearfix">
-		<a href="#rc.xa.error404#" target="_blank" accesskey="v">#application.GSAPI.i18n("SIDE_VIEW_LOG")#</a>
+		<a href="#rc.xa.jour404#" accesskey="v">#application.GSAPI.i18n("SIDE_VIEW_LOG")#</a>
 	
 		<a href="#rc.xa.missing#">#application.GSAPI.i18n("PLUMACMS/TEST")#</a>
 	</div>

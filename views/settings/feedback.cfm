@@ -32,6 +32,7 @@
 			<tr>
 				<td><input type="checkbox" name="feedback.sysAdminEmail" value="#email#" 
 					<cfif listFind(rc.feedback.SysAdminEmail, email) NEQ 0>checked="checked"</cfif>
+					<cfif email EQ "">disabled="disabled"</cfif>
 					/>
 				</td>
 				<td>#given# #family#</td>

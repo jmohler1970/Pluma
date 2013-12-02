@@ -474,11 +474,11 @@ struct function set(required struct NodeK, required struct rc) output="false"	{
 	}
 
 
-struct function set_conf(required struct NodeK, required struct rc) output="false" hint="Stores an expected set of rc values. Fields are: youtube, notes, src, map, autopage + config[1-10], href, simiple_? (up to 100 fields)"	{
+struct function set_conf(required struct NodeK, required struct Conf) output="false" hint="Stores an expected set of rc values. Fields are: youtube, notes, src, map, autopage + config[1-10], href, simiple_? (up to 100 fields)"	{
 	
 	param arguments.NodeK.Kind = "Page";
 	
-	variables.stResult = this.wsNode.XMLConfSave(arguments.NodeK, rc, cgi.remote_addr, session.LOGINAPI.UserID);
+	variables.stResult = this.wsNode.XMLConfSave(arguments.NodeK, Conf, cgi.remote_addr, session.LOGINAPI.UserID);
 	
 	return variables.stResult;
 	}
@@ -494,11 +494,11 @@ struct function set_XMLData(required struct NodeK, required string xmlData) outp
 	
 
 
-struct function set_link(required struct NodeK, required struct rc)  hint="Stores an expected set of rc values. Fields are: linkcategory_[1-50], href_[1-50] (required), value_[1-50] (required), tooltip_[1-50], sortorder_[1-50]"	{
+struct function set_link(required struct NodeK, required array Link)  hint="Stores an expected set of rc values. Fields are: linkcategory_[1-50], href_[1-50] (required), value_[1-50] (required), tooltip_[1-50], sortorder_[1-50]"	{
 
 	param arguments.NodeK.Kind = "Page";
 
-	variables.stResult = this.wsNode.LinkSave(arguments.NodeK, rc, cgi.remote_addr, session.LOGINAPI.UserID);
+	variables.stResult = this.wsNode.LinkSave(arguments.NodeK, Link, cgi.remote_addr, session.LOGINAPI.UserID);
 	
 	return variables.stResult;
 	}
