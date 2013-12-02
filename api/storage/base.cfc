@@ -5,36 +5,54 @@
 
 
 <cffunction name="encodeXML" output="no"  returnType="string">
-	<cfargument name="data" required="true" type="array">
+	<cfargument name="data" required="true" type="struct">
 		
+	<!--- encode has two modes 
+		
+	data=simple
+	----
+	data=struct (href, rel, title, message)
+	data.href = data.href
+	--->
 
 	<cfscript>
 	var qryData = QueryNew("position, id, href, rel, title, message", "integer, varchar, varchar, varchar, varchar, varchar");
 
 	
 	
-	for (var MyData in arguments.data)	{
+	for (var MyKey in arguments.data)	{
 			
-		var shortField = listlast(MyData.title, "_");
+		var shortField = listlast(MyKey, "_");
+		
 				
 		if (shortField == "new")	{
-			param MyData.new_title = "";
+			param data.new_title = "";
 
-			shortField = reReplace(MyData.new_title, "[^a-z0-9]_", "", "all");
+			shortField = reReplace(Data.new_title, "[^a-z0-9]_", "", "all");
 
 
-			if (shortField == "" AND MyData.new_title != "")	{
-				return "A valid key could not be created from &quot;#xmlformat(arguments.rc.new_title)#&quot;";
+			if (shortField == "" AND Data.new_title != "")	{
+				return "A valid key could not be created from &quot;#xmlformat(arguments.data.new_title)#&quot;";
 				}
 			}
 			// end of coming up with name	
+		
+		if (isStruct(arguments.data[MyKey]))	{
+			mposition	= structKeyExists(data[MyKey], "position") 	? 'href="#xmlFormat(data[MyKey].position)#"'	: "";	
+			mhref		= structKeyExists(data[MyKey], "href") 		? 'href="#xmlFormat(data[MyKey].href)#"'		: "";	
+			mrel		= structKeyExists(data[MyKey], "rel")  		? 'href="#xmlFormat(data[MyKey].rel)#"'			: "";	
+			mtitle		= structKeyExists(data[MyKey], "title")		? 'href="#xmlFormat(data[MyKey].title)#"'		: "";	
+			mmessage	= structKeyExists(data[MyKey], "message")	? 'href="#xmlFormat(data[MyKey].message)#"'		: "";
+			}	
+		else	{
+			mposition 	= '';
+			mhref 		= '';			
+			mrel 		= '';			
+			mtitle 		= '';			
+			mmessage	= xmlformat(data[MyKey]);			
 			
-				
-		mposition	= structKeyExists(MyData, "position") 	? 'href="#xmlFormat(MyData.position)#"'	: "";	
-		mhref		= structKeyExists(MyData, "href") 		? 'href="#xmlFormat(MyData.href)#"'		: "";	
-		mhrel		= structKeyExists(MyData, "rel")  		? 'href="#xmlFormat(MyData.rel)#"'		: "";	
-		mhtitle		= structKeyExists(MyData, "title")		? 'href="#xmlFormat(MyData.title)#"'	: "";	
-			
+			}	
+	
 	
 				
 		QueryAddRow(qryData);
@@ -43,7 +61,7 @@
 		QuerySetCell(qryData, "href", 		mhref);
 		QuerySetCell(qryData, "rel", 		mrel);
 		QuerySetCell(qryData, "title",	 	mtitle);
-		QuerySetCell(qryData, "message", 	xmlformat(MyData.Message) );
+		QuerySetCell(qryData, "message", 	mmessage);
 		} // end for
 	</cfscript>
 	

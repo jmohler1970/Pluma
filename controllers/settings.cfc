@@ -41,7 +41,7 @@ void function home(required struct rc) output="false"	{
 
 	if (cgi.request_method == "post" AND rc.submit == "settings")	{
 		
-		var result = application.IOAPI.set_pref("Meta", rc);
+		var result = application.IOAPI.set_pref("Meta", rc.meta);
 		
 		if (left(rc.meta_root, 1) != "/")	{
 			rc.meta_root &= "/";			
@@ -143,7 +143,7 @@ void function error404(required struct rc) output="false"	{
 
 	if (cgi.request_method == "Post")	{
 		
-		application.IOAPI.set_pref("Err", rc);
+		application.IOAPI.set_pref("Err", rc.err);
 		
 		
 		this.AddInfo("SETTINGS_UPDATED");
@@ -190,7 +190,7 @@ void function feedback(required struct rc) output="false"	{
 
 	if (cgi.request_method == "Post")	{
 		
-		application.IOAPI.set_pref("Feedback", rc);
+		application.IOAPI.set_pref("Feedback", rc.Feedback);
 		
 		
 		this.AddInfo("PLUMACMS/Feedback_updated");
@@ -244,7 +244,7 @@ void function notification(required struct rc) output="false"	{
 	if (cgi.request_method == "Post")	{
 	
 			
-		application.IOAPI.set_pref("Notif", rc);
+		application.IOAPI.set_pref("Notif", rc.Notif);
 		
 		this.AddInfo("SETTINGS_UPDATED");
 		
@@ -306,7 +306,7 @@ void function search(required struct rc) output="false"	{
 
 	if (cgi.request_method == "Post")	{
 		
-		application.IOAPI.set_pref("Search", rc);
+		application.IOAPI.set_pref("Search", rc.Search);
 		
 		
 		this.AddInfo("SETTINGS_UPDATED");
