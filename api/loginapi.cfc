@@ -13,10 +13,10 @@ void function Init() output="false" {
 	this.UserID 	= -1; 
 	this.given	 	= 'Welcome';
 	this.family	 	= 'Guest';
-	this.slug 	= "";
-	this.lstGroup	= "";
-	this.qryUser = QueryNew("Email");
-	this.login = 'Unknown';
+	this.slug 		= "";
+	this.arGroup	= [];
+	this.qryUser 	= QueryNew("Email");
+	this.login 		= 'Unknown';
 	this.loginTarget = 'pages.home';
 	
 	
@@ -162,10 +162,10 @@ query function get_by_email(required string email) output="false" {
 	
 	
 	// Group concerns
-	this.lstGroup 	= this.qryUser.Groups;
+	this.arGroup 	= ListToArray(this.qryUser.Groups);
 			
 	
-	if (this.lstGroup == "")	{
+	if (ArrayLen(this.arGroup) == 0)	{
 	
 		variables.stResult.result = false;
 		variables.stResult.key = "plumacms/No_Permission";
@@ -206,8 +206,8 @@ query function get_by_email(required string email) output="false" {
 	this.slug		= this.qryUser.slug;
 	this.login		= this.qryUser.Login;
 	
-	this.logintarget = structkeyExists(application.stSettings.Landing, this.qryUser.groups) ? 
-		application.stSettings.Landing[this.qryUser.groups]	: "main.home";
+	this.logintarget = structkeyExists(application.stSettings.Landing, this.argroup[1]) ? 
+		application.stSettings.Landing[this.argroups[1]	: "main.home";
 
 	
 	

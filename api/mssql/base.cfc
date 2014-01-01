@@ -51,7 +51,7 @@
 					
 			mmessage	= structKeyExists(data[MyKey], "message")	? xmlFormat(data[MyKey].message)						: "";
 			}	
-		else if (isArray(MyKey]))	{
+		else if (isArray(MyKey))	{
 			mid			= structKeyExists(MyKey, "id") 			? 'data-id="#xmlFormat(MyKey.id)#"'				: "";
 			mposition	= structKeyExists(MyKey, "position") 	? MyKey.position : '';
 			mstatus		= structKeyExists(MyKey, "status") 		? 'data-status="#xmlFormat(MyKey.position)#"'	: "";
@@ -61,8 +61,9 @@
 			mrel		= structKeyExists(MyKey, "rel")  		? 'rel="#xmlFormat(MyKey.rel)#"'				: "";
 			mdatetime	= structKeyExists(MyKey, "time")  		? '<time>#xmlFormat(MyKey.time)#</cite>'		: "";
 			mcite		= structKeyExists(MyKey, "cite")  		? '<cite>#xmlFormat(MyKey.cite)#</cite>'		: "";
-					
+				
 			mmessage	= structKeyExists(data[MyKey], "message")	? xmlFormat(MyKey.message)					: "";
+	
 			}	
 		else	{
 			mid			= '';

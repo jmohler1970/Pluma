@@ -406,10 +406,10 @@ query function getBySlug(required string slug) output="no" 	{
 		INTO	@Source
 		SELECT 	<cfqueryparam cfsqltype="CF_SQL_integer" 	value="#arguments.userid#" 	null="#IIF(arguments.UserID EQ "", 1, 0)#">,
 				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#local.personname#">,
-				<cfqueryparam CFSQLType="CF_SQL_DATE" 		value="#rc.expirationDate#"	null="#IIF(rc.ExpirationDate EQ "", 1, 0)#">,
+				<cfqueryparam CFsqltype="CF_SQL_DATE" 		value="#rc.expirationDate#"	null="#IIF(rc.ExpirationDate EQ "", 1, 0)#">,
 				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#rc.passhash#" 		null="#IIF(rc.PassHash EQ "", 1, 0)#">,
 				
-				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#this.encodeXML({Group = rc.groups})#">,
+				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#this.encodeXML({groups = ListToArray(rc.groups)})#">,
 				dbo.udf_4jInfo(DEFAULT,DEFAULT,
 			 		<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byuserID#">),
 			 	dbo.udf_4jSuccess('Basic data was committed',

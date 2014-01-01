@@ -8,7 +8,7 @@ function init(fw) { variables.fw = fw; }
 
 void function home (required struct rc) output="false"	{
 
-	if (session.LOGINAPI.lstGroup != "")	{
+	if (ArrayLen(session.LOGINAPI.arGroup > 0)	{
 		variables.fw.redirect(session.LOGINAPI.loginTarget, "all");	
 		return;
 		}

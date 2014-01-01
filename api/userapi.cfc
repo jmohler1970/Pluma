@@ -13,8 +13,8 @@ void function Init() output="false" {
 	this.UserID 	= ''; 
 	this.given	 	= 'Welcome';
 	this.family 	= 'Guest';
-	this.slug 	= "";
-	this.lstGroup	= "";
+	this.slug 		= "";
+	this.arGroup	= [];
 	this.qryUser = QueryNew("Email");
 	this.login = 'Unknown';
 	//this.LoginTarget = 'login.suspend';
@@ -117,22 +117,20 @@ query function get_link(string userid=session.LOGINAPI.UserID) output="false"	{
 
 	return this.wsUser.getLink(arguments.userid);
 	}
-</cfscript>
-
-
-<cffunction name="get_all" returnType="query" >
-
-
-	<cfreturn this.wsUser.getAll()>
-</cffunction>
 
 
 
-<cfscript>
+query function get_all() output="false"	{
+	
+	return this.wsUser.getAll();
+	}
+
+
+
 struct function set(required string userid, required struct rc) output="false"	{
 
 
-	result = this.wsUser.commit(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
+	var result = this.wsUser.commit(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
 
 	
 	return result;
@@ -143,7 +141,7 @@ struct function set_profile(required string userid, required struct rc) output="
 
 	
 
-	result = this.wsUser.setProfile(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
+	var result = this.wsUser.setProfile(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
 	
 	return result;
 	}
@@ -155,7 +153,7 @@ struct function set_personal(required string userid, required struct rc) output=
 
 	
 
-	result = this.wsUser.setPersonal(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
+	var result = this.wsUser.setPersonal(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
 	
 	
 	return result;
@@ -167,7 +165,7 @@ struct function set_link(required string userid, required struct rc) output="fal
 
 	
 
-	result = this.wsUser.setLink(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
+	var result = this.wsUser.setLink(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
 	
 	
 	return result;
@@ -178,7 +176,7 @@ struct function set_link(required string userid, required struct rc) output="fal
 
 struct function set_password(required string userid, required string password) output="false"	{
 
-	result = this.wsUser.commitPassword(arguments.userid, arguments.password, cgi.remote_addr, session.LOGINAPI.userID);
+	var result = this.wsUser.commitPassword(arguments.userid, arguments.password, cgi.remote_addr, session.LOGINAPI.userID);
 	
 	return {result = result};
 	}
@@ -187,7 +185,7 @@ struct function set_password(required string userid, required string password) o
 	
 struct function set_security(required string userid, required struct rc) output="false"	{
 
-	result = this.wsUser.commitsecurity(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
+	var result = this.wsUser.commitsecurity(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
 	
 	return {result = result};
 	}

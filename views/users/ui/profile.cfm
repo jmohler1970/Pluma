@@ -87,13 +87,26 @@
 	<div class="leftsec">
 		<p>
 	    	<b>#application.GSAPI.i18n("USER_MANAGEMENT/PERMISSION")#</b>
-			<br />
+		</p>
+		
+		<p>			
+			<input type="checkbox" name="groups" value="Staff" /> Staff Group<br /> 
+				<small>Designates whether the user can log into this admin site.</small>
+		</p>	
+			
+		<p>	
+			<input type="checkbox" name="groups" value="Superuser" /> Superuser Group<br /> 
+				<small>Designates that this user has all permissions without explicitly assigning them.</small>
+		</p>	
+			
+			<!---
 			<select name="groups" class="text">
 			<cfloop index="ii" list="#Application.stSettings.Group.lstAccess#">
 	       		<option value="#ii#" <cfif ii EQ stUser.groups>selected="selected"</cfif>>#ii#</option>
 		   	</cfloop>
 		   	</select>
-	 	</p>
+		   	--->
+
 	</div>  
 	  
 	 
