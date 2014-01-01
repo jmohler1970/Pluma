@@ -5,12 +5,19 @@
 
 
 <cffunction name="encodeXML" returnType="string" output="false">
-	<cfargument name="data" required="true" type="array" hint="accepts only arrays of structs">
+	<cfargument name="data" required="true" type="any">
 		
-	<!--- encode has one mode 
-	data=[{mything = {href, rel, title, message, ...}}]
+	<!--- encode has the following modes 
+	data=[{credential = {href = 'x', rel = 'x', title = 'x', message = 'x', ...}}]
+	Ex: data[1].credential.title
 	
-	Ex: profile[1].credential.title
+	
+	data={credential = {href = 'x', rel = 'x', title = 'x', message = 'x', ...}}
+	Ex: data.credential.title
+	
+	data={credential = 'x'}
+	Ex: data.credential
+	
 	--->
 
 
@@ -19,25 +26,41 @@
 							"varchar, integer,	varchar, varchar, varchar, varchar, varchar, date, varchar,	varchar");
 
 	
+	if (not isArray(arguments.data))	{
+		arguments.data = [arguments.data];			
+		}	
+	
 	
 	for (var MyAr in arguments.data)	{
 				
 		for (var MyKeyName in MyAr)	{		
-			MyKey = MyAr[MyKeyName];			
+			MyKey = MyAr[MyKeyName];
 			
-			mtype		= structKeyExists(MyKey, "type")		? MyKey.type										: MyKeyName;			
-			mid			= structKeyExists(MyKey, "id") 			? 'data-id="#xmlFormat(MyKey.id)#"'					: "";
-			mposition	= structKeyExists(MyKey, "position") 	? MyKey.position 									: "";
-			mstatus		= structKeyExists(MyKey, "status") 		? 'data-status="#xmlFormat(MyKey.position)#"'		: "";
-			mtitle		= structKeyExists(MyKey, "title")		? 'title="#xmlFormat(MyKey.title)#"'				: "";
+			if (isStruct(MyKey))	{		
+				mtype		= structKeyExists(MyKey, "type")		? MyKey.type										: MyKeyName;			
+				mid			= structKeyExists(MyKey, "id") 			? 'data-id="#xmlFormat(MyKey.id)#"'					: "";
+				mposition	= structKeyExists(MyKey, "position") 	? MyKey.position 									: "";
+				mstatus		= structKeyExists(MyKey, "status") 		? 'data-status="#xmlFormat(MyKey.position)#"'		: "";
+				mtitle		= structKeyExists(MyKey, "title")		? 'title="#xmlFormat(MyKey.title)#"'				: "";
 				
-			mhref		= structKeyExists(MyKey, "href") 		? 'href="#xmlFormat(MyKey.href)#"'					: "";	
-			mrel		= structKeyExists(MyKey, "rel")  		? 'rel="#xmlFormat(MyKey.rel)#"'					: "";
-			mdatetime	= structKeyExists(MyKey, "time")  		? '<time>#xmlFormat(MyKey.time)#</time>'			: "";
-			mcite		= structKeyExists(MyKey, "cite")  		? '<cite>#xmlFormat(MyKey.cite)#</cite>'			: "";
+				mhref		= structKeyExists(MyKey, "href") 		? 'href="#xmlFormat(MyKey.href)#"'					: "";	
+				mrel		= structKeyExists(MyKey, "rel")  		? 'rel="#xmlFormat(MyKey.rel)#"'					: "";
+				mdatetime	= structKeyExists(MyKey, "time")  		? '<time>#xmlFormat(MyKey.time)#</time>'			: "";
+				mcite		= structKeyExists(MyKey, "cite")  		? '<cite>#xmlFormat(MyKey.cite)#</cite>'			: "";
 						
-			mmessage	= structKeyExists(MyKey, "message")		? xmlFormat(MyKey.message)							: "";
-					
+				mmessage	= structKeyExists(MyKey, "message")		? xmlFormat(MyKey.message)							: "";
+				}
+			else	{
+				mType =  MyKeyName;
+				mid = '';
+				mposition = '';
+				mstatus = '';
+				mtitle = '';
+				mhref = '';
+				mrel = '';
+				mdatetime = '';
+				mmessage = MyKey;
+				}		
 	
 		
 		

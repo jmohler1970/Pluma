@@ -21,21 +21,21 @@
 
 
 	
-	<cfif session.LOGINAPI.adhocSecurity("contributor")>
+	<cfif session.LOGINAPI.adhocSecurity("staff")>
 		<li id="nav_pages">
 			<a class="pages" accesskey="p" 
 				href="#buildURL(action = 'pages.home')#">#application.GSAPI.i18n("tab_pages")#</a>
 		</li>
 	</cfif>
 	
-	<cfif session.LOGINAPI.adhocSecurity("contributor")>
+	<cfif session.LOGINAPI.adhocSecurity("staff")>
 		<li id="nav_upload">
 			<a class="files" 
 				href="#buildURL(action = 'upload.home')#">#application.GSAPI.i18n("tab_files")#</a>
 		</li>
 	</cfif>
 	
-		<cfif session.LOGINAPI.adhocSecurity("system")>
+		<cfif session.LOGINAPI.adhocSecurity("superuser")>
 		<li id="nav_theme">
 			<a class="theme" 
 				href="#buildURL(action = 'theme.home')#">#application.GSAPI.i18n("tab_theme")# </a>
@@ -44,7 +44,7 @@
 	</cfif>
 	
 	
-	<cfif session.LOGINAPI.adhocSecurity("system")>
+	<cfif session.LOGINAPI.adhocSecurity("superuser")>
 		<li id="nav_backups">
 			<a class="backups" 
 			 	href="#buildURL(action = 'backups.home')#">#application.GSAPI.i18n("tab_backups")# </a>
@@ -53,7 +53,7 @@
 	
 
 
-	<cfif session.LOGINAPI.adhocSecurity("system")>
+	<cfif session.LOGINAPI.adhocSecurity("superuser")>
 		<li id="nav_plugins">
 			<a class="plugins" 
 				href="#buildURL(action = 'plugins.home')#">#application.GSAPI.i18n("plugins_nav")#</a>
@@ -62,7 +62,7 @@
 
 
 
-	<cfif session.LOGINAPI.adhocSecurity("system")>
+	<cfif session.LOGINAPI.adhocSecurity("superuser")>
 		<li id="nav_users">
 			<a class="users <cfif getSection() EQ "Users">current</cfif>" 
 				href="#buildURL(action = 'users.home')#">#application.GSAPI.i18n("plumacms/users_nav")#</a>
@@ -77,7 +77,7 @@
 
 
 
-	<cfif session.LOGINAPI.adhocSecurity("system")>
+	<cfif session.LOGINAPI.adhocSecurity("superuser")>
 		<li class="rightnav" id="nav_settings">
 			<a class="settings first" 
 				 href="#buildURL(action = 'settings.home')#">#application.GSAPI.i18n("tab_settings")# </a>
@@ -85,7 +85,7 @@
 	</cfif>
 	
 	
-	<cfif session.LOGINAPI.adhocSecurity("system")>
+	<cfif session.LOGINAPI.adhocSecurity("superuser")>
 		<li class="rightnav" id="nav_support">
 			<a class="support last" 
 				href="#buildURL(action = 'support.home')#">#application.GSAPI.i18n("tab_support")# </a>

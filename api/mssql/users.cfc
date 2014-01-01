@@ -389,7 +389,7 @@ query function getBySlug(required string slug) output="no" 	{
 	var arGroup = [];
 	
 	for(var group in ListToArray(rc.groups))	{
-		ArrayAppend(arGroup, {Group = {message = group}});
+		ArrayAppend(arGroup, {Group = group});
 		}	
 	</cfscript>	
 
