@@ -163,7 +163,7 @@ query function getByGroup(required string group) output="no" 	{
 	
 	
 
-	<cfquery name="qryUser">
+	<cfquery name="local.qryUser">
 		SELECT  #variables.lstCol# 
 		FROM 	dbo.vwUser 
 		WHERE 	Deleted 	= 0 
@@ -171,8 +171,8 @@ query function getByGroup(required string group) output="no" 	{
 	</cfquery>
 	
 	<cfscript>
-	if (qryUser.recordcount == 1)
-		return qryUser;
+	if (local.qryUser.recordcount == 1)
+		return local.qryUser;
 	
 	// Create blank row
 	var qryBlank = QueryNew(variables.lstCol);
@@ -385,7 +385,15 @@ query function getBySlug(required string slug) output="no" 	{
 </cfoutput>	
 </cfsavecontent>
 
+	<cfscript>
+	var arGroup = [];
 	
+	for(var group in ListToArray(rc.groups))	{
+		ArrayAppend(arGroup, {Group = {message = group}});
+		}	
+	</cfscript>	
+
+
 		
 	<cfquery name="qryCommit">
 		DECLARE @groups nvarchar(50) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.groups#">
@@ -406,10 +414,10 @@ query function getBySlug(required string slug) output="no" 	{
 		INTO	@Source
 		SELECT 	<cfqueryparam cfsqltype="CF_SQL_integer" 	value="#arguments.userid#" 	null="#IIF(arguments.UserID EQ "", 1, 0)#">,
 				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#local.personname#">,
-				<cfqueryparam CFsqltype="CF_SQL_DATE" 		value="#rc.expirationDate#"	null="#IIF(rc.ExpirationDate EQ "", 1, 0)#">,
+				<cfqueryparam Cfsqltype="CF_SQL_DATE" 		value="#rc.expirationDate#"	null="#IIF(rc.ExpirationDate EQ "", 1, 0)#">,
 				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#rc.passhash#" 		null="#IIF(rc.PassHash EQ "", 1, 0)#">,
 				
-				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#this.encodeXML({groups = ListToArray(rc.groups)})#">,
+				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" 	value="#this.encodeXML(arGroup)#">,
 				dbo.udf_4jInfo(DEFAULT,DEFAULT,
 			 		<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byuserID#">),
 			 	dbo.udf_4jSuccess('Basic data was committed',
@@ -466,7 +474,7 @@ query function getBySlug(required string slug) output="no" 	{
 	<cfargument name="ByUserID" required="true" type="string">	
 	
 	<cfquery>
-	DECLARE @xmlProfile varchar(max) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'Profile')#">
+	DECLARE @xmlProfile varchar(max) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#this.encodeXML(rc.Profile)#">
 	
 	UPDATE	dbo.Users
 	SET	xmlProfile 	= @xmlProfile,

@@ -90,13 +90,22 @@
 		</p>
 		
 		<p>			
-			<input type="checkbox" name="groups" value="Staff" /> Staff Group<br /> 
+			<label>
+			<input type="checkbox" name="groups" value="Staff" 
+				<cfif ArrayContains(stUser.arGroup, "Staff")>checked="checked"</cfif>
+				/> Staff Group</label>
 				<small>Designates whether the user can log into this admin site.</small>
+				
+				
 		</p>	
 			
 		<p>	
-			<input type="checkbox" name="groups" value="Superuser" /> Superuser Group<br /> 
+			<label>
+			<input type="checkbox" name="groups" value="Superuser"
+				<cfif ArrayContains(stUser.arGroup, "Superuser")>checked="checked"</cfif>
+				/> Superuser Group</label>
 				<small>Designates that this user has all permissions without explicitly assigning them.</small>
+					
 		</p>	
 			
 			<!---

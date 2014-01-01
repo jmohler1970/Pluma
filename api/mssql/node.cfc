@@ -506,7 +506,7 @@
 	
 	
 	<cfquery name="qryClearLink">
-	DECLARE @xmlLink varchar(max) = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.encodeXML(rc, 'href')#">
+	DECLARE @xmlLink varchar(max) = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.encodeXML(rc.href)#">
 	
 	
 	UPDATE	dbo.Node

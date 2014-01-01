@@ -207,7 +207,7 @@ query function get_by_email(required string email) output="false" {
 	this.login		= this.qryUser.Login;
 	
 	this.logintarget = structkeyExists(application.stSettings.Landing, this.argroup[1]) ? 
-		application.stSettings.Landing[this.argroups[1]	: "main.home";
+		application.stSettings.Landing[this.argroup[1]]	: "main.home";
 
 	
 	
@@ -234,15 +234,15 @@ boolean function checkSecurity(required string subsection, required string secti
 	// impersonate always runs
 	if (arguments.section == "Login" AND arguments.item == "impersonate")	{ return true; }
 
-	if (NOT isDefined("application.stSettings.Security.#arguments.section#"))	{ return true; }
+	if (NOT structKeyExists(application.stSettings.Security, arguments.section))	{ return true; }
 		
 	var arGroupNeeded = ListToArray(application.stSettings.Security[arguments.section]);	
 		
-	if (arGroupNeeded[1] == "something" AND this.lstGroup != "")	{ return true; }
+	if (arGroupNeeded[1] == "something" && ArrayLen(this.arGroup) > 0)	{ return true; }
 		
 	
 	for (var i = 1; i <= ArrayLen(arGroupNeeded); i++)	{	
-		if (ListFindNoCase(this.lstGroup, arGroupNeeded[i]) != 0)	{ return true; }
+		if (ArrayContains(this.arGroup, arGroupNeeded[i]))	{ return true; }
 		}
 	
 	return false;
@@ -254,10 +254,10 @@ boolean function checkSecurity(required string subsection, required string secti
 
 boolean function adhocSecurity(required string role) output="false" {
 	
-	if (ListFindNoCase(this.lstGroup, "System"))
+	if (ArrayContains(this.arGroup, "SuperUser"))
 		return true;
 		
-	return ListFindNoCase(this.lstGroup, arguments.role);
+	return ArrayContains(this.arGroup, arguments.role);
 	}	
 </cfscript>	
 

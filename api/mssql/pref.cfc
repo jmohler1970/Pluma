@@ -136,7 +136,7 @@ They are selected via stResult[pref]
 		INSERT 
 		INTO	@Source
 		SELECT  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.Pref#">,
-				<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.encodeXML(Data)#">,
+				<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.encodeXML(arguments.data)#">,
 				dbo.udf_4jSuccess('Preferences Saved',
 					<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 					<cfqueryparam CFSQLType="CF_SQL_integer" value="#arguments.byUserID#">

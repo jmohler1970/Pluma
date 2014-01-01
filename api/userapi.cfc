@@ -95,8 +95,11 @@ struct function get_by_slug(required string slug) output="false"	{
 
 struct function get(string userid=session.LOGINAPI.UserID) output="false" hint="Data for one user"	{
 
-	return this.qryToStruct(this.wsUser.getOne(arguments.userid));
+	var stUser = this.qryToStruct(this.wsUser.getOne(arguments.userid));
 
+	stUser.arGroup = ListToArray(stUser.Groups);
+
+	return stUser;
 	}
 
 
@@ -127,7 +130,7 @@ query function get_all() output="false"	{
 
 
 
-struct function set(required string userid, required struct rc) output="false"	{
+struct function set(required string userid, required struct rc)	{
 
 
 	var result = this.wsUser.commit(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);

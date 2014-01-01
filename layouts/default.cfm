@@ -61,7 +61,7 @@
 
 <div class="header" id="header">
 
-	<cfif ArrayLen(session.LOGINAPI.arGroup GT 0>
+	<cfif ArrayLen(session.LOGINAPI.arGroup) GT 0>
     <div class="wrapper clearfix">
 
 	<cfif getSection() NEQ "login">
