@@ -31,10 +31,10 @@
 		}	
 	
 	
-	for (var MyAr in arguments.data)	{
+	for (var MyAr in arguments.data)	{ 	// array, even if only one element
 				
-		for (var MyKeyName in MyAr)	{		
-			MyKey = MyAr[MyKeyName];
+		for (var MyKeyName in MyAr)	{		// struct always	
+			MyKey = MyAr[MyKeyName];		// struct or simple 
 			
 			if (isStruct(MyKey))	{		
 				mtype		= structKeyExists(MyKey, "type")		? MyKey.type										: MyKeyName;			

@@ -496,7 +496,7 @@ query function getBySlug(required string slug) output="no" 	{
 
 <cffunction name="setLink" output="false" returntype="struct" hint="similar to User.linksave">
 	<cfargument name="UserID" required="true" type="numeric">
-	<cfargument name="rc" required="true" type="struct">
+	<cfargument name="arLink" required="true" type="array">
 	<cfargument name="remote_addr" required="true" type="string">
 	<cfargument name="byUserID" required="true" type="string">
 	
@@ -505,7 +505,7 @@ query function getBySlug(required string slug) output="no" 	{
 	
 	
 	<cfquery name="qryClearLink">
-	DECLARE @xmlLink varchar(max) = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.encodeXML(rc)#">
+	DECLARE @xmlLink xml = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.encodeXML(arguments.arLink)#">
 	
 	
 	UPDATE	dbo.Users
@@ -516,7 +516,7 @@ query function getBySlug(required string slug) output="no" 	{
 			
 	WHERE	Deleted = 0
 	AND		UserID = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.userid#">
-	AND		CONVERT(varchar(max), xmlLink) <> @xmlLink
+	AND		CONVERT(varchar(max), xmlLink) <> CONVERT(varchar(max), @xmlLink)
 	</cfquery>
 	
 	
@@ -569,7 +569,7 @@ query function getBySlug(required string slug) output="no" 	{
 	
 	
 	<cfquery name="local.qryResult">
-		SELECT  title, rel, href, message
+		SELECT  type, title, rel, href, message
 		FROM	dbo.Users
 		CROSS APPLY dbo.udf_xoxoRead(xmlProfile)
 		WHERE	UserID = <cfqueryparam cfsqltype="CF_SQL_varchar" value="#arguments.userid#">
@@ -586,13 +586,12 @@ query function getBySlug(required string slug) output="no" 	{
 
 	<cfset local.qryResult = this.getProfile(arguments.UserID)>
 
-	<cfset var stResult = {}>
 
 	<cfloop query="local.qryResult">
-		<cfset stResult[type] = message>
+		<cfset local.stResult[type] = message>
 	</cfloop>
 	
-	<cfreturn stResult>
+	<cfreturn local.stResult>
 </cffunction>
 
 

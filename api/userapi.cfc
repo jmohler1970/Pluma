@@ -164,11 +164,11 @@ struct function set_personal(required string userid, required struct rc) output=
 
 
 
-struct function set_link(required string userid, required struct rc) output="false" hint="Stores an expected set of rc values. Fields are: linkcategory_[1-50], href_[1-50] (required), value_[1-50] (required), tooltip_[1-50], sortorder_[1-50]"	{
+struct function set_link(required string userid, required struct rc) output="false"	{
 
 	
 
-	var result = this.wsUser.setLink(arguments.userid, arguments.rc, cgi.remote_addr, session.LOGINAPI.userID);
+	var result = this.wsUser.setLink(arguments.userid, arguments.rc.Link, cgi.remote_addr, session.LOGINAPI.userID);
 	
 	
 	return result;

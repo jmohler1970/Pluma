@@ -254,7 +254,7 @@ boolean function checkSecurity(required string subsection, required string secti
 
 boolean function adhocSecurity(required string role) output="false" {
 	
-	if (ArrayContains(this.arGroup, "SuperUser"))
+	if (ArrayContains(this.arGroup, "superuser"))
 		return true;
 		
 	return ArrayContains(this.arGroup, arguments.role);
