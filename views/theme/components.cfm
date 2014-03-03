@@ -35,7 +35,9 @@
 	<button type="submit" class="save" name="submit">#application.GSAPI.i18n("save_components")#</button> 
 
 </div>
-	<p></p>
+
+
+<p></p>
 
 
 

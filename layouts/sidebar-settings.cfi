@@ -6,7 +6,7 @@
 <ul class="snav">
 	<li id="sb_settings"><a <cfif getItem() EQ "home">class="current"</cfif> href="#buildURL(action = 'settings.home')#">#application.GSAPI.i18n("general_settings")#</a></li>
 
-	<li id="sb_settingsprofile"><a href="#buildURL(action = 'settings.profile')#">#application.GSAPI.i18n("SIDE_USER_PROFILE")#</a></li>
+	<li id="sb_settingsprofile"><a href="#buildURL(action = 'settings.home')###profile">#application.GSAPI.i18n("SIDE_USER_PROFILE")#</a></li>
 </ul>
 
 

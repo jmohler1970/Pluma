@@ -1019,7 +1019,12 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		AND		cStatus = 1
 		AND		pStatus = 'Approved'
 		
-		AND		ParentNodeID IN (SELECT NodeID FROM dbo.Node WHERE Deleted = 0 AND ParentNodeID is null)
+		AND		ParentNodeID IN (
+			SELECT NodeID 
+			FROM dbo.Node WITH (NOLOCK) 
+			WHERE Deleted = 0 
+			AND ParentNodeID is null
+			)
 		
 		ORDER BY	ParentTitle, SortOrder
 	</cfquery>
@@ -1044,10 +1049,9 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	<cfquery name="local.qryExists">
 		SELECT	NodeID
 		FROM	dbo.Node WITH (NOLOCK)
-		CROSS APPLY dbo.udf_xoxoRead(xmlLink)
-		WHERE	NodeID = <cfqueryparam CFSQLType="CF_SQL_integer" value="#arguments.nodeid#">
+		CROSS APPLY dbo.udf_xoxoRead(xmlLink, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.type#">)
+		WHERE	NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">)
 		AND		Deleted = 0
-		AND		type = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.type#">
 		AND		href = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.href#">		
 	</cfquery>
 
@@ -1117,9 +1121,9 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 			
 			
 		FROM   	dbo.Node WITH (NOLOCK)
-		CROSS 	APPLY xmlData.nodes('/url') as T2(Loc)
+		CROSS	APPLY xmlData.nodes('/url') as T2(Loc)
 		WHERE	Deleted = 0
-		AND		NodeID = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">
+		AND		NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">)
 	</cfquery>		
 
 	<cfset QueryAddRow(local.qrySitemap, (arguments.EntryCount - local.qrySitemap.recordcount))>
@@ -1137,7 +1141,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	<cfquery name="local.qryData">
 		SELECT 	href, rel, title, message
 		FROM   	dbo.Node WITH (NOLOCK)
-		CROSS 	APPLY dbo.udf_xoxoRead(xmlData)
+		CROSS	APPLY dbo.udf_xoxoRead(xmlData, DEFAULT)
 		WHERE	Deleted = 0
 		AND		NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">)
 	</cfquery>
@@ -1154,7 +1158,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	<cfquery name="local.qryConf">
 		SELECT 	href, rel, title, message
 		FROM   	dbo.Node WITH (NOLOCK)
-		CROSS 	APPLY dbo.udf_xoxoRead(xmlConf)
+		CROSS	APPLY dbo.udf_xoxoRead(xmlConf, DEFAULT)
 		WHERE	Deleted = 0
 		AND		NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">)
 	</cfquery>
@@ -1175,7 +1179,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	<cfquery name="local.qryLink">
 		SELECT 	NodeID, [type], href, rel, title, message
 		FROM   	dbo.Node WITH (NOLOCK)
-		CROSS 	APPLY dbo.udf_xoxoRead(xmlLink)
+		CROSS 	APPLY dbo.udf_xoxoRead(xmlLink, DEFAULT)
 		WHERE	Deleted = 0
 
 		<cfif arguments.NodeK.Kind NEQ "">
@@ -1208,7 +1212,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		
 		FROM 	dbo.NodeArchive
 		CROSS APPLY dbo.udf_titleRead(xmlTitle)	T
-		CROSS APPLY dbo.udf_xoxoRead(Modified)	M
+		CROSS APPLY dbo.udf_xoxoRead(Modified, DEFAULT)	M
 				
 		WHERE	Deleted = 0
 		AND		(NodeID 	= @NodeID 	OR @NodeID = '')
@@ -1231,7 +1235,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	<cfquery name="local.qryRecentLogin">
 		SELECT  TOP 100 Kind, address AS [by], [datetime], message, [type], tt AS ip
 		FROM	dbo.DataLog WITH (NOLOCK)
-		CROSS APPLY dbo.udf_xoxoRead(Created)
+		CROSS APPLY dbo.udf_xoxoRead(Created, DEFAULT)
 		
 		WHERE	1 = 1
 		<cfif arguments.kind NEQ "">

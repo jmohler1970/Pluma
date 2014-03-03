@@ -31,15 +31,14 @@ They are selected via stResult[pref]
 
 <cffunction name="get" output="false"  returnType="struct" hint="loads all preferences into a single structure">
 	
-	<cfset var stResult = {}>
+	<cfset local.stResult = {}>
 
 		
 	<cfquery name="local.qryPref">
-		SELECT 	Pref, CASE WHEN [type] = '' THEN 'default' ELSE [type] END AS [type], /*title, href, rel,*/  message
+		SELECT 	Pref, [type], /*title, href, rel,*/  message
 		FROM	dbo.Pref WITH (NOLOCK)
-		CROSS APPLY dbo.udf_xoxoRead(xmlPref)
+		CROSS APPLY dbo.udf_xoxoRead(xmlPref, DEFAULT)
 		WHERE	Deleted = 0
-		AND		[type] IS NOT NULL
 		ORDER BY Pref
 	</cfquery>
 
@@ -47,18 +46,18 @@ They are selected via stResult[pref]
 	<cfloop query="local.qryPref">
 		
 		<cfscript>
-		if (not structKeyExists(stResult, Pref))
-			stResult[pref] =  {};		
+		if (not structKeyExists(local.stResult, Pref))
+			local.stResult[pref] =  {};		
 		
 			
-		stResult[pref][type] = message;
+		local.stResult[pref][type] = message;
 		</cfscript>
 
 	</cfloop>
 	
 
 	
-	<cfreturn stResult>
+	<cfreturn local.stResult>
 </cffunction>	
 
 
@@ -124,6 +123,40 @@ They are selected via stResult[pref]
 	<cfargument name="ByUserID" 	required="true" type="string">	
 
 	
+	
+	<cfscript>
+		var xmlPref = "";
+        
+                        
+        for (var i in arguments.data)        {
+        
+               
+                var shortField = i;
+
+                        
+                if (shortField == "new")        {
+                    param arguments.data.new_title = "";
+                        
+                    shortField = reReplace(arguments.data.new_title, "[^a-z0-9]_", "", "all");
+                        
+                        
+                    if (shortField == "" AND arguments.rc.new_title != "")        {
+                        return "A valid key could not be created from &quot;#xmlformat(arguments.dta.new_title)#&quot;";
+                        }
+                                
+                                
+                    if (this.typeExists(Pref, shortfield))        {
+                        return "A key could not be added because it already exists";
+                        }
+                                
+                    }
+
+                if (shortField != "")        {
+                        xmlPref &= '<data type="#lcase(shortfield)#">#xmlformat(arguments.data[i])#</data>';
+                        }
+         
+           } // end for
+    </cfscript>
 
 	<cfquery>
 		DECLARE @Source TABLE (

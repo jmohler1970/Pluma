@@ -4,7 +4,7 @@
 
 <cfoutput>
 <ul class="snav">
-	<li id="sb_upload"><a <cfif getSection() EQ "Files" AND getItem() EQ "home">class="current"</cfif> href="#buildURL(action = 'upload.home')#">#application.GSAPI.i18n("file_management")#</a></li>
+	<li id="sb_upload"><a <cfif getSection() EQ "Upload" AND getItem() EQ "home">class="current"</cfif> href="#buildURL(action = 'upload.home')#">#application.GSAPI.i18n("file_management")#</a></li>
 	
 		
 	<cfif isdefined("rc.name") AND getItem() NEQ "home">

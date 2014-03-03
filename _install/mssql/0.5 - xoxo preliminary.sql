@@ -28,7 +28,12 @@ FROM dbo.udf_xoxoRead(@someData)
 
 
 /* User Data: this was designed around xoxo, but can be made to do much more */
-create function [dbo].[udf_xoxoRead](@xmlData xml) 
+
+/* @xml: 	raw data to be prompted /*
+/* @type: 	data to be filtered, this allows multiple types in a single xml */
+
+
+create function [dbo].[udf_xoxoRead](@xmlData xml, @type string = NULL) 
 	
 	returns @tblmessage TABLE
 (
@@ -51,7 +56,8 @@ begin
 	INSERT INTO @tblMessage
 	
 	SELECT 
-		Tbl.Col.value('b[1]', 				'nvarchar(max)') 	AS [type],  
+		ISNULL(Tbl.Col.value('b[1]', 				'nvarchar(max)'),
+			'default')										 	AS [type],		/* It is expected that this could be loaded into a struct */  
        	Tbl.Col.value('(a[@data-id])[1]', 	'nvarchar(max)') 	AS [id],
        	Tbl.Col.value('@data-position','int') 					AS [position],
        	Tbl.Col.value('@data-status',		'nvarchar(max)') 	AS [status],
@@ -68,12 +74,43 @@ begin
 
 	FROM   @xmlData.nodes('/ul/li') Tbl(Col)
 	
-
+	WHERE	[type] = @type OR @type IS NULL OR @type = '' 	
 
 	RETURN
 end
 GO
 
+
+
+
+
+/*
+Link Sample:
+
+DECLARE @xml xml = '
+<ul class="xoxo">
+	<li data-position="3" data-status="approved" data-id="catinfo" title="This is about domestic cats">
+		<b>Pets</b>: 
+		<a href="black.htm" title="cat" rel="external">This is about black cats</a> 
+		By <address>James Mohler <tt>1.1.1.1</tt></address>
+		At <time>1/2/2015</time>
+		Also see <cite>http://en.wikipedia.org/wiki/Felis</cite>
+	</li>
+	
+	<li><b>Farm Animals</b></li>
+	
+	<li><b>Pets</b>: <var>Dog</var></li>	
+	
+	<li><a href="black.htm" title="cat">This is about black cats</a></li>
+
+	<li><a href="chihuahua.htm" title="dog">We prefer Chihuahuas</a></li>
+</ul>'
+
+SELECT * 
+FROM dbo.udf_xoxoRead(@xml)
+
+
+*/
 
 
 

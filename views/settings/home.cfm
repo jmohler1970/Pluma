@@ -1,4 +1,6 @@
 
+<cfimport prefix="ui" taglib="../users/ui">
+
 
 <div class="main">
 
@@ -102,6 +104,30 @@
 
 </form>
 </cfoutput>
+
+
+<p></p>
+
+<p>Meta information is used by searching engines to help evaluate the site. These settings take effect in 5 minutes.</p>
+
+<p>For more information on meta tags, visit <a href="http://www.webmarketingnow.com/tips/meta-tags-uncovered.html">http://www.webmarketingnow.com/tips/meta-tags-uncovered.html</a></p>
+
+
+<a id="profile"></a>
+
+
+<cfoutput>
+        <h3>#application.GSAPI.i18n("side_user_profile")#</h3>
+</cfoutput>
+        
+
+        <ui:profile stUser                = "#rc.stUser#"
+                                action        = "#BuildURL(action = '.home')#"
+                />
+
+
+
+
 
 
 </div>

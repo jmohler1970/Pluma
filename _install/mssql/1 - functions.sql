@@ -141,9 +141,61 @@ END
 GO
 
 
+/* Support for getSimple operations */
+
+/*
+Description: Extracts out all columns from the getSimple field
+
+*/
+
+
+create function dbo.udf_getSimpleRead(@getSimple xml)
+	returns @tblgetSimple TABLE
+	(
+    -- Columns returned by the function
+    pubdate 		datetime 	  	NULL,		
+	title			nvarchar(80)	NULL,
+	slug			nvarchar(80)	NULL, /* this is changed so that we don't have a variable collision */
+	meta			nvarchar(max)	NULL,
+	metad			nvarchar(max)	NULL,
+	menu			nvarchar(80)	NULL,
+	menuOrder		int				NULL,
+	menuStatus		nvarchar(80)	NULL,
+	template		nvarchar(80)	NULL,
+	parent			nvarchar(80)	NULL,
+	content			nvarchar(max)	NULL,
+	private			bit,
+	author			nvarchar(80)	NULL
+	)
+	AS
+	
+BEGIN
+	INSERT INT @tblgetSimple
+	
+	SELECT 		
+		Tbl.Col.value('pubdate', 		'datetime') AS pubdate,
+		Tbl.Col.value('title', 			'nvarchar(80)') AS title,
+		Tbl.Col.value('url', 			'nvarchar(80)') AS slug,
+		Tbl.Col.value('meta', 			'nvarchar(max)') AS meta,
+		Tbl.Col.value('metad', 			'nvarchar(max)') AS metad,
+		Tbl.Col.value('menu', 			'nvarchar(80)') AS menu,
+		Tbl.Col.value('menuOrder',		'int') 			AS menuOrder,
+		Tbl.Col.value('menuStatus', 	'nvarchar(80)') AS menuStatus,
+		Tbl.Col.value('template', 		'nvarchar(80)') AS template,
+		Tbl.Col.value('parent', 		'nvarchar(80)') AS parent,
+		Tbl.Col.value('content', 		'nvarchar(max)') AS content,
+		Tbl.Col.value('private', 		'bit') AS private,
+		Tbl.Col.value('author', 		'nvarchar(80)') AS author
+		
+	FROM   @xmlData.nodes('item') Tbl(Col)	
+
+	RETURN
+END	
+GO
+
+
+
 /* Misc functions */
-
-
 
 
 
@@ -505,10 +557,6 @@ GO
 /* Table valued functions */
 
 
-
-
-
-
 create function [dbo].[udf_calendar](@sDate date, @eDate date) 
 	
 	returns @tblDate TABLE
@@ -535,224 +583,4 @@ END
 GO
 
 
-/*
-DECLARE @someData xml = '
-<ul class="xoxo">
-	<!-- Menu control -->
-	<li><b>Tag</b> <var>Cats</var></li>
-	<li><b>Tag</b> <var>Dogs</var></li>
-	<li data-position="4" data-status="whatever"><b>Menu</b> <var>Animals</var></li>
-</ul>
-'
 
-SELECT *
-FROM dbo.udf_taxonomyRead(@someData)
-
-*/
-
-
-
-
-/* Taxonomy Read */
-create function [dbo].[udf_taxonomyRead](@xmlData xml) 
-
-	returns @tblTaxonomy TABLE
-	(
-    -- Columns returned by the function
-    [tags] 			nvarchar(max) NULL,
-    [tagSlugs] 		nvarchar(max) NULL,
-    [menu] 			nvarchar(max) NULL,
-    [menustatus]	nvarchar(max) NULL,
-    [menusort]		nvarchar(max) NULL
-   )
-
-as
-begin
-
-
-	DECLARE @strTags varchar(max)
-	DECLARE @strTagSlugs varchar(max)
-
-
-
-	SELECT 	@strTags 		= ISNULL( @strTags + ',', '' ) 		+ 				  Tbl.Col.value('var[1]', 'nvarchar(max)' ),
-			@strTagSlugs 	= ISNULL( @strTagSlugs + ',', '' ) 	+ dbo.udf_Slugify(Tbl.Col.value('var[1]', 'nvarchar(max)' ))
-	
-	FROM   	@xmlData.nodes('/ul/li') Tbl(Col)
-	WHERE	Tbl.Col.value('b[1]', 				'nvarchar(max)') = 'Tag'
-
-
-
-	INSERT 
-	INTO @tblTaxonomy(tags, tagSlugs, menu, menustatus, menusort)
-	SELECT
-		@strTags,
-		@strTagSlugs, 
-		Tbl.Col.value('var[1]', 				'nvarchar(max)'),
-		Tbl.Col.value('@data-status[1]', 		'nvarchar(max)'),
-		Tbl.Col.value('@data-position[1]', 		'nvarchar(max)')
-		
-	
-	FROM	@xmlData.nodes('/ul/li') Tbl(Col)
-	WHERE	Tbl.Col.value('b[1]', 				'nvarchar(max)') = 'Menu'
-
-
-	RETURN 
-end
-GO
-
-
-/*
-
-DECLARE xmlTitle xml = '
-
-<ul class="xoxo">
-	<li><b>Extra</b> <var>Cats</var></li>
-	<li><b>Title</b> <var>Dogs</var></li>
-	<li><b>Subtitle</b> <var>Animals</var></li>
-	<li><b>Description</b> <var>Fun with animals</var></li>
-	<li><b>ISBN</b> <var>1659-326-3265874</var></li>
-</ul>
-'
-
-SELECT *
-FROM udf_titleRead(xmltitle)
-*/
-
-
-
-create function [dbo].[udf_titleRead](@xmlTitle xml) 
-	
-	returns @tblTitle TABLE
-(
-    -- Columns returned by the function
-    [extra]			nvarchar(max) NULL,
-	[title]			nvarchar(max) NULL,
-	[subtitle]		nvarchar(max) NULL,
-	[description]	nvarchar(max) NULL,
-	[isbn]			nvarchar(max) NULL
-)
-AS 
-BEGIN
-	INSERT INTO @tblTitle
-	
-
-
-	SELECT 	@xmlTitle.value('(/ul/li[b="Extra"]/var)[1]',		'nvarchar(max)') AS [Extra],
-			@xmlTitle.value('(/ul/li[b="Title"]/var)[1]',		'nvarchar(max)') AS [title],
-			@xmlTitle.value('(/ul/li[b="Subtitle"]/var)[1]', 	'nvarchar(max)') AS [subtitle], 
-			@xmlTitle.value('(/ul/li[b="Description"]/var)[1]',	'nvarchar(max)') AS [description],
-			@xmlTitle.value('(/ul/li[b="ISBN"]/var)[1]',		'nvarchar(max)') AS [isbn]
-	
-			
-	RETURN
-END
-GO
-
-
-/* rotate */
-
-
-/* User Data: this was designed around xoxo, but can be made to do much more 
-	
-Design Goals:
-
-1.) Create a format that is valid XML so that it can be processed by SQL XML functions
-2.) Create a format that is valid HTML so that it can be simply dumped as is
-3.) Create a format that uses HTML in their natural symantic version. This way the tags will be self describing
-4.) Create a format that covers all of the purposes that Pluma would require.
-5.) Recognize that no particular instance of this will ever ever use all fields. This can generate a table, but it will be very sparse. It is meaningful as little as a single data point
-6.) Nothing is required
-7.) We would like to apologize for address, tt, time tags
-8.) We recognize that not everything needs to be a link, so we use var as alternative
-9.) We believe that his format will NOT suit everyone needs. Because this is XML, it can be converted to a completely different HTML if necessary
-
-*/
-
-
-
-create function [dbo].[udf_xoxoRead](@xmlData xml) 
-	
-	returns @tblmessage TABLE
-(
-    -- Columns returned by the function
-    [type] 			nvarchar(max) NULL,		/* type is shown (Plain)		*/
-    
-    /* data-* portion of html */
-    [id] 			nvarchar(max) NULL,		/* id is not 					*/
-    [position] 		int 		  NULL,		/* sort order over ride. This also allows for sparse arrays */
-    [status] 		nvarchar(max) NULL,		/* publish or security mode 	*/
-
-	/* show as regular html */
-    [title]			nvarchar(max) NULL,		/* overall tool tip 			*/
-    [message]		nvarchar(max) NULL    	/* inside of a or var  			*/
-    
-    [href] 			nvarchar(max) NULL,		/* a tag link location			*/
-    [rel] 			nvarchar(max) NULL,		/* a tag relationship			*/
-    [address]		nvarchar(max) NULL,		/* who person's name  			*/
-    [tt]			nvarchar(max) NULL,		/* who as in ip 				*/
-    [datetime]		datetime	  NULL,		/* when did this happen 		*/
-    [cite]			nvarchar(max) NULL		/* citation like a ticket # 	*/
-
-)
-as
-begin
-	INSERT INTO @tblMessage
-	
-	SELECT 
-		Tbl.Col.value('b[1]', 				'nvarchar(max)') 	AS [type],  
-       	Tbl.Col.value('@data-id', 			'nvarchar(max)') 	AS [id],
-       	Tbl.Col.value('@data-position','int') 					AS [position],
-       	Tbl.Col.value('@data-status',		'nvarchar(max)') 	AS [status],
-       	Tbl.Col.value('@title', 			'nvarchar(max)')	AS [title],
-	 	
-	 	ISNULL(Tbl.Col.value('var[1]', 		'nvarchar(max)'),
-	 		Tbl.Col.value('a[1]', 			'nvarchar(max)'))	AS [message],
-	 	
-	 	Tbl.Col.value('(a[@href])[1]',	 	'nvarchar(max)') 	AS [href],  
-	 	Tbl.Col.value('(a[@rel])[1]', 		'nvarchar(max)')	AS [rel],
-	 	
-	 	Tbl.Col.value('address[1]', 		'nvarchar(max)') 	AS [address],
-	 	Tbl.Col.value('(address/tt)[1]', 	'nvarchar(max)') 	AS [tt],
-	 	Tbl.Col.value('time[1]', 			'datetime') 		AS [datetime],  
-       	Tbl.Col.value('cite[1]', 			'nvarchar(max)') 	AS [cite]  
-       		
-
-	FROM   @xmlData.nodes('/ul/li') Tbl(Col)
-	
-
-
-	RETURN
-end
-
-GO
-
-
-
-/*
-Link Sample:
-
-DECLARE @xml xml = '
-<ul class="xoxo">
-	<li data-position="3" data-status="approved" data-id="catinfo" title="This is about domestic cats">
-		<b>Pets</b>: 
-		<a href="black.htm" title="cat" rel="external">This is about black cats</a> 
-		By <address>James Mohler <tt>1.1.1.1</tt></address>
-		At <time>1/2/2015</time>
-		Also see <cite>http://en.wikipedia.org/wiki/Felis</cite>
-	</li>
-	
-	<li><b>Farm Animals</b></li>
-	
-	<li><b>Pets</b>: <var>Dog</var></li>	
-	
-	<li><a href="black.htm" title="cat">This is about black cats</a></li>
-
-	<li><a href="chihuahua.htm" title="dog">We prefer Chihuahuas</a></li>
-</ul>'
-
-SELECT * 
-FROM dbo.udf_xoxoRead(@xml)
-
-
-*/

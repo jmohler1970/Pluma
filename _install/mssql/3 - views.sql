@@ -2,7 +2,14 @@
 /* For: MS SQL 2008 and above */
 
 
+/*
+Description:
 
+For Tax, see udf_taxonomy read 
+
+Question: Is there a reason you don't use getSimple?
+
+*/
 
 
 CREATE VIEW [dbo].[vwNode]
@@ -52,8 +59,8 @@ SELECT     A.NodeID, A.ParentNodeID, A.PrimaryRecord, A.[Root], A.Kind, A.Slug,
 FROM         dbo.Node AS A 
 OUTER APPLY dbo.udf_titleRead(xmlTitle)	TT
 OUTER APPLY dbo.udf_taxonomyRead(xmlTaxonomy)	Tax
-OUTER APPLY dbo.udf_xoxoRead(Modified)	M
-OUTER APPLY dbo.udf_xoxoRead(Created)	C
+OUTER APPLY dbo.udf_xoxoRead(Modified, DEFAULT)	M
+OUTER APPLY dbo.udf_xoxoRead(Created, DEFAULT)	C
 
 
 LEFT OUTER JOIN
@@ -160,10 +167,14 @@ from DataPlusRN
 
 GO
 
+/* 
+Description: User information is expected to need to be extensible. It is more important to be able store a variety of user information that it is to be able to store the data so that it can be searched rapidly. The Personname format is based on rfc 6351 (https://tools.ietf.org/html/rfc6351)  
+*/
+
+
 CREATE VIEW [dbo].[vwUser] 
 
 AS
-
 
 
 SELECT   dbo.Users.UserID, login, passhash, slug,
@@ -193,7 +204,7 @@ SELECT   dbo.Users.UserID, login, passhash, slug,
 		PersonName.value('(/vcard/adr/code)[1]', 	'nvarchar(max)') AS code,
 		PersonName.value('(/vcard/adr/country)[1]', 'nvarchar(max)') AS country,
 
-		PersonName.value('(/vcard/tz/text)[1]', 	'nvarchar(max)') AS tz,
+		PersonName.value('(/vcard/tz/text)[1]', 	'nvarchar(max)') AS tz, /* timezone */
 		PersonName.value('(/vcard/note)[1]', 		'nvarchar(max)') AS note,
 
 
@@ -208,8 +219,8 @@ SELECT   dbo.Users.UserID, login, passhash, slug,
 
 
 FROM    dbo.Users WITH (NOLOCK)
-OUTER APPLY dbo.udf_xoxoRead(Modified)	M
-OUTER APPLY dbo.udf_xoxoRead(Created)	C
+OUTER APPLY dbo.udf_xoxoRead(Modified, DEFAULT)	M
+OUTER APPLY dbo.udf_xoxoRead(Created, DEFAULT)	C
 
 
 

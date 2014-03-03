@@ -8,7 +8,7 @@ CREATE TABLE [dbo].[Users](
 	[UserID] 		[int] IDENTITY(1,1) NOT NULL,
 	[login] 		[nvarchar](80) NULL,
 	[passhash] 		[char](10) NULL,
-	[PersonName]	[xml] NULL,
+	[PersonName]	[xml] NULL,					/* rfc6351 */
 	[slug] 			[nvarchar](50) NOT NULL,
 	
 	
@@ -53,64 +53,23 @@ GO
 
 CREATE TABLE [dbo].[Node](
 	[NodeID] 		[int] IDENTITY(1,1) NOT NULL,
-	[ParentNodeID] 	[int] NULL,
-	[root] 			[bit] NOT NULL,
-	[PrimaryRecord] [bit] NOT NULL,
-	[Slug] 			[nvarchar](50) NULL,
-	[xmlTitle] 		[xml] NOT NULL,
-	[Kind] 			[nvarchar](40) NOT NULL,
-	[strData] 		[nvarchar](max) NULL,
-	[xmlData] 		[xml] NULL,
-	[xmlConf] 		[xml] NULL,
-	[xmlLink] 		[xml] NOT NULL DEFAULT "",
-	[xmlTaxonomy] 	[xml] NULL,
-	[xmlSecurity] 	[xml] NULL,
-	[ExpirationDate] [smalldatetime] NULL,
-	[pinned] 		[bit] NOT NULL,
-	[pStatus] 		[nvarchar](50) NOT NULL DEFAULT "Public",
-	[cStatus] 		[bit] NOT NULL,
-	[StartDate] 	[smalldatetime] NULL,
-	[CommentMode] 	[nvarchar](30) NULL,
-	[StationaryPad] [bit] NOT NULL,
-	[SortOrder] 	[smallint] NULL,
-	[NoDelete] 		[bit] NOT NULL,
+	[Kind] 			[nvarchar](40) NOT NULL,			/* Page and other things */
+
+	[xmlData] 		[xml] NULL,							/* From getSimple */
+	[xoxoLink] 		[xml] NOT NULL DEFAULT "",			
+	[xoxoConf] 		[xml] NULL,
+	
 	[Deleted]  AS (case when [DeleteDate] IS NULL then (0) else (1) end),
 	[DeleteDate] 	[smalldatetime] NULL,
 	[Modified] 		[xml] NULL,
 	[Created] 		[xml] NULL,
-	[DataSize]  AS (((((((((((((isnull(datalength([ParentNodeID]),(0))+isnull(datalength([xmlTitle]),(0)))+isnull(datalength([Kind]),(0)))+isnull(datalength([strData]),(0)))+isnull(datalength([xmlConf]),(0)))+isnull(datalength([xmlLink]),(0)))+isnull(datalength([xmlTaxonomy]),(0)))+isnull(datalength([xmlSecurity]),(0)))+isnull(datalength([ExpirationDate]),(0)))+isnull(datalength([SortOrder]),(0)))+isnull(datalength([Pinned]),(0)))+isnull(datalength([pStatus]),(0)))+isnull(datalength([cStatus]),(0)))+isnull(datalength([StartDate]),(0))) PERSISTED,
+	[DataSize]  AS (isnull(datalength([xmlData]),(0))) PERSISTED,
  CONSTRAINT [PK_Node] PRIMARY KEY CLUSTERED 
 (
 	[NodeID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
-GO
-
-
-
-ALTER TABLE [dbo].[Node] ADD  CONSTRAINT [DF_Node_root]  DEFAULT ((0)) FOR [root]
-GO
-
-ALTER TABLE [dbo].[Node] ADD  CONSTRAINT [DF_Node_Primary]  DEFAULT ((0)) FOR [PrimaryRecord]
-GO
-
-ALTER TABLE [dbo].[Node] ADD  CONSTRAINT [DF_Node_Slug]  DEFAULT ('') FOR [Slug]
-GO
-
-ALTER TABLE [dbo].[Node] ADD  CONSTRAINT [DF_Node_xmlTitle]  DEFAULT ('') FOR [xmlTitle]
-GO
-
-ALTER TABLE [dbo].[Node] ADD  CONSTRAINT [DF_Node_pinned]  DEFAULT ((0)) FOR [pinned]
-GO
-
-ALTER TABLE [dbo].[Node] ADD  CONSTRAINT [DF_Node_cStatus]  DEFAULT ((0)) FOR [cStatus]
-GO
-
-ALTER TABLE [dbo].[Node] ADD  CONSTRAINT [DF_Node_StationaryPad]  DEFAULT ((0)) FOR [StationaryPad]
-GO
-
-ALTER TABLE [dbo].[Node] ADD  CONSTRAINT [DF_Node_NoDelete]  DEFAULT ((0)) FOR [NoDelete]
 GO
 
 
@@ -130,32 +89,15 @@ CREATE TABLE [dbo].[NodeArchive](
 	[NodeArchiveID] [bigint] IDENTITY(1,1) NOT NULL,
 	[VersionDate] 	[smalldatetime] NOT NULL,
 	[NodeID] 		[int] NOT NULL,
-	[parentNodeID] 	[int] NULL,
-	[root] 			[bit] NOT NULL,
-	[primaryRecord] [bit] NOT NULL,
-	[slug] 			[nvarchar](50) NOT NULL,
-	[xmlTitle] 		[xml] NOT NULL,
-	[kind] 			[nvarchar](40) NOT NULL,
-	[strData] 		[nvarchar](max) NULL,
 	[xmlData] 		[xml] NULL,
 	[xmlConf] 		[xml] NULL,
 	[xmlLink] 		[xml] NULL,
-	[xmlTaxonomy] 	[xml] NULL,
-	[xmlSecurity] 	[xml] NULL,
-	[expirationDate] [smalldatetime] NULL,
-	[pinned] 		[bit] NOT NULL,
-	[pStatus] 		[nvarchar](50) NOT NULL,
-	[cStatus] 		[bit] NOT NULL,
-	[StartDate] 	[smalldatetime] NULL,
-	[CommentMode] 	[nvarchar](30) NULL,
-	[StationaryPad] [bit] NOT NULL,
-	[SortOrder] 	[smallint] NULL,
-	[NoDelete] 		[bit] NOT NULL,
+	
 	[Deleted]  AS (case when [DeleteDate] IS NULL then (0) else (1) end),
 	[DeleteDate] 	[smalldatetime] NULL,
 	[Modified] 		[xml] NULL,
 	[Created] 		[xml] NULL,
-	[DataSize]  AS (((((((((((((isnull(datalength([ParentNodeID]),(0))+isnull(datalength([xmlTitle]),(0)))+isnull(datalength([Kind]),(0)))+isnull(datalength([strData]),(0)))+isnull(datalength([xmlConf]),(0)))+isnull(datalength([xmlLink]),(0)))+isnull(datalength([xmlTaxonomy]),(0)))+isnull(datalength([xmlSecurity]),(0)))+isnull(datalength([ExpirationDate]),(0)))+isnull(datalength([SortOrder]),(0)))+isnull(datalength([Pinned]),(0)))+isnull(datalength([pStatus]),(0)))+isnull(datalength([cStatus]),(0)))+isnull(datalength([StartDate]),(0))) PERSISTED,
+	[DataSize]  AS (isnull(datalength([xmlData]),(0))) PERSISTED,
  CONSTRAINT [PK_NodeArchive] PRIMARY KEY CLUSTERED 
 (
 	[NodeID] ASC,

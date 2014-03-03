@@ -585,7 +585,8 @@ query function getBySlug(required string slug) output="no" 	{
 	<cfargument name="UserID" required="true" type="string">
 
 	<cfset local.qryResult = this.getProfile(arguments.UserID)>
-
+	
+	<cfset local.stResult = {}>	
 
 	<cfloop query="local.qryResult">
 		<cfset local.stResult[type] = message>
