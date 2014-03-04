@@ -29,11 +29,11 @@ FROM dbo.udf_xoxoRead(@someData)
 
 /* User Data: this was designed around xoxo, but can be made to do much more */
 
-/* @xml: 	raw data to be prompted /*
+/* @xml: 	raw data to be prompted */
 /* @type: 	data to be filtered, this allows multiple types in a single xml */
 
 
-create function [dbo].[udf_xoxoRead](@xmlData xml, @type string = NULL) 
+create function [dbo].[udf_xoxoRead](@xmlData xml, @type varchar(40) = NULL) 
 	
 	returns @tblmessage TABLE
 (
@@ -74,11 +74,11 @@ begin
 
 	FROM   @xmlData.nodes('/ul/li') Tbl(Col)
 	
-	WHERE	[type] = @type OR @type IS NULL OR @type = '' 	
+	WHERE	Tbl.Col.value('b[1]', 'nvarchar(max)') = @type OR @type IS NULL OR @type = '' 	
 
 	RETURN
 end
-GO
+
 
 
 
@@ -113,57 +113,4 @@ FROM dbo.udf_xoxoRead(@xml)
 */
 
 
-
-CREATE VIEW [dbo].[vwUser] 
-AS
-
-SELECT   dbo.Users.UserID, login, passhash, slug,
-	
-		PersonName.value('(/vcard/n/prefix)[1]', 	'nvarchar(max)') AS prefix,
-		PersonName.value('(/vcard/n/given)[1]', 	'nvarchar(max)') AS given,
-		PersonName.value('(/vcard/n/additional)[1]','nvarchar(max)') AS additional,
-		PersonName.value('(/vcard/n/family)[1]', 	'nvarchar(max)') AS family,
-		PersonName.value('(/vcard/n/suffix)[1]', 	'nvarchar(max)') AS suffix,
-
-		PersonName.value('(/vcard/org)[1]', 		'nvarchar(max)') AS org,
-		PersonName.value('(/vcard/photo)[1]', 		'nvarchar(max)') AS photo,
-		PersonName.value('(/vcard/url)[1]', 		'nvarchar(max)') AS url,
-		PersonName.value('(/vcard/email)[1]', 		'nvarchar(max)') AS email,
-		PersonName.value('(/vcard/title)[1]', 		'nvarchar(max)') AS title,
-		
-		
-		PersonName.value('(/vcard/tel/uri[../parameters/text = "office"])[1]', 	'nvarchar(max)') AS officetel,
-		PersonName.value('(/vcard/tel/uri[../parameters/text = "cell"])[1]', 	'nvarchar(max)') AS celltel,
-		PersonName.value('(/vcard/tel/uri[../parameters/text = "fax"])[1]', 	'nvarchar(max)') AS faxtel,
-		
-		
-		PersonName.value('(/vcard/adr/street)[1]', 	'nvarchar(max)') AS street,
-		PersonName.value('(/vcard/adr/locality)[1]','nvarchar(max)') AS locality,
-		PersonName.value('(/vcard/adr/region)[1]', 	'nvarchar(max)') AS region,
-		PersonName.value('(/vcard/adr/code)[1]', 	'nvarchar(max)') AS code,
-		PersonName.value('(/vcard/adr/country)[1]', 'nvarchar(max)') AS country,
-
-		PersonName.value('(/vcard/tz/text)[1]', 	'nvarchar(max)') AS tz,
-		PersonName.value('(/vcard/note)[1]', 		'nvarchar(max)') AS note,
-
-		
-		lastLogin, ExpirationDate, pStatus,
-		
-		xmlProfile,  xmlLink,  
-         
-		dbo.udf_xmlToStr(xmlGroup) AS Groups,
-		xmlGroup, Active,
-		Deleted, DeleteDate, 
-		
-		M.Address AS ModifyBy, M.Datetime AS ModifyDate, 
-		C.Address AS CreateBy, M.Datetime AS CreateDate
-
-FROM    dbo.Users WITH (NOLOCK)
-
-OUTER APPLY dbo.udf_xoxoRead(Modified)	M
-OUTER APPLY dbo.udf_xoxoRead(Created)	C
-
-
-
-GO
 

@@ -58,7 +58,7 @@ BEGIN
 		ORDER BY AreaSort, Item, CalendarDate
 
 END;
-GO
+
 
 
 
@@ -114,7 +114,7 @@ BEGIN
 		
 		ORDER BY AreaSort, Item, CalendarDate
 END;
-GO
+
 
 
 
@@ -174,7 +174,6 @@ BEGIN
 		ORDER BY AreaSort, Item, CalendarDate
 
 END;
-GO
 
 
 
@@ -235,7 +234,7 @@ BEGIN
 
 
 END;
-GO
+
 
 
 
@@ -343,6 +342,5 @@ BEGIN
 		
 END;		
 		
-GO
 
 

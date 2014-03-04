@@ -35,7 +35,7 @@ begin
 	RETURN @OS
 end
 
-GO
+
 
 
 
@@ -85,7 +85,7 @@ begin
 	RETURN @Browser
 end
 
-GO
+
 
 
 
@@ -99,7 +99,6 @@ BEGIN
 END
 
 
-GO
 
 
 
@@ -110,7 +109,7 @@ CREATE FUNCTION [dbo].[udf_getCountryName](@var xml)
 BEGIN 
    RETURN @var.value('(/Response/CountryName)[1]', 'nvarchar(max)')
 END
-GO
+
 
 
 
@@ -124,7 +123,7 @@ CREATE FUNCTION [dbo].[udf_getRegionName](@var xml)
 BEGIN 
    RETURN @var.value('(/Response/RegionName)[1]', 'nvarchar(max)')
 END
-GO
+
 
 
 
@@ -138,7 +137,7 @@ CREATE FUNCTION [dbo].[udf_getRemote_addr](@var xml)
 BEGIN 
    RETURN @var.value('(/Response/Ip)[1]', 'varchar(15)')
 END
-GO
+
 
 
 /* Support for getSimple operations */
@@ -191,12 +190,11 @@ BEGIN
 
 	RETURN
 END	
-GO
+
 
 
 
 /* Misc functions */
-
 
 
 create function [dbo].[udf_Slugify](@str nvarchar(max)) returns nvarchar(max) as
@@ -235,7 +233,7 @@ begin
 return @str
 end
 
-GO
+
 
 
 
@@ -259,7 +257,7 @@ BEGIN
     END
     RETURN LTRIM(RTRIM(@HTMLText))
 END
-GO
+
 
 
 CREATE FUNCTION dbo.udf_dateformat (@dtDate date)
@@ -287,7 +285,7 @@ BEGIN
 		
 	RETURN @result		
 END
-GO
+
 
 
 
@@ -307,7 +305,7 @@ begin
 	
 	RETURN @strGroup
 end
-GO
+
 
 
 /* XOXO functions */
@@ -348,7 +346,7 @@ begin
 	RETURN CONVERT(xml, @xmlResult)
 end
 
-GO
+
 
 
 
@@ -380,7 +378,7 @@ begin
 
 	RETURN CONVERT(xml, @xmlResult)
 end
-GO
+
 
 
 
@@ -413,7 +411,7 @@ begin
 	RETURN CONVERT(xml, @xmlResult)
 end
 
-GO
+
 
 
 
@@ -446,7 +444,7 @@ begin
 
 	RETURN CONVERT(xml, @xmlResult)
 end
-GO
+
 
 
 
@@ -483,7 +481,7 @@ begin
 
 	RETURN CONVERT(xml, @xmlResult)
 end
-GO
+
 
 
 
@@ -516,7 +514,7 @@ begin
 
 	RETURN CONVERT(xml, @xmlResult)
 end
-GO
+
 
 
 
@@ -549,7 +547,7 @@ begin
 
 	RETURN CONVERT(xml, @xmlResult)
 end
-GO
+
 
 
 
@@ -580,7 +578,7 @@ END
 RETURN
 
 END
-GO
+
 
 
 

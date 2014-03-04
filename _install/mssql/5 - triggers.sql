@@ -36,4 +36,3 @@ BEGIN
     -- Insert statements for trigger here
 
 END
-GO

@@ -91,7 +91,6 @@ LEFT OUTER JOIN
 
 
 
-GO
 
 
 
@@ -165,7 +164,7 @@ SELECT [ParentNodeID]
 select [Level], ParentNodeID AS SortParentNodeID, NodeID AS SortNodeID, SortCol
 from DataPlusRN 
 
-GO
+
 
 /* 
 Description: User information is expected to need to be extensible. It is more important to be able store a variety of user information that it is to be able to store the data so that it can be searched rapidly. The Personname format is based on rfc 6351 (https://tools.ietf.org/html/rfc6351)  
@@ -222,9 +221,6 @@ FROM    dbo.Users WITH (NOLOCK)
 OUTER APPLY dbo.udf_xoxoRead(Modified, DEFAULT)	M
 OUTER APPLY dbo.udf_xoxoRead(Created, DEFAULT)	C
 
-
-
-GO
 
 
 

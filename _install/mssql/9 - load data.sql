@@ -8,10 +8,10 @@
 /* Passwords are 'kc' without quotes */
 
 SET ANSI_PADDING ON
-GO
+
 
 SET IDENTITY_INSERT [dbo].[Users] ON 
-GO
+
 
 
 INSERT [dbo].[Users] ([UserID], [login], [passhash], [PersonName], 
@@ -47,21 +47,19 @@ NULL, N'', NULL, NULL, NULL,
 NULL, NULL, NULL, NULL, NULL, N'<ul><li><b>group</b><var>staff</var></li></ul>', NULL, NULL, 
 N'<message by="James Mohler" date="2013-04-10T20:56:29.177" title="User logged in" ip="142.136.11.230" />',
 N'<message by="" date="2013-04-03T21:52:58.053" title="" ip="" />')
-GO
 
 
 SET IDENTITY_INSERT [dbo].[Users] OFF
-GO
 
 
 
-SET ANSI_PADDING ON
-GO
+
+
 SET IDENTITY_INSERT [dbo].[Node] ON 
 
-GO
+
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (78, NULL, 0, 1, N'', N'', N'Root', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, N'Active', 0, NULL, NULL, 0, NULL, 0, NULL, NULL, N'<message by="" date="2013-04-03T21:52:58.087" title="Created" ip="142.136.11.230" />')
-GO
+
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (79, 78, 1, 0, N'index', N'<title>Welcome to PlumaCMS</title>', N'Page', N'
 
 <p><b>You have successfully installed PlumaCMS!</b></p>
@@ -76,18 +74,17 @@ INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], 
 
 <p>I hope you enjoy using PlumaCMS.</p>
 ', NULL, NULL, NULL, N'<menu status="1" sortorder="1">Home</menu>', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 1, NULL, N'<message by="" date="2013-04-03T21:52:58.100" title="Node was updated" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:58.100" title="Created" ip="142.136.11.230" />')
-GO
+
 
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (80, 78, 0, 0, N'search', N'<title>Search</title><subtitle />', N'Page', NULL, NULL, N'<theme_template>search.cfm</theme_template>', NULL, N'<menu status="" sortorder="" />', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 0, NULL, N'<message by="Admin " date="2013-04-03T22:42:31.480" title="XML Conf updated" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:58.147" title="Created" ip="142.136.11.230" />')
-GO
+
 
 INSERT [dbo].[Node] ([ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (78, 0, 0, N'404', N'<title>404 Error</title><subtitle />', N'Page', NULL, NULL, N'<theme_template>404.cfm</theme_template>', NULL, N'<menu status="" sortorder="" />', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 1, NULL, N'<message by="Admin " date="2013-04-03T22:42:31.480" title="XML Conf updated" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:58.147" title="Created" ip="142.136.11.230" />')
-GO
-
 
 
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (81, 78, 0, 0, N'tag', N'<title>Tags</title><subtitle />', N'Page', NULL, NULL, N'<theme_template>tag.cfm</theme_template>', NULL, N'<menu status="" sortorder="" />', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 0, NULL, N'<message by="James Mohler" date="2013-04-07T22:45:30.817" title="XML Conf updated" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:58.193" title="Created" ip="142.136.11.230" />')
-GO
+
+
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (82, 78, 0, 0, N'grumpy-cat', N'<title>Grumpy Cat</title><subtitle />', N'Page', N'<h2>About</h2>
 <p>Grumpy Cat is a nickname given to an angry-looking snowshoe cat that rose to fame online after its pictures were posted to Reddit in late September 2012. The cat is also known as ''Tardar'' which is short for Tardar (Tartar) Sauce.</p>
 <h2>Origin</h2>
@@ -95,7 +92,8 @@ INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], 
 <p>The Reddit post was instantly met with photoshopped parodies and image macros from others, reaching the front page with more than 25,300 up votes in the first 24 hours. Meanwhile, the Imgur page[13] gained nearly 1,030,000 views in the first 48 hours. The same day, three video clips of the cat playing indoors were uploaded to YouTube by Bundesen the same day.</p>
 <h2>Precursor</h2>
 <p>The name ''Grumpy Cat'' has been associated with pictures of scornful looking cats prior to this instance, mainly through the LOLcat image macro series X is not amused and Serious Cat.</p>', NULL, N'', NULL, N'<menu status="" sortorder="2">Grumpy Cat</menu><tags>arizona</tags><tags>cat</tags><tags>reddit</tags>', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 0, NULL, N'<message by="James Mohler" date="2013-04-08T00:02:43.133" title="XML Conf updated" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:58.257" title="Created" ip="142.136.11.230" />')
-GO
+
+
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (87, 78, 0, 0, N'andorra', N'<title>Andorra–European Union relations</title><subtitle />', N'Page', N'<p>&nbsp;</p>
 <h1 id="firstHeading" class="firstHeading" lang="en" style="background-image: none; font-weight: normal; margin: 0px 0px 0.1em; overflow: hidden; padding-top: 0px; padding-bottom: 0px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(170, 170, 170); font-size: 1.6em; line-height: 1.2em; font-family: sans-serif; ">Andorra&ndash;European Union relations</h1>
 <div id="bodyContent">
@@ -110,9 +108,11 @@ INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], 
 <h2>&nbsp;</h2>
 </div>
 </div>', NULL, N'', NULL, N'<menu status="" sortorder="" /><tags>eu</tags><tags>customs union</tags><tags>history</tags><tags>currency</tags>', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 0, NULL, N'<message by="James Mohler" date="2013-04-10T21:11:29.610" title="XML Conf updated" ip="142.136.11.230" />', N'<message by="Admin " date="2013-04-06T21:28:12.317" title="Created" ip="142.136.11.230" />')
-GO
+
+
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (90, NULL, 0, 0, N'welcome-to-plumacms', N'', N'Page', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, N'Public', 0, NULL, NULL, 0, NULL, 0, NULL, NULL, N'<message by="" date="2013-04-06T21:40:08.763" title="Created" ip="" />')
-GO
+
+
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (93, 78, 0, 0, N'african-wildcat', N'<title>African wildcat</title><subtitle />', N'Page', N'<p>&nbsp;</p>
 <h1 id="firstHeading">African wildcat</h1>
 <div id="bodyContent">
@@ -123,7 +123,8 @@ INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], 
 <p>The African wildcat appears to have diverged from the other subspecies about 131,000 years ago.<a href="http://en.wikipedia.org/wiki/African_wildcat#cite_note-Driscoll07-2">[2]</a>&nbsp;Some individual African wildcats were first&nbsp;<a href="http://en.wikipedia.org/wiki/Domestication" title="Domestication">domesticated</a>about 10,000 years ago in the Middle East, and are the ancestors of the&nbsp;<a href="http://en.wikipedia.org/wiki/Domestic_cat" title="Domestic cat">domestic cat</a>. Remains of domesticated cats have been included in human burials as far back as 9,500 years ago in&nbsp;<a href="http://en.wikipedia.org/wiki/Cyprus" title="Cyprus">Cyprus</a>.<a href="http://en.wikipedia.org/wiki/African_wildcat#cite_note-3">[3]</a><a href="http://en.wikipedia.org/wiki/African_wildcat#cite_note-4">[4]</a></p>
 </div>
 </div>', NULL, N'', NULL, N'<menu status="" sortorder="" /><tags>cat</tags><tags>conservation</tags><tags>domestication</tags><tags>evolution</tags>', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 0, NULL, N'<message by="James Mohler" date="2013-04-10T21:07:04.910" title="XML Conf updated" ip="142.136.11.230" />', N'<message by="Admin " date="2013-04-06T21:48:09.620" title="Created" ip="142.136.11.230" />')
-GO
+
+
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (94, 78, 0, 0, N'new-amsterdam', N'<title>New Amsterdam</title><subtitle />', N'Page', N'<p>&nbsp;</p>
 <h1 id="firstHeading">New Amsterdam</h1>
 <div id="bodyContent">
@@ -142,10 +143,12 @@ The original city map of New Amsterdam called&nbsp;<a href="http://en.wikipedia.
 </div>
 </div>
 </div>', NULL, N'', NULL, N'<menu status="" sortorder="" /><tags>new york city</tags><tags>history</tags>', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 0, NULL, N'<message by="James Mohler" date="2013-04-10T21:12:01.263" title="XML Conf updated" ip="142.136.11.230" />', N'<message by="Admin " date="2013-04-06T21:54:30.243" title="Created" ip="142.136.11.230" />')
-GO
+
+
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (96, 78, 0, 0, N'panama-canal-railway', N'<title>Panama Canal Railway</title><subtitle />', N'Page', N'<p>&nbsp;The&nbsp;Panama Canal Railway Company&nbsp;(reporting mark&nbsp;PCRC) is a&nbsp;railway&nbsp;line that links the&nbsp;Atlantic Ocean&nbsp;to the&nbsp;Pacific Ocean&nbsp;across&nbsp;Panamain&nbsp;Central America. It is jointly owned by&nbsp;Kansas City Southern&nbsp;and Mi-Jack Products.[2]&nbsp;The route stretches 47.6 miles (76.6&nbsp;km) across theIsthmus of Panama&nbsp;from&nbsp;Col&oacute;n&nbsp;(Atlantic) to&nbsp;Balboa&nbsp;(Pacific, near&nbsp;Panama City).</p>
 <p>The infrastructure of this still-functioning railroad (formerly the&nbsp;Panama Railway&nbsp;or&nbsp;Panama Rail Road) was of vital importance for construction of the&nbsp;Panama Canal&nbsp;over a parallel route half a century later. The principal incentive for the building of the rail line was the vast increase in traffic to California owing to the 1849&nbsp;California Gold Rush. Construction on the Panama Railroad began in 1850 and the first revenue train ran over the full length on January 28, 1855. Referred to as being an&nbsp;inter-oceanic railroad&nbsp;when it opened,[3]&nbsp;it was later also described by some as representing a&nbsp;&quot;transcontinental&quot;&nbsp;railroad despite only transversing the narrow isthmus connecting the&nbsp;North&nbsp;and&nbsp;South Americancontinents.[4][5][6][7]</p>', NULL, N'', NULL, N'<menu status="" sortorder="" /><tags>history</tags><tags>construction</tags><tags>shipping</tags><tags>tracks</tags><tags>layout</tags><tags>services</tags>', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 0, NULL, N'<message by="James Mohler" date="2013-04-10T21:06:17.283" title="XML Conf updated" ip="142.136.11.230" />', N'<message by="Admin " date="2013-04-06T21:56:59.380" title="Created" ip="142.136.11.230" />')
-GO
+
+
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (97, 78, 0, 0, N'asia-roman-province', N'<title>Asia (Roman Province)</title><subtitle />', N'Page', N'<p>&nbsp;</p>
 <h1 id="firstHeading">Asia (Roman province)</h1>
 <div id="bodyContent">
@@ -160,7 +163,8 @@ INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], 
 </div>
 </div>
 <p>&nbsp;</p>', NULL, N'', NULL, N'<menu status="" sortorder="" /><tags>rome</tags><tags>history</tags><tags>geography</tags><tags>military</tags>', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 0, NULL, N'<message by="James Mohler" date="2013-04-10T21:05:44.117" title="XML Conf updated" ip="142.136.11.230" />', N'<message by="Admin " date="2013-04-06T21:58:53.230" title="Created" ip="142.136.11.230" />')
-GO
+
+
 INSERT [dbo].[Node] ([NodeID], [ParentNodeID], [root], [PrimaryRecord], [Slug], [xmlTitle], [Kind], [strData], [xmlData], [xmlConf], [xmlLink], [xmlTaxonomy], [xmlSecurity], [ExpirationDate], [pinned], [pStatus], [cStatus], [StartDate], [CommentMode], [StationaryPad], [SortOrder], [NoDelete], [DeleteDate], [Modified], [Created]) VALUES (100, 78, 0, 0, N'albert-einstein', N'<title>Albert Einstein</title><subtitle />', N'Page', N'<p>&nbsp;</p>
 <h1 id="firstHeading">Albert Einstein</h1>
 <div id="bodyContent">
@@ -174,9 +178,6 @@ Albert Einstein&nbsp;(pron.:&nbsp;/?&aelig;lb?rt&nbsp;?a?nsta?n/;&nbsp;German:&n
 <p>Einstein published&nbsp;more than 300 scientific papers&nbsp;along with over 150 non-scientific works.[6][8]&nbsp;His great intellectual achievements and originality have made the word &quot;Einstein&quot; synonymous with&nbsp;genius.[9]</p>
 </div>
 </div>', NULL, N'', NULL, N'<menu status="" sortorder="" /><tags>education</tags><tags>family</tags><tags>emigration</tags><tags>relativity</tags>', NULL, NULL, 0, N'Public', 1, NULL, N'No one', 0, NULL, 0, NULL, N'<message by="James Mohler" date="2013-04-10T21:05:07.987" title="XML Conf updated" ip="142.136.11.230" />', N'<message by="Admin " date="2013-04-06T22:22:19.993" title="Created" ip="142.136.11.230" />')
-GO
-
-
 
 
 
@@ -210,10 +211,9 @@ INSERT [dbo].[Pref] ([Pref], [xmlPref], [DeleteDate], [Modified], [Created]) VAL
 &lt;/ul&gt;
 
 </data>', NULL, N'<message by="James Mohler" date="2013-04-11T19:10:20.220" title="Preferences Saved" ip="142.136.11.230" />', N'<message by="" date="2013-04-03T21:52:58.007" title="Created" ip="142.136.11.230" />')
-GO
+
 
 INSERT [dbo].[Pref] ([Pref], [xmlPref], [DeleteDate], [Modified], [Created]) VALUES (N'Innovation', N'<data type="facebook">https://www.facebook.com/james.mohler.182</data><data type="stackoverflow">http://stackoverflow.com/users/1845869/james-mohler</data><data type="search">1</data><data type="linkedin" /><data type="tags">1</data><data type="twitter">https://twitter.com/JamesAMohler</data><data type="login">1</data>', NULL, N'<message by="James Mohler" date="2013-04-11T18:51:48.780" title="Preferences Saved" ip="142.136.11.230" />', N'<message by="James Mohler" date="2013-04-07T23:43:00.637" title="Created" ip="142.136.11.230" />')
-GO
 
 
 
