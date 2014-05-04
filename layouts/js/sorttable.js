@@ -1,31 +1,6 @@
 
 
 // pull all data when doing a submit
-function doPull()	{
-		
-	
-	
-	arGroup = myAside.group_joint[myAside.group_joint.selectedIndex].value.split(":");
-	
-	myFrm.group.value 				= arGroup[0];
-	
-	
-	myFrm.group_permission.value 	= arGroup[1];
-	
-	
-	myFrm.other_permission.value 	= myAside.other_permission[myAside.other_permission.selectedIndex].value;
-	myFrm.public_permission.value 	= myAside.public_permission[myAside.public_permission.selectedIndex].value;
-	myFrm.pstatus.value 			= myAside.pstatus[myAside.pstatus.selectedIndex].value;
-	
-	//myFrm.commentmode.value 		= myAside.commentmode[myAside.commentmode.selectedIndex].value;
-	
-	
-	myFrm.tags.value 				= myAside.tags.value;
-
-	myFrm.parentnodeid.value 		= myAside.NoNameID[myAside.NoNameID.selectedIndex].value;
-	
-	
-	}
 
 
 function checkAll(field)	{
