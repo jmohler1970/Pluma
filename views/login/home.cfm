@@ -15,8 +15,6 @@ function formCheck()
         return false;
         }         	        
     }
-    
-
 </script>
 
 
