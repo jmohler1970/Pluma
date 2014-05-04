@@ -41,11 +41,12 @@ void function home(required struct rc) output="false"	{
 
 	if (cgi.request_method == "post" AND rc.submit == "settings")	{
 		
-		var result = application.IOAPI.set_pref("Meta", rc.meta);
-		
-		if (left(rc.meta_root, 1) != "/")	{
-			rc.meta_root &= "/";			
+		if (right(rc.meta.root, 1) != "/")	{
+			rc.meta.root &= "/";			
 			}
+			
+		var result = application.IOAPI.set_pref("Meta", rc.meta);
+			
 		
 		if (result == "")
 			this.AddInfo("SETTINGS_UPDATED");
@@ -160,8 +161,8 @@ void function enderror404(required struct rc) output="false"	{
 	
 	rc.xa =	{
 		missing	 			= variables.fw.buildURL(action='home.missing'),
-		error404	 		= variables.fw.buildURL(action='support.error404'),
-		jour404	 			= variables.fw.buildURL(action='support.jour', querystring='kind=404')
+		error404	 		= variables.fw.buildURL(action='settings.error404'),
+		jour404	 			= variables.fw.buildURL(action='settings.jour', querystring='kind=404')
 		};
 
 	rc.err = {

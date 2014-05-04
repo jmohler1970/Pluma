@@ -57,7 +57,7 @@
 <h3>Add Link Category</h3>	
 
 <cfoutput>
-<cfform action="#BuildURL(action = '.linkcategory')#" method="post">
+<form action="#BuildURL(action = '.linkcategory')#" method="post">
 	
 
 
@@ -65,12 +65,12 @@
    <b>Title</b>
    <br />
   
-	<cfinput type="Text" name="title" class="text" value="" size="50" maxlength="75" required="yes" message="You must enter a new item" />	
+	<input type="Text" name="title" class="text" value="" size="50" maxlength="75" required="required" message="You must enter a new item" />	
 </p>
 
 		
 	<button type="submit" class="submit" id="add">#application.GSAPI.i18n('add')#</button>
-</cfform>
+</form>
 </cfoutput>
 
 

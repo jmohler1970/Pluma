@@ -24,7 +24,7 @@
 			MyKey = MyAr[MyKeyName];		// struct or simple 
 			
 			if (isStruct(MyKey))	{		
-				mtype		= structKeyExists(MyKey, "type")		? MyKey.type										: MyKeyName;			
+				mtype		= structKeyExists(MyKey, "type")		? MyKey.type										: lcase(MyKeyName);			
 				mid			= structKeyExists(MyKey, "id") 			? 'data-id="#xmlFormat(MyKey.id)#"'					: "";
 				mposition	= structKeyExists(MyKey, "position") 	? MyKey.position 									: "";
 				mstatus		= structKeyExists(MyKey, "status") 		? 'data-status="#xmlFormat(MyKey.position)#"'		: "";

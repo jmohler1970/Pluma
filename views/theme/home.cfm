@@ -10,7 +10,7 @@
 </cfoutput>
 
 <p>
-	<select class="text" style="width : 300px;" name="theme_current"> 
+	<select class="text" style="width : 300px;" name="theme.current"> 
 	<cfoutput query="rc.qryTheme">
 	<cfif type EQ "dir">
 		<option value="#name#" <cfif request.theme.current EQ name>selected="selected"</cfif>>#ucase(left(name, 1))##mid(name, 2, 50)#</option>

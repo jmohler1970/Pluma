@@ -7,7 +7,7 @@
 
 	<li id="sb_backups"><a <cfif getItem() EQ "home">class="current"</cfif>  href="#buildURL(action = 'backups.home')#">#application.GSAPI.i18n("page_backups")#</a></li>
 	
-	<cfif isDefined("rc.NodeArchiveID")>
+	<cfif getItem() EQ "edit" AND isDefined("rc.NodeArchiveID")>
 		<li id=sb_backupshistory""><a class="current" href="#buildURL(action = 'backups.edit', querystring="nodeArchiveID=#rc.NodeArchiveID#")#">#application.GSAPI.i18n("SIDE_view_bak")#</a></li>
 	</cfif>
 

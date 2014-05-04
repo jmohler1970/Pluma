@@ -18,23 +18,23 @@
 <tr>
 	<td>#type# <cfif type EQ ""><i>None</i></cfif>
 	
-		<input type="hidden" name="link[#currentrow#].link.key" 	value="#xmlformat(type)#|#xmlformat(href)#" />
-		<input type="hidden" name="link[#currentrow#].link.type" value="#type#" />
+		<input type="hidden" name="link[#currentrow#].key" 	value="#xmlformat(type)#|#xmlformat(href)#" />
+		<input type="hidden" name="link[#currentrow#].type" value="#type#" />
 	</td>
 	
 	<td>
-    	<input type="text" name="link[#currentrow#].link.message" value="#xmlformat(message)#" />  
+    	<input type="text" name="link[#currentrow#].message" value="#xmlformat(message)#" />  
 	</td>
 		
 
 	<td>
-		<input type="text" name="link[#currentrow#].link.href" value="#xmlformat(href)#" size="30" />
+		<input type="text" name="link[#currentrow#].href" value="#xmlformat(href)#" size="30" />
 	
 		<a href="#href#" target="_blank"  class="edit-nav">Go</a>
 	</td>
 	
 	<td>
-		<select name="link[#currentrow#].link.position" class="input-mini">
+		<select name="link[#currentrow#].position" class="input-mini">
 			<cfloop from="1" to="#rc.qryLink.recordcount#" index="j">
 				<option value="#j#" <cfif j EQ currentrow>selected="selected"</cfif>>#j#</option>
 			</cfloop>

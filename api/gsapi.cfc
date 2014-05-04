@@ -20,6 +20,11 @@ void function init() output="false"{
 
 void function i18n_merge(string plugin="") output="false"{
 
+	if (not structkeyExists(request.Meta, "language"))	{
+		this.InitStatus = "Language is not set. i18m_merge fails.";
+		return;	
+		}	
+
 	
 	
 	if (arguments.plugin == "") {

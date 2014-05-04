@@ -1,6 +1,6 @@
 
 
-
+<!---
 <script language="javascript">
 function formCheck() 
     {
@@ -16,7 +16,7 @@ function formCheck()
         }         	        
     }
 </script>
-
+--->
 
 
 
@@ -32,7 +32,7 @@ function formCheck()
     <p>
    		<b>#application.GSAPI.i18n("label_userName")#</b>
    	 	<br />
-    	<input type="text" name="login" class="text" autofocus="autofocus" />
+    	<input type="text" name="login" class="text" autofocus="autofocus" required="required" />
     </p>
    
    

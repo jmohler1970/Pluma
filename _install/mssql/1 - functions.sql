@@ -147,14 +147,55 @@ Description: Extracts out all columns from the getSimple field
 
 */
 
+create function dbo.udf_setSimpleWrite(
+	@pubdate 		datetime,		
+	@title			nvarchar(80),
+	@slug			nvarchar(80), /* this is changed so that we don't have a variable collision with cf url.* */
+	@meta			nvarchar(max),
+	@metad			nvarchar(max),
+	@menu			nvarchar(80),
+	@menuOrder		int,
+	@menuStatus		nvarchar(80),
+	@template		nvarchar(80),
+	@parent			nvarchar(80),
+	@content		nvarchar(max), /* This needs to be already escaped */
+	@private		bit,
+	@author			nvarchar(80)
+	) 
 
-create function dbo.udf_getSimpleRead(@getSimple xml)
+	returns xml
+	
+AS	
+	BEGIN
+	
+		RETURN '<item>'
+		+ '<pubdate>' 	+ CONVERT(varchar(20), @pubdate, 101) + '</pubdate>'
+		+ '<title>' 	+ @title 		+ '</title>'
+		+ '<url>' 		+ @slug 		+ '</url>'
+		+ '<meta>' 		+ @meta 		+ '</meta>'
+		+ '<metad>' 	+ @metad 		+ '</metad>'
+		+ '<menu>' 		+ @menu 		+ '</menu>'
+		+ '<menuOrder>' + CONVERT(varchar(4), @menuOrder) 	+ '</menuOrder>'
+		+ '<menuStatus>' + @menuStatus 	+ '</menuStatus>'
+		+ '<template>' 	+ @template 	+ '</template>'
+		+ '<parent>' 	+ @parent 		+ '</parent>'
+		+ '<content>' 	+ @content 		+ '</content>'
+		+ '<private>' 	+ CONVERT(varchar(1), @private) 		+ '</content>'
+		+ '<author>'	+ @author 		+ '</author>'
+		+ '</item>' 
+	
+	END	
+
+GO
+
+
+create function dbo.udf_getSimple(@xmlData xml)
 	returns @tblgetSimple TABLE
 	(
     -- Columns returned by the function
     pubdate 		datetime 	  	NULL,		
 	title			nvarchar(80)	NULL,
-	slug			nvarchar(80)	NULL, /* this is changed so that we don't have a variable collision */
+	slug			nvarchar(80)	NULL, /* this is changed so that we don't have a variable collision with cf url.* */
 	meta			nvarchar(max)	NULL,
 	metad			nvarchar(max)	NULL,
 	menu			nvarchar(80)	NULL,
@@ -169,22 +210,22 @@ create function dbo.udf_getSimpleRead(@getSimple xml)
 	AS
 	
 BEGIN
-	INSERT INT @tblgetSimple
+	INSERT INTO @tblgetSimple
 	
 	SELECT 		
-		Tbl.Col.value('pubdate', 		'datetime') AS pubdate,
-		Tbl.Col.value('title', 			'nvarchar(80)') AS title,
-		Tbl.Col.value('url', 			'nvarchar(80)') AS slug,
-		Tbl.Col.value('meta', 			'nvarchar(max)') AS meta,
-		Tbl.Col.value('metad', 			'nvarchar(max)') AS metad,
-		Tbl.Col.value('menu', 			'nvarchar(80)') AS menu,
-		Tbl.Col.value('menuOrder',		'int') 			AS menuOrder,
-		Tbl.Col.value('menuStatus', 	'nvarchar(80)') AS menuStatus,
-		Tbl.Col.value('template', 		'nvarchar(80)') AS template,
-		Tbl.Col.value('parent', 		'nvarchar(80)') AS parent,
-		Tbl.Col.value('content', 		'nvarchar(max)') AS content,
-		Tbl.Col.value('private', 		'bit') AS private,
-		Tbl.Col.value('author', 		'nvarchar(80)') AS author
+		Tbl.Col.value('pubdate[1]', 	'datetime') AS pubdate,
+		Tbl.Col.value('title[1]', 		'nvarchar(80)') AS title,
+		Tbl.Col.value('url[1]', 		'nvarchar(80)') AS slug,
+		Tbl.Col.value('meta[1]', 		'nvarchar(max)') AS meta,
+		Tbl.Col.value('metad[1]', 		'nvarchar(max)') AS metad,
+		Tbl.Col.value('menu[1]', 		'nvarchar(80)') AS menu,
+		Tbl.Col.value('menuOrder[1]',	'int') 			AS menuOrder,
+		Tbl.Col.value('menuStatus[1]', 	'nvarchar(80)') AS menuStatus,
+		Tbl.Col.value('template[1]', 	'nvarchar(80)') AS template,
+		Tbl.Col.value('parent[1]', 		'nvarchar(80)') AS parent,
+		Tbl.Col.value('content[1]', 	'nvarchar(max)') AS content,
+		Tbl.Col.value('private[1]', 	'bit') AS private,
+		Tbl.Col.value('author[1]', 		'nvarchar(80)') AS author
 		
 	FROM   @xmlData.nodes('item') Tbl(Col)	
 

@@ -363,21 +363,20 @@
 	<cfsavecontent variable="xmlTitle">
 	<ul class="xoxo">
 	<cfoutput>	
-		<cfif isDefined("rc.Extra")><li><b>Extra</b>	<var>#xmlFormat(rc.Extra)#</var></li>	</cfif>
-		<cfif isDefined("rc.Title")><li><b>Title</b> 	<var>#xmlFormat(rc.Title)#</var></li>	</cfif>
+		<li><b>#xmlFormat(rc.Extra)#</b> 	<var>#xmlFormat(rc.Title)#</var></li>
 	</cfoutput>
 	</ul>
 	</cfsavecontent>
 	
 		
-	<cfset slug = this.doSlug(arguments.extra & '-' & arguments.Title)> // this is to create unique ids for deleting
+	<cfset local.slug = this.doSlug(arguments.extra & '-' & arguments.Title)> 
 	
 	
 	<cfquery>
 	INSERT
-	INTO dbo.Node (Kind, xmlTitle, slug, Modified,Created)
+	INTO dbo.Node (Kind, xmlTitle, slug, Modified, Created)
 	VALUES ('Facet', <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#xmlTitle#">,
-		<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#slug#">,
+		<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#local.slug#">,
 		dbo.udf_4jInfo('Created',
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
 		 	<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byUserID#">),
@@ -498,15 +497,16 @@
 
 <cffunction name="LinkSave" output="false" returntype="struct" hint="similar to User.linksave">
 	<cfargument name="NodeK" required="true" type="struct">
-	<cfargument name="rc" required="true" type="struct">
+	<cfargument name="arLink" required="true" type="array">
 	<cfargument name="remote_addr" required="true" type="string">
 	<cfargument name="byUserID" required="true" type="string">
 	
 	
+	<cfset xmlLink = this.encodeXML(arguments.arLink)>
 	
 	
 	<cfquery name="qryClearLink">
-	DECLARE @xmlLink varchar(max) = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.encodeXML(rc.href)#">
+	DECLARE @xmlLink xml = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#local.xmlLink#" null="#IIF(xmlLink EQ "",1,0)#">
 	
 	
 	UPDATE	dbo.Node
@@ -580,11 +580,14 @@
 	<cfsavecontent variable="strXML">
 		<ul class="xoxo">
 		<cfoutput>
-			<li data-position	="#xmlFormat(arguments.rc.menuorder)#" 
-				data-status		="#xmlFormat(arguments.rc.menustatus)#">
+			<cfif arguments.rc.menu NEQ "">	
+				<li data-position	="#xmlFormat(arguments.rc.menuorder)#" 
 				
-				<b>Menu</b> <var>#xmlFormat(arguments.rc.menu)#</var>
-			</li>
+					data-status		="#xmlFormat(arguments.rc.menustatus)#">
+				
+					<b>Menu</b> <var>#xmlFormat(arguments.rc.menu)#</var>
+				</li>
+			</cfif>	
 			
 		
 	

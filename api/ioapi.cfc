@@ -337,7 +337,7 @@ struct function get_pref(required string Pref) output="false"	{
  	</cfloop>
 
  	<cfloop query="qryPlugins">
- 		<cfset SetVariable("application.GSAPI.status#plugin#", enabled)>	
+ 		<cfset application.GSAPI.status[plugin] = enabled>	
  		<cfif enabled>
  			<cfset application.GSAPI.i18n_merge(plugin)>
  		</cfif> 		 	
@@ -494,11 +494,21 @@ struct function set_XMLData(required struct NodeK, required string xmlData) outp
 	
 
 
-struct function set_link(required struct NodeK, required array Link)  hint="Stores an expected set of rc values. Fields are: linkcategory_[1-50], href_[1-50] (required), value_[1-50] (required), tooltip_[1-50], sortorder_[1-50]"	{
+struct function set_link(required struct NodeK, required array arLink)  hint="Stores an expected set of rc values. Fields are: linkcategory_[1-50], href_[1-50] (required), value_[1-50] (required), tooltip_[1-50], sortorder_[1-50]"	{
 
 	param arguments.NodeK.Kind = "Page";
 
-	variables.stResult = this.wsNode.LinkSave(arguments.NodeK, Link, cgi.remote_addr, session.LOGINAPI.UserID);
+	local.arFLink = [];
+
+	for (local.i = 1; local.i <= ArrayLen(arguments.arLink); i++)	{
+		if (arguments.arLink[local.i].href != '')	{
+			ArrayAppend(local.arFlink, arguments.arLink[local.i]);	
+			}
+		}
+
+
+
+	variables.stResult = this.wsNode.LinkSave(arguments.NodeK, local.arFLink, cgi.remote_addr, session.LOGINAPI.UserID);
 	
 	return variables.stResult;
 	}

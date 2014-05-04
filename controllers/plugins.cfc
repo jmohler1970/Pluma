@@ -15,9 +15,9 @@ struct function before(required struct rc) output="false" {
 
 	param rc.plugin = "";
 	// This is managed over there
-	if (rc.plugin != "" and fw.getItem() != "settings")	{
+	if (rc.plugin != "" and fw.getItem() != "home")	{
 	
-		variables.fw.redirect("plugins.settings", "all");
+		variables.fw.redirect("plugins.home", "all");
 		}
 	
 		
@@ -55,11 +55,12 @@ void function starthome(required struct rc) output="false" {
 	
 	<cfif cgi.request_method EQ "post">
 
-		<cfset application.IOAPI.set_pref("Plugin", rc)>
+		<cfset application.IOAPI.set_pref("Plugin", rc.plugin_status)>
+	
+		
+		<cfset application.IOAPI.load_plugins()>
 	
 		<cfset this.AddSuccess("plumacms/plugins_saved")>
-	
-		<cfset application.IOAPI.load_plugins()>
 	</cfif>
 	
 	

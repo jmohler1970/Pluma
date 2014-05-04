@@ -70,9 +70,12 @@ param request.exception = {type = "unknown"};
     <cfset rc.error_message = cgi.query_string>
         
  	<cfif isDebugMode()>
+ 	
+ 		<cfdump var="#request.Meta#">
+ 		
+ 		 	
  		<cfdump var="#request.exception#" label="Processed in #getCurrentTemplatePath()#">
  		
- 		<cfdump var="#request.exception#">
  	</cfif>
  	
 

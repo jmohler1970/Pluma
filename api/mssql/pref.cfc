@@ -96,8 +96,8 @@ They are selected via stResult[pref]
 	<cfargument name="Pref" 	required="true" type="string">
 	<cfargument name="type" required="true" type="string">
 
-	<cfquery name="qryType">
-		DECLARE @typey varchar(40) =  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.type#">
+	<cfquery name="local.qryType">
+		DECLARE @type varchar(40) =  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.type#">
 	
 		SELECT	Pref
 		FROM	dbo.Pref WITH (NOLOCK)
@@ -106,7 +106,7 @@ They are selected via stResult[pref]
 		AND		xmlPref.exist('/ul/li/b[.=sql:variable("@type")]') = 1
 	</cfquery> 
 
-	<cfif qryType.Pref EQ "">
+	<cfif local.qryType.Pref EQ "">
 		<cfreturn false>
 	</cfif>
 	<cfreturn true>	
@@ -122,41 +122,16 @@ They are selected via stResult[pref]
 	<cfargument name="remote_addr" 	required="true" type="string">
 	<cfargument name="ByUserID" 	required="true" type="string">	
 
-	
-	
 	<cfscript>
-		var xmlPref = "";
-        
-                        
-        for (var i in arguments.data)        {
-        
-               
-                var shortField = i;
+	if (structKeyExists(arguments.Data, "new"))	{
+		arguments.Data[arguments.Data.new_title] = arguments.Data.New;
+		
+		StructDelete(arguments.Data, "new_title");
+		StructDelete(arguments.Data, "new");
+		}
+	</cfscript>
 
-                        
-                if (shortField == "new")        {
-                    param arguments.data.new_title = "";
-                        
-                    shortField = reReplace(arguments.data.new_title, "[^a-z0-9]_", "", "all");
-                        
-                        
-                    if (shortField == "" AND arguments.rc.new_title != "")        {
-                        return "A valid key could not be created from &quot;#xmlformat(arguments.dta.new_title)#&quot;";
-                        }
-                                
-                                
-                    if (this.typeExists(Pref, shortfield))        {
-                        return "A key could not be added because it already exists";
-                        }
-                                
-                    }
-
-                if (shortField != "")        {
-                        xmlPref &= '<data type="#lcase(shortfield)#">#xmlformat(arguments.data[i])#</data>';
-                        }
-         
-           } // end for
-    </cfscript>
+	
 
 	<cfquery>
 		DECLARE @Source TABLE (

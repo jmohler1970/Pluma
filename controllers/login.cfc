@@ -16,7 +16,7 @@ void function home (required struct rc) output="false"	{
 	
 	if (cgi.request_method == "post")	{
 	
-		if (rc.login == "" or rc.password == "")	{
+		if (rc.login == "")	{
 			this.AddError("FILL_IN_REQ_FIELD");
 			return;				
 			}

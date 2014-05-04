@@ -10,6 +10,7 @@
 
 
 
+
 <cfoutput>
 <form action="#buildURL(action = '.home')#" method="post">
 </cfoutput>
@@ -32,10 +33,10 @@
 
 <tr>
 	<td nowrap="nowrap">
-		<input type="radio" name="plugin_#listfirst(filename, '.')#" value="1" 
+		<input type="radio" name="plugin_status.#listfirst(filename, '.')#" value="1" 
 			<cfif enabled>checked="checked"</cfif> /> #application.GSAPI.i18n("Enabled")#
 		&nbsp; &nbsp;
-		<input type="radio" name="plugin_#listfirst(filename, '.')#" value="0" 
+		<input type="radio" name="plugin_status.#listfirst(filename, '.')#" value="0" 
 			<cfif NOT enabled>checked="checked"</cfif> /> #application.GSAPI.i18n("Disabled")#
 			
 		
