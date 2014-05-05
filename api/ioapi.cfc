@@ -225,11 +225,11 @@ query function get_traffic_last_hits(string Filter="") output="false"	{
 
 
 
+query function get_all(required string Kind,  required string sortby, numeric maxrows=100) output="false" {
 
-query function get_all(required string Kind, required struct criteria, required string sortby, numeric maxrows=100) output="false" {
-
-	return this.wsNode.getAll(arguments.kind, arguments.criteria, arguments.sortBy, arguments.maxrows);
+	return this.wsNode.getAll(arguments.kind, arguments.sortBy, arguments.maxrows);
 	}
+
 
 query function get_all_by_userid(required string Kind, required string userid, required string sortby) output="false" {
 
@@ -237,11 +237,6 @@ query function get_all_by_userid(required string Kind, required string userid, r
 	}
 
 
-
-query function get_all_by_extra(required string Kind, required string extra, required string sortby) output="false" {
-
-	return this.wsNode.getAllByExtra(arguments.kind, arguments.extra, arguments.sortBy);
-	}
 
 
 query function get_by_search(required string Search, required string Kind) output="false" {

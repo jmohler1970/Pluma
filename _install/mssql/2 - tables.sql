@@ -54,16 +54,30 @@ GO
 CREATE TABLE [dbo].[Node](
 	[NodeID] 		[int] IDENTITY(1,1) NOT NULL,
 	[Kind] 			[nvarchar](40) NOT NULL,			/* Page and other things */
-
-	[xmlData] 		[xml] NULL,							/* From getSimple */
-	[xoxoLink] 		[xml] NOT NULL DEFAULT "",			
-	[xoxoConf] 		[xml] NULL,
 	
-	[Deleted]  AS (case when [DeleteDate] IS NULL then (0) else (1) end),
+	[Root] 			AS		(CASE WHEN Kind = 'Page' AND dbo.udf_GSslug(GSdata) = 'index' THEN 1 ELSE 0 END) PERSISTED,
+	[Title]			AS		(dbo.udf_gsTitle(GSdata)) PERSISTED,		
+	[Slug]			AS		(dbo.udf_gsSlug(GSdata)) PERSISTED,		
+	[Parent]		AS		(dbo.udf_gsParent(GSdata)) PERSISTED,		
+	
+	
+	[gsData] 		[xml] NULL,							/* From getSimple */
+	[xoxoLink] 		[xml] NOT NULL DEFAULT '',			
+	[xoxoConf] 		[xml] NULL,
+	[DataSize]  	AS (isnull(datalength([GSdata]),(0))) PERSISTED,
+	
+	[Deleted]  		AS (case when [DeleteDate] IS NULL then (0) else (1) end),
 	[DeleteDate] 	[smalldatetime] NULL,
-	[Modified] 		[xml] NULL,
-	[Created] 		[xml] NULL,
-	[DataSize]  AS (isnull(datalength([xmlData]),(0))) PERSISTED,
+	
+	[ModifyBy] 		varchar(50) NOT NULL DEFAULT '',
+	[ModifyDate] 	datetime NOT NULL DEFAULT getDate(),
+	
+	[CreateBy] 		varchar(50) NOT NULL DEFAULT '',
+	[CreateDate] 	datetime NOT NULL DEFAULT getDate(),
+	
+	
+	
+	
  CONSTRAINT [PK_Node] PRIMARY KEY CLUSTERED 
 (
 	[NodeID] ASC
@@ -75,29 +89,28 @@ GO
 
 
 
-ALTER TABLE [dbo].[Node]  WITH NOCHECK ADD  CONSTRAINT [FK_Node_Node] FOREIGN KEY([ParentNodeID])
-REFERENCES [dbo].[Node] ([NodeID])
-NOT FOR REPLICATION 
-GO
-
-ALTER TABLE [dbo].[Node] NOCHECK CONSTRAINT [FK_Node_Node]
-GO
-
-
 
 CREATE TABLE [dbo].[NodeArchive](
 	[NodeArchiveID] [bigint] IDENTITY(1,1) NOT NULL,
 	[VersionDate] 	[smalldatetime] NOT NULL,
 	[NodeID] 		[int] NOT NULL,
-	[xmlData] 		[xml] NULL,
-	[xmlConf] 		[xml] NULL,
-	[xmlLink] 		[xml] NULL,
-	
+
+	[gsData] 		[xml] NULL,
+	[xoxoConf] 		[xml] NULL,
+	[xoxoLink] 		[xml] NULL,
+	[DataSize]  AS (isnull(datalength([gsData]),(0))) PERSISTED,
+
+
 	[Deleted]  AS (case when [DeleteDate] IS NULL then (0) else (1) end),
 	[DeleteDate] 	[smalldatetime] NULL,
-	[Modified] 		[xml] NULL,
-	[Created] 		[xml] NULL,
-	[DataSize]  AS (isnull(datalength([xmlData]),(0))) PERSISTED,
+	
+	[ModifyBy] 		varchar(50) NOT NULL,
+	[ModifyDate] 	datetime NOT NULL,
+	
+	[CreateBy] 		varchar(50) NOT NULL,
+	[CreateDate] 	datetime NOT NULL,
+	
+	
  CONSTRAINT [PK_NodeArchive] PRIMARY KEY CLUSTERED 
 (
 	[NodeID] ASC,

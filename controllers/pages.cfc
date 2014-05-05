@@ -378,10 +378,9 @@ void function after(required struct rc) output="false" {
 	
 	super.after(rc);
 	
-	rc.qryLinkCategory = application.IOAPI.get_All_By_Extra("Facet", "Link_Category", "title");
+	rc.qryLinkCategory = application.IOAPI.get_All("Link_Category", "title");
 	
 	request.qryPageParent = application.IOAPI.get_page_parent();
-	
 	}
 	
 </cfscript>

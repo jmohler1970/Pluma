@@ -21,7 +21,7 @@ struct function before(required struct rc) output="false" {
 		}
 	
 		
-	rc.qryLinkCategory 	= application.IOAPI.get_All_By_Extra("Facet", "Page_LinkCategory", "title");
+	rc.qryLinkCategory 	= application.IOAPI.get_All("Page_LinkCategory", "title");
 	
 
 	return rc;

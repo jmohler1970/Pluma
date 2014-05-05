@@ -66,20 +66,13 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 <div class="leftopt">	
 	
 
-	<p class="inline clearfix">
-		<label class="control-label" for="subtitle">#application.GSAPI.i18n("plumacms/Page_subtitle")#</label>
-	   
-	    <input type="text" name="subtitle" value="#xmlformat(subtitle)#" maxlength="75"  class="text autowidth" />
-	    
-	</p>    
-
 
 	<p class="inline clearfix">
 		<label class="control-label" for="pstatus">#application.GSAPI.i18n("keep_private")#</label>
 	   
-	       	<select name="pstatus"  class="text autowidth">
-			<cfloop index="ii" list="#application.stSettings.Node.lstpstatus#">
-				<option value="#ii#" <cfif ii EQ pStatus>selected</cfif>>#ii#</option>
+	       	<select name="private"  class="text autowidth">
+			<cfloop index="ii" list="#application.stSettings.Node.lstprivate#">
+				<option value="#ii#" <cfif ii EQ private>selected="selected"</cfif>>#ii#</option>
 			</cfloop>
 			</select>
 	</p>
@@ -110,17 +103,6 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 	</p>
 	
 	
-	<!--- Plugin --->
-	<p class="inline clearfix">
-		<label class="control-label" for="plugin_content">Plugin Content:</label>
-
-		<select name="plugin_content"  class="text autowidth">
-		
-			<option value="">Default Content</option>
-			
-			<cfset application.GSAPI.exec_action("plugin_content", rc.qryNode.plugin_content)>
-		</select>
-	</p>
 
 <cfoutput query="rc.qryNode">	
 	<!--- Theme --->
@@ -129,14 +111,14 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 	
 		
-		<select name="theme_template" class="text autowidth">
+		<select name="template" class="text autowidth">
 		
 			<option value="">Default Template</option>
 			
 			<cfloop index="i" list="#rc.lstTheme_template#">
 				<cfif i NEQ "template.cfm" AND i CONTAINS ".cfm">
 				
-					<option value="#i#" <cfif i EQ theme_template>selected="selected"</cfif>>
+					<option value="#i#" <cfif i EQ template>selected="selected"</cfif>>
 						#listFirst(i, '.')#
 					</option>
 				
@@ -165,7 +147,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 			<option value="">-</option>
 			
 			<cfloop from="1" to="20" index="i">
-				<option value="#i#" <cfif menusort EQ i>selected="selected"</cfif>>#i#</option>	
+				<option value="#i#" <cfif menuOrder EQ i>selected="selected"</cfif>>#i#</option>	
 			</cfloop>
 		</select>
 	</div>

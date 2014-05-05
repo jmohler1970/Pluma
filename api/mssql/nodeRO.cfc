@@ -15,16 +15,13 @@
 
 	
 	variables.lstNode = "NodeID,ParentNodeID,Root,Kind
-      ,extra,Slug,title,subtitle,description,isbn
-      ,strData,xmlData,pinned,pStatus,cStatus
-      ,menu,menuStatus,menuSort
-      ,parentSlug, parentTitle,parentCreateDate
-      ,StartDate,ExpirationDate,CommentMode
-      ,NoDelete,Deleted,DeleteDate,Modified,ModifyBy,ModifyDate,Created,CreateBy,CreateDate
-      ,NodeCount,ArchiveCount,showheader,startrow,startcol
-      ,theme_template,plugin_content,href,redirect,youtube,notes,src,map,location
-      ,OwnerID,PublicAccess,SortOrder
-      ,Tags,xmlSecurity,xmlConf
+      ,Slug,title,meta,metad,content
+      ,menu,menuOrder,menuStatus
+      ,parent, parentTitle
+      ,Deleted,DeleteDate
+      ,ModifyBy,ModifyDate,CreateBy,CreateDate
+      ,NodeCount,ArchiveCount
+      ,template,private,author
       ,DataSize"; // rather than using select *
 </cfscript>
 
@@ -47,7 +44,6 @@
 		param arguments.nodek.NodeID 	= "";
 		param arguments.nodek.Slug 	= "";
 		param arguments.nodek.Kind 	= "";
-		param arguments.nodek.Extra = "";
 	</cfscript>
 
 	
@@ -80,21 +76,7 @@
 	</cfif>
 	
 	
-	<cfif arguments.nodeK.Extra NEQ "">
-		
-	
-		<cfquery name="qryNodeViaKindExtra">
-			SELECT 	TOP 1 #variables.lstNode# 
-			FROM 	dbo.vwNode WITH (NOLOCK)
-			WHERE	Deleted = 0
-			AND		Kind 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.nodek.Kind#">
-			AND		Extra 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.nodek.Extra#">
- 		</cfquery>
-	
-		<cfreturn qryNodeViaKindExtra>
-	</cfif>
 
-	
 
 
 	<cfquery name="local.qryNode">
@@ -131,20 +113,17 @@
 </cffunction>
 
 
+
 <cffunction name="getBySlug" output="false" returnType="query">
 	<cfargument name="slug" required="true" type="string">
 
 	<cfquery name="local.qryGetBySlug">
-		DECLARE @Slug 	varchar(20)
-		SET		@Slug 	= <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.Slug#">
+		DECLARE @Slug 	varchar(20) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.Slug#">
 
 		SELECT 	TOP 1 #variables.lstNode#  
 		FROM 	dbo.vwNode WITH (NOLOCK)
 		WHERE	Deleted = 0
-		AND		(
-				(Slug = @Slug AND Root <> 1)
-			OR 	(@Slug = 'index' AND Root = 1)
-			)
+		AND		Slug = @Slug
 		ORDER BY CreateDate DESC
 	</cfquery>
 
@@ -161,8 +140,7 @@
 	<cfquery name="local.qryNodeArchive">
 		SELECT 	*
 		FROM 	dbo.NodeArchive WITH (NOLOCK)
-		CROSS APPLY dbo.udf_titleRead(xmlTitle)
-		CROSS APPLY dbo.udf_taxonomyRead(xmlTaxonomy)
+		CROSS APPLY dbo.udf_gsRead(xmlTitle)
 		
 		WHERE	NodeArchiveID = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.nodeArchiveID#">
 	</cfquery>
@@ -174,34 +152,6 @@
 
 
 	
-
-
-<cffunction  name="getAllByExtra" returnType="query" output="no" >
-	<cfargument name="Kind" type="string" required="true">
-	<cfargument name="Extra" type="string" required="true">
-	<cfargument name="SortBy" type="string" required="true"><!--- Not in use --->
-	
-
-	
-	
-	<cfscript>
-		variables.QueryService.addParam(value = arguments.kind, cfsqltype="cf_sql_varchar");
-		variables.QueryService.addParam(value = arguments.extra, cfsqltype="cf_sql_varchar");
-
-
-		var oresult = variables.QueryService.execute(sql="SELECT 	TOP 100 #variables.lstNode#
-			FROM 	dbo.vwNode  WITH (NOLOCK)
-			WHERE	Deleted = 0
-			AND		Kind 		= ?
-			AND		Extra 		= ?
-			ORDER BY Title");
-	
-		var local.qryNodeExtra = oresult.getResult();
-	</cfscript>
-
-	<cfreturn local.qryNodeExtra>
-</cffunction>
-
 
 
 
@@ -225,12 +175,6 @@
 
 
 <cfscript>
-
-	
-
-
-
-
 struct function getBundle(required struct NodeK, required string Kind, required string UserID) output="false" 	{
 
 	
@@ -245,12 +189,8 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		qryNode			= qryNode,
 		qrySubNode 		= this.getSubNode(qryNode.NodeID, arguments.kind),
 	
-		qryData 		= this.getData(qryNode.NodeID),
 		qryConfig 		= this.getConf(qryNode.NodeID),
-		qryLink 		= this.getLink({NodeID = qryNode.NodeID, Kind = qryNode.Kind}),
-	
-		qryFacet		= this.FacetGet(qryNode.NodeID)
-		
+		qryLink 		= this.getLink({NodeID = qryNode.NodeID, Kind = qryNode.Kind})
 		};
 	
 	
@@ -267,15 +207,11 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	
 	
 	<cfquery name="local.qryPageParent">
-		SELECT	#variables.lstNode#, dbo.vwNodeSort.[Level], CONVERT(varchar(30), modifyDate, 126) AS Date2 
-		FROM	dbo.vwNode WITH (NOLOCK) INNER JOIN 
-				dbo.vwNodeSort WITH (NOLOCK)
-		ON dbo.vwNode.NodeID = dbo.vwNodeSort.SortNodeID
-				
+		SELECT	#variables.lstNode#, CONVERT(varchar(30), modifyDate, 126) AS Date2 
+		FROM	dbo.vwNode WITH (NOLOCK)
 		WHERE	deleted = 0
 		AND		Kind = 'Page' 
-		
-		ORDER BY SortCol	
+		ORDER BY Title
 	</cfquery>
 		
 	<cfreturn local.qryPageParent>
@@ -285,7 +221,6 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 <cffunction name="getAll" output="false" returntype="query" >
 	<cfargument name="kind" required="true" type="string">
-	<cfargument name="criteria" required="true" type="struct">
 	<cfargument name="sortBy" required="true" type="string">		
 	<cfargument name="maxrows" required="true" type="numeric">
 	
@@ -298,23 +233,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 			
 	<cfquery name="local.qryAll">
 		SELECT TOP 	<cfif isnumeric(arguments.maxrows)>#arguments.maxrows#</cfif> 	
-			#variables.lstNode#, 0 AS Level,
-			
-			
-			CASE WHEN ExpirationDate > getDate()
-				AND		(
-					Month(ExpirationDate) <> Month(getDate())
-					OR
-					Year(ExpirationDate) <> Year(getDate())
-					) THEN 'Future'
-				WHEN ExpirationDate < getDate()
-				AND		(
-					Month(ExpirationDate) <> Month(getDate())
-					OR
-					Year(ExpirationDate) <> Year(getDate())
-					) THEN 'Past'
-				ELSE 'ThisMonth'
-			END AS TimeFrame		
+			#variables.lstNode#, 0 AS Level		
 			
 			
 		FROM 	dbo.vwNode WITH (NOLOCK)
@@ -324,9 +243,6 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 			AND		kind IN (<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.kind#" list="yes">)
 		</cfif>
 		
-		<cfif isboolean(arguments.criteria.cstatus)>
-			AND	cStatus = <cfqueryparam CFSQLType="CF_SQL_BIT" value="#arguments.criteria.cstatus#">
-		</cfif>
 		
 		<cfif arguments.sortBy EQ "Menu">
 			AND	MenuStatus = 1
@@ -372,10 +288,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 			MenuSort
 		</cfcase>
 		
-		
-		<cfcase value="Extra_Title">
-			Extra,Title
-		</cfcase>
+
 		
 		<cfcase value="ModifyDate DESC">
 			ModifyDate DESC
@@ -408,35 +321,25 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 <cffunction name="getSubNode" output="false" returntype="query" >
-	<cfargument name="NodeID" required="true" type="string">	
+	<cfargument name="Parent" required="true" type="string" hint="This is a slug too">	
 	<cfargument name="Kind" required="true" type="string">		
 			
 			
 	<cfquery name="local.qryCategory">
-		SELECT 	A.*, B.NodeCount
+		DECLARE @Parent varchar(20) = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.parent#">
+	
+	
+		SELECT 	A.*
 		FROM 	dbo.vwNode A WITH (NOLOCK)
-			LEFT OUTER JOIN
-			(
-			SELECT 	ParentNodeID, Count(NodeID) AS NodeCount
-			FROM 	dbo.Node WITH (NOLOCK)
-			WHERE	Deleted = 0
-			GROUP BY ParentNodeID
-			) B
-		ON A.NodeID = B.ParentNodeID
 		WHERE	Deleted = 0
-		
+		AND		ISNULL(A.Parent, '') = @Parent
+				
 		<cfif arguments.Kind NEQ "Any">
 			AND	Kind IN (<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.kind#" list="Yes">)
 		</cfif>
 		
-		<cfif arguments.nodeid EQ "">
-			AND		A.ParentNodeID IS NULL
-		<cfelse>
-			AND		A.ParentNodeID = TRY_CONVERT(int, <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.nodeid#">)
-		</cfif>
-		
-		
-		ORDER BY	Kind, SortOrder, Title
+				
+		ORDER BY	Kind, Title
 	</cfquery>
 	
 	<cfif local.qryCategory.recordcount EQ 0>
@@ -1135,30 +1038,15 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-<cffunction name="getData" output="false" returntype="query" >
-	<cfargument name="NodeID" required="true" type="string">
-
-	<cfquery name="local.qryData">
-		SELECT 	href, rel, title, message
-		FROM   	dbo.Node WITH (NOLOCK)
-		CROSS	APPLY dbo.udf_xoxoRead(xmlData, DEFAULT)
-		WHERE	Deleted = 0
-		AND		NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">)
-	</cfquery>
-
-
-	<cfreturn qryData>
-</cffunction>
-
 
 <cffunction name="getConf" output="false" returntype="query" >
 	<cfargument name="NodeID" required="true" type="string">
 
 
 	<cfquery name="local.qryConf">
-		SELECT 	href, rel, title, message
+		SELECT 	href, rel, C.title, message
 		FROM   	dbo.Node WITH (NOLOCK)
-		CROSS	APPLY dbo.udf_xoxoRead(xmlConf, DEFAULT)
+		CROSS	APPLY dbo.udf_xoxoRead(xoxoConf, DEFAULT) C
 		WHERE	Deleted = 0
 		AND		NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">)
 	</cfquery>
@@ -1177,9 +1065,9 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 	<cfquery name="local.qryLink">
-		SELECT 	NodeID, [type], href, rel, title, message
+		SELECT 	NodeID, [type], href, rel, L.title, message
 		FROM   	dbo.Node WITH (NOLOCK)
-		CROSS 	APPLY dbo.udf_xoxoRead(xmlLink, DEFAULT)
+		CROSS 	APPLY dbo.udf_xoxoRead(xoxoLink, DEFAULT) L
 		WHERE	Deleted = 0
 
 		<cfif arguments.NodeK.Kind NEQ "">
@@ -1207,12 +1095,12 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		
 	
 		SELECT 	TOP 200 NodeArchiveID, NodeID, slug, CONVERT(date, VersionDate) AS ShortDate,
-			VersionDate, M.Address AS ModifyBy, Kind, Root, NoDelete, 
+			VersionDate, ModifyBy, Kind, Root, NoDelete, 
 			T.title, DataSize
 		
 		FROM 	dbo.NodeArchive
-		CROSS APPLY dbo.udf_titleRead(xmlTitle)	T
-		CROSS APPLY dbo.udf_xoxoRead(Modified, DEFAULT)	M
+		CROSS APPLY dbo.udf_gsRead(gsData)	T
+
 				
 		WHERE	Deleted = 0
 		AND		(NodeID 	= @NodeID 	OR @NodeID = '')

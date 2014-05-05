@@ -147,7 +147,7 @@ Description: Extracts out all columns from the getSimple field
 
 */
 
-create function dbo.udf_setSimpleWrite(
+create function dbo.udf_GSwrite(
 	@pubdate 		datetime,		
 	@title			nvarchar(80),
 	@slug			nvarchar(80), /* this is changed so that we don't have a variable collision with cf url.* */
@@ -189,7 +189,7 @@ AS
 GO
 
 
-create function dbo.udf_getSimple(@xmlData xml)
+create function dbo.udf_GSread(@xmlData xml)
 	returns @tblgetSimple TABLE
 	(
     -- Columns returned by the function
@@ -231,6 +231,41 @@ BEGIN
 
 	RETURN
 END	
+
+GO
+
+
+
+create function dbo.udf_gsSlug(@gsData xml)
+	returns nvarchar(80)
+	  with schemabinding
+AS
+BEGIN
+	RETURN @GSdata.value('(/item/url)[1]', 'nvarchar(80)')
+END	
+GO
+
+
+
+create function dbo.udf_gsParent(@gsData xml)
+	returns nvarchar(80)
+	  with schemabinding
+AS
+BEGIN
+	RETURN @GSdata.value('(/item/parent)[1]', 'nvarchar(80)')
+END	
+GO
+
+
+
+create function dbo.udf_gsTitle(@gsData xml)
+	returns nvarchar(80)
+	  with schemabinding
+AS
+BEGIN
+	RETURN @GSdata.value('(/item/title)[1]', 'nvarchar(80)')
+END	
+GO
 
 
 
