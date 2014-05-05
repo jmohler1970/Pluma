@@ -174,16 +174,17 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 </cfif>
 
+	<!---
 	<cfoutput>
 	<p class="inline clearfix">
 		<label class="control-label" for="tags">#application.GSAPI.i18n("tag_keywords")#</label>	
 
 	
 
-	<input type="text" name="tags" value="#rc.qryNode.Tags#" class="text"  />
+		<input type="text" name="tags" value="#rc.qryNode.Tags#" class="text"  />
  	</p>
 	</cfoutput>
-
+	--->
 
 
 	
@@ -210,12 +211,6 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 <cfoutput query="rc.qryNode">
 
 
-<p class="inline clearfix">
-	<label class="control-label" for="src">Thumbnail</label>
-	
-		<input type="text" name="src" value="#src#" maxlength="45" class="text" />
-</p>	
-
 
 	</div>
 	
@@ -227,9 +222,9 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 
 	<cfif session.LOGINAPI.adhocSecurity("system")>
-		<cftextarea name="strData" richtext="true" height="500" width="740">#strData#</cftextarea>
+		<cftextarea name="strData" richtext="true" height="500" width="740">#content#</cftextarea>
 	<cfelse>
-		<cftextarea name="strData" richtext="true" toolbar="Enhanced"  height="500" width="740">#strData#</cftextarea>
+		<cftextarea name="strData" richtext="true" toolbar="Enhanced"  height="500" width="740">#content#</cftextarea>
 	</cfif>
 	
 	#application.GSAPI.exec_action("edit-content")#
@@ -239,9 +234,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 
 <div id="link_window" style="display : none;">	
-		<cfinclude template="links.cfi">
-			
-		<cfinclude template="data.cfi">
+	<cfinclude template="links.cfi">
 </div>
 
 
