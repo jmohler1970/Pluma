@@ -46,10 +46,7 @@
 <cfoutput query="rc.qryAllPages">
 <tr id="tr-#slug#">
 	<td <cfif Root>style="text : bold;"</cfif> class="pagetitle">
-		<cfloop from="1" to="#level#" index="i">
-			<span>&nbsp; &nbsp; &mdash; &nbsp; &nbsp; </span>
-		</cfloop>
-	
+			
 	
 		<cfif Kind EQ "Page">
 			<a href="#BuildURL(action = 'pages.edit', querystring = 'NodeID=#NodeID#')#"
@@ -64,8 +61,7 @@
 		<span class="showstatus toggle" style="display : none;">
 			<cfif Root><sup>[#application.GSAPI.i18n("homepage_subtitle")#]</sup></cfif>	
 			<cfif MenuStatus EQ 1><sup>[#application.GSAPI.i18n("menuitem_subtitle")#]</sup></cfif>
-			<cfif pStatus NEQ "Public"><sup>[#application.GSAPI.i18n("private_subtitle")#]</sup></cfif>
-			
+			<cfif private EQ "private"><sup>[#application.GSAPI.i18n("private_subtitle")#]</sup></cfif>
 		</span>
 	</td>
 
@@ -77,10 +73,8 @@
 	
 	</td>	
 	<td class="delete">
-		<cfif NoDelete EQ 0>	
-			<a class="delconfirm" href="#buildURL(action = 'pages.delete', querystring = 'NodeID=#NodeID#')#" rel="tooltip"
+		<a class="delconfirm" href="#buildURL(action = 'pages.delete', querystring = 'NodeID=#NodeID#')#" rel="tooltip"
 				title="#application.GSAPI.i18n("delete_file")#" id="delete-#slug#">&times;</a>
-		</cfif>
 	</td>
 </tr>
 </cfoutput>

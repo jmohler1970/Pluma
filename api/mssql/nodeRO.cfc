@@ -1095,7 +1095,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		
 	
 		SELECT 	TOP 200 NodeArchiveID, NodeID, slug, CONVERT(date, VersionDate) AS ShortDate,
-			VersionDate, ModifyBy, Kind, Root, NoDelete, 
+			VersionDate, ModifyBy, Kind, 
 			T.title, DataSize
 		
 		FROM 	dbo.NodeArchive
@@ -1106,7 +1106,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		AND		(NodeID 	= @NodeID 	OR @NodeID = '')
 				
 		
-		ORDER BY ShortDate DESC,VersionDate DESC
+		ORDER BY ShortDate DESC, VersionDate DESC
 	</cfquery>
 	
 	

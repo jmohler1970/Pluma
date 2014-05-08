@@ -4,7 +4,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_240";
+	this.name 			= "PlumaCMS_262";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -74,7 +74,7 @@ void function setupApplication() output="false"	{
 	
 	var objAppFile = fileopen(expandpath('./Application.cfc'), 'read');
 	
-	application.GSVERSION = "Version 0.1.#right(year(objAppFile.lastmodified), 2)#.#month(objAppFile.lastmodified)#.#day(objAppFile.lastmodified)#";
+	application.GSVERSION = "Version 3.3.1.#right(year(objAppFile.lastmodified), 2)#.#month(objAppFile.lastmodified)#.#day(objAppFile.lastmodified)#";
 fileclose(objAppFile);
 	
 

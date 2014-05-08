@@ -180,7 +180,7 @@ AS
 		+ '<template>' 	+ @template 	+ '</template>'
 		+ '<parent>' 	+ @parent 		+ '</parent>'
 		+ '<content>' 	+ @content 		+ '</content>'
-		+ '<private>' 	+ CONVERT(varchar(1), @private) 		+ '</content>'
+		+ '<private>' 	+ CONVERT(varchar(1), @private) 		+ '</private>'
 		+ '<author>'	+ @author 		+ '</author>'
 		+ '</item>' 
 	

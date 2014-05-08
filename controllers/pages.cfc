@@ -380,7 +380,7 @@ void function after(required struct rc) output="false" {
 	
 	rc.qryLinkCategory = application.IOAPI.get_All("Link_Category", "title");
 	
-	request.qryPageParent = application.IOAPI.get_page_parent();
+	rc.qryPageParent = application.IOAPI.get_page_parent();
 	}
 	
 </cfscript>

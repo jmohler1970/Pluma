@@ -84,15 +84,12 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 </cfoutput>
 
-		<select name="ParentNodeID"  class="text autowidth">
+		<select name="parent"  class="text autowidth">
 			<option value="top">Top Level</option>
 			
-			<cfoutput query="request.qryPageParent">
-				<option value="#NodeID#"  
-					<cfif NodeID EQ rc.qryNode.ParentNodeID>selected="selected"</cfif>>
-					<cfloop from="1" to="#level#" index="i">
-							<span>&nbsp; &mdash; &nbsp;</span>
-					</cfloop>
+			<cfoutput query="rc.qryPageParent">
+				<option value="#parent#"  
+					<cfif parent EQ rc.qryNode.Parent>selected="selected"</cfif>>
 					
 					 #xmlformat(Title)#</option>
 			</cfoutput>
@@ -130,7 +127,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 <p class="inline post-menu clearfix">
 		<input type="checkbox" id="post-menu-enable" name="menustatus"
-			<cfif menustatus EQ 1>checked="checked"</cfif> value="1"
+			<cfif menustatus EQ "Y">checked="checked"</cfif> value="Y"
 			>&nbsp;&nbsp;&nbsp;<label for="post-menu-enable">#application.GSAPI.i18n("add_to_menu")#</label>
 </p>
 
@@ -194,12 +191,9 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 	
 		<select name="redirect" class="text autowidth">
 			<option></option>
-			<cfoutput query="request.qryPageParent">
+			<cfoutput query="rc.qryPageParent">
 				<option value="#Slug#"  
 					<cfif Slug EQ rc.qryNode.Redirect>selected="selected"</cfif>>
-					<cfloop from="1" to="#level#" index="i">
-							<span>&nbsp; &mdash; &nbsp;</span>
-					</cfloop>
 					
 					 #xmlformat(Title)#</option>
 			</cfoutput>
@@ -222,9 +216,9 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 
 	<cfif session.LOGINAPI.adhocSecurity("system")>
-		<cftextarea name="strData" richtext="true" height="500" width="740">#content#</cftextarea>
+		<cftextarea name="content" richtext="true" height="500" width="740">#content#</cftextarea>
 	<cfelse>
-		<cftextarea name="strData" richtext="true" toolbar="Enhanced"  height="500" width="740">#content#</cftextarea>
+		<cftextarea name="content" richtext="true" toolbar="Enhanced"  height="500" width="740">#content#</cftextarea>
 	</cfif>
 	
 	#application.GSAPI.exec_action("edit-content")#

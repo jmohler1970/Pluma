@@ -17,12 +17,7 @@
 			<option value=""> -- Pick One</option>
 			
 			<cfoutput query="rc.qryAllPages">
-				<option value="#NodeID#">
-					<cfloop from="1" to="#level#" index="i">
-							<span>&nbsp; &mdash; &nbsp;</span>
-					</cfloop>
-					
-					 #xmlformat(Title)#</option>
+				<option value="#NodeID#">#xmlformat(Title)#</option>
 			</cfoutput>
 			
 		</select>

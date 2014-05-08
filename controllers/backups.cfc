@@ -277,7 +277,6 @@ void function process(required struct rc) output="false" {
 		<cfset var qryData = application.IOAPI.get({NodeID = rc.ExportNodeID, Kind = "Page"})>
 		
 		<cfif qryData.slug NEQ "">
-		<cfwddx action="cfml2wddx" input="#qryData#" output="wddxData">
 		
 		<cfsavecontent variable="rc.xmlResult">
 		
@@ -289,14 +288,14 @@ void function process(required struct rc) output="false" {
 	</pubDate>
 	<title><![CDATA[#title#]]></title>
 	<url><![CDATA[#slug#]]></url>
-	<meta><![CDATA[#tags#]]></meta>
-	<metad><![CDATA[]]></metad>
+	<meta><![CDATA[#meta#]]></meta>
+	<metad><![CDATA[#metad#]]></metad>
 	<menu><![CDATA[#menu#]]></menu>
-	<menuOrder><![CDATA[#menusort#]]></menuOrder>
+	<menuOrder><![CDATA[#menuOrder#]]></menuOrder>
 	<menuStatus><![CDATA[#menuStatus#]]></menuStatus>
-	<template><![CDATA[#theme_template#]]></template>
-	<parent><![CDATA[#parentslug#]]></parent>
-	<content><![CDATA[#xmlFormat(strData)#]]></content>
+	<template><![CDATA[#template#]]></template>
+	<parent><![CDATA[#parent#]]></parent>
+	<content><![CDATA[#xmlFormat(content)#]]></content>
 	<private><![CDATA[]]></private>
 	<author><![CDATA[#ModifyBy#]]></author>
 </item>

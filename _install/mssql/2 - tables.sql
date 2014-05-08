@@ -94,6 +94,7 @@ CREATE TABLE [dbo].[NodeArchive](
 	[NodeArchiveID] [bigint] IDENTITY(1,1) NOT NULL,
 	[VersionDate] 	[smalldatetime] NOT NULL,
 	[NodeID] 		[int] NOT NULL,
+	[Kind] 			[nvarchar](40) NOT NULL,
 
 	[gsData] 		[xml] NULL,
 	[xoxoConf] 		[xml] NULL,
