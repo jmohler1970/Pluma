@@ -199,18 +199,17 @@ void function process(required struct rc) output="false" {
 	
 	param rc.title		= "";
 	param rc.slug		= "";
-	param rc.tags		= "";
-	param rc.pstatus	= "";
+	param rc.meta		= "";
+	param rc.metad		= "";
+
 	param rc.menuStatus = 0;
 	param rc.menu		= "";
 	param rc.menuorder 	= "";
-	param rc.theme_template = "";
-	param rc.parentslug = "";
-	param rc.parentNodeID = "";
+	param rc.template 	= "";
+	param rc.parent 	= "";
 	param rc.modifyby 	= "";
 	
-	param rc.strData 	= "";
-	param rc.xmlData 	= "";
+	param rc.content 	= "";
 	</cfscript>
 	
 	
@@ -249,10 +248,8 @@ void function process(required struct rc) output="false" {
 				
 			return;
 			}
-	
-	
-		var result = application.IOAPI.set_XMLData({NodeID = rc.NodeID}, rc.xmlData);
-
+		
+		
 		this.AddInfo(result.key);
 
 		variables.fw.redirect("backups.importdata", "all");

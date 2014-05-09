@@ -9,30 +9,28 @@
 
 
 	<input type="hidden" name="title" value="#xmlformat(rc.title)#" />
-	<input type="hidden" name="tags" value="#xmlformat(rc.tags)#" />
+	<input type="hidden" name="meta" value="#xmlformat(rc.meta)#" />
+	<input type="hidden" name="metad" value="#xmlformat(rc.metad)#" />
 	<input type="hidden" name="menuStatus" value="#xmlformat(rc.menuStatus)#" />
 	<input type="hidden" name="menu" value="#xmlformat(rc.menu)#" />
 	<input type="hidden" name="menuorder" value="#xmlformat(rc.menuorder)#" />
-	<input type="hidden" name="theme_template" value="#xmlformat(rc.theme_template)#" />
-	<input type="hidden" name="parentnodeid" value="#xmlformat(rc.parentnodeid)#" />
-	<input type="hidden" name="pStatus" value="#xmlformat(rc.pStatus)#" />
+	<input type="hidden" name="template" value="#xmlformat(rc.template)#" />
+	<input type="hidden" name="parent" value="#xmlformat(rc.parent)#" />
+	<input type="hidden" name="private" value="#xmlformat(rc.private)#" />
+	<input type="hidden" name="author" value="#xmlformat(rc.author)#" />
 	
-	<input type="hidden" name="modifyby" value="#xmlformat(rc.modifyby)#" />
+	<input type="hidden" name="content" value="#xmlformat(rc.content)#" />
 	
 	
-	<input type="hidden" name="xmlData" value="#xmlformat(rc.xmlData)#" />
-	<input type="hidden" name="strData" value="#xmlformat(rc.strData)#" />
-	
+
 
 
 	
 	<p><b>Title:</b> #xmlformat(rc.title)# <cfif rc.title EQ ""><i>None</i></cfif></p>
-	<p><b>pStatus:</b> #xmlformat(rc.pStatus)# <cfif rc.pstatus EQ ""><i>None</i></cfif></p>
+
 
 	<blockquote> 	
-		#rc.strData#
-		<cfif rc.xmlData NEQ ""><hr /></cfif>
-		#rc.xmlData#
+		#rc.content#
 	</blockquote>	
 	</cfoutput>
 
@@ -53,9 +51,6 @@
 						
 			<cfoutput query="rc.qryAllPages">
 				<option value="#NodeID#" <cfif slug EQ rc.slug>selected="selected"</cfif>>
-					<cfloop from="1" to="#level#" index="i">
-							<span>&nbsp; &mdash; &nbsp;</span>
-					</cfloop>
 					
 					 #xmlformat(Title)#</option>
 			</cfoutput>
@@ -64,18 +59,6 @@
 </p>
 
 
-<!---
-<p class="clearfix">
-	<label>Apply to</label>
-	
-	<input type="radio" name="apply" value="strData" checked="checked"> Body
-	
-	&nbsp; &nbsp;
-	
-	<input type="radio" name="apply" value="xmlData"> XML Data (Must have Template support)
-	
-</p>
---->
 
 
 <p class="submit">

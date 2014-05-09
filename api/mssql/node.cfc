@@ -93,6 +93,7 @@
 	param name="rc.slug"		default	= "";
 	param name="rc.title"		default	= "No Title";	 // maybe I will get one later
 	param name="rc.gsData"		default	= "";
+	param name="rc.arLink"		default = "#ArrayNew(1)#";
 	local.xoxoLink = this.encodeXML(rc.arLink);
 	param name="rc.xoxoConf"	default	= "";
 	
@@ -102,12 +103,18 @@
 	param name="rc.menu"		default	= "";
 	param name="rc.menuorder"	default	= "";
 	param name="rc.menustatus"	default	= "";
+	param name="rc.template"	default	= "";
+	param name="rc.parent"		default	= "";
+	param name="rc.private"		default	= "N";
+	param name="rc.content"		default	= "";
+		
 	
 	param name="rc.author"		default	= "#byUserID#";
 	</cfscript>
 
 
 	<cfquery name="local.qryNode">
+	DECLARE @slug  nvarchar(40) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#xmlformat(rc.slug)#" null="#IIF(rc.slug EQ "", 1, 0)#">
 	DECLARE @title nvarchar(40) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#xmlformat(rc.title)#">
 
 	
@@ -120,7 +127,11 @@
 	DECLARE @gsData xml = dbo.udf_GSwrite(
 			getDate(),
 			@title,
-			CASE WHEN @NodeCount = 0 THEN 'index' ELSE dbo.udf_Slugify(@title) END,
+			CASE 
+				WHEN @NodeCount = 0 THEN 'index' 
+				WHEN @slug IS NULL THEN ELSE dbo.udf_Slugify(@title)
+				ELSE @slug
+			END,
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#xmlformat(rc.meta)#">,
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#xmlformat(rc.metad)#">,
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.menu#">,
@@ -128,8 +139,8 @@
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.menuStatus#">,
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.template#">,
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.parent#">,
-			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#xmlformat(rc.content)#">,
-			<cfqueryparam cfsqltype="CF_SQL_bit" 	 value="#IIF(rc.private EQ 'private', 1, 0)#">,
+			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.content#">,
+			<cfqueryparam cfsqltype="CF_SQL_bit" 	 value="#IIF(rc.private EQ 'Y', 1, 0)#">,
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#rc.author#">
 			)
 	
@@ -145,18 +156,19 @@
 		xoxoLink	xml,
 		xoxoConf	xml,
 
-		ModifyBy	varchar(50)
+		ModifyBy	varchar(50),
+		Deleted		bit
 		)
 		
-	INSERT INTO @tblSource (NodeID, Kind, gsData, xoxoLink, xoxoConf, ModifyBy)
-	SELECT <cfqueryparam value="#rc.nodeid#" CFSQLType="CF_SQL_INTEGER" 
-		null="#IIF(rc.nodeid EQ '' or rc.submit EQ 'Clone', 1, 0)#">,
+	INSERT INTO @tblSource (NodeID, Kind, gsData, xoxoLink, xoxoConf, ModifyBy, Deleted)
+	SELECT <cfqueryparam value="#arguments.NodeK.nodeid#" CFSQLType="CF_SQL_INTEGER" 
+		null="#IIF(arguments.NodeK.nodeid EQ '' or rc.submit EQ 'Clone', 1, 0)#">,
 		<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeK.Kind#">,
 		@gsData,
 		<cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#local.xoxoLink#">,	
 		<cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#rc.xoxoConf#">,
 		<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byUserID#">
-		
+		<cfqueryparam cfsqltype="CF_SQL_bit" 	 value="#rc.deleted#">,
 		
 			
 	MERGE dbo.Node AS target
@@ -165,6 +177,10 @@
 		FROM @tblSource
 		) AS source(NodeID, Kind, gsData, xoxoLink, xoxoConf, ModifyBy)
 	ON target.NodeID = Source.NodeID
+	
+	WHEN MATCHED AND source.deleted = 1
+		UPDATE 
+		SET target.deleteDate = getDate();
 	
 	
 	WHEN MATCHED THEN

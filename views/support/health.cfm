@@ -75,14 +75,8 @@
 <tr>
 	<th style="width : 250px;">#Section#</th>
 	<th style="text-align : right;">Data Size</th>
-	<!---
-	<th style="text-align : right;">All Time</th>
-	--->
 	<th style="text-align : right;">Active</th>
-	
-	<!---
-	<th style="text-align : right;">Completed</th>
-	--->
+
 </tr>
 
 	<cfoutput>
@@ -90,9 +84,6 @@
   			<cfset masteractivekind = activekindcount>
   		</cfif>
 	
-		<cfif SectionSort EQ 10>
-  			<cfset mastercompletedkind = completedkindcount>
-  		</cfif>
 	
 		
 	
@@ -103,9 +94,6 @@
 			
 			<td style="text-align : right;">#LSNumberFormat(ksize)#KB</td>
 			
-			<!---
-			<td style="text-align : right;">#LSNumberFormat(kindcount)#</td>
-			--->
 			
 			<td style="text-align : right; width : 80px;">
 				<cfset width = masteractivekind EQ 0 ? 0 : (100 * activekindcount) \ masteractivekind>
@@ -115,18 +103,7 @@
       				<div style="position:absolute;left:0;top:0.7em; width : #width#%; height:0.3em;background-color:##eec6b9;z-index:1"></div>
     			</div>
 			</td>
-			
-			<!---
-			<td style="text-align : right; width : 80px;">
-				<cfset width = mastercompletedkind EQ 0 ? 0 : (100 * completedkindcount) \ mastercompletedkind>
-			
-			
-			    <div style="position:relative;"> &nbsp;
-      				<div style="position:absolute;left:0;top:0;z-index:2;width:100%;">#LSNumberFormat(completedkindcount)#</div>
-      				<div style="position:absolute;left:0;top:0.7em; width : #width#%; height:0.3em;background-color:##eec6b9;z-index:1"></div>
-    			</div>
-			</td>
-			--->
+
 		</tr>
 	
 	</cfoutput>

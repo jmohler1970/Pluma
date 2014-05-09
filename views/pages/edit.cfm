@@ -68,7 +68,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 
 	<p class="inline clearfix">
-		<label class="control-label" for="pstatus">#application.GSAPI.i18n("keep_private")#</label>
+		<label class="control-label" for="pstatus">#application.GSAPI.i18n("keep_private")#:</label>
 	   
 	       	<select name="private"  class="text autowidth">
 			<cfloop index="ii" list="#application.stSettings.Node.lstprivate#">
@@ -80,7 +80,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 
 	<p class="inline clearfix">
-		<label class="control-label" for="ParentNodeID">#application.GSAPI.i18n("parent_page")#</label>
+		<label class="control-label" for="ParentNodeID">#application.GSAPI.i18n("parent_page")#:</label>
 
 </cfoutput>
 
@@ -104,7 +104,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 <cfoutput query="rc.qryNode">	
 	<!--- Theme --->
 	<p class="inline clearfix">
-		<label class="control-label" for="theme_template">Theme Template:</label>
+		<label class="control-label" for="theme_template">#application.GSAPI.i18n("TEMPLATE")#:</label>
 
 	
 		
@@ -157,7 +157,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 <cfif isnumeric(rc.nodeid)>
 <cfoutput query="rc.qryNode">
 <p class="inline clearfix">
-		<label class="control-label">#application.GSAPI.i18n("SLUG_URL")#</label>
+		<label class="control-label">#application.GSAPI.i18n("SLUG_URL")#:</label>
 	
 		<!--- This does not submit anything --->	
 		<input class="text short" type="text" value="#slug#" readonly="readonly" disabled="disabled" />
@@ -171,35 +171,26 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 </cfif>
 
-	<!---
+	
 	<cfoutput>
 	<p class="inline clearfix">
-		<label class="control-label" for="tags">#application.GSAPI.i18n("tag_keywords")#</label>	
-
+		<label class="control-label" for="meta">#application.GSAPI.i18n("tag_keywords")#:</label>	
 	
 
-		<input type="text" name="tags" value="#rc.qryNode.Tags#" class="text"  />
+		<input type="text" name="meta" value="#rc.qryNode.meta#" class="text"  />
  	</p>
-	</cfoutput>
-	--->
+ 	
+ 	<p class="inline clearfix">
+		<label class="control-label" for="metad">#application.GSAPI.i18n("meta_desc")#:</label>	
+
+		<textarea name="metad" class="text">#rc.qryNode.metad#</textarea>
+
+ 	</p>
+ 	</cfoutput>
+	
 
 
 	
-	
-<p class="inline clearfix">
-	<label class="control-label" for="redirect">Redirect Page</label>
-	
-		<select name="redirect" class="text autowidth">
-			<option></option>
-			<cfoutput query="rc.qryPageParent">
-				<option value="#Slug#"  
-					<cfif Slug EQ rc.qryNode.Redirect>selected="selected"</cfif>>
-					
-					 #xmlformat(Title)#</option>
-			</cfoutput>
-		</select>	
-
-</p>	
 
 
 <cfoutput query="rc.qryNode">

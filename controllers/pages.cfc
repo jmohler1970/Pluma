@@ -91,6 +91,8 @@ void function edit(required struct rc) output="false" {
 			
 			application.GSAPI.exec_action('changedata-save', "", rc);
 				
+				
+			rc.content = xmlformat(rc.content);	// restore from backup does not do this
 			var stResult = application.IOAPI.set(NodeK, rc);
 		
 			if (not stResult.result)	{
@@ -103,7 +105,7 @@ void function edit(required struct rc) output="false" {
 			NodeK.NodeID = rc.NodeID;
 			
 			if (NodeK.NodeID > 0)	{	
-				application.IOAPI.set_Link(NodeK, rc.Link);
+				application.IOAPI.set_Link(NodeK, rc.arLink);
 				
 				if (structKeyExists(rc, "Conf"))	{
 					application.IOAPI.set_Conf(NodeK, rc.Conf);
@@ -254,7 +256,7 @@ void function menu(required struct rc) output="false" {
 	
 void function endmenu(required struct rc) output="false" {
 
-	rc.qryMenu = application.IOAPI.get_all("Page", {}, "Menu");
+	rc.qryMenu = application.IOAPI.get_all("Page", "Menu");
 	
 	if (rc.qryMenu.recordcount == 0)	{
 		this.AddInfo("PLUMACMS/ISEMPTY", ["Menu"]);		

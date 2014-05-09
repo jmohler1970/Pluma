@@ -31,9 +31,7 @@
 	<li id="sb_menu_manager"><a <cfif getItem() EQ "menu">class="current"</cfif> 
 		href="#buildURL(action = 'pages.menu')#">#application.GSAPI.i18n("menu_manager")#</a></li>
 
-	<li id="sb_tag_keywords"><a <cfif getItem() EQ "tags">class="current"</cfif> 
-		href="#buildURL(action = 'pages.tags')#">#application.GSAPI.i18n("tag_keywords")#</a></li>
-			
+		
 	<li id="sb_search"><a <cfif getItem() EQ "find">class="current"</cfif>
 		href="#buildURL(action = 'pages.find')#">#application.GSAPI.i18n("plumacms/search")#</a></li>
 </ul>	

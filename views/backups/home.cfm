@@ -86,11 +86,10 @@
 </table>	
 
 
-<cfif rc.qryArchive.recordcount EQ 0>
-	<cfoutput>
-		<p class="alert">#application.GSAPI.i18n("plumacms/no_history")# </p>
-	</cfoutput>
-</cfif>
+<cfoutput>
+	<p><em><b>#rc.qryArchive.recordcount#</b> #application.GSAPI.i18n("PAGE_BACKUPS")#</em></p>
+</cfoutput>
+
 
 </div>
 

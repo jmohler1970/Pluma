@@ -27,7 +27,7 @@
 
 
 <ul>
-	<li><a href="#buildURL('support.jvm')#">#application.GSAPI.i18n("WEB_HEALTH_CHECK")#</a></li>
+	<li><a href="#buildURL('support.health')#">#application.GSAPI.i18n("WEB_HEALTH_CHECK")#</a></li>
 	<li><a href="#buildURL('pages.edit')#">#application.GSAPI.i18n("CREATE_NEW_PAGE")#</a></li>
 	<li><a href="#buildURL('files.home')#">#application.GSAPI.i18n("UPLOADIFY_BUTTON")#</a></li>
 	<li><a href="#buildURL('settings.home')#">#application.GSAPI.i18n("GENERAL_SETTINGS")#</a></li>

@@ -225,15 +225,11 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	<cfargument name="maxrows" required="true" type="numeric">
 	
 
-	<cfscript>
-	param arguments.criteria.cstatus 	= "";
-	param arguments.criteria.timeframe 	= "";
-	</cfscript>
 			
 			
 	<cfquery name="local.qryAll">
 		SELECT TOP 	<cfif isnumeric(arguments.maxrows)>#arguments.maxrows#</cfif> 	
-			#variables.lstNode#, 0 AS Level		
+			#variables.lstNode#		
 			
 			
 		FROM 	dbo.vwNode WITH (NOLOCK)
@@ -245,35 +241,15 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		
 		
 		<cfif arguments.sortBy EQ "Menu">
-			AND	MenuStatus = 1
+			AND	MenuStatus = 'Y'
 		</cfif>
 		
-		<cfif arguments.criteria.timeframe NEQ "">
-			AND 			
-						
-			CASE WHEN ExpirationDate > getDate()
-				AND		(
-					Month(ExpirationDate) <> Month(getDate())
-					OR
-					Year(ExpirationDate) <> Year(getDate())
-					) THEN 'Future'
-				WHEN ExpirationDate < getDate()
-				AND		(
-					Month(ExpirationDate) <> Month(getDate())
-					OR
-					Year(ExpirationDate) <> Year(getDate())
-					) THEN 'Past'
-				ELSE 'ThisMonth'
-			END  
-			
-			= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.criteria.timeframe#">
-		</cfif>
 		
 		ORDER BY
 		
 		<cfswitch expression="#arguments.sortBy#">
 		<cfcase value="Natural">
-			pinned DESC, modifyDate DESC
+			modifyDate DESC
 		</cfcase>
 		
 		<cfcase value="SortOrder">
@@ -285,7 +261,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		</cfcase>
 		
 		<cfcase value="Menu">
-			MenuSort
+			MenuOrder
 		</cfcase>
 		
 
@@ -386,14 +362,13 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	
 		
 	<cfquery name="local.qryKind">
-		SELECT Section, SectionSort, Kind, Datasize, KindCount, ActiveKindCount, CompletedKindCount
+		SELECT Section, SectionSort, Kind, Datasize, KindCount, ActiveKindCount
 		FROM (
 	
 			SELECT  'Summary' AS Section, 10 AS SectionSort,	'All' AS Kind,
 				SUM(DataSize) AS DataSize, 
 				COUNT(Kind) AS KindCount,
-				SUM(CASE WHEN Deleted = 0 THEN 1 ELSE 0 END) AS ActiveKindCount,
-				SUM(CASE WHEN Deleted = 0 AND cStatus = 1 THEN 1 ELSE 0 END) AS CompletedKindCount
+				SUM(CASE WHEN Deleted = 0 THEN 1 ELSE 0 END) AS ActiveKindCount
 			FROM 	dbo.vwNode WITH (NOLOCK)
 				
 			
@@ -403,8 +378,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 				CASE WHEN Kind = '' THEN 'Unknown' ELSE Kind END AS Kind, 
 				SUM(DataSize) AS Datasize,
 				COUNT(Kind) AS KindCount,
-				SUM(CASE WHEN Deleted = 0 THEN 1 ELSE 0 END) AS ActiveKindCount,
-				SUM(CASE WHEN Deleted = 0 AND cStatus = 1 THEN 1 ELSE 0 END) AS CompletedKindCount
+				SUM(CASE WHEN Deleted = 0 THEN 1 ELSE 0 END) AS ActiveKindCount
 				
 				
 			FROM 	dbo.vwNode WITH (NOLOCK)
@@ -422,16 +396,12 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 <cffunction name="getCountByKind" output="false" returntype="numeric" >
 	<cfargument name="kind" required="true" type="string">
-	<cfargument name="cstatus" required="true" type="string" hint="any,1,0">			
 			
 	<cfquery name="local.qryCategory">
 		SELECT 	Count(NodeID) AS CategoryCount
 		FROM 	dbo.Node WITH (NOLOCK)
 		WHERE	Kind = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.kind#">
 		AND		Deleted = 0
-		<cfif isboolean(arguments.cstatus)>
-			AND	cStatus = <cfqueryparam CFSQLType="CF_SQL_BIT" value="#arguments.cstatus#">
-		</cfif>
 	</cfquery>
 	
 	<cfif not isnumeric(local.qryCategory.CategoryCount)>
@@ -441,32 +411,6 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	<cfreturn local.qryCategory.CategoryCount>
 </cffunction>
 
-
-
-
-<cffunction name="getAllFacet" returnType="query"  output="false" hint="This searching one facets in use">
-	
-
-	<cfquery name="local.qryFacet">
-		SELECT FacetType, Facet, NTile(6) OVER(ORDER BY FacetCount) AS FacetLevel, FacetCount
-		FROM (
-			SELECT 	FacetType, Facet, COUNT(Facet) AS FacetCount
-			FROM (
-				SELECT 	T2.Facet.value('@type', 'varchar(80)') AS FacetType, T2.Facet.value('.', 'varchar(80)') AS Facet
-				FROM   	dbo.Node WITH (NOLOCK)
-				CROSS 	APPLY xmlTaxonomy.nodes('/facet') as T2(Facet)
-				WHERE	Deleted = 0
-				) A
-			GROUP BY FacetType, Facet	
-			)	B
-		WHERE 1 = 1	
-			
-	
-		ORDER BY FacetType, Facet
-	</cfquery>
-	
-	<cfreturn local.qryFacet>
-</cffunction>
 
 
 
@@ -492,28 +436,6 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 </cffunction>
 
 
-
-
-
-<cffunction name="facetGet" returnType="query"  output="false">
-	<cfargument name="NodeID" required="true" type="string">
-
-	<cfquery name="local.qryFacet">
-		DECLARE @NodeID int
-		SET     @NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">)
-	
-		SELECT 	T2.Facet.value('.', 'varchar(80)') AS Facet, T2.Facet.value('.[@type]', 'varchar(80)') AS FacetType
-		FROM   	dbo.Node WITH (NOLOCK)
-		CROSS 	APPLY xmlTaxonomy.nodes('/facet') as T2(Facet)
-		WHERE	Deleted = 0
-		
-		AND		NodeID = @NodeID
-			
-		ORDER BY FacetType
-	</cfquery>
-	
-	<cfreturn local.qryFacet>
-</cffunction>
 
 
 
@@ -575,8 +497,6 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	<cfargument name="kind" required="true" type="string">	
 	<cfargument name="filter" required="true" type="string">
 	<cfargument name="group" required="true" type="string">
-	<cfargument name="pstatus" required="true" type="string">
-	<cfargument name="commentmode" required="true" type="string">
 	<cfargument name="recent" required="true" type="boolean">
 	<cfargument name="withaction" required="true" type="boolean">
 	
@@ -585,12 +505,11 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		DECLARE @Kind varchar(80)
 		DECLARE @MyFilter varchar(80)
 		DECLARE @Group varchar(80)
-		DECLARE @pStatus varchar(80)
 		
 		SET 	@Kind 		= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.kind#">
 		SET 	@MyFilter	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#lcase(arguments.filter)#">
 		SET 	@Group 		= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.group#">
-		SET 	@pStatus	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.pStatus#">
+
 	
 		
 		SELECT 	#variables.lstNode#
@@ -598,7 +517,6 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		WHERE	Deleted 	= 0
 		AND		([Kind]  	= @Kind  OR @Kind  IN ('', 'Any'))
 		AND		([Group] 	= @Group OR @Group IN ('', 'Any'))
-		AND		([pStatus] 	= @pStatus OR @pStatus IN ('', 'Any'))
 	
 			
 		<cfif arguments.filter NEQ "">
@@ -608,15 +526,6 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 				)
 		</cfif>
 			
-	
-			
-		<cfif arguments.commentmode EQ "Any" OR arguments.commentmode EQ "">
-			
-		<cfelseif arguments.commentmode EQ "Active">
-			AND		[CommentMode] != '' 
-		<cfelse>
-			AND		[CommentMode] = <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.commentmode#"> 
-		</cfif>	
 			
 			
 		<cfif arguments.recent>
@@ -634,75 +543,40 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
-
-<cffunction name="getFeed" output="false" returntype="query" >
-	<cfargument name="kind" required="true" type="string" hint="can be list">
-	<cfargument name="baselink" required="true" type="string">
-			
-			
-	<cfquery name="local.qryFeed">
-		SELECT 	A.Title, A.strData AS Content, 'html' AS ContentType, 
-			<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.baselink#"> + CONVERT(varchar(20), A.NodeID) AS Linkhref,
-			<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.baselink#"> + CONVERT(varchar(20), A.NodeID) AS ID,
-			
-			A.CreateBy AS authorName, A.ModifyDate as UpdatedDate, A.CreateDate AS PublishedDate,
-			B.Title AS CategoryTerm
-
-		FROM 	dbo.vwNode A LEFT OUTER JOIN
-			(
-			SELECT 	NodeID, Title
-			FROM 	dbo.vwNode WITH (NOLOCK)
-			) B
-		ON 	B.NodeID = A.ParentNodeID
-		WHERE	Kind IN (<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.kind#" list="Yes">)
-		AND		Deleted = 0
-		AND		cStatus = 1
-		AND		pStatus = 'Approved'
-		
-		
-		ORDER BY	ModifyDate DESC
-	</cfquery>
-
-			
-	<cfreturn local.qryFeed>
-</cffunction>
-
-
 <!--- Was IOR --->
 <cffunction name="getNodePath" output="false" returnType="query" >
 	<cfargument name="NodeID" required="false" default="">
 		
-	<cfset var qryNode = "">
-	<cfset var lstPath = "">
-		
+
+
 	<cfif NOT isNumeric(arguments.nodeID)>
 		<cfreturn QueryNew("Empty")>
 	</cfif>
 		
-	<cfquery name="qryNode">
+	<cfquery name="local.qryNode">
 		WITH Family AS ( 
     		
-    		SELECT 	N.NodeID, ISNULL(N.ParentNodeID, '') AS ParentNodeID, Slug, N.Title, N.Kind, 0 AS Depth, N.CreateDate
+    		SELECT 	N.NodeID, ISNULL(N.Parent, '') AS Parent, Slug, N.Title, N.Kind, 0 AS Depth, N.CreateDate
 			FROM 	dbo.vwNode N WITH (NOLOCK)
    			WHERE 	NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeID#">)
 			
 			UNION ALL 
   		  	
-  		  	SELECT 	N2.NodeID, ISNULL(N2.ParentNodeID, '') AS ParentNodeID, N2.Slug,  N2.Title, N2.Kind, Depth + 1, N2.CreateDate
+  		  	SELECT 	N2.NodeID, ISNULL(N2.Parent, '') AS Parent, N2.Slug,  N2.Title, N2.Kind, Depth + 1, N2.CreateDate
     		FROM	dbo.vwNode N2 WITH (NOLOCK)
     		
         	INNER JOIN 	Family 
-            ON 		Family.ParentNodeID = N2.NodeID
-            WHERE	PrimaryRecord = 0 
+            ON 		Family.Parent = N2.slug
+            WHERE	[root] = 0 
 			) 
 			
 			
-		SELECT 	NodeID, ParentNodeID, Slug, Title, Kind, Depth, CreateDate
+		SELECT 	NodeID, Parent, Slug, Title, Kind, Depth, CreateDate
 		FROM 	Family
 		ORDER BY Depth DESC
 	</cfquery>		
 		
-	<cfreturn qryNode>
+	<cfreturn local.qryNode>
 </cffunction>
 
 
@@ -721,33 +595,33 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		
 
 	<cfquery name="local.qrySearch">
-		SELECT 	TOP 20	NodeID, Slug, ParentNodeID, ParentSlug, Kind, Title, ParentTitle, tags, tagSlugs,
-			strData, CreateBy, CreateDate, src, Rank
+		SELECT 	TOP 20	NodeID, Slug, Parent, Kind, Title, ParentTitle, meta,
+			content, CreateBy, CreateDate, Rank
 		FROM	(
-			SELECT 	NodeID, Slug, ParentNodeID, ParentSlug, Kind, 
-				Title, ParentTitle, tags, tagSlugs, 
-				strData, CreateBy, CreateDate, src, [Rank] / 10.0 AS Rank
+			SELECT 	NodeID, Slug, Parent, Kind, 
+				Title, ParentTitle, meta, 
+				content, CreateBy, CreateDate, [Rank] / 10.0 AS Rank
 			FROM 	dbo.vwNode WITH (NOLOCK)
 			INNER JOIN FREETEXTTABLE(dbo.Node, *, <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.search#">) AS SearchTable
 			ON 		dbo.vwNode.NodeID = searchTable.[key]
 			WHERE	Deleted = 0
 			AND		[Rank] > 10
-			-- AND		PublicAccess = 1
+			AND		Private = 0
 			
 			UNION ALL
 			
-			SELECT 	NodeID, Slug, ParentNodeID, ParentSlug, Kind, 
-				Title, ParentTitle, tags, tagSlugs, strData, CreateBy, CreateDate, src, 100 AS Rank
+			SELECT 	NodeID, Slug, Parent, Kind, 
+				Title, ParentTitle, meta, content, CreateBy, CreateDate, 100 AS Rank
 			FROM 	dbo.vwNode	 WITH (NOLOCK)
 			WHERE	CONVERT(varchar(80), NodeID) = <cfqueryparam CFSQLType="CF_SQL_varchar" value="#arguments.search#">
 			AND		Deleted = 0
-			-- AND		PublicAccess = 1
+			AND		Private = 0
 			
 			UNION
 			
-			SELECT 	E.UserID, Slug, '' AS ParentNodeID, '' AS ParentSlug, 'User' AS Kind, 
-				given + ' ' + family + ' ' + ISNULL(suffix, '') AS Title, '' AS ParentTitle, '' AS tags, '' AS tagSlugs,
-				note as strData, '' AS CreateBy, '' AS CreateDate, '' AS src, [Rank] / 10 AS Rank
+			SELECT 	E.UserID, Slug, '' AS Parent, 'User' AS Kind, 
+				given + ' ' + family + ' ' + ISNULL(suffix, '') AS Title, '' AS ParentTitle, '' AS meta,
+				note as content, '' AS CreateBy, '' AS CreateDate, [Rank] / 10 AS Rank
 			FROM 	dbo.vwUser, (
 				SELECT 	UserID, Rank
 				FROM 	dbo.Users
@@ -771,43 +645,6 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 	<cfreturn local.qrySearch>
 </cffunction>
 
-
-<cffunction name="getByFacet" output="false" returntype="query" >
-	<cfargument name="facetType" required="true" type="string" hint="case insensitive">
-	<cfargument name="facet" required="true" type="string" hint="case insensitive">
-	<cfargument name="kind" required="true" type="string">
-
-
-	<cfquery name="local.qryFacet">
-		DECLARE @MyFacet 		varchar(30)
-		DECLARE @MyFacetType 	varchar(30)
-		
-		SET 	@MyFacet 		=  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.facet#">
-		SET 	@MyFacetType 	=  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.facetType#">
-					
-		
-		SELECT 	ParentNodeID, NodeID, Kind, Title, ParentTitle, tags, vwNode.tagSlugs,
-			strData, CreateBy, CreateDate, src, NULL AS Rank
-		FROM 	dbo.vwNode WITH (NOLOCK)
-		WHERE	Deleted = 0
-		
-		AND		[Public] = 1
-		AND		xmlTaxonomy.exist('/facet[@type = sql:variable("@MyFacetType")]') = 1
-		
-		<cfif arguments.facet NEQ "">
-			AND	xmlTaxonomy.exist('/facet[. = sql:variable("@MyFacet")]') = 1
-		</cfif>
-		
-		
-		<cfif arguments.kind NEQ "all">
-			AND kind =  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.kind#">
-		</cfif>
-		
-		ORDER BY Kind, ModifyDate DESC
-	</cfquery>
-
-	<cfreturn local.qryFacet>
-</cffunction>
 
 
 

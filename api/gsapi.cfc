@@ -193,7 +193,7 @@ string function get_page_slug()	{
 * @display Parent slug could be blank
 */	
 string function get_parent()	{
-	request.stIOR.qryNode.parentslug;
+	request.stIOR.qryNode.parent;
 	}
 	
 
@@ -288,7 +288,7 @@ string function get_site_credits(string poweredby = "Powered By")	{
 
 query function menu_data() output="false" {
 	
-	return application.IOAPI.get_all("Page", {}, "Menu");
+	return application.IOAPI.get_all("Page", "Menu");
 	}	
 	
 
@@ -456,12 +456,8 @@ struct function generate_sitemap(required struct rc) output="false"	{
 	
 	rc.Kind = "Sitemap";
 
-	var stResult  = application.IOAPI.set({NodeID = rc.SiteMapID, Kind = "Sitemap"},{});
-
 	rc.SiteMapID = stResult.NodeID;
 
-	var stResult = application.IOAPI.set_XMLData({NodeID = rc.SiteMapID, Kind = "Sitemap"}, rc.xmlData);
-	
 	/* Do write operation */
 	var strSiteMap = '<?xml version="1.0" encoding="utf-8"?>'
 		& variables.crlf
