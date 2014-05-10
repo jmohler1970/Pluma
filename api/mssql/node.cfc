@@ -5,7 +5,6 @@
  	
 <cffunction name="Reactivate" returnType="struct" output="false"  hint="Unmarks as deleted">
 	<cfargument name="nodek" type="struct" required="true">
-	<cfargument name="remote_addr" 	required="true" type="string">
 	<cfargument name="byuserid" type="string" required="true">
 		
 	
@@ -25,7 +24,6 @@
  
 <cffunction name="Delete" returnType="struct" output="false"  hint="marks as deleted">
 	<cfargument name="nodek" type="struct" required="true">
-	<cfargument name="remote_addr" 	required="true" type="string">
 	<cfargument name="byuserid" type="string" required="true">
 	
 		
@@ -63,12 +61,13 @@
 <cffunction name="commit" returnType="struct" output="no" >
 	<cfargument name="NodeK" type="struct" required="true">
 	<cfargument name="rc" type="struct" required="true">
-	<cfargument name="remote_addr" required="true" type="string">
 	<cfargument name="byuserID" required="true" type="string">
 	
 
 
 	<cfscript>
+
+
 	param arguments.NodeK.NodeID = "";
 	param arguments.NodeK.Kind = "";
 	
@@ -89,12 +88,26 @@
 	
 	this.stResults.NodeID		= arguments.NodeK.NodeID;
 	
+	param name="rc.deleted"		default = "0";
 	
-	param name="rc.slug"		default	= "";
+	param name="rc.slug_url"	default	= ""; 
+	
+	
 	param name="rc.title"		default	= "No Title";	 // maybe I will get one later
 	param name="rc.gsData"		default	= "";
+	
 	param name="rc.arLink"		default = "#ArrayNew(1)#";
-	local.xoxoLink = this.encodeXML(rc.arLink);
+	
+	local.arLink = [];
+	for(local.Link in rc.arLink)	{
+		if (local.Link.href != "")	{
+			ArrayAppend(local.arLink, local.Link);				
+			}		
+		}
+	
+	local.xoxoLink = this.encodeXML(local.arLink);
+	
+	
 	param name="rc.xoxoConf"	default	= "";
 	
 	
@@ -110,17 +123,22 @@
 		
 	
 	param name="rc.author"		default	= "#byUserID#";
+
+	
 	</cfscript>
 
 
+
+	
 	<cfquery name="local.qryNode">
-	DECLARE @slug  nvarchar(40) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#xmlformat(rc.slug)#" null="#IIF(rc.slug EQ "", 1, 0)#">
+	DECLARE @slug  nvarchar(40) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#xmlformat(rc.slug_url)#" null="#IIF(rc.slug_url EQ "", 1, 0)#">
 	DECLARE @title nvarchar(40) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#xmlformat(rc.title)#">
 
 	
 	DECLARE @NodeCount int = (
 		SELECT 	COUNT(NodeID) AS NodeCount
 		FROM 	dbo.Node
+		WHERE	Deleted = 0
 		)	
 
 	
@@ -129,7 +147,7 @@
 			@title,
 			CASE 
 				WHEN @NodeCount = 0 THEN 'index' 
-				WHEN @slug IS NULL THEN ELSE dbo.udf_Slugify(@title)
+				WHEN @slug IS NULL THEN dbo.udf_slugify(@title)
 				ELSE @slug
 			END,
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#xmlformat(rc.meta)#">,
@@ -167,20 +185,16 @@
 		@gsData,
 		<cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#local.xoxoLink#">,	
 		<cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#rc.xoxoConf#">,
-		<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byUserID#">
-		<cfqueryparam cfsqltype="CF_SQL_bit" 	 value="#rc.deleted#">,
+		<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byUserID#">,
+		<cfqueryparam cfsqltype="CF_SQL_bit" 	 value="#rc.deleted#">
 		
 			
 	MERGE dbo.Node AS target
 	USING (
-		SELECT NodeID, Kind, gsData, xoxoLink, xoxoConf, ModifyBy
+		SELECT NodeID, Kind, gsData, xoxoLink, xoxoConf, ModifyBy, deleted
 		FROM @tblSource
-		) AS source(NodeID, Kind, gsData, xoxoLink, xoxoConf, ModifyBy)
+		) AS source(NodeID, Kind, gsData, xoxoLink, xoxoConf, ModifyBy, deleted)
 	ON target.NodeID = Source.NodeID
-	
-	WHEN MATCHED AND source.deleted = 1
-		UPDATE 
-		SET target.deleteDate = getDate();
 	
 	
 	WHEN MATCHED THEN
@@ -190,7 +204,8 @@
 				target.xoxoLink = source.xoxoLink,
 				target.xoxoConf = source.xoxoConf,
 				target.modifyBy = source.modifyBy,
-				target.modifyDate = getDate()
+				target.modifyDate = getDate(),
+				target.deleteDate = CASE WHEN source.deleted = 1 THEN getDate() ELSE target.deleteDate END
 	
 	WHEN NOT MATCHED THEN
 	
@@ -212,7 +227,6 @@
 
 <cffunction name="deleteArchive" returnType="struct" output="no" >
 	<cfargument name="NodeArchiveID" type="string" required="true">
-	<cfargument name="remote_addr" required="true" type="string">
 	<cfargument name="byUserID" required="true" type="string">
 	
 	
@@ -239,7 +253,6 @@
 <cffunction name="deleteArchiveByDate" returnType="struct" output="no" >
 	<cfargument name="ClearDate" type="date" required="true">
 	<cfargument name="NodeID" type="string" default="">
-	<cfargument name="remote_addr" required="true" type="string">
 	<cfargument name="byUserID" required="true" type="string">
 	
 	
@@ -271,7 +284,6 @@
 
 <cffunction name="restoreArchive" returnType="struct" output="no" >
 	<cfargument name="NodeArchiveID" type="string" required="true">
-	<cfargument name="remote_addr" required="true" type="string">
 	<cfargument name="byUserID" required="true" type="string">
 	
 	
@@ -300,7 +312,6 @@
 <cffunction returnType="void" name="addLog" output="no">
 	<cfargument name="Kind" required="true" type="string">
 	<cfargument name="Message" required="true" type="string">
-	<cfargument name="Remote_addr" required="true" type="string">
 	<cfargument name="byUserID" required="true" type="string">
 
 	<cfquery>
@@ -336,6 +347,34 @@
 
 	<cfreturn true>
 </cffunction>
+
+
+
+<!--- menu, tags, facets --->
+<cffunction name="TaxonomySave" returnType="boolean" outut="false">
+	<cfargument name="NodeK" required="true" type="struct">
+	<cfargument name="rc" type="struct" required="true">
+	<cfargument name="UserID" required="true" type="numeric">
+
+
+
+	<cfquery>
+		DECLARE @sort integer = <cfqueryparam CFSQLType="CF_SQL_varchar" value="#arguments.rc.menuorder#">	
+
+
+		UPDATE dbo.Node
+		SET gsData.modify('
+			replace value of (/item/menuOrder/text())[1]
+			with sql:variable("@sort")
+			')
+			WHERE NodeID = <cfqueryparam CFSQLType="CF_SQL_varchar" value="#arguments.NodeK.NodeID#">
+			AND Deleted = 0
+	</cfquery>
+
+	<cfreturn true>
+</cffunction>
+
+
 
 
 </cfcomponent>

@@ -14,7 +14,9 @@
 
 
 	<cfoutput>
-	<title>#application.GSAPI.get_site_name()#</title>
+	<title>#application.GSAPI.get_site_name()# 
+		<cfif isDebugMode()>#getSection()#/#getItem()# (#cgi.request_method#)</cfif>
+	</title>
 	
 	
 	<!-- Le styles -->

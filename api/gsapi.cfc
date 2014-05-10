@@ -456,7 +456,6 @@ struct function generate_sitemap(required struct rc) output="false"	{
 	
 	rc.Kind = "Sitemap";
 
-	rc.SiteMapID = stResult.NodeID;
 
 	/* Do write operation */
 	var strSiteMap = '<?xml version="1.0" encoding="utf-8"?>'

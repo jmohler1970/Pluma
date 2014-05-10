@@ -97,12 +97,13 @@
 		<cfreturn local.qryNode>	
 	</cfif>
 	
-	
-	
 	<cfif arguments.nodeK.Slug NEQ "">
 		<cfreturn this.getBySlug(arguments.nodek.slug)>
 	</cfif>
 
+
+	
+	
 
 	<cfset local.qryNode = QueryNew(variables.lstNode)>
 	<cfset QueryAddRow(local.qryNode)>		
@@ -906,15 +907,8 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 		FROM   	dbo.Node WITH (NOLOCK)
 		CROSS 	APPLY dbo.udf_xoxoRead(xoxoLink, DEFAULT) L
 		WHERE	Deleted = 0
-
-		<cfif arguments.NodeK.Kind NEQ "">
-			AND		Kind = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeK.Kind#">
-		</cfif>	
-
-		
-		<cfif isnumeric(arguments.NodeK.NodeID)>
-			AND		NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeK.NodeID#">)
-		</cfif>	
+		AND		NodeID = TRY_CONVERT(int, <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeK.NodeID#">)
+		AND		href <> ''
 	</cfquery>
 
 	<cfreturn local.qryLink>

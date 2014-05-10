@@ -31,11 +31,11 @@
 
 <tr>
 	<td style="width : 60px;">
-		<select class="text" style="width : 60px"  name="menusort_#NodeID#">
+		<select class="text" style="width : 60px"  name="menuOrder_#NodeID#">
 			<option value="">-</option>
 			
 			<cfloop from="1" to="20" index="i">
-				<option value="#i#" <cfif menusort EQ i>selected="selected"</cfif>>#i#</option>	
+				<option value="#i#" <cfif menuOrder EQ i>selected="selected"</cfif>>#i#</option>	
 			</cfloop>
 		</select>
 	</td>

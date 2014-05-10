@@ -13,7 +13,6 @@ function init(fw) {
 struct function before(required struct rc) output="false" {
 
 
-
 		
 	param rc.plugin = "";
 	
@@ -72,7 +71,6 @@ void function edit(required struct rc) output="false" {
 		
 
 	param rc.NodeID = "";
-	param rc.ParentNodeID = "";
 	param rc.submit = "Save";		
 		
 	// Post
@@ -84,6 +82,8 @@ void function edit(required struct rc) output="false" {
 			}
 	
 		if (rc.submit == "Save")	{
+
+		
 			
 					
 			var NodeK = {NodeID = rc.NodeID, Kind = "Page"};	
@@ -93,8 +93,11 @@ void function edit(required struct rc) output="false" {
 				
 				
 			rc.content = xmlformat(rc.content);	// restore from backup does not do this
+			
+			
 			var stResult = application.IOAPI.set(NodeK, rc);
 		
+			
 			if (not stResult.result)	{
 				this.AddError(stResult.key, [stResult.message]);
 				
@@ -104,16 +107,10 @@ void function edit(required struct rc) output="false" {
 			rc.NodeID = stResult.NodeID;
 			NodeK.NodeID = rc.NodeID;
 			
-			if (NodeK.NodeID > 0)	{	
-				application.IOAPI.set_Link(NodeK, rc.arLink);
-				
-				if (structKeyExists(rc, "Conf"))	{
-					application.IOAPI.set_Conf(NodeK, rc.Conf);
-					}	
-				}
 			
 			application.GSAPI.exec_action('changedata-aftersave', "", rc);
 			//application.GSAPI.generate_sitemap({});
+			
 			
 			this.AddSuccess("ER_YOUR_CHANGES", [rc.slug]);				
 					
@@ -133,7 +130,7 @@ void function endedit(required struct rc) output="false" {
 	
 	rc.lstTheme_template = "";
 	
-	param request.Theme.current = "";
+	param name="request.Theme.current" default = "";
 	
 
 	var qryTheme = DirectoryList(application.GSTHEMESPATH & request.Theme.current & "/", false, "query");
@@ -237,7 +234,7 @@ void function menu(required struct rc) output="false" {
 		
 		for (var i = 1; i <= ArrayLen(arNode); i++)	{
 		
-			var menusort = evaluate("rc.MenuSort_#arNode[i]#");
+			var menusort = evaluate("rc.MenuOrder_#arNode[i]#");
 		
 			application.IOAPI.set_taxonomy({NodeID = arNode[i], Kind="Page"}, {
 				tags = "skip", facet = "skip",

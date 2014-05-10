@@ -162,7 +162,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 		<!--- This does not submit anything --->	
 		<input class="text short" type="text" value="#slug#" readonly="readonly" disabled="disabled" />
 		
-		<input type="hidden" name="slug" value="#slug#" />
+		<input type="hidden" name="slug_url" value="#slug#" />
 	
 </p>
 </cfoutput>

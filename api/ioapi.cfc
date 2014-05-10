@@ -192,6 +192,7 @@ struct function get_bundle(required struct NodeK) output="false"	{
 	}
 
 
+
 /* Gets links associated with page. Defaults to current page */
 query function get_link(struct NodeK) output="false"	{
 
@@ -463,52 +464,16 @@ boolean function delete_pref(required string Pref, required string type) output=
 struct function set(required struct NodeK, required struct rc) output="false"	{
 
 
-	variables.stResult = this.wsNode.commit(arguments.NodeK, arguments.rc, cgi.remote_addr,  session.LOGINAPI.UserID);
+	variables.stResult = this.wsNode.commit(arguments.NodeK, arguments.rc, session.LOGINAPI.UserID);
 	
 	return variables.stResult;
 	}
-
-
-struct function set_conf(required struct NodeK, required struct Conf) output="false" hint="Stores an expected set of rc values. Fields are: youtube, notes, src, map, autopage + config[1-10], href, simiple_? (up to 100 fields)"	{
-	
-	param arguments.NodeK.Kind = "Page";
-	
-	variables.stResult = this.wsNode.XMLConfSave(arguments.NodeK, Conf, cgi.remote_addr, session.LOGINAPI.UserID);
-	
-	return variables.stResult;
-	}
-
-
-
-
-
-
-struct function set_link(required struct NodeK, required array arLink)  hint="Stores an expected set of rc values. Fields are: linkcategory_[1-50], href_[1-50] (required), value_[1-50] (required), tooltip_[1-50], sortorder_[1-50]"	{
-
-	param arguments.NodeK.Kind = "Page";
-
-	local.arFLink = [];
-
-	for (local.i = 1; local.i <= ArrayLen(arguments.arLink); i++)	{
-		if (arguments.arLink[local.i].href != '')	{
-			ArrayAppend(local.arFlink, arguments.arLink[local.i]);	
-			}
-		}
-
-
-
-	variables.stResult = this.wsNode.LinkSave(arguments.NodeK, local.arFLink, cgi.remote_addr, session.LOGINAPI.UserID);
-	
-	return variables.stResult;
-	}
-
-
 
 
 struct function add_taxonomy(required string extra, required string title) 	{
 
 
-	variables.stResult.result = this.wsNode.TaxonomyAdd(arguments.extra, arguments.title, cgi.remote_addr, session.LOGINAPI.UserID);
+	variables.stResult.result = this.wsNode.TaxonomyAdd(arguments.extra, arguments.title, session.LOGINAPI.UserID);
 	
 	return variables.stResult;
 	}
@@ -520,7 +485,7 @@ struct function set_taxonomy(required struct NodeK, required struct rc) hint="St
 
 	param arguments.NodeK.Kind = "Page";
 
-	variables.stResult.result = this.wsNode.TaxonomySave(arguments.NodeK, rc, cgi.remote_addr, session.LOGINAPI.UserID);
+	variables.stResult.result = this.wsNode.TaxonomySave(arguments.NodeK, rc, session.LOGINAPI.UserID);
 	
 	return variables.stResult;
 	}
@@ -534,7 +499,7 @@ query function reactivate(required struct NodeK) output="false"	{
 
 	param arguments.NodeK.Kind = "Page";
 
-	return this.wsNode.NodeReactivate(arguments.nodeK, cgi.remote_addr,  session.LOGINAPI.UserID);
+	return this.wsNode.NodeReactivate(arguments.nodeK,  session.LOGINAPI.UserID);
 	}	
 
 
@@ -542,11 +507,8 @@ struct function delete(required struct NodeK) output="false"	{
 
 	param arguments.NodeK.Kind = "Page";
 
-	return this.wsNode.delete(arguments.nodeK, cgi.remote_addr, session.LOGINAPI.UserID);
+	return this.wsNode.delete(arguments.nodeK,  session.LOGINAPI.UserID);
 	}	
-		
-
-
 </cfscript>
 
 
