@@ -88,8 +88,7 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 			<option value="top">Top Level</option>
 			
 			<cfoutput query="rc.qryPageParent">
-				<option value="#parent#"  
-					<cfif parent EQ rc.qryNode.Parent>selected="selected"</cfif>>
+				<option value="#slug#" <cfif slug EQ rc.qryNode.Parent>selected="selected"</cfif>>
 					
 					 #xmlformat(Title)#</option>
 			</cfoutput>

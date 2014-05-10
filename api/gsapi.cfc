@@ -621,10 +621,8 @@ string function get_site_version() {
 	
 	
 
-<cfscript>
-	// Do not catche. This is not used repeteively anyway
-	var qryNodePath = application.IOAPI.get_path(arguments.NodeK);
-</cfscript>
+	<!--- Do not cache. This is not used repetively anyway --->
+	<cfset local.qryNodePath = application.IOAPI.get_path(arguments.NodeK);
 
 
 <cfsavecontent variable="strResult"> 

@@ -568,8 +568,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
     		
         	INNER JOIN 	Family 
             ON 		Family.Parent = N2.slug
-            WHERE	[root] = 0 
-			) 
+ 			) 
 			
 			
 		SELECT 	NodeID, Parent, Slug, Title, Kind, Depth, CreateDate
