@@ -46,7 +46,10 @@
 <cfoutput query="rc.qryAllPages">
 <tr id="tr-#slug#">
 	<td <cfif Root>style="text : bold;"</cfif> class="pagetitle">
-			
+		
+		<cfloop from="1" to="#level#" index="i">
+			<span>&nbsp; &nbsp; &mdash; &nbsp; &nbsp; </span>
+		</cfloop>	
 	
 		<cfif Kind EQ "Page">
 			<a href="#BuildURL(action = 'pages.edit', querystring = 'NodeID=#NodeID#')#"

@@ -204,16 +204,24 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 
+
+
+
 <cffunction name="getPageParent" output="false" returntype="query" hint="Only pages can contain things">
 	
 	
 	<cfquery name="local.qryPageParent">
-		SELECT	#variables.lstNode#, CONVERT(varchar(30), modifyDate, 126) AS Date2 
-		FROM	dbo.vwNode WITH (NOLOCK)
-		WHERE	deleted = 0
-		AND		Kind = 'Page' 
-		ORDER BY Title
+		SELECT #variables.lstNode#, dbo.vwNodeSort.[Level], CONVERT(varchar(30), modifyDate, 126) AS Date2
+		FROM dbo.vwNode WITH (NOLOCK)
+		INNER JOIN	dbo.vwNodeSort WITH (NOLOCK)
+			ON dbo.vwNode.slug = dbo.vwNodeSort.Sortslug
+
+		WHERE deleted = 0
+		AND Kind = 'Page'
+
+		ORDER BY SortCol
 	</cfquery>
+	
 		
 	<cfreturn local.qryPageParent>
 </cffunction>

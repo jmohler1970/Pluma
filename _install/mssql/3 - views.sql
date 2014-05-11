@@ -67,6 +67,78 @@ LEFT OUTER JOIN
 
 
 
+CREATE VIEW [dbo].[vwNodeSort] AS
+
+
+WITH RecursiveCTE( [Level] , Parent, slug )
+AS
+	(
+	SELECT CONVERT( INT , 0 ) [Level]
+		, Parent
+		, Slug
+	FROM dbo.Node WITH (NOLOCK)
+	WHERE parent = ''
+
+	UNION ALL
+
+	SELECT CONVERT( INT , ( ct.[Level] + 1 ) ) [Level]
+   		, pc.Parent
+   		, pc.Slug
+   	FROM dbo.Node pc
+   	JOIN RecursiveCTE ct
+    	ON pc.Parent = ct.Slug
+		),
+DataPlusLevel --
+AS
+(
+SELECT [Level]
+     , Parent
+     , Slug
+     , ROW_NUMBER() OVER ( ORDER BY [Level] , Parent, Slug) AS RowID
+  FROM RecursiveCTE
+),
+
+DataPlusPath( [Level] , Parent , slug , RowID , SortCol )
+AS
+( -- Now I'm adding the "SortCol" which is just a string to be used so it ends up in the right order
+SELECT dpl.[Level]
+     , dpl.Parent
+     , dpl.Slug
+     , dpl.RowID
+     , CONVERT( VARBINARY(MAX) , dpl.[RowID] ) as SortCol -- This is my psuedo sorting key
+  FROM DataPlusLevel dpl
+WHERE [Level] = 0 -- Anchor for this recursice CTE.
+
+UNION ALL
+
+SELECT dp2.[Level]
+     , dp2.Parent
+     , dp2.Slug -- I build this recursively too because it needs to add
+     , dp2.RowID -- its' parent IDs as it goes..
+     , CONVERT( VARBINARY(MAX) , ( SortCol + CONVERT( BINARY(4), dp2.[RowID] ) ) ) as SortCol
+  FROM DataPlusLevel dp2
+  JOIN DataPlusPath dpp
+    ON dp2.Parent = dpp.slug
+),
+
+DataPlusRN -- Now I add a row number, grouping on the Parent name - this is for my "output"
+AS
+(
+SELECT [Parent]
+     , [Level]
+     , [slug]
+     , RowID
+     , ROW_NUMBER() OVER ( PARTITION BY Parent ORDER BY RowID ) AS RowNum
+     , SortCol
+  FROM DataPlusPath
+)
+
+select [Level], Parent AS SortParent, Slug AS SortSlug, SortCol
+from DataPlusRN
+
+GO
+
+
 
 
 

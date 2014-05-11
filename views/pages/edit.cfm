@@ -85,10 +85,14 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 </cfoutput>
 
 		<select name="parent"  class="text autowidth">
-			<option value="top">Top Level</option>
+			<option value="">Top Level</option>
 			
 			<cfoutput query="rc.qryPageParent">
 				<option value="#slug#" <cfif slug EQ rc.qryNode.Parent>selected="selected"</cfif>>
+					<cfloop from="1" to="#level#" index="i">
+						<span>&nbsp; &mdash; &nbsp;</span>
+					</cfloop>
+				
 					
 					 #xmlformat(Title)#</option>
 			</cfoutput>
