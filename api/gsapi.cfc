@@ -105,8 +105,8 @@ public string function get_page_content(){
 	local.result &= this.exec_action('content-top');	
 		
 
-	if (not isnull(request.stIOR.qryNode.strData))	{
-		local.result &= this.exec_filter('content', request.stIOR.qryNode.strData, this.rc); // no strip decode here
+	if (not isnull(request.stIOR.qryNode.content))	{
+		local.result &= this.exec_filter('content', request.stIOR.qryNode.content, this.rc); // no strip decode here
 		}	
 	
 	local.result &= this.exec_action('content-bottom');	
@@ -622,7 +622,7 @@ string function get_site_version() {
 	
 
 	<!--- Do not cache. This is not used repetively anyway --->
-	<cfset local.qryNodePath = application.IOAPI.get_path(arguments.NodeK);
+	<cfset local.qryNodePath = application.IOAPI.get_path(arguments.NodeK)>
 
 
 <cfsavecontent variable="strResult"> 

@@ -4,7 +4,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_302";
+	this.name 			= "PlumaCMS_305";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -13,7 +13,8 @@
 		
 	// FW/1 - configuration:
 	variables.framework = {
-		home 		= 'main.home', 
+		home 		= 'wiki.home',
+		error		= 'wiki.error', 
 		baseURL 	= 'useCgiScriptName',
 		generateSES = true, 
 		SESomitindex = false
@@ -38,25 +39,25 @@
 		{ "/id" 				= "/main/home/slug/404"},
 		
 		
-		{ "/main/tag" 			= "/main/home/slug/tag"},
-		{ "/main/archive" 		= "/main/home/slug/archive"},
-		{ "/main/profile" 		= "/main/home/slug/profile"},
-		{ "/main/search" 		= "/main/home/slug/search"},
-		{ "/main/error" 		= "/main/error"},
-		{ "/main/:id" 			= "/main/home/slug/:id"},
+		{ "/wiki/tag" 			= "/wiki/home/slug/tag"},
+		{ "/wiki/archive" 		= "/wiki/home/slug/archive"},
+		{ "/wiki/profile" 		= "/wiki/home/slug/profile"},
+		{ "/wiki/search" 		= "/wiki/home/slug/search"},
+		{ "/wiki/error" 		= "/wiki/error"},
+		{ "/wiki/:id" 			= "/wiki/home/slug/:id"},
 
 		
 		// taxonomy
-		{ "/tag/:id" 			= "/main/home/slug/tag/tag/:id"},
-		{ "/tag" 				= "/main/home/slug/tag"},
-		{ "/archive/:id/:id2" 	= "/main/home/slug/archive/archiveyear/:id/archivemonth/:id2"},
-		{ "/archive/:id" 		= "/main/home/slug/archive/archiveyear/:id"},
-		{ "/archive" 			= "/main/home/slug/archive"},
-		{ "/profile/:id" 		= "/main/home/slug/profile/profile/:id"},
-		{ "/profile" 			= "/main/home/slug/profile"},
-		{ "/search/:id" 		= "/main/home/slug/search/search/:id"},
-		{ "/search" 			= "/main/home/slug/search"},
-		{ "/feedback" 			= "/main/home/slug/feedback"}
+		{ "/tag/:id" 			= "/wiki/home/slug/tag/tag/:id"},
+		{ "/tag" 				= "/wiki/home/slug/tag"},
+		{ "/archive/:id/:id2" 	= "/wiki/home/slug/archive/archiveyear/:id/archivemonth/:id2"},
+		{ "/archive/:id" 		= "/wiki/home/slug/archive/archiveyear/:id"},
+		{ "/archive" 			= "/wiki/home/slug/archive"},
+		{ "/profile/:id" 		= "/wiki/home/slug/profile/profile/:id"},
+		{ "/profile" 			= "/wiki/home/slug/profile"},
+		{ "/search/:id" 		= "/wiki/home/slug/search/search/:id"},
+		{ "/search" 			= "/wiki/home/slug/search"},
+		{ "/feedback" 			= "/wiki/home/slug/feedback"}
 				
 
 					

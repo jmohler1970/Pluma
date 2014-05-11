@@ -24,7 +24,6 @@
 	
 
 
-
 	
 	<p><b>Title:</b> #xmlformat(rc.title)# <cfif rc.title EQ ""><i>None</i></cfif></p>
 
@@ -51,7 +50,9 @@
 						
 			<cfoutput query="rc.qryAllPages">
 				<option value="#NodeID#" <cfif slug EQ rc.slug>selected="selected"</cfif>>
-					
+					<cfloop from="1" to="#level#" index="i">
+						<span>&nbsp; &mdash; &nbsp;</span>
+					</cfloop>
 					 #xmlformat(Title)#</option>
 			</cfoutput>
 			

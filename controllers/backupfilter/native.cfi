@@ -10,15 +10,18 @@ rawData 	= fileread(theFile);
 xmlData = xmlParse(rawData).item;
 
 rc.title 			= xmlData.title.xmlText;
-rc.slug 			= xmlData.url.xmlText;
+rc.slug 			= xmlData["url"].xmlText; // railo needs this
 rc.tags 			= xmlData.meta.xmlText;
 rc.menu 			= xmlData.menu.xmlText;
 rc.menuorder		= xmlData.menuorder.xmlText;
 rc.menustatus		= xmlData.menustatus.xmlText;
 rc.template 		= xmlData.template.xmlText;
 rc.parent			= xmlData.parent.xmlText;
+rc.private			= xmlData.private.xmlText;
+
 rc.content			= xmlData.content.xmlText;
 rc.author			= xmlData.author.xmlText;
+
 </cfscript>
 
 

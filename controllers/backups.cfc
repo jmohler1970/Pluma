@@ -207,8 +207,10 @@ void function process(required struct rc) output="false" {
 	param rc.menuorder 	= "";
 	param rc.template 	= "";
 	param rc.parent 	= "";
-	param rc.modifyby 	= "";
+	param rc.private 	= "";
 	
+	
+	param rc.modifyby 	= "";
 	param rc.content 	= "";
 	</cfscript>
 	
