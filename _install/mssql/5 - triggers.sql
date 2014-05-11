@@ -12,24 +12,30 @@ AS
 BEGIN
 	INSERT INTO dbo.NodeArchive ([NodeID]
       ,[Kind]
-      ,[xmlData]
-      ,[xmlConf]
-      ,[xmlLink]
+      ,[gsData]
+      ,[xoxoConf]
+      ,[xoxoLink]
       ,[DeleteDate]
-      ,[Modified]
-      ,[Created])
+      ,[ModifyDate]
+      ,[ModifyBy]
+      ,[CreateDate]
+      ,[CreateBy]
+      )
+      
 	SELECT [deleted].[NodeID]
       ,[deleted].[Kind]
-      ,[deleted].[xmlData]
-      ,[deleted].[xmlConf]
-      ,[deleted].[xmlLink]
+      ,[deleted].[gsData]
+      ,[deleted].[xoxoConf]
+      ,[deleted].[xoxoLink]
       ,[deleted].[DeleteDate]
-      ,[deleted].[Modified]
-      ,[deleted].[Created]
+      ,[deleted].[ModifyDate]
+      ,[deleted].[ModifyBy]
+      ,[deleted].[CreateDate]
+      ,[deleted].[CreateBy]
       
 	FROM  [deleted] LEFT JOIN dbo.Node
 	ON  [deleted].NodeID = dbo.Node.NodeID
-	WHERE CONVERT(varchar(max), deleted.Modified) <> CONVERT(varchar(max), dbo.Node.Modified)
+	WHERE deleted.ModifyDate <> dbo.Node.ModifyDate
 
 
 

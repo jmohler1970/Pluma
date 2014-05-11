@@ -50,7 +50,7 @@ boolean function storage() output="false" {
 
 void function add_log(required string Kind, required string message)	output="false"	{
 	
-	this.wsNode.addLog(arguments.Kind, arguments.message, cgi.remote_addr, session.LOGINAPI.UserID); 
+	this.wsNode.addLog(arguments.Kind, arguments.message, session.LOGINAPI.getLoginName()); 
 	}
 
 	
@@ -142,21 +142,21 @@ query function get_archive_details(required string NodeArchiveID) output="false"
 	
 struct function restore_archive(required string NodeArchiveID) output="false"	{
 
-	return this.wsNode.restoreArchive(arguments.nodeArchiveID, cgi.remote_addr,  session.LOGINAPI.UserID);
+	return this.wsNode.restoreArchive(arguments.nodeArchiveID, session.LOGINAPI.getLoginName());
 	}		
 	
 	
 struct function delete_archive(required string NodeArchiveID) output="false"	{
 
 
-	return this.wsNode.deleteArchive(arguments.nodeArchiveID, cgi.remote_addr,  session.LOGINAPI.UserID);
+	return this.wsNode.deleteArchive(arguments.nodeArchiveID, session.LOGINAPI.getLoginName());
 	}	
 	
 	
 struct function delete_archive_by_date(required date clearDate, string nodeid="") output="false"	{
 
 
-	return this.wsNode.deleteArchiveByDate(arguments.clearDate, arguments.nodeid, cgi.remote_addr,  session.LOGINAPI.UserID);
+	return this.wsNode.deleteArchiveByDate(arguments.clearDate, arguments.nodeid, session.LOGINAPI.getLoginName());
 	}	
 	
 
@@ -188,7 +188,7 @@ struct function get_bundle(required struct NodeK) output="false"	{
 	
 	param arguments.NodeK.Kind = "Page";
 
-	return this.wsNode.getBundle(arguments.nodeK, "", session.LOGINAPI.UserID);
+	return this.wsNode.getBundle(arguments.nodeK, "", session.LOGINAPI.getLoginName());
 	}
 
 
@@ -396,7 +396,7 @@ void function load_pref(boolean force = 0) output="false"	{
 string function set_pref(required string pref, required struct Data) output="false"	{
 	
 	
-	local.result = this.wsPref.commit(arguments.pref, arguments.Data, cgi.remote_addr, session.LOGINAPI.UserID);
+	local.result = this.wsPref.commit(arguments.pref, arguments.Data, session.LOGINAPI.getLoginName());
 	
 		
 	this.load_pref(1); //resets all preferences
@@ -464,7 +464,7 @@ boolean function delete_pref(required string Pref, required string type) output=
 struct function set(required struct NodeK, required struct rc) output="false"	{
 
 
-	variables.stResult = this.wsNode.commit(arguments.NodeK, arguments.rc, session.LOGINAPI.UserID);
+	variables.stResult = this.wsNode.commit(arguments.NodeK, arguments.rc, session.LOGINAPI.getLoginName());
 	
 	return variables.stResult;
 	}
@@ -473,7 +473,7 @@ struct function set(required struct NodeK, required struct rc) output="false"	{
 struct function add_taxonomy(required string extra, required string title) 	{
 
 
-	variables.stResult.result = this.wsNode.TaxonomyAdd(arguments.extra, arguments.title, session.LOGINAPI.UserID);
+	variables.stResult.result = this.wsNode.TaxonomyAdd(arguments.extra, arguments.title, session.LOGINAPI.getLoginName());
 	
 	return variables.stResult;
 	}
@@ -485,7 +485,7 @@ struct function set_taxonomy(required struct NodeK, required struct rc) hint="St
 
 	param arguments.NodeK.Kind = "Page";
 
-	variables.stResult.result = this.wsNode.TaxonomySave(arguments.NodeK, rc, session.LOGINAPI.UserID);
+	variables.stResult.result = this.wsNode.TaxonomySave(arguments.NodeK, rc, session.LOGINAPI.getLoginName());
 	
 	return variables.stResult;
 	}
@@ -499,7 +499,7 @@ query function reactivate(required struct NodeK) output="false"	{
 
 	param arguments.NodeK.Kind = "Page";
 
-	return this.wsNode.NodeReactivate(arguments.nodeK,  session.LOGINAPI.UserID);
+	return this.wsNode.NodeReactivate(arguments.nodeK, session.LOGINAPI.getLoginName());
 	}	
 
 
@@ -507,7 +507,7 @@ struct function delete(required struct NodeK) output="false"	{
 
 	param arguments.NodeK.Kind = "Page";
 
-	return this.wsNode.delete(arguments.nodeK,  session.LOGINAPI.UserID);
+	return this.wsNode.delete(arguments.nodeK, session.LOGINAPI.getLoginName());
 	}	
 </cfscript>
 
@@ -540,7 +540,7 @@ string function set_plugin(required string name, required string enabled) output
 	setVariable("myPlugin.Plugin_#listfirst(arguments.name, '.')#", enabled);
 	
 
-	var result = this.wsPref.commit("Plugin", myPlugin, cgi.remote_addr, session.LOGINAPI.UserID);
+	var result = this.wsPref.commit("Plugin", myPlugin, session.LOGINAPI.getLoginName());
 			
 	this.load_pref(1); //resets all preferences
 	

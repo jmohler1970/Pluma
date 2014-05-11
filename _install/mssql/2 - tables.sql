@@ -92,9 +92,11 @@ GO
 
 CREATE TABLE [dbo].[NodeArchive](
 	[NodeArchiveID] [bigint] IDENTITY(1,1) NOT NULL,
-	[VersionDate] 	[smalldatetime] NOT NULL,
+	[VersionDate] 	[smalldatetime] NOT NULL DEFAULT getDate(),
 	[NodeID] 		[int] NOT NULL,
 	[Kind] 			[nvarchar](40) NOT NULL,
+	
+	[Root] 			AS		(CASE WHEN Kind = 'Page' AND dbo.udf_GSslug(GSdata) = 'index' THEN 1 ELSE 0 END) PERSISTED,
 
 	[gsData] 		[xml] NULL,
 	[xoxoConf] 		[xml] NULL,

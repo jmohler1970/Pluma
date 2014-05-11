@@ -178,6 +178,12 @@
 		Deleted		bit
 		)
 		
+	DECLARE @tblResult TABLE	(
+		action varchar(20),
+		nodeId int
+		)	
+		
+		
 	INSERT INTO @tblSource (NodeID, Kind, gsData, xoxoLink, xoxoConf, ModifyBy, Deleted)
 	SELECT <cfqueryparam value="#arguments.NodeK.nodeid#" CFSQLType="CF_SQL_INTEGER" 
 		null="#IIF(arguments.NodeK.nodeid EQ '' or rc.submit EQ 'Clone', 1, 0)#">,
@@ -214,8 +220,12 @@
 			Source.ModifyBy, Source.ModifyBy)
 			
 	OUTPUT $action, Inserted.NodeID
+	INTO @tblResult
 	;		
 	
+	
+	SELECT Action, NodeID
+	FROM @tblResult
 	</cfquery>
 	
 	<cfset this.stResults.NodeID = local.qryNode.NodeID>
