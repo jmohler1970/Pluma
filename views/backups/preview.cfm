@@ -8,6 +8,7 @@
 <form action="#buildURL(action = '.preview')#" method="post" class="anondata">
 
 
+	<input type="hidden" name="name" value="#xmlformat(rc.name)#" /><!--- AS in file name --->
 	<input type="hidden" name="title" value="#xmlformat(rc.title)#" />
 	<input type="hidden" name="meta" value="#xmlformat(rc.meta)#" />
 	<input type="hidden" name="metad" value="#xmlformat(rc.metad)#" />

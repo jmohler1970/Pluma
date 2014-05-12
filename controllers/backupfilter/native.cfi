@@ -1,29 +1,37 @@
 
 
 <cfscript>
-theFile = application.GSBACKUPSPATH & listlast(rc.name, "/");
-
-
+theFile 	= application.GSBACKUPSPATH & listlast(rc.name, "/");
 
 rawData 	= fileread(theFile);
-
-xmlData = xmlParse(rawData).item;
-
-rc.title 			= xmlData.title.xmlText;
-rc.slug 			= xmlData["url"].xmlText; // railo needs this
-rc.tags 			= xmlData.meta.xmlText;
-rc.menu 			= xmlData.menu.xmlText;
-rc.menuorder		= xmlData.menuorder.xmlText;
-rc.menustatus		= xmlData.menustatus.xmlText;
-rc.template 		= xmlData.template.xmlText;
-rc.parent			= xmlData.parent.xmlText;
-rc.private			= xmlData.private.xmlText;
-
-rc.content			= xmlData.content.xmlText;
-rc.author			= xmlData.author.xmlText;
-
 </cfscript>
 
+
+<cfquery name="qrygsData">
+	SELECT pubdate,	title, slug,	
+		meta, 		metad,
+		menu, 		menuOrder, menuStatus,
+		template, 	parent,
+		Content,	private,
+		author
+	FROM dbo.udf_GSread(<cfqueryparam CFSQLType="CF_SQL_varchar" value="#rawdata#">)
+</cfquery>
+
+
+<cfscript>
+rc.title 			= qrygsData.title;
+rc.slug 			= qrygsData.slug;
+rc.tags 			= qrygsData.meta;
+rc.menu 			= qrygsData.menu;
+rc.menuorder		= qrygsData.menuorder;
+rc.menustatus		= qrygsData.menustatus;
+rc.template 		= qrygsData.template;
+rc.parent			= qrygsData.parent;
+rc.private			= qrygsData.private;
+
+rc.content			= qrygsData.content;
+rc.author			= qrygsData.author;
+</cfscript>
 
 
 

@@ -159,6 +159,8 @@ void function delete(required struct rc) output="false" {
 	
 	application.GSAPI.generate_sitemap({});
 	application.GSAPI.exec_action("page-delete", "", rc);
+	
+	rc.NodeID = '';
 			
 	this.AddInfo(stResult.key);
 	

@@ -147,11 +147,16 @@ GO
 
 CREATE TABLE [dbo].[Pref](
 	[Pref] 		[nvarchar](50) NOT NULL,
-	[xmlPref] 	[xml] NULL,
+	[xoxoPref] 	[xml] NULL,
 	[Deleted]  AS (case when [DeleteDate] IS NULL then (0) else (1) end),
 	[DeleteDate] [smalldatetime] NULL,
-	[Modified] 	[xml] NULL,
-	[Created] 	[xml] NOT NULL,
+
+	[ModifyBy] 		varchar(50) NOT NULL DEFAULT '',
+	[ModifyDate] 	datetime NOT NULL DEFAULT getDate(),
+	
+	[CreateBy] 		varchar(50) NOT NULL DEFAULT '',
+	[CreateDate] 	datetime NOT NULL DEFAULT getDate()
+	
  CONSTRAINT [PK_Pref] PRIMARY KEY CLUSTERED 
 (
 	[Pref] ASC

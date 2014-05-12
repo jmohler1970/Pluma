@@ -155,7 +155,7 @@ void function sitemap(required struct rc) output="false"	{
 	for (var i = 1; i <= rc.qryAllPages.recordcount; i++)	{
 		
 				
-		if (rc.qryAllPages.pStatus[i] == "public")	{
+		if (rc.qryAllPages.private[i] != "Y")	{
 			
 		
 			rc.xmlData &= "<url>"  & variables.crlf;

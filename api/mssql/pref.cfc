@@ -37,7 +37,7 @@ They are selected via stResult[pref]
 	<cfquery name="local.qryPref">
 		SELECT 	Pref, [type], /*title, href, rel,*/  message
 		FROM	dbo.Pref WITH (NOLOCK)
-		CROSS APPLY dbo.udf_xoxoRead(xmlPref, DEFAULT)
+		CROSS APPLY dbo.udf_xoxoRead(xoxoPref, DEFAULT)
 		WHERE	Deleted = 0
 		ORDER BY Pref
 	</cfquery>
@@ -81,7 +81,7 @@ They are selected via stResult[pref]
 		DECLARE @type varchar(40) =  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.type#">
 	
 		UPDATE	dbo.Pref
-		SET 	xmlPref.modify('delete /ul/li/b[.=sql:variable("@type")]')
+		SET 	xoxoPref.modify('delete /ul/li/b[.=sql:variable("@type")]')
 		WHERE	pref 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.pref#">
 		AND		Deleted = 0
 	</cfquery> 
@@ -103,7 +103,7 @@ They are selected via stResult[pref]
 		FROM	dbo.Pref WITH (NOLOCK)
 		WHERE	pref 	= <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.pref#">
 		AND		Deleted = 0
-		AND		xmlPref.exist('/ul/li/b[.=sql:variable("@type")]') = 1
+		AND		xoxoPref.exist('/ul/li/b[.=sql:variable("@type")]') = 1
 	</cfquery> 
 
 	<cfif local.qryType.Pref EQ "">
@@ -119,7 +119,6 @@ They are selected via stResult[pref]
 <cffunction name="commit" output="false"  returnType="string" hint="">
 	<cfargument name="Pref" 		required="true" type="string">
 	<cfargument name="Data" 		required="true" type="struct">
-	<cfargument name="remote_addr" 	required="true" type="string">
 	<cfargument name="ByUserID" 	required="true" type="string">	
 
 	<cfscript>
@@ -133,38 +132,35 @@ They are selected via stResult[pref]
 
 	
 
-	<cfquery>
+	<cfquery name="qrySetPref">
 		DECLARE @Source TABLE (
-			Pref varchar(40) NOT NULL PRIMARY KEY CLUSTERED,
-			xmlPref 	xml,
-			Modified 	xml,
-			Created 	xml 
+			Pref varchar(40),
+			xoxoPref 	xml,
+			ModifyBy	varchar(40)
 			)
 		
 		INSERT 
 		INTO	@Source
 		SELECT  <cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.Pref#">,
 				<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#this.encodeXML(arguments.data)#">,
-				dbo.udf_4jSuccess('Preferences Saved',
-					<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
-					<cfqueryparam CFSQLType="CF_SQL_integer" value="#arguments.byUserID#">
-					),
-				dbo.udf_4jInfo('Created',
-					<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
-					<cfqueryparam CFSQLType="CF_SQL_integer" value="#arguments.byUserID#">
-        			)	
-		
-		
+				<cfqueryparam CFSQLType="CF_SQL_VARCHAR" value="#arguments.byUserID#">
+	
+						
 		MERGE	dbo.Pref
 		USING	@Source AS Source
 		ON		dbo.Pref.Pref = Source.Pref
 		
-		WHEN MATCHED AND CONVERT(nvarchar(max), dbo.Pref.xmlPref) <> CONVERT(nvarchar(max), Source.xmlPref)	THEN 
+		WHEN MATCHED AND CONVERT(nvarchar(max), dbo.Pref.xoxoPref) <> CONVERT(nvarchar(max), Source.xoxoPref)	THEN 
 			UPDATE 
-			SET xmlPref = Source.xmlPref, Modified = Source.Modified, DeleteDate = NULL
+			SET xoxoPref = Source.xoxoPref,
+			ModifyBy 	= Source.ModifyBy,
+			ModifyDate 	= getDate(),
+			
+			DeleteDate 	= NULL
+		
 		WHEN NOT MATCHED 	THEN 
-			INSERT (Pref, 		 Created) 
-			VALUES (Source.Pref, Source.Created)
+			INSERT (Pref, 		xoxoPref,		 CreateBy) 
+			VALUES (Source.Pref,Source.xoxoPref, Source.ModifyBy )
 		;	
 	</cfquery>
 	

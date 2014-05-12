@@ -560,7 +560,7 @@ string function find_url(required string slug) {
 		}	
 		
 	
-	return "#request.Meta.root#index.cfm/main/#arguments.slug#";
+	return "#request.Meta.root#index.cfm/wiki/#arguments.slug#";
 	}
 </cfscript>	
 

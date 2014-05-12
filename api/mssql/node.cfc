@@ -127,27 +127,31 @@
 	
 	</cfscript>
 
+	<!--- first item never gets deleted --->
+	<cfquery name="qryTest">
+		SELECT COUNT(NodeID) AS NodeCount
+		FROM dbo.Node
+	</cfquery>
 
+
+	<cfset rc.slug_url = qryTest.Nodecount EQ 0 ?  'index' : this.doSlug(rc.Title)>
 
 	
 	<cfquery name="local.qryNode">
-	DECLARE @slug  nvarchar(40) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#xmlformat(rc.slug_url)#" null="#IIF(rc.slug_url EQ "", 1, 0)#">
+	DECLARE @nodeid int = <cfqueryparam value="#arguments.NodeK.nodeid#" CFSQLType="CF_SQL_INTEGER" 
+		null="#IIF(arguments.NodeK.nodeid EQ '' or rc.submit EQ 'Clone', 1, 0)#">
+		
+	DECLARE @slug  nvarchar(40) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#xmlformat(rc.slug_url)#">
 	DECLARE @title nvarchar(40) = <cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#xmlformat(rc.title)#">
 
+	DECLARE @currentslug nvarchar(40)	= (SELECT slug FROM dbo.vwNode WHERE NodeID = @nodeid )
 	
-	DECLARE @NodeCount int = (
-		SELECT 	COUNT(NodeID) AS NodeCount
-		FROM 	dbo.Node
-		WHERE	Deleted = 0
-		)	
-
 	
 	DECLARE @gsData xml = dbo.udf_GSwrite(
 			getDate(),
 			@title,
 			CASE 
-				WHEN @NodeCount = 0 THEN 'index' 
-				WHEN @slug IS NULL THEN dbo.udf_slugify(@title)
+				WHEN @currentslug IS NOT NULL THEN @currentslug 
 				ELSE @slug
 			END,
 			<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#xmlformat(rc.meta)#">,
@@ -185,8 +189,7 @@
 		
 		
 	INSERT INTO @tblSource (NodeID, Kind, gsData, xoxoLink, xoxoConf, ModifyBy, Deleted)
-	SELECT <cfqueryparam value="#arguments.NodeK.nodeid#" CFSQLType="CF_SQL_INTEGER" 
-		null="#IIF(arguments.NodeK.nodeid EQ '' or rc.submit EQ 'Clone', 1, 0)#">,
+	SELECT @NodeID,
 		<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.NodeK.Kind#">,
 		@gsData,
 		<cfqueryparam CFSQLType="CF_SQL_VARCHAR" 	value="#local.xoxoLink#">,	
@@ -333,7 +336,7 @@
 						
 			dbo.udf_4jInfo(
 				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.message#">,
-				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.remote_addr#">,
+				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#cgi.remote_addr#">,
 				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="#arguments.byUserID#">) 	
 			)
 	</cfquery>

@@ -230,7 +230,6 @@ void function process(required struct rc) output="false" {
 	<cfdefaultcase>
 		<cfset this.AddWarning("API_ERR_BADMETHOD", [rc.name])>	
 	</cfdefaultcase>
-	
 	</cfswitch>	
 	
 
@@ -252,7 +251,7 @@ void function process(required struct rc) output="false" {
 			}
 		
 		
-		this.AddInfo(result.key);
+		this.AddInfo("SUCCESS");
 
 		variables.fw.redirect("backups.importdata", "all");
 		}
@@ -323,7 +322,7 @@ void function process(required struct rc) output="false" {
 			<cfset this.addError("NOT_FOUND")>
 		</cfif>
 		
-		<cfset variables.fw.redirect("backups.importdata", "all")>
+
 	</cfif>
 
 

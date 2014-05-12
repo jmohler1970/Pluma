@@ -3,6 +3,8 @@
 <cfcomponent>
 
 <cfset this.initStatus = "">
+<cfset this.crlf = chr(13)&chr(10)>
+
 
 
 <cfscript>

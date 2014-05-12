@@ -6,7 +6,7 @@
 <cfscript>
 
 
-	this.stResults = {result = true, resultCode = 0, Message = ''};
+	this.stResults = {result = true, key = '', resultCode = 0, Message = ''};
 	this.touch = 0;
 
 	variables.QueryService = new query();
@@ -1004,7 +1004,7 @@ struct function getBundle(required struct NodeK, required string Kind, required 
 
 
 <cffunction name="doSlug" output="false" returnType="string" hint="Create a unique slug, if possible">
-	<cfargument name="str">
+	<cfargument name="str" required="true" type="string">
 
 	<cfscript>
 	if (arguments.str == "")

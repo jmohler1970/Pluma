@@ -143,7 +143,7 @@ END
 /* Support for getSimple operations */
 
 /*
-Description: Extracts out all columns from the getSimple field
+Description: Extracts out all columns from the getSimple field. GS uses cdata format. Date only should not be escaped
 
 */
 
@@ -169,19 +169,19 @@ AS
 	BEGIN
 	
 		RETURN '<item>'
-		+ '<pubdate>' 	+ CONVERT(varchar(20), @pubdate, 101) + '</pubdate>'
-		+ '<title>' 	+ @title 		+ '</title>'
-		+ '<url>' 		+ @slug 		+ '</url>'
-		+ '<meta>' 		+ @meta 		+ '</meta>'
-		+ '<metad>' 	+ @metad 		+ '</metad>'
-		+ '<menu>' 		+ @menu 		+ '</menu>'
-		+ '<menuOrder>' + CONVERT(varchar(4), @menuOrder) 	+ '</menuOrder>'
-		+ '<menuStatus>' + @menuStatus 	+ '</menuStatus>'
-		+ '<template>' 	+ @template 	+ '</template>'
-		+ '<parent>' 	+ @parent 		+ '</parent>'
-		+ '<content>' 	+ @content 		+ '</content>'
-		+ '<private>' 	+ CONVERT(varchar(1), @private) 		+ '</private>'
-		+ '<author>'	+ @author 		+ '</author>'
+		+ '<pubdate>' 		+ CONVERT(varchar(20), @pubdate, 101) + '</pubdate>'
+		+ '<title><![CDATA[' 		+ @title 		+ ']]></title>'
+		+ '<url><![CDATA[' 			+ @slug 		+ ']]></url>'
+		+ '<meta><![CDATA[' 		+ @meta 		+ ']]></meta>'
+		+ '<metad><![CDATA[' 		+ @metad 		+ ']]></metad>'
+		+ '<menu><![CDATA[' 		+ @menu 		+ '</menu>'
+		+ '<menuOrder><![CDATA[' 	+ CONVERT(varchar(4), @menuOrder) 	+ ']]></menuOrder>'
+		+ '<menuStatus><![CDATA[' 	+ @menuStatus 	+ ']]></menuStatus>'
+		+ '<template><![CDATA[' 	+ @template 	+ ']]></template>'
+		+ '<parent><![CDATA[' 		+ @parent 		+ ']]></parent>'
+		+ '<content><![CDATA[' 		+ @content 		+ '</content>'
+		+ '<private><![CDATA[' 		+ CONVERT(varchar(1), @private) 		+ ']]></private>'
+		+ '<author><![CDATA['		+ @author 		+ ']]></author>'
 		+ '</item>' 
 	
 	END	

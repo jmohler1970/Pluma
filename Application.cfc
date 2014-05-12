@@ -4,7 +4,7 @@
 <cfscript>
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name 			= "PlumaCMS_305";
+	this.name 			= "PlumaCMS_316";
 	this.datasource		= "PlumaCMS";
 	this.customTagPaths = GetDirectoryFromPath(getBaseTemplatePath()); 
 	this.scriptProtect 	= "url, cookie";
@@ -17,7 +17,8 @@
 		error		= 'wiki.error', 
 		baseURL 	= 'useCgiScriptName',
 		generateSES = true, 
-		SESomitindex = false
+		SESomitindex = false,
+		trace 		= isDebugMode()
 		};
 		
 	variables.framework.routes = [
