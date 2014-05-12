@@ -82,7 +82,10 @@
 <table class="edittable highlight paginate">
 <thead>
 <tr>
-	<th>&nbsp;</th>
+	<cfif rc.imagefilter EQ "images">
+		<td>&nbsp;</td>
+	</cfif>
+		
 	<th>#application.GSAPI.i18n("file_name")#</th>
 	
 	<th style="text-align : right;">#application.GSAPI.i18n("file_size")#</th>

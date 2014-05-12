@@ -34,10 +34,10 @@
 <tr>
 	<td nowrap="nowrap">
 		<input type="radio" name="plugin_status.#listfirst(filename, '.')#" value="1" 
-			<cfif enabled>checked="checked"</cfif> /> #application.GSAPI.i18n("Enabled")#
+			<cfif enabled>checked="checked"</cfif> /> #application.GSAPI.i18n("Enable")#
 		&nbsp; &nbsp;
 		<input type="radio" name="plugin_status.#listfirst(filename, '.')#" value="0" 
-			<cfif NOT enabled>checked="checked"</cfif> /> #application.GSAPI.i18n("Disabled")#
+			<cfif NOT enabled>checked="checked"</cfif> /> #application.GSAPI.i18n("Disable")#
 			
 		
 	

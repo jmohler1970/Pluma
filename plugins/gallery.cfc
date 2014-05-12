@@ -173,7 +173,7 @@ this.stPlugin_info =
 		<cflocation url="?plugin=gallery" addToken="no">
 	</cfcase>
 	<cfdefaultcase>
-		<cfset rc.qryGallery = application.IOAPI.get_all("Gallery", {}, 'Title')>
+		<cfset rc.qryGallery = application.IOAPI.get_all("Gallery", 'Title')>
 	
 	
 	

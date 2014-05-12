@@ -75,7 +75,7 @@ string function std_date(required string MyDate, boolean verbose = 0) output="fa
 		)	return application.GSAPI.i18n("plumacms/Yesterday");
 	
 	
-	var myDateformat = application.GSAPI.i18n("Date_Format");
+	var myDateformat = application.GSAPI.i18n("Date_Format"); // needs to use CF style not PHP
 	
 	
 	if (myDateFormat == "")	{
@@ -226,7 +226,7 @@ query function get_traffic_last_hits(string Filter="") output="false"	{
 
 
 
-query function get_all(required string Kind,  required string sortby, numeric maxrows=100) output="false" {
+query function get_all(required string Kind, required string sortby, numeric maxrows=100) output="false" {
 
 	return this.wsNode.getAll(arguments.kind, arguments.sortBy, arguments.maxrows);
 	}

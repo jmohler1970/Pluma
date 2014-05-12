@@ -20,12 +20,7 @@
 
 
 <header class="jumbotron subhead" id="overview">
- 
   	<h1 id="title"><cfoutput>#application.GSAPI.get_page_title()#</cfoutput></h1>
- 
-	
- 	<!--- hold place even if blank. Javascript may come in later to set it --->
- 	<p class="lead" id="lead"><cfoutput>#application.GSAPI.get_page_subtitle()#</cfoutput></p>
 </header>
 
 

@@ -45,6 +45,8 @@ function doCode()	{
 	<p id="code-thumb-link">/data/thumbs/#mypath##rc.name#</p>
 	<p id="code-imgthumb-html">&lt;a href="/data/uploads/#mypath##rc.name#">&lt;img src="/data/thumbs/#mypath##rc.name#" height="#rc.infothumb.height#" width="#rc.infothumb.width#" alt="" />&lt;/a></p>
 </div>
+<p style="color:##666;font-size:11px;margin:-10px 0 0 0"><a href="##" class="select-all" >#application.GSAPI.i18n("CLIPBOARD_INSTR")#</a></p>
+			
 
 
 

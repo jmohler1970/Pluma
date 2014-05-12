@@ -107,6 +107,46 @@ jQuery(document).ready(function() {
 	});
 	
 	
+	
+	//upload/details 
+	var copyKitTextArea = $('textarea.copykit');
+	$("select#img_info").change(function () {
+		var codetype = $(this).val();
+		var code = $('p#' + codetype).html();
+		var originalBG = $('textarea.copykit').css('background-color');
+		var fadeColor = "#FFFFD1";
+		copyKitTextArea.fadeOut(500).fadeIn(500).html(code);
+	});
+	$(document).on("click", ".select-all", function () {
+		copyKitTextArea.focus().select();
+		return false;
+	});
+ 
+ 
+	
+	//autofocus login/home fields on pageload
+	$("#index input#userid").focus();
+	$("#resetpassword input[name='username']").focus();
+	var options = {
+		caps_lock_on: function () {
+			$(this).addClass('capslock');
+		},
+		caps_lock_off: function () {
+			$(this).removeClass('capslock');
+		},
+		caps_lock_undetermined: function () {
+			$(this).removeClass('capslock');
+		}
+	};
+ 
+	$("input[type='password']").capslock(options);
+ 
+	
+	
+	
+	
+	
+	
 	//$("#addcomponent").live("click", function($e) {
 	$(document).on("click", "#addcomponent", function($e) {
 	

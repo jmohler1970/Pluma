@@ -170,16 +170,7 @@ public string function get_page_clean_title()	{
 	}
 	
 	
-/**
-* @display Get Page Subtitle
-* @hint Page subtitle with markup
-*/
-public string function get_page_subtitle()	{
-	
-	return request.stIOR.qryNode.subtitle;
-	}	
-	
-	
+
 /**
 * @display Get Page Slug
 * @hint Slug back to self
