@@ -84,8 +84,8 @@ myNodeID = isnumeric(rc.NodeID) ? "NodeID=#rc.NodeID#" : "";
 
 </cfoutput>
 
-		<select name="parent"  class="text autowidth">
-			<option value="">Top Level</option>
+		<select name="parent" class="text autowidth">
+			<option value=""><cfoutput>#application.GSAPI.i18n("NO_PARENT")#</cfoutput></option>
 			
 			<cfoutput query="rc.qryPageParent">
 				<option value="#slug#" <cfif slug EQ rc.qryNode.Parent>selected="selected"</cfif>>

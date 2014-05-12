@@ -170,7 +170,7 @@ void function sitemap(required struct rc) output="false"	{
 	
 	rc.xmlData &= "</urlset>";
 	
-	param rc.refresh = 0;	
+	param name="rc.refresh" default="0";	
 	
 	if (rc.refresh)	{
 	
