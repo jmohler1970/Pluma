@@ -179,11 +179,16 @@ void function setupRequest()	{
 		return;
 		} 
 	
-		
-	// No theme setup	
-	if (getSection() == "main" and application.GSAPI.get_theme() == "")	{
-		
 	
+	// Don't run scaffold
+	if (getSection() == "scaffold")	{
+		location(application.GSAPI.get_site_root(), "no");
+		}
+		
+				
+	// No theme setup	
+	if (getSection() == "main" && application.GSAPI.get_theme() == "")	{
+		
 		location("#application.GSAPI.get_site_root()#index.cfm/login?key=No_Theme", "no");
 		
 		return;
